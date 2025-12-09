@@ -3,8 +3,13 @@ local palette = require("prismpunk.palettes.tmnt.casey-jones")
 
 local M = {}
 
+---@param opts table
+---@param plt table
+---@return table
 M.get = function(opts, plt)
   plt = plt or palette
+  opts = opts or {}
+
   return {
     modes = {
       normal = plt.hockeyWhiteCore,
@@ -13,6 +18,7 @@ M.get = function(opts, plt)
       replace = plt.vigilanteRed,
       command = plt.golfClubGold,
     },
+
     accent = {
       accent1 = plt.hockeyWhiteCore,
       accent2 = plt.vigilanteRed,
@@ -21,6 +27,7 @@ M.get = function(opts, plt)
       accent5 = plt.graffiti,
       invert = plt.bg_light,
     },
+
     rainbow = {
       rainbow1 = plt.hockeyWhiteBright,
       rainbow2 = plt.vigilanteRedBright,
@@ -30,56 +37,81 @@ M.get = function(opts, plt)
       rainbow6 = plt.graffitiPink,
       rainbow7 = plt.graffitiCyan,
     },
+
     ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_mid,
+      fg_dark = plt.fg_dark,
+      fg_reverse = plt.bg_alt1,
+
       bg = plt.bg_darkest,
-      bg_cursorline = plt.bg_dark,
       bg_dim = plt.bg_darkest,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_highlight = plt.bg_mid,
       bg_m1 = plt.bg_darker,
       bg_m2 = plt.bg_dark,
       bg_m3 = plt.bg_mid,
       bg_m4 = plt.bg_light,
       bg_p1 = plt.bg_dark,
       bg_p2 = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      bg_visual = plt.bg_mid,
-      border = plt.hockeyStick,
+
+      bg_gutter = (opts.gutter ~= false) and plt.bg_light or "none",
+      bg_cursorline = plt.bg_dark,
+      bg_cursorline_alt = plt.bg_mid,
       cursorline = plt.bg_dark,
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_reverse = plt.bg_alt1,
+      bg_highlight = plt.bg_mid,
+      bg_search = plt.graffitiCyan,
+      bg_visual = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+
+      border = plt.hockeyStick,
+      header1 = plt.streetBlueBright,
+      header2 = plt.hockeyWhiteBright,
+      special = plt.graffiti,
+      nontext = plt.asphaltDark,
+      whitespace = plt.concrete,
+      win_separator = plt.hockeyStick,
       indent = plt.bg_lighter,
       indent_scope = plt.hockeyWhiteCore,
-      line_nr = plt.bg_lightest,
-      line_nr_active = plt.fg_lightest,
-      line_nr_dim = plt.bg_lighter,
-      nontext = plt.asphaltDark,
+      picker = plt.graffiti,
+      yank = plt.golfClubGoldBright,
+      mark = plt.graffitiCyan,
+      scrollbar = plt.bg_lighter,
+
       selection = plt.bg_mid,
-      win_separator = plt.hockeyStick,
+      line_nr = plt.bg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      line_nr_active = plt.fg_lightest,
+
       float = {
-        bg = plt.bg_darker,
-        bg_border = plt.bg_darker,
         fg = plt.fg_light,
+        bg = plt.bg_darker,
         fg_border = plt.hockeyStick,
+        bg_border = plt.bg_darker,
       },
+
       pmenu = {
-        bg = plt.bg_light,
-        bg_border = plt.bg_light,
-        bg_sbar = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_thumb = plt.hockeyStick,
         fg = plt.fg_light,
         fg_sel = plt.fg_lightest,
+        fg_border = plt.hockeyStick,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.hockeyStick,
       },
+
       tabline = {
         bg = plt.bg_darkest,
         bg_inactive = plt.bg_darkest,
         bg_selected = plt.bg_dark,
+        bg_alternate = plt.bg_darkest,
         fg_inactive = plt.fg_dark,
         fg_selected = plt.fg_lightest,
+        fg_alternate = plt.streetBlueBright,
+        indicator = plt.hockeyWhiteCore,
       },
     },
+
     syn = {
       attribute = plt.golfClubGold,
       boolean = plt.vigilanteRed,
@@ -97,30 +129,45 @@ M.get = function(opts, plt)
       punct = plt.fg_dark,
       regex = plt.graffitiCyan,
       special = plt.graffiti,
+      special2 = plt.graffitiPink,
+      special3 = plt.golfClubGoldBright,
       statement = plt.hockeyWhiteCore,
       string = plt.alleyGreen,
       symbol = plt.golfClubGold,
       type = plt.hockeyStick,
       variable = plt.fg_lightest,
     },
+
     diag = {
       error = plt.dangerRed,
       warning = plt.warningAmber,
       info = plt.infoBlue,
       ok = plt.successGreen,
       hint = plt.graffiti,
+
+      virtual_text_error = plt.dangerRed,
+      virtual_text_warning = plt.warningAmber,
+      virtual_text_info = plt.infoBlue,
+      virtual_text_ok = plt.successGreen,
+      virtual_text_hint = plt.graffiti,
     },
+
     diff = {
       add = plt.alleyGreen,
+      add_inline = plt.alleyGreenDeep,
       change = plt.golfClubGold,
+      change_inline = plt.golfClubGoldDeep,
       delete = plt.vigilanteRed,
+      delete_inline = plt.vigilanteRedDeep,
       text = plt.streetBlue,
     },
+
     vcs = {
       added = plt.alleyGreen,
       changed = plt.golfClubGold,
       removed = plt.vigilanteRed,
     },
+
     term = {
       black = plt.nyStreets,
       red = plt.vigilanteRedCore,
@@ -130,6 +177,7 @@ M.get = function(opts, plt)
       magenta = plt.graffiti,
       cyan = plt.graffitiCyan,
       white = plt.hockeyWhite,
+
       black_bright = color(plt.nyStreets):brighten(0.6):to_hex(),
       red_bright = color(plt.vigilanteRedBright):brighten(0.2):to_hex(),
       green_bright = color(plt.alleyGreenBright):brighten(0.2):to_hex(),
@@ -138,6 +186,9 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.graffitiPink):brighten(0.2):to_hex(),
       cyan_bright = color(plt.graffitiCyan):brighten(0.2):to_hex(),
       white_bright = color(plt.hockeyWhiteBright):brighten(0.2):to_hex(),
+
+      indexed1 = plt.golfClubGold,
+      indexed2 = plt.vigilanteRed,
     },
   }
 end

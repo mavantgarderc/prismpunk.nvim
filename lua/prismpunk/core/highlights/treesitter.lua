@@ -1,37 +1,61 @@
 local M = {}
 
-local hl = require("prismpunk.core.highlights").hl
+local H = require("prismpunk.core.highlights")
+local hl = H.hl
+local merge = H.merge
 
 function M.apply(c, config)
+  if not c or not c.syn or not c.ui or not c.diag or not c.diff then
+    H.warn("treesitter.lua: missing color structure (syn/ui/diag/diff)")
+    return
+  end
+
   local s = c
   local styles = (config and config.styles) or {}
+
   local var_style = styles.variables or {}
   local param_style = styles.parameters or {}
+  local comment_style = styles.comments or {}
+  local constants_style = styles.constants or {}
+  local types_style = styles.types or {}
 
-  hl("@variable", vim.tbl_extend("force", { fg = s.syn.variable }, var_style))
-  hl("@variable.builtin", { fg = s.syn.constant })
-  hl("@variable.parameter", { fg = s.syn.variable })
-  hl("@variable.parameter.builtin", { fg = s.syn.constant })
-  hl("@variable.member", { fg = s.syn.variable })
-  hl("@field", { fg = s.syn.variable })
-  hl("@property", { fg = s.syn.variable })
-  hl("@constant", { fg = s.syn.constant })
-  hl("@constant.builtin", { fg = s.syn.constant })
+  -- VARIABLES / FIELDS / PROPERTIES
+  ---------------------------------------------------------------------------
+  hl("@variable", merge({ fg = s.syn.variable }, var_style))
+  hl("@variable.builtin", merge({ fg = s.syn.constant }, constants_style))
+  hl("@variable.parameter", merge({ fg = s.syn.variable }, param_style))
+  hl("@variable.parameter.builtin", merge({ fg = s.syn.constant }, param_style))
+  hl("@variable.member", merge({ fg = s.syn.variable }, var_style))
+  hl("@field", merge({ fg = s.syn.variable }, var_style))
+  hl("@property", merge({ fg = s.syn.variable }, var_style))
+
+  -- CONSTANTS / MODULES / LABELS
+  ---------------------------------------------------------------------------
+  hl("@constant", merge({ fg = s.syn.constant }, constants_style))
+  hl("@constant.builtin", merge({ fg = s.syn.constant }, constants_style))
   hl("@constant.macro", { fg = s.syn.special })
-  hl("@module", { fg = s.syn.type })
-  hl("@module.builtin", { fg = s.syn.type })
+
+  hl("@module", merge({ fg = s.syn.type }, types_style))
+  hl("@module.builtin", merge({ fg = s.syn.type }, types_style))
   hl("@label", { fg = s.syn.special })
 
+  -- FUNCTIONS / METHODS / CONSTRUCTORS
+  ---------------------------------------------------------------------------
   hl("@function", { link = "Function" })
   hl("@function.call", { fg = s.syn.func })
   hl("@function.builtin", { fg = s.syn.func })
   hl("@function.macro", { fg = s.syn.special })
+
   hl("@method", { fg = s.syn.func })
   hl("@method.call", { fg = s.syn.func })
+
   hl("@function.method", { link = "@method" })
   hl("@function.method.call", { link = "@method.call" })
-  hl("@constructor", { fg = s.syn.type })
 
+  hl("@constructor", merge({ fg = s.syn.type }, types_style))
+
+  -- OPERATORS / KEYWORDS
+  ---------------------------------------------------------------------------
   hl("@operator", { link = "Operator" })
 
   hl("@keyword", { link = "Keyword" })
@@ -53,8 +77,10 @@ function M.apply(c, config)
   hl("@keyword.directive", { fg = s.syn.keyword })
   hl("@keyword.directive.define", { fg = s.syn.keyword })
 
+  -- STRINGS / CHARACTERS / NUMBERS
+  ---------------------------------------------------------------------------
   hl("@string", { link = "String" })
-  hl("@string.documentation", { fg = s.syn.comment })
+  hl("@string.documentation", merge({ fg = s.syn.comment }, comment_style))
   hl("@string.regexp", { fg = s.syn.special })
   hl("@string.escape", { fg = s.syn.special })
   hl("@string.special", { fg = s.syn.special })
@@ -69,26 +95,36 @@ function M.apply(c, config)
   hl("@number", { link = "Number" })
   hl("@number.float", { fg = s.syn.number })
 
+  -- TYPES / ATTRIBUTES
+  ---------------------------------------------------------------------------
   hl("@type", { link = "Type" })
-  hl("@type.builtin", { fg = s.syn.type })
-  hl("@type.definition", { fg = s.syn.type })
-  hl("@type.qualifier", { fg = s.syn.keyword })
+  hl("@type.builtin", merge({ fg = s.syn.type }, types_style))
+  hl("@type.definition", merge({ fg = s.syn.type }, types_style))
+  hl("@type.qualifier", merge({ fg = s.syn.keyword }, types_style))
 
-  hl("@attribute", { fg = s.syn.type })
-  hl("@attribute.builtin", { fg = s.syn.type })
+  hl("@attribute", merge({ fg = s.syn.type }, types_style))
+  hl("@attribute.builtin", merge({ fg = s.syn.type }, types_style))
 
+  -- PUNCTUATION
+  ---------------------------------------------------------------------------
   hl("@punctuation.delimiter", { fg = s.syn.operator })
   hl("@punctuation.bracket", { fg = s.syn.operator })
   hl("@punctuation.special", { fg = s.syn.special })
+  hl("@punctuation.special.method", { fg = s.syn.operator })
+  hl("@punctuation.special.property", { fg = s.syn.operator })
 
+  -- COMMENTS
+  ---------------------------------------------------------------------------
   hl("@comment", { link = "Comment", italic = true })
-  hl("@comment.documentation", { fg = s.syn.comment })
+  hl("@comment.documentation", merge({ fg = s.syn.comment }, comment_style))
 
   hl("@comment.error", { fg = s.diag.error })
   hl("@comment.warning", { fg = s.diag.warning })
   hl("@comment.todo", { fg = s.syn.special })
   hl("@comment.note", { fg = s.syn.comment })
 
+  -- MARKUP (CANONICAL)
+  ---------------------------------------------------------------------------
   hl("@markup.strong", { bold = true })
   hl("@markup.italic", { italic = true })
   hl("@markup.strikethrough", { strikethrough = true })
@@ -108,6 +144,7 @@ function M.apply(c, config)
   hl("@markup.link", { fg = s.syn.special, underline = true })
   hl("@markup.link.label", { fg = s.syn.special })
   hl("@markup.link.url", { fg = s.syn.string or s.syn.special, underline = true })
+
   hl("@markup.environment", { fg = s.syn.type })
   hl("@markup.environment.name", { fg = s.syn.keyword })
 
@@ -118,23 +155,32 @@ function M.apply(c, config)
   hl("@markup.list.checked", { fg = s.syn.type })
   hl("@markup.list.unchecked", { fg = s.syn.comment })
 
+  hl("@markup.code", { fg = s.syn.string })
+  hl("@markup.inline", { fg = s.ui.fg })
+  hl("@markup.block", { fg = s.syn.type })
+
+  -- DIFF (TREESITTER)
+  ---------------------------------------------------------------------------
   hl("@diff.plus", { fg = s.diff.add })
   hl("@diff.minus", { fg = s.diff.delete })
   hl("@diff.delta", { fg = s.diff.change })
 
+  -- TAGS
+  ---------------------------------------------------------------------------
   hl("@tag", { fg = s.syn.type })
   hl("@tag.builtin", { fg = s.syn.type })
   hl("@tag.attribute", { fg = s.syn.variable })
   hl("@tag.delimiter", { fg = s.syn.operator })
 
-  hl("@constant.builtin", { fg = s.syn.constant })
-  hl("@constant.macro", { fg = s.syn.special })
-
+  -- DIAGNOSTIC / TODO / NONE
+  ---------------------------------------------------------------------------
   hl("@error", { fg = s.diag.error })
   hl("@todo", { fg = s.syn.special })
 
   hl("@none", { fg = "NONE" })
 
+  -- TEXT GROUPS (LINKED TO MARKUP, COMPAT LAYER)
+  ---------------------------------------------------------------------------
   hl("@text", { link = "@markup" })
   hl("@text.emphasis", { link = "@markup.italic" })
   hl("@text.strong", { link = "@markup.strong" })
@@ -153,32 +199,22 @@ function M.apply(c, config)
   hl("@text.note", { fg = s.syn.comment })
   hl("@text.warning", { fg = s.diag.warning })
   hl("@text.danger", { fg = s.diag.error })
+  hl("@text.success", { fg = s.diff.add })
   hl("@text.todo", { link = "@comment.todo" })
 
+  -- SPELL
+  ---------------------------------------------------------------------------
   hl("@spell", { link = "Normal" })
 
-  hl("@parameter", vim.tbl_extend("force", { fg = s.syn.variable }, param_style))
+  -- PARAMETERS
+  ---------------------------------------------------------------------------
+  hl("@parameter", merge({ fg = s.syn.variable }, param_style))
   hl("@parameter.reference", { fg = s.syn.variable })
 
-  hl("@comment", { link = "Comment", italic = true })
-  hl("@comment.todo", { fg = s.syn.special, bold = true })
-  hl("@todo", { fg = s.syn.special, bold = true, undercurl = false })
-
+  -- MARKDOWN / MARKUP SPECIALS
+  ---------------------------------------------------------------------------
   hl("@text.literal.block.markdown", { fg = s.syn.string })
   hl("@text.literal.markdown_inline", { fg = s.syn.string })
-  hl("@markup.code", { fg = s.syn.string })
-  hl("@markup.inline", { fg = s.ui.fg })
-  hl("@markup.block", { fg = s.syn.type })
-
-  hl("@punctuation.special.method", { fg = s.syn.operator })
-  hl("@punctuation.special.property", { fg = s.syn.operator })
-
-  hl("@spell", { link = "Normal" })
-
-  hl("@text.danger", { fg = s.diag.error })
-  hl("@text.success", { fg = s.diff.add })
-
-  hl("@markup.underline", { underline = true })
 end
 
 return M

@@ -78,7 +78,7 @@ return {
       end
 
       local function get_contrast_color(hex)
-        local r, g, b = unpack(hex_to_rgb(hex))  -- luacheck: ignore
+        local r, g, b = unpack(hex_to_rgb(hex)) -- luacheck: ignore
         local luminance = 0.299 * r + 0.587 * g + 0.114 * b
         return luminance > 0.5 and "#000000" or "#FFFFFF"
       end

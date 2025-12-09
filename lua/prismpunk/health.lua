@@ -13,8 +13,7 @@ local function check_nvim_version()
   local required = { 0, 10, 0 }
   local current = vim.version() or { major = 0, minor = 0, patch = 0 }
 
-  local ok =
-    current.major > required[1]
+  local ok = current.major > required[1]
     or (current.major == required[1] and current.minor > required[2])
     or (current.major == required[1] and current.minor == required[2] and current.patch >= required[3])
 
@@ -56,12 +55,8 @@ local function check_config()
 
   health_ok("Configuration loaded")
   health_info(string.format("Theme: %s", opts.theme or "none"))
-  if opts.cache then
-    health_info(string.format("Cache enabled: %s", tostring(opts.cache.enable)))
-  end
-  if opts.terminals then
-    health_info(string.format("Terminals enabled: %s", tostring(opts.terminals.enabled)))
-  end
+  if opts.cache then health_info(string.format("Cache enabled: %s", tostring(opts.cache.enable))) end
+  if opts.terminals then health_info(string.format("Terminals enabled: %s", tostring(opts.terminals.enabled))) end
 end
 
 local function check_modules()
@@ -151,9 +146,7 @@ local function check_terminals()
 
   local enabled_terminals = {}
   for _, term_name in ipairs({ "alacritty", "kitty", "ghostty" }) do
-    if term_conf[term_name] and term_conf[term_name].enabled then
-      table.insert(enabled_terminals, term_name)
-    end
+    if term_conf[term_name] and term_conf[term_name].enabled then table.insert(enabled_terminals, term_name) end
   end
 
   if #enabled_terminals == 0 then

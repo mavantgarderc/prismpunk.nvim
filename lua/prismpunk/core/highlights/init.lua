@@ -35,6 +35,76 @@ local function hl(group, opts) safe_nvim_set_hl(0, group, opts) end
 M.safe_hl = safe_nvim_set_hl
 M.hl = hl
 
+--- Deep-merge multiple tables (force strategy).
+--- Later tables override earlier ones.
+--- Nil or non-table values are ignored.
+--- @param ... table
+--- @return table
+local function merge(...)
+  local result = {}
+  for _, tbl in ipairs({ ... }) do
+    if type(tbl) == "table" and next(tbl) ~= nil then result = vim.tbl_extend("force", result, tbl) end
+  end
+  return result
+end
+
+M.merge = merge
+
+--- Safely get a nested style table from styles by path.
+--- Returns {} if any part of the path is missing or not a table.
+--- @param styles table|nil
+--- @param path string|string[]
+--- @param fallback table|nil
+--- @return table
+local function get_style(styles, path, fallback)
+  if type(path) == "string" then path = { path } end
+
+  local cur = styles or {}
+  for _, key in ipairs(path or {}) do
+    if type(cur) ~= "table" then
+      cur = nil
+      break
+    end
+    cur = cur[key]
+    if cur == nil then break end
+  end
+
+  if type(cur) == "table" then return cur end
+  return fallback or {}
+end
+
+M.get_style = get_style
+
+--- Internal notification wrapper
+--- @param level integer
+--- @param msg string
+--- @param ... any
+local function notify(level, msg, ...)
+  if select("#", ...) > 0 then msg = string.format(msg, ...) end
+
+  if vim.notify then
+    pcall(vim.notify, msg, level)
+  else
+    -- Fallback for very old environments
+    print(msg)
+  end
+end
+
+--- Standardized warning
+--- @param msg string
+--- @param ... any
+function M.warn(msg, ...) notify(vim.log.levels.WARN, "[prismpunk] " .. msg, ...) end
+
+--- Standardized error (notification only, does NOT throw)
+--- @param msg string
+--- @param ... any
+function M.error(msg, ...) notify(vim.log.levels.ERROR, "[prismpunk] " .. msg, ...) end
+
+--- Standardized info
+--- @param msg string
+--- @param ... any
+function M.info(msg, ...) notify(vim.log.levels.INFO, "[prismpunk] " .. msg, ...) end
+
 --- Normalize theme structure
 --- Converts theme module or result into standardized color structure
 --- @param theme table Theme module or result from theme.get()
@@ -44,12 +114,18 @@ function M.normalize_theme(theme, config)
   -- If theme has a .get function, it's a module - call it
   if type(theme.get) == "function" then
     local ok, result = pcall(theme.get, config, theme.palette)
-    if not ok then error(string.format("[prismpunk] theme.get() failed: %s", tostring(result))) end
+    if not ok then
+      M.error("theme.get() failed: %s", tostring(result))
+      error(string.format("[prismpunk] theme.get() failed: %s", tostring(result)))
+    end
     theme = result
   end
 
   -- Validate theme structure
-  if not theme or type(theme) ~= "table" then error("[prismpunk] Theme must be a table") end
+  if not theme or type(theme) ~= "table" then
+    M.error("Theme must be a table")
+    error("[prismpunk] Theme must be a table")
+  end
 
   -- Handle semantic structure (legacy support)
   if theme.semantic then
@@ -91,12 +167,11 @@ function M.normalize_theme(theme, config)
   end
 
   -- Invalid structure
-  error(
-    string.format(
-      "[prismpunk] Theme missing required structure (syn, ui, diag). Found keys: %s",
-      vim.inspect(vim.tbl_keys(theme))
-    )
-  )
+  local keys = {}
+  if type(theme) == "table" then keys = vim.tbl_keys(theme) end
+  local msg = string.format("Theme missing required structure (syn, ui, diag). Found keys: %s", vim.inspect(keys))
+  M.error(msg)
+  error("[prismpunk] " .. msg)
 end
 
 --- Apply highlights to Neovim
@@ -106,7 +181,10 @@ function M.apply(theme, config)
   -- Normalize theme structure
   local colors = M.normalize_theme(theme, config)
 
-  if not colors.syn then error("[prismpunk] Normalized theme missing colors.syn") end
+  if not colors.syn then
+    M.error("Normalized theme missing colors.syn")
+    error("[prismpunk] Normalized theme missing colors.syn")
+  end
 
   -- Ensure config has proper structure
   local opts = config
@@ -129,14 +207,11 @@ function M.apply(theme, config)
     if ok and type(module.apply) == "function" then
       local apply_ok, err = pcall(module.apply, colors, opts)
       if not apply_ok then
-        vim.notify(
-          string.format("[prismpunk] Highlight module %s failed: %s", module_name, tostring(err)),
-          vim.log.levels.ERROR
-        )
+        M.error("Highlight module %s failed: %s", module_name, tostring(err))
         error(string.format("[prismpunk] Critical highlight module failed: %s", module_name))
       end
     else
-      vim.notify(string.format("[prismpunk] Failed to load highlight module: %s", module_name), vim.log.levels.ERROR)
+      M.error("Failed to load highlight module: %s", module_name)
       error(string.format("[prismpunk] Critical highlight module missing: %s", module_name))
     end
   end
@@ -146,11 +221,11 @@ function M.apply(theme, config)
   if plugin_ok and type(plugins.apply) == "function" then
     local apply_ok, err = pcall(plugins.apply, colors, opts)
     if not apply_ok then
-      vim.notify(string.format("[prismpunk] Plugin highlights failed: %s", tostring(err)), vim.log.levels.ERROR)
+      M.error("Plugin highlights failed: %s", tostring(err))
       error("[prismpunk] Plugin highlights failed")
     end
   else
-    vim.notify("[prismpunk] Failed to load plugin highlights", vim.log.levels.WARN)
+    M.warn("Failed to load plugin highlights")
   end
 
   -- Apply global overrides (check both config and opts for overrides)

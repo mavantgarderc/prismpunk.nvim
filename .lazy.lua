@@ -394,6 +394,9 @@ return {
                 -- INJUSTICE LEAGUE
                 elseif colorscheme_name:match("injustice%-league") then
                   category = "dc/injustice-league"
+                -- ARKHAM ASYLUM
+                elseif colorscheme_name:match("arkham%-aylum") then
+                  category = "dc/arkham-asylum"
                 -- JUSTICE LEAGUE
                 elseif colorscheme_name:match("justice%-league") then
                   category = "dc/justice-league"

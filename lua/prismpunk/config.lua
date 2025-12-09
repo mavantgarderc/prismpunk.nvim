@@ -18,6 +18,41 @@ M.defaults = {
     keywords = { italic = true },
     functions = {},
     variables = {},
+    parameters = {},
+    types = {},
+    constants = {},
+
+    diagnostics = {
+      error = {},
+      warn = {},
+      info = {},
+      hint = {},
+      ok = {},
+      underline = {},
+      virtual_text = {},
+    },
+
+    git = {
+      add = {},
+      change = {},
+      delete = {},
+    },
+
+    ui = {
+      search = {},
+      cursorline = {},
+      statusline = {},
+      winbar = {},
+      floats = {},
+      tabline = {},
+      popup = {},
+    },
+
+    lsp = {
+      references = {},
+      inlay_hints = {},
+      codelens = {},
+    },
   },
 
   terminals = {
@@ -83,6 +118,53 @@ local schema = {
       keywords = { type = "table" },
       functions = { type = "table" },
       variables = { type = "table" },
+      parameters = { type = "table" },
+      types = { type = "table" },
+      constants = { type = "table" },
+
+      diagnostics = {
+        type = "table",
+        fields = {
+          error = { type = "table" },
+          warn = { type = "table" },
+          info = { type = "table" },
+          hint = { type = "table" },
+          ok = { type = "table" },
+          underline = { type = "table" },
+          virtual_text = { type = "table" },
+        },
+      },
+
+      git = {
+        type = "table",
+        fields = {
+          add = { type = "table" },
+          change = { type = "table" },
+          delete = { type = "table" },
+        },
+      },
+
+      ui = {
+        type = "table",
+        fields = {
+          search = { type = "table" },
+          cursorline = { type = "table" },
+          statusline = { type = "table" },
+          winbar = { type = "table" },
+          floats = { type = "table" },
+          tabline = { type = "table" },
+          popup = { type = "table" },
+        },
+      },
+
+      lsp = {
+        type = "table",
+        fields = {
+          references = { type = "table" },
+          inlay_hints = { type = "table" },
+          codelens = { type = "table" },
+        },
+      },
     },
   },
 

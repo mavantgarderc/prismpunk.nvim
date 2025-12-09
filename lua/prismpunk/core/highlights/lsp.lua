@@ -1,11 +1,27 @@
+-- prismpunk/core/highlights/lsp.lua
 local M = {}
 
-local hl = require("prismpunk.core.highlights").hl
+local H = require("prismpunk.core.highlights")
+local hl = H.hl
+local merge = H.merge
+local get_style = H.get_style
 
----@diagnostic disable-next-line: unused-local
-function M.apply(c, _config)
+function M.apply(c, config)
+  if not c or not c.syn or not c.ui or not c.diag then
+    H.warn("lsp.lua: missing color structure (syn/ui/diag)")
+    return
+  end
+
   local s = c
 
+  local styles = (config and config.styles) or {}
+  local lsp_styles = get_style(styles, "lsp")
+  local ref_style = lsp_styles.references or {}
+  local inlay_style = lsp_styles.inlay_hints or {}
+  local codelens_style = lsp_styles.codelens or {}
+
+  -- LSP SEMANTIC TOKENS: TYPES
+  ---------------------------------------------------------------------------
   hl("@lsp.type.function", { link = "@function" })
   hl("@lsp.type.method", { link = "@function" })
   hl("@lsp.type.variable", { link = "@variable" })
@@ -46,6 +62,13 @@ function M.apply(c, _config)
   hl("@lsp.type.typeAlias", { fg = s.syn.type })
   hl("@lsp.type.label", { fg = s.syn.special })
 
+  hl("@lsp.type.field", { fg = s.syn.variable })
+  hl("@lsp.type.value", { fg = s.syn.constant })
+  hl("@lsp.type.unit", { fg = s.syn.number })
+  hl("@lsp.type.expression", { fg = s.ui.fg })
+
+  -- LSP SEMANTIC TOKENS: MODIFIERS
+  ---------------------------------------------------------------------------
   hl("@lsp.mod.abstract", { italic = true })
   hl("@lsp.mod.async", { fg = s.syn.keyword })
   hl("@lsp.mod.declaration", { underline = true })
@@ -57,46 +80,28 @@ function M.apply(c, _config)
   hl("@lsp.mod.defaultLibrary", { fg = s.syn.constant })
   hl("@lsp.mod.static", { fg = s.syn.type })
 
-  hl("LspReferenceText", { bg = s.ui.bg_highlight })
-  hl("LspReferenceRead", { bg = s.ui.bg_highlight })
-  hl("LspReferenceWrite", { bg = s.ui.bg_highlight, underline = true })
-  hl("LspReferenceTarget", { fg = s.syn.keyword, bold = true })
-  hl("LspInlayHint", { fg = s.syn.comment, bg = s.ui.bg_dim })
-  hl("LspCodeLens", { fg = s.syn.comment })
-  hl("LspCodeLensSeparator", { fg = s.ui.nontext or s.ui.bg_highlight })
-  hl("LspInfoBorder", { fg = s.ui.border, bg = s.ui.bg_dim })
-  hl("LspInfoTitle", { fg = s.syn.keyword, bold = true })
+  -- LSP UX: REFERENCES, INLAY HINTS, CODELENS, INFO, PROGRESS
+  ---------------------------------------------------------------------------
+
+  hl("LspReferenceText", merge({ bg = s.ui.bg_highlight }, ref_style))
+  hl("LspReferenceRead", merge({ bg = s.ui.bg_highlight }, ref_style))
+  hl("LspReferenceWrite", merge({ bg = s.ui.bg_highlight, underline = true }, ref_style))
+  hl("LspReferenceTarget", merge({ fg = s.syn.keyword, bold = true }, ref_style))
+
+  hl("LspInlayHint", merge({ fg = s.syn.comment, bg = s.ui.bg_dim }, inlay_style))
   hl("LspInlayHintType", { link = "LspInlayHint" })
   hl("LspInlayHintParameter", { link = "LspInlayHint" })
-  hl("LspLens", { fg = s.syn.comment })
+
+  hl("LspCodeLens", merge({ fg = s.syn.comment }, codelens_style))
+  hl("LspLens", merge({ fg = s.syn.comment }, codelens_style))
+  hl("LspCodeLensSeparator", merge({ fg = s.ui.nontext or s.ui.bg_highlight }, codelens_style))
+
+  hl("LspInfoBorder", { fg = s.ui.border, bg = s.ui.bg_dim })
+  hl("LspInfoTitle", { fg = s.syn.keyword, bold = true })
+
   hl("LspProgressFg", { fg = s.syn.type })
 
   hl("LspSignatureActiveParameter", { fg = s.syn.func, underline = true })
-
-  hl("@lsp.type.field", { fg = s.syn.variable })
-  hl("@lsp.type.value", { fg = s.syn.constant })
-  hl("@lsp.type.unit", { fg = s.syn.number })
-  hl("@lsp.type.expression", { fg = s.ui.fg })
-
-  ---------------------------------------------------------------------------
-  -- LEGACY LspDiagnostics* COMPATIBILITY
-  ---------------------------------------------------------------------------
-  hl("LspDiagnosticsDefaultError", { link = "DiagnosticError" })
-  hl("LspDiagnosticsDefaultWarning", { link = "DiagnosticWarn" })
-  hl("LspDiagnosticsDefaultInformation", { link = "DiagnosticInfo" })
-  hl("LspDiagnosticsDefaultHint", { link = "DiagnosticHint" })
-  hl("LspDiagnosticsVirtualTextError", { link = "DiagnosticVirtualTextError" })
-  hl("LspDiagnosticsVirtualTextWarning", { link = "DiagnosticVirtualTextWarn" })
-  hl("LspDiagnosticsVirtualTextInformation", { link = "DiagnosticVirtualTextInfo" })
-  hl("LspDiagnosticsVirtualTextHint", { link = "DiagnosticVirtualTextHint" })
-  hl("LspDiagnosticsUnderlineError", { link = "DiagnosticUnderlineError" })
-  hl("LspDiagnosticsUnderlineWarning", { link = "DiagnosticUnderlineWarn" })
-  hl("LspDiagnosticsUnderlineInformation", { link = "DiagnosticUnderlineInfo" })
-  hl("LspDiagnosticsUnderlineHint", { link = "DiagnosticUnderlineHint" })
-  hl("LspDiagnosticsSignError", { link = "DiagnosticSignError" })
-  hl("LspDiagnosticsSignWarning", { link = "DiagnosticSignWarn" })
-  hl("LspDiagnosticsSignInformation", { link = "DiagnosticSignInfo" })
-  hl("LspDiagnosticsSignHint", { link = "DiagnosticSignHint" })
 end
 
 return M

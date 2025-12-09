@@ -3,9 +3,12 @@ local palette = require("prismpunk.palettes.punk-cultures.acidpunk")
 
 local M = {}
 
+---@param opts table
+---@param plt table
+---@return table
 M.get = function(opts, plt)
   plt = plt or palette
-
+  opts = opts or {}
   return {
     modes = {
       normal = plt.acidGreenCore,
@@ -14,7 +17,6 @@ M.get = function(opts, plt)
       replace = plt.dripMagentaCore,
       command = plt.radioactiveLimeCore,
     },
-
     accent = {
       accent1 = plt.acidGreenCore,
       accent2 = plt.toxicCyanCore,
@@ -23,7 +25,6 @@ M.get = function(opts, plt)
       accent5 = plt.electricPurpleCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.acidGreenBright,
       rainbow2 = plt.neonPinkBright,
@@ -33,61 +34,72 @@ M.get = function(opts, plt)
       rainbow6 = plt.chemicalYellowBright,
       rainbow7 = plt.bioOrangeBright,
     },
-
     ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_mid,
+      fg_dark = plt.fg_dark,
+      fg_reverse = plt.bg_alt1,
       bg = plt.bg_darkest,
-      bg_cursorline = plt.bg_dark,
       bg_dim = plt.bg_darkest,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_highlight = plt.bg_mid,
       bg_m1 = plt.bg_darker,
       bg_m2 = plt.bg_dark,
       bg_m3 = plt.bg_mid,
       bg_m4 = plt.bg_light,
       bg_p1 = plt.bg_dark,
       bg_p2 = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      bg_visual = plt.bg_mid,
-      border = plt.neonGray,
+      bg_gutter = (opts.gutter ~= false) and plt.bg_light or "none",
+      bg_cursorline = plt.bg_dark,
+      bg_cursorline_alt = plt.bg_mid,
       cursorline = plt.bg_dark,
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_reverse = plt.bg_alt1,
+      bg_highlight = plt.bg_mid,
+      bg_search = plt.chemicalYellowCore,
+      bg_visual = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      border = plt.neonGray,
+      header1 = plt.acidGreenBright,
+      header2 = plt.labWhiteCore,
+      special = plt.electricPurpleCore,
+      nontext = plt.bg_lightest,
+      whitespace = plt.neonGrayDark,
+      win_separator = plt.neonGray,
       indent = plt.bg_lighter,
       indent_scope = plt.acidGreenCore,
-      line_nr = plt.bg_lightest,
-      line_nr_active = plt.fg_lightest,
-      line_nr_dim = plt.bg_lighter,
-      nontext = plt.bg_lightest,
+      picker = plt.spillVioletCore,
+      yank = plt.chemicalYellowBright,
+      mark = plt.bioOrangeBright,
+      scrollbar = plt.bg_lighter,
       selection = plt.bg_mid,
-      win_separator = plt.neonGray,
-
+      line_nr = plt.bg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      line_nr_active = plt.fg_lightest,
       float = {
-        bg = plt.bg_darker,
-        bg_border = plt.bg_darker,
         fg = plt.fg_light,
+        bg = plt.bg_darker,
         fg_border = plt.neonGray,
+        bg_border = plt.bg_darker,
       },
-
       pmenu = {
-        bg = plt.bg_light,
-        bg_border = plt.bg_light,
-        bg_sbar = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_thumb = plt.neonGrayLight,
         fg = plt.fg_light,
         fg_sel = plt.fg_lightest,
+        fg_border = plt.neonGray,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.neonGrayLight,
       },
-
       tabline = {
         bg = plt.bg_darkest,
         bg_inactive = plt.bg_darkest,
         bg_selected = plt.bg_dark,
+        bg_alternate = plt.bg_darkest,
         fg_inactive = plt.fg_dark,
         fg_selected = plt.fg_lightest,
+        fg_alternate = plt.acidGreenBright,
+        indicator = plt.acidGreenCore,
       },
     },
-
     syn = {
       attribute = plt.radioactiveLimeCore,
       boolean = plt.toxicCyanCore,
@@ -105,34 +117,40 @@ M.get = function(opts, plt)
       punct = plt.fg_dark,
       regex = plt.spillVioletCore,
       special = plt.electricPurpleCore,
+      special2 = plt.spillVioletCore,
+      special3 = plt.bioOrangeCore,
       statement = plt.acidGreenCore,
       string = plt.neonPinkCore,
       symbol = plt.radioactiveLimeCore,
       type = plt.toxicCyanCore,
       variable = plt.fg_lightest,
     },
-
     diag = {
       error = plt.errorRed,
       warning = plt.warningAmber,
       info = plt.infoBlue,
       ok = plt.successGreen,
       hint = plt.electricPurpleCore,
+      virtual_text_error = plt.errorRed,
+      virtual_text_warning = plt.warningAmber,
+      virtual_text_info = plt.infoBlue,
+      virtual_text_ok = plt.successGreen,
+      virtual_text_hint = plt.electricPurpleCore,
     },
-
     diff = {
       add = plt.biohazardGreenCore,
+      add_inline = plt.acidGreenDeep,
       change = plt.chemicalYellowCore,
+      change_inline = plt.chemicalYellowBright,
       delete = plt.dripMagentaCore,
+      delete_inline = plt.dripMagentaBright,
       text = plt.electricPurpleCore,
     },
-
     vcs = {
       added = plt.biohazardGreenCore,
       changed = plt.chemicalYellowCore,
       removed = plt.dripMagentaCore,
     },
-
     term = {
       black = plt.bg_darkest,
       red = plt.dripMagentaCore,
@@ -142,7 +160,6 @@ M.get = function(opts, plt)
       magenta = plt.neonPinkCore,
       cyan = plt.glowBlueCore,
       white = plt.labWhiteCore,
-
       black_bright = color(plt.bg_darker):brighten(0.5):to_hex(),
       red_bright = color(plt.dripMagentaBright):brighten(0.15):to_hex(),
       green_bright = color(plt.acidGreenBright):brighten(0.15):to_hex(),
@@ -151,6 +168,8 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.neonPinkBright):brighten(0.15):to_hex(),
       cyan_bright = color(plt.glowBlueBright):brighten(0.15):to_hex(),
       white_bright = plt.labWhiteBright,
+      indexed1 = plt.radioactiveLimeCore,
+      indexed2 = plt.spillVioletCore,
     },
   }
 end

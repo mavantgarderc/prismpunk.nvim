@@ -6,54 +6,51 @@ return {
   bg_light = "#242d3d",
   bg_lighter = "#2d3748",
   bg_lightest = "#374357",
-
   fg_lightest = "#e6f0ff",
   fg_light = "#d0dff0",
   fg_mid = "#a8b8d0",
   fg_dark = "#7a8ba0",
-
   bg_alt1 = "#121720",
   bg_alt2 = "#080b10",
   bg_alt3 = "#1a2230",
   bg_alt4 = "#050709",
-
   leaderBlue = "#4a90e2",
   leaderBlueBright = "#5ca4ff",
   leaderBlueCore = "#3d7ec8",
   leaderBlueDeep = "#2d5f9f",
   leaderBlueDark = "#1e4070",
-
   katanaSilver = "#c0d0e0",
   katanaSteel = "#8fa8c0",
   katanaBlade = "#6b8ca8",
   katanaEdge = "#4d6b88",
-
   honorGold = "#ffd700",
   honorGoldMuted = "#d4af37",
   honorGoldDeep = "#b8942f",
-
   focusCyan = "#5fbfdf",
   focusCyanBright = "#7fd4ef",
   focusCyanDeep = "#4a9fb8",
-
   disciplineGreen = "#5fb388",
   disciplineGreenBright = "#7fc9a0",
   disciplineGreenDeep = "#4a8f6f",
-
   shadowGray = "#4a5568",
   shadowGrayDark = "#363d4d",
   shadowGrayDeep = "#2a3240",
-
   steelBlue = "#607d99",
   ninjaBlack = "#1a1f2e",
   dojoWood = "#6b5744",
-
   dangerRed = "#e74c3c",
   warningAmber = "#f39c12",
   infoBlue = "#3498db",
   successGreen = "#27ae60",
-
   sewerDark = "#0d1117",
   meditationBlue = "#2d4a6f",
   strategyPurple = "#6b7bb8",
+  leadershipGlow = "#d0e8ff",
+  leadershipVivid = "#e0f0ff",
+  leadershipFlare = "#f0f8ff",
+  honorAccent1 = "#3a506b",
+  honorAccent2 = "#425a78",
+  honorAccent3 = "#4a6485",
+  honorAccent4 = "#526e92",
+  honorAccent5 = "#5a789f",
 }

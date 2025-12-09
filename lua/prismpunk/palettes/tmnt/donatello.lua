@@ -6,66 +6,52 @@ return {
   bg_light = "#251e35",
   bg_lighter = "#2d2640",
   bg_lightest = "#362e4d",
-
   fg_lightest = "#ede7ff",
   fg_light = "#d8d0f0",
   fg_mid = "#b8a8d8",
   fg_dark = "#8878a8",
-
   bg_alt1 = "#120d1e",
   bg_alt2 = "#080410",
   bg_alt3 = "#1a1428",
   bg_alt4 = "#050209",
-
   geniusPurple = "#9d4edd",
   geniusPurpleBright = "#b565ff",
   geniusPurpleCore = "#8338ec",
   geniusPurpleDeep = "#6b2fc7",
   geniusPurpleDark = "#4e1f8c",
-
   techCyan = "#00d9ff",
   techCyanBright = "#33e4ff",
   techCyanCore = "#00b8d4",
   techCyanDeep = "#0097a7",
-
   circuitGreen = "#39ff14",
   circuitGreenBright = "#5dff38",
   circuitGreenCore = "#2ecc40",
   circuitGreenDeep = "#229a2f",
-
   inventionOrange = "#ff9500",
   inventionOrangeBright = "#ffaa33",
   inventionOrangeDeep = "#e67e00",
-
   dataBlue = "#4d79ff",
   dataBlueBright = "#668cff",
   dataBlueCore = "#3d5fcc",
   dataBlueDeep = "#2d4799",
-
   neonPink = "#ff00ff",
   neonPinkBright = "#ff33ff",
   neonPinkDeep = "#cc00cc",
-
   boStaffWood = "#8b6f47",
   boStaffWoodDark = "#6f5a38",
   boStaffTip = "#d4af37",
-
   hologramBlue = "#00ffff",
   hologramBlueShift = "#00e6e6",
-
   computerGray = "#6b7a8f",
   computerGrayLight = "#8a95a5",
   computerGrayDark = "#4e5968",
-
   wireSilver = "#b0b8c0",
   labGreen = "#1b4d3e",
   screenGlow = "#7b2cbf",
-
   dangerRed = "#e74c3c",
   warningAmber = "#f39c12",
   infoBlue = "#3498db",
   successGreen = "#27ae60",
-
   techLab = "#1a0f2e",
   gadgetryPurple = "#7209b7",
   innovationTeal = "#06aed5",

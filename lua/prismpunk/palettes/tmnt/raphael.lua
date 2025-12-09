@@ -6,62 +6,47 @@ return {
   bg_light = "#3d2424",
   bg_lighter = "#4a2d2d",
   bg_lightest = "#573636",
-
   fg_lightest = "#ffe5e5",
   fg_light = "#f0d0d0",
   fg_mid = "#d0a8a8",
   fg_dark = "#a07878",
-
   bg_alt1 = "#150a0a",
   bg_alt2 = "#0a0404",
   bg_alt3 = "#1f1010",
   bg_alt4 = "#050202",
-
   rageRed = "#e63946",
   rageRedBright = "#ff4757",
   rageRedCore = "#d62839",
   rageRedDeep = "#b91f2c",
   rageRedDark = "#8f1822",
-
   crimsonFury = "#dc143c",
   crimsonFuryBright = "#ff1744",
   crimsonFuryDeep = "#b0102e",
-
   saiSteel = "#9ba4b0",
   saiSilver = "#c4cdd6",
   saiEdge = "#7a8490",
   saiPoint = "#5f6870",
-
   fireOrange = "#ff6b35",
   fireOrangeBright = "#ff8555",
   fireOrangeDeep = "#e55a2a",
-
   rebellionPurple = "#8b4789",
   rebellionPurpleBright = "#a357a1",
   rebellionPurpleDeep = "#6f3870",
-
   toughGreen = "#4a7c59",
   toughGreenBright = "#5fa174",
   toughGreenDeep = "#3a6047",
-
   angerYellow = "#f4a261",
   angerYellowBright = "#ffb77d",
   angerYellowDeep = "#d88b4f",
-
   rustBrown = "#8b4513",
   bloodRed = "#8b0000",
   shadowRed = "#4a1a1a",
-
   steelGray = "#6c7a89",
   alleyDark = "#1c1010",
   grittyConcrete = "#3d3333",
-
   dangerRed = "#e74c3c",
   warningAmber = "#f39c12",
   infoBlue = "#3498db",
   successGreen = "#27ae60",
-
-  hotHeadedRed = "#ff3333",
   combatStance = "#b83232",
-  rebelSpirit = "#a04848",
 }

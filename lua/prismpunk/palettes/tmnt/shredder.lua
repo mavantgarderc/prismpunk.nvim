@@ -6,76 +6,52 @@ return {
   bg_light = "#221d24",
   bg_lighter = "#2a252d",
   bg_lightest = "#332e36",
-
   fg_lightest = "#e8e0e8",
   fg_light = "#d0c8d0",
   fg_mid = "#b0a8b0",
   fg_dark = "#888088",
-
   bg_alt1 = "#100d12",
   bg_alt2 = "#060408",
   bg_alt3 = "#181318",
   bg_alt4 = "#030103",
-
   bladeSteel = "#8a9099",
   bladeSteelBright = "#a8b0b8",
   bladeSteelCore = "#707880",
   bladeSteelDeep = "#585f68",
   bladeSteelDark = "#404750",
-
   armorSilver = "#b8b8c0",
   armorSilverBright = "#d0d0d8",
   armorSilverCore = "#9a9aa8",
   armorSilverDeep = "#787888",
-
   crimsonRage = "#c03030",
   crimsonRageBright = "#e04040",
   crimsonRageCore = "#a02828",
   crimsonRageDeep = "#802020",
-
   shadowPurple = "#6b5a7a",
   shadowPurpleBright = "#8a7a9a",
   shadowPurpleCore = "#554a60",
   shadowPurpleDeep = "#443a4e",
-
   footClanRed = "#8a3838",
   footClanRedBright = "#a84848",
   footClanRedCore = "#702d2d",
   footClanRedDeep = "#582424",
-
   vengeanceViolet = "#7a5a8a",
   vengeanceVioletBright = "#9a7aaa",
   vengeanceVioletCore = "#604a70",
   vengeanceVioletDeep = "#4e3a5a",
-
   evilGreen = "#4a6b4a",
   evilGreenBright = "#5f8a5f",
   evilGreenCore = "#3a553a",
   evilGreenDeep = "#2d422d",
-
   darkPower = "#5a4a6b",
   darkPowerBright = "#7a6a8b",
   darkPowerCore = "#4a3a5a",
   darkPowerDeep = "#3a2d48",
-
   helmetDark = "#1a1a22",
   helmetDarkDeep = "#0d0d12",
-
   spikesSilver = "#9a9aa8",
   spikesSilverSharp = "#b8b8c8",
-
-  technodromeGreen = "#3a5a4a",
-  technodromeGreenBright = "#4a7a5a",
-
   shuriken = "#707078",
   shurikenSharp = "#88888f",
-
-  dangerRed = "#d03030",
-  warningAmber = "#d4a537",
-  infoBlue = "#4a6b8a",
-  successGreen = "#4a6b4a",
-
   footSoldier = "#1a1318",
-  tyranny = "#8a3030",
-  domination = "#5a4a6b",
 }

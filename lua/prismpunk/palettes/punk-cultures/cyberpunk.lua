@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0A0C14",
   bg_darker = "#0F1219",
   bg_dark = "#14171F",
@@ -7,101 +6,52 @@ return {
   bg_light = "#202530",
   bg_lighter = "#262C38",
   bg_lightest = "#2C3340",
-
   fg_lightest = "#E8F0FF",
   fg_light = "#C8D0E8",
   fg_mid = "#A0B0C8",
   fg_dark = "#7888A0",
-
   bg_alt1 = "#12151D",
   bg_alt2 = "#0C0E16",
   bg_alt3 = "#181C25",
   bg_alt4 = "#0D1018",
-
-  neonPink = "#FF006E",
   neonPinkCore = "#E6005F",
   neonPinkBright = "#FF1A7F",
   neonPinkDeep = "#CC0050",
   neonPinkDark = "#A50040",
-
-  cyberCyan = "#00F5FF",
   cyberCyanCore = "#00D9E6",
   cyberCyanBright = "#33F7FF",
   cyberCyanDeep = "#00BCD4",
   cyberCyanDark = "#0097A7",
-
-  acidGreen = "#00FF41",
   acidGreenCore = "#00E63A",
   acidGreenBright = "#33FF61",
   acidGreenDeep = "#00CC33",
   acidGreenDark = "#00A029",
-
-  dataViolet = "#B537F2",
   dataVioletCore = "#9F2BD6",
   dataVioletBright = "#C74FFF",
   dataVioletDeep = "#8820C0",
   dataVioletDark = "#6B18A0",
-
-  electricBlue = "#0080FF",
   electricBlueCore = "#006FE6",
   electricBlueBright = "#3399FF",
   electricBlueDeep = "#005FCC",
   electricBlueDark = "#004FA0",
-
-  hologramYellow = "#FFE600",
   hologramYellowCore = "#E6CC00",
   hologramYellowBright = "#FFED33",
   hologramYellowDeep = "#CCB800",
   hologramYellowDark = "#A09000",
-
-  chromeWhite = "#F0F8FF",
   chromeWhiteCore = "#E0E8F0",
   chromeWhiteBright = "#FFFFFF",
-  chromeWhiteDeep = "#D0D8E0",
-  chromeWhiteDark = "#B0B8C0",
-
-  terminalGreen = "#00FF00",
-  terminalGreenCore = "#00E600",
-  terminalGreenBright = "#33FF33",
-  terminalGreenDeep = "#00CC00",
-  terminalGreenDark = "#009900",
-
-  matrixGreen = "#00D900",
-  matrixGreenCore = "#00C200",
-  matrixGreenBright = "#00FF00",
-  matrixGreenDeep = "#00A800",
-  matrixGreenDark = "#008000",
-
-  corpRed = "#FF0040",
   corpRedCore = "#E60038",
   corpRedBright = "#FF3366",
-  corpRedDeep = "#CC0030",
-  corpRedDark = "#A00025",
-
-  warningOrange = "#FF8800",
   warningOrangeCore = "#E67700",
   warningOrangeBright = "#FFA033",
-  warningOrangeDeep = "#CC6600",
-  warningOrangeDark = "#A05000",
-
-  hackPurple = "#9D00FF",
   hackPurpleCore = "#8800E6",
   hackPurpleBright = "#B533FF",
-  hackPurpleDeep = "#7700CC",
-  hackPurpleDark = "#5500A0",
-
   darkGray = "#404858",
   darkGrayLight = "#505868",
   darkGrayDark = "#303848",
   voidBlack = "#0F1219",
-  metalGray = "#606878",
-
   successGreen = "#00FF41",
   warningAmber = "#FFE600",
   infoBlue = "#00F5FF",
   errorRed = "#FF0040",
-
-  neonCity = "#FF006E",
-  cyberspace = "#00F5FF",
-  digitalRain = "#00FF41",
 }

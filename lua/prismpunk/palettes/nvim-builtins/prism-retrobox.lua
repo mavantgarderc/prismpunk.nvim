@@ -6,53 +6,41 @@ return {
   bg_light = "#504945",
   bg_lighter = "#665c54",
   bg_lightest = "#7c6f64",
-
   fg_lightest = "#fbf1c7",
   fg_light = "#ebdbb2",
   fg_mid = "#d5c4a1",
   fg_dark = "#bdae93",
-
   bg_alt1 = "#262626",
   bg_alt2 = "#0f0f0f",
   bg_alt3 = "#3a3836",
   bg_alt4 = "#000000",
-
   retroRed = "#fb5944",
   retroRedDark = "#cc241d",
   retroRedDeep = "#9d0006",
-
   retroGreen = "#b8bb26",
   retroGreenDark = "#98971a",
   retroGreenDeep = "#79740e",
-
   retroYellow = "#fabd2f",
   retroYellowDark = "#d79921",
   retroYellowDeep = "#b57614",
-
   retroBlue = "#83a598",
   retroBlueDark = "#458588",
   retroBlueDeep = "#076678",
-
   retroPurple = "#d3869b",
   retroPurpleDark = "#b16286",
   retroPurpleDeep = "#8f3f71",
-
   retroAqua = "#8ec07c",
   retroAquaDark = "#689d6a",
   retroAquaDeep = "#427b58",
-
   retroOrange = "#fe8019",
   retroOrangeDark = "#d65d0e",
   retroOrangeDeep = "#af3a03",
-
   retroGray = "#928374",
   retroGrayDark = "#7c6f64",
   retroGrayDeep = "#504945",
-
   retroCream = "#ebdbb2",
   retroCreamLight = "#fbf1c7",
   retroCreamDark = "#d5c4a1",
-
   gruvboxBg = "#1c1c1c",
   gruvboxFg = "#ebdbb2",
   gruvboxRed = "#fb5944",

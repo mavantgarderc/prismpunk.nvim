@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#020608",
   bg_darker = "#050C10",
   bg_dark = "#0A1418",
@@ -7,101 +6,59 @@ return {
   bg_light = "#142428",
   bg_lighter = "#192C30",
   bg_lightest = "#1E3438",
-
   fg_lightest = "#E8F5F8",
   fg_light = "#D0E4E8",
   fg_mid = "#B0C8D0",
   fg_dark = "#88A8B0",
-
   bg_alt1 = "#07100C",
   bg_alt2 = "#030A0C",
   bg_alt3 = "#0C1820",
   bg_alt4 = "#060E10",
-
-  deepOcean = "#006994",
   deepOceanCore = "#005A82",
   deepOceanBright = "#0080AA",
   deepOceanDeep = "#004B6E",
   deepOceanDark = "#003B58",
-
-  coralPink = "#FF6B9D",
   coralPinkCore = "#E65F8D",
   coralPinkBright = "#FF85B0",
   coralPinkDeep = "#CC4F75",
   coralPinkDark = "#A03F5E",
-
-  aquamarineGreen = "#7FFFD4",
   aquamarineGreenCore = "#6FE6C0",
   aquamarineGreenBright = "#99FFE0",
   aquamarineGreenDeep = "#5FCCAC",
   aquamarineGreenDark = "#4FA088",
-
-  biolumBlue = "#00CED1",
   biolumBlueCore = "#00B8BB",
   biolumBlueBright = "#33D8DB",
   biolumBlueDeep = "#00A0A3",
   biolumBlueDark = "#008285",
-
-  jellyfishPurple = "#9D7FEA",
   jellyfishPurpleCore = "#8B6FD8",
   jellyfishPurpleBright = "#B099F5",
   jellyfishPurpleDeep = "#7860C0",
   jellyfishPurpleDark = "#604DA0",
-
-  seafoamGreen = "#98FF98",
   seafoamGreenCore = "#88E688",
   seafoamGreenBright = "#AAFFAA",
   seafoamGreenDeep = "#78CC78",
   seafoamGreenDark = "#60A060",
-
-  anemoneRed = "#E63946",
   anemoneRedCore = "#D32F2F",
   anemoneRedBright = "#EF5350",
   anemoneRedDeep = "#C62828",
   anemoneRedDark = "#B71C1C",
-
-  seaweedGreen = "#2A9D8F",
   seaweedGreenCore = "#26897D",
   seaweedGreenBright = "#3DAFA1",
   seaweedGreenDeep = "#21816F",
   seaweedGreenDark = "#1A6659",
-
-  anglerYellow = "#FFD166",
   anglerYellowCore = "#E6BC5C",
   anglerYellowBright = "#FFDA85",
   anglerYellowDeep = "#CCA350",
   anglerYellowDark = "#A08340",
-
-  abyssalBlue = "#001F3F",
   abyssalBlueCore = "#001A38",
-  abyssalBlueBright = "#003D66",
-  abyssalBlueDeep = "#001530",
-  abyssalBlueDark = "#001024",
-
-  pressureWhite = "#F0FFFF",
   pressureWhiteCore = "#E0F5F5",
   pressureWhiteBright = "#FFFFFF",
-  pressureWhiteDeep = "#D0E8E8",
-  pressureWhiteDark = "#B8D0D0",
-
-  trenchViolet = "#5A189A",
   trenchVioletCore = "#4F148A",
-  trenchVioletBright = "#6A20AA",
-  trenchVioletDeep = "#44117A",
-  trenchVioletDark = "#340D60",
-
   currentGray = "#5A7A8A",
   currentGrayLight = "#6A8A9A",
   currentGrayDark = "#4A6A7A",
-  depthBlack = "#0A1418",
-  waveGray = "#7A9AAA",
-
   successGreen = "#7FFFD4",
+  errorRed = "#E63946",
   warningAmber = "#FFD166",
   infoBlue = "#00CED1",
-  errorRed = "#E63946",
-
-  ocean = "#006994",
-  bioluminescence = "#00CED1",
-  coral = "#FF6B9D",
 }

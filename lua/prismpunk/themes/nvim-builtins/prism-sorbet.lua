@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.nvim-builtins.prism-sorbet")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.skyCore,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.coralCore,
       command = plt.goldenCore,
     },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_lighter,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.twilightIndigo,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.lavenderDark,
-      header1 = plt.lavenderBright,
-      header2 = plt.goldenCore,
-      special = plt.tealCore,
-      nontext = plt.bg_lighter,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.twilightIndigo,
-      indent = plt.bg_lighter,
-      indent_scope = plt.lavenderCore,
-      picker = plt.coralCore,
-      yank = plt.goldenBright,
-      mark = plt.magentaCore,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_mid,
-        bg_inactive = plt.bg_darkest,
-        fg_alternate = plt.lavenderBright,
-        bg_alternate = plt.bg_darkest,
-        indicator = plt.lavenderCore,
-      },
-      pmenu = {
-        fg = plt.fg_lightest,
-        fg_sel = "none",
-        fg_border = plt.bg_lighter,
-        bg_border = plt.bg_light,
-        bg = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_sbar = plt.bg_light,
-        bg_thumb = plt.bg_lightest,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.lavenderDark,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.lavenderCore,
       accent2 = plt.skyCore,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.limeCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.lavenderBright,
       rainbow2 = plt.skyCore,
@@ -95,7 +30,56 @@ M.get = function(opts, plt)
       rainbow6 = plt.coralCore,
       rainbow7 = plt.lavenderDeep,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_lighter,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      bg_visual = plt.bg_mid,
+      border = plt.lavenderDark,
+      cursorline = plt.bg_lighter,
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.lavenderCore,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.bg_lighter,
+      selection = plt.bg_mid,
+      win_separator = plt.twilightIndigo,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.lavenderDark,
+      },
+      pmenu = {
+        bg = plt.bg_light,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_thumb = plt.bg_lightest,
+        fg = plt.fg_lightest,
+        fg_sel = "none",
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_mid,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
       attribute = plt.goldenCore,
       boolean = plt.coralCore,
@@ -112,37 +96,31 @@ M.get = function(opts, plt)
       preproc = plt.skyCore,
       punct = plt.fg_mid,
       regex = plt.tealCore,
+      special = plt.tealCore,
       statement = plt.skyCore,
       string = plt.goldenCore,
       symbol = plt.goldenBright,
       type = plt.skyCore,
       variable = plt.fg_lightest,
-      special = plt.tealCore,
-      special2 = plt.lavenderBright,
-      special3 = plt.limeCore,
     },
-
-    vcs = {
-      added = plt.limeCore,
-      removed = plt.coralCore,
-      changed = plt.skyCore,
+    diag = {
+      error = plt.dangerRed,
+      warning = plt.warningOrange,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.tealCore,
     },
-
     diff = {
       add = plt.limeCore,
       change = plt.skyCore,
       delete = plt.coralCore,
       text = plt.magentaCore,
     },
-
-    diag = {
-      ok = plt.limeCore,
-      error = plt.dangerRed,
-      warning = plt.warningOrange,
-      info = plt.infoBlue,
-      hint = plt.tealCore,
+    vcs = {
+      added = plt.limeCore,
+      changed = plt.skyCore,
+      removed = plt.coralCore,
     },
-
     term = {
       black = plt.bg_alt3,
       red = plt.coralCore,
@@ -152,6 +130,7 @@ M.get = function(opts, plt)
       magenta = plt.lavenderCore,
       cyan = plt.tealCore,
       white = plt.lightGray,
+
       black_bright = color(plt.bg_alt3):brighten(0.6):to_hex(),
       red_bright = color(plt.coralCore):brighten(0.2):to_hex(),
       green_bright = color(plt.limeCore):brighten(0.1):to_hex(),
@@ -160,190 +139,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.lavenderCore):brighten(0.2):to_hex(),
       cyan_bright = color(plt.tealCore):brighten(0.1):to_hex(),
       white_bright = color(plt.lightGray):brighten(0.2):to_hex(),
-      indexed1 = plt.goldenCore,
-      indexed2 = plt.coralCore,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.lavenderCore,
-      ["@comment.documentation"] = plt.lavenderDeep,
-      ["@comment.error"] = plt.dangerRed,
-      ["@comment.warning"] = plt.warningOrange,
-      ["@comment.todo"] = plt.tealBright,
-      ["@comment.note"] = plt.tealCore,
-
-      ["@constant"] = plt.coralCore,
-      ["@constant.builtin"] = plt.coralBright,
-      ["@constant.macro"] = plt.goldenCore,
-
-      ["@string"] = plt.goldenCore,
-      ["@string.documentation"] = plt.goldenCore,
-      ["@string.regex"] = plt.tealCore,
-      ["@string.escape"] = plt.goldenBright,
-      ["@string.special"] = plt.goldenBright,
-      ["@string.special.symbol"] = plt.goldenBright,
-      ["@string.special.url"] = plt.skyCore,
-      ["@string.special.path"] = plt.goldenCore,
-
-      ["@character"] = plt.goldenCore,
-      ["@character.special"] = plt.goldenBright,
-
-      ["@number"] = plt.goldenCore,
-      ["@number.float"] = plt.goldenCore,
-
-      ["@boolean"] = plt.coralCore,
-
-      ["@function"] = plt.skyCore,
-      ["@function.builtin"] = plt.skyCore,
-      ["@function.call"] = plt.skyCore,
-      ["@function.macro"] = plt.skyBright,
-      ["@function.method"] = plt.skyBright,
-      ["@function.method.call"] = plt.skyBright,
-
-      ["@constructor"] = plt.skyCore,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.skyCore,
-      ["@keyword.coroutine"] = plt.lavenderBright,
-      ["@keyword.function"] = plt.skyCore,
-      ["@keyword.operator"] = plt.tealCore,
-      ["@keyword.return"] = plt.skyCore,
-      ["@keyword.import"] = plt.lavenderBright,
-      ["@keyword.storage"] = plt.skyCore,
-      ["@keyword.repeat"] = plt.skyCore,
-      ["@keyword.conditional"] = plt.skyCore,
-      ["@keyword.exception"] = plt.coralCore,
-      ["@keyword.directive"] = plt.lavenderBright,
-      ["@keyword.directive.define"] = plt.lavenderBright,
-
-      ["@conditional"] = plt.skyCore,
-      ["@conditional.ternary"] = plt.skyCore,
-
-      ["@repeat"] = plt.skyCore,
-
-      ["@label"] = plt.lavenderBright,
-
-      ["@operator"] = plt.tealCore,
-
-      ["@exception"] = plt.coralCore,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.lavenderBright,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.skyCore,
-      ["@type.builtin"] = plt.skyCore,
-      ["@type.definition"] = plt.skyCore,
-      ["@type.qualifier"] = plt.skyCore,
-
-      ["@attribute"] = plt.goldenCore,
-      ["@attribute.builtin"] = plt.goldenCore,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.skyCore,
-      ["@module.builtin"] = plt.skyCore,
-
-      ["@namespace"] = plt.skyCore,
-      ["@namespace.builtin"] = plt.skyCore,
-
-      ["@punctuation.delimiter"] = plt.fg_mid,
-      ["@punctuation.bracket"] = plt.fg_mid,
-      ["@punctuation.special"] = plt.tealCore,
-
-      ["@tag"] = plt.skyCore,
-      ["@tag.attribute"] = plt.goldenCore,
-      ["@tag.delimiter"] = plt.fg_mid,
-      ["@tag.builtin"] = plt.skyCore,
-
-      ["@markup.strong"] = { fg = plt.lavenderBright, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.shadowGray, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.goldenBright, underline = true },
-      ["@markup.heading"] = plt.lavenderBright,
-      ["@markup.heading.1"] = plt.lavenderBright,
-      ["@markup.heading.2"] = plt.goldenCore,
-      ["@markup.heading.3"] = plt.skyCore,
-      ["@markup.heading.4"] = plt.tealCore,
-      ["@markup.heading.5"] = plt.limeCore,
-      ["@markup.heading.6"] = plt.lavenderDeep,
-      ["@markup.quote"] = plt.lavenderDeep,
-      ["@markup.math"] = plt.goldenCore,
-      ["@markup.link"] = plt.skyCore,
-      ["@markup.link.label"] = plt.tealCore,
-      ["@markup.link.url"] = plt.skyCore,
-      ["@markup.raw"] = plt.goldenCore,
-      ["@markup.raw.block"] = plt.goldenCore,
-      ["@markup.list"] = plt.skyCore,
-      ["@markup.list.checked"] = plt.limeCore,
-      ["@markup.list.unchecked"] = plt.dimGray,
-
-      ["@diff.plus"] = plt.limeCore,
-      ["@diff.minus"] = plt.coralCore,
-      ["@diff.delta"] = plt.skyCore,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.twilightIndigo,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.skyCore,
-      ["@constructor.javascript"] = plt.skyCore,
-      ["@constructor.typescript"] = plt.skyCore,
-      ["@namespace.rust"] = plt.skyCore,
-      ["@type.qualifier.rust"] = plt.skyCore,
-      ["@constant.macro.c"] = plt.goldenCore,
-      ["@constant.macro.cpp"] = plt.goldenCore,
-      ["@namespace.go"] = plt.skyCore,
-      ["@property.css"] = plt.skyBright,
-      ["@type.css"] = plt.skyCore,
-      ["@label.json"] = plt.goldenCore,
-      ["@field.yaml"] = plt.skyBright,
-      ["@property.toml"] = plt.skyBright,
-      ["@function.builtin.bash"] = plt.skyCore,
-      ["@string.regexp"] = plt.tealCore,
-      ["@character.special.regex"] = plt.goldenBright,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.skyCore,
-      ["@lsp.type.interface"] = plt.skyCore,
-      ["@lsp.type.struct"] = plt.skyCore,
-      ["@lsp.type.enum"] = plt.skyCore,
-      ["@lsp.type.enumMember"] = plt.coralCore,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.skyCore,
-
-      ["@lsp.type.macro"] = plt.goldenCore,
-      ["@lsp.type.decorator"] = plt.goldenCore,
-
-      ["@lsp.type.builtinType"] = plt.skyCore,
-      ["@lsp.type.selfParameter"] = plt.lavenderBright,
-      ["@lsp.type.typeParameter"] = plt.skyCore,
-
-      ["@lsp.type.array"] = plt.skyCore,
-      ["@lsp.type.object"] = plt.skyCore,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.coralCore,
-      ["@lsp.type.enumConstant"] = plt.coralCore,
-
-      ["@lsp.type.event"] = plt.skyCore,
-      ["@lsp.type.regexp"] = plt.tealCore,
-      ["@lsp.type.unresolvedReference"] = plt.skyCore,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.dimGray, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.coralCore,
-      ["@lsp.mod.async"] = plt.skyCore,
-      ["@lsp.mod.static"] = plt.lavenderBright,
-      ["@lsp.mod.abstract"] = plt.skyCore,
-      ["@lsp.mod.defaultLibrary"] = plt.skyCore,
-      ["@lsp.mod.documentation"] = plt.lavenderDeep,
     },
   }
 end
@@ -352,7 +147,6 @@ return {
   name = "Sorbet",
   author = "PrismPunk.nvim (Original by Maxence Weynans)",
   description = "A shallow grave, a monument to the ruined age.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +165,6 @@ return {
     base0E = palette.lavenderCore,
     base0F = palette.coralDeep,
   },
-
   palette = palette,
   get = M.get,
 }

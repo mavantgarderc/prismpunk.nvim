@@ -6,67 +6,51 @@ return {
   bg_light = "#3d2d1b",
   bg_lighter = "#4a3722",
   bg_lightest = "#57412a",
-
   fg_lightest = "#fff5e6",
   fg_light = "#ffe6c7",
   fg_mid = "#ffd4a3",
   fg_dark = "#d4a574",
-
   bg_alt1 = "#150f08",
   bg_alt2 = "#0a0602",
   bg_alt3 = "#1f1710",
   bg_alt4 = "#050301",
-
   partyOrange = "#ff8c42",
   partyOrangeBright = "#ffaa66",
   partyOrangeCore = "#ff7f32",
   partyOrangeDeep = "#ff6b1a",
   partyOrangeDark = "#d65a15",
-
   pizzaRed = "#ff4d4d",
   pizzaRedBright = "#ff6666",
   pizzaRedDeep = "#e63939",
-
   cheeseYellow = "#ffd93d",
   cheeseYellowBright = "#ffe66d",
   cheeseYellowCore = "#ffcc00",
   cheeseYellowDeep = "#e6b800",
-
   cowaGreen = "#6bcf7f",
   cowaGreenBright = "#8adf9a",
   cowaGreenCore = "#4fb768",
   cowaGreenDeep = "#3a9052",
-
   radicalPurple = "#b565ff",
   radicalPurpleBright = "#cc85ff",
   radicalPurpleDeep = "#9a4deb",
-
   skateBlue = "#4db8ff",
   skateBlueBright = "#6dc9ff",
   skateBlueCore = "#3da8e6",
   skateBlueDeep = "#2d8fcc",
-
   sunsetPink = "#ff6b9d",
   sunsetPinkBright = "#ff85b0",
   sunsetPinkDeep = "#e6578a",
-
   nunchuckWood = "#8b6f47",
   nunchuckWoodDark = "#6f5a38",
   nunchuckChain = "#a8a8a0",
-
   beachSand = "#d4a574",
   tropicalTeal = "#00d9cc",
   surfboardCyan = "#00e6d9",
-
   comedyGold = "#ffa500",
-  funTimes = "#ff9933",
-
+  chillinYellow = "#ffdb4d",
   dangerRed = "#e74c3c",
   warningAmber = "#f39c12",
   infoBlue = "#3498db",
   successGreen = "#27ae60",
-
   pizzaParlor = "#2a1810",
-  partyLights = "#ff4da6",
-  chillinYellow = "#ffdb4d",
 }

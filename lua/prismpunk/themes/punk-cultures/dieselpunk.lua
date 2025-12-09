@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.punk-cultures.dieselpunk")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.steelGrayCore,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.mechRedCore,
       command = plt.metropolisBluCore,
     },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.factoryOrangeDeep,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.exhaustGray,
-      header1 = plt.dieselYellowBright,
-      header2 = plt.factoryOrangeBright,
-      special = plt.metropolisBlue,
-      nontext = plt.bg_lightest,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.exhaustGray,
-      indent = plt.bg_lighter,
-      indent_scope = plt.steelGrayCore,
-      picker = plt.factoryOrange,
-      yank = plt.artDecoGoldBright,
-      mark = plt.dieselYellow,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_dark,
-        bg_inactive = plt.bg_darkest,
-        fg_alternate = plt.dieselYellowBright,
-        bg_alternate = plt.bg_darkest,
-        indicator = plt.steelGrayCore,
-      },
-      pmenu = {
-        fg = plt.fg_light,
-        fg_sel = plt.fg_lightest,
-        fg_border = plt.exhaustGray,
-        bg_border = plt.bg_light,
-        bg = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_sbar = plt.bg_light,
-        bg_thumb = plt.exhaustGrayBright,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.exhaustGray,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.steelGrayCore,
       accent2 = plt.dieselYellowCore,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.artDecoGoldCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.dieselYellowBright,
       rainbow2 = plt.factoryOrangeBright,
@@ -95,54 +30,97 @@ M.get = function(opts, plt)
       rainbow6 = plt.artDecoGoldBright,
       rainbow7 = plt.mechRedBright,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_dark,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      bg_visual = plt.bg_mid,
+      border = plt.exhaustGray,
+      cursorline = plt.bg_dark,
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.steelGrayCore,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.bg_lightest,
+      selection = plt.bg_mid,
+      win_separator = plt.exhaustGray,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.exhaustGray,
+      },
+      pmenu = {
+        bg = plt.bg_light,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_thumb = plt.exhaustGrayBright,
+        fg = plt.fg_light,
+        fg_sel = plt.fg_lightest,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_dark,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
-      attribute = plt.artDecoGold,
-      boolean = plt.factoryOrange,
+      attribute = plt.artDecoGoldCore,
+      boolean = plt.factoryOrangeCore,
       comment = plt.exhaustGray,
-      constant = plt.chromeWhite,
+      constant = plt.chromeWhiteCore,
       deprecated = plt.sootBlackLight,
       func = plt.militaryGreenCore,
       identifier = plt.fg_lightest,
       keyword = plt.steelGrayCore,
       method = plt.militaryGreenBright,
-      number = plt.chromeWhite,
+      number = plt.chromeWhiteCore,
       operator = plt.dieselYellowCore,
       parameter = plt.fg_mid,
       preproc = plt.metropolisBluCore,
       punct = plt.fg_dark,
-      regex = plt.tankGreen,
+      regex = plt.tankGreenCore,
+      special = plt.metropolisBluCore,
       statement = plt.steelGrayCore,
       string = plt.militaryGreenCore,
-      symbol = plt.artDecoGold,
+      symbol = plt.artDecoGoldCore,
       type = plt.engineBrownCore,
       variable = plt.fg_lightest,
-      special = plt.metropolisBlue,
-      special2 = plt.factoryOrange,
-      special3 = plt.artDecoGold,
     },
-
-    vcs = {
-      added = plt.militaryGreenCore,
-      removed = plt.mechRedCore,
-      changed = plt.factoryOrangeCore,
+    diag = {
+      error = plt.errorRed,
+      warning = plt.warningAmber,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.metropolisBluCore,
     },
-
     diff = {
       add = plt.militaryGreenCore,
       change = plt.factoryOrangeCore,
       delete = plt.mechRedCore,
-      text = plt.metropolisBlue,
+      text = plt.metropolisBluCore,
     },
-
-    diag = {
-      ok = plt.successGreen,
-      error = plt.errorRed,
-      warning = plt.warningAmber,
-      info = plt.infoBlue,
-      hint = plt.metropolisBlue,
+    vcs = {
+      added = plt.militaryGreenCore,
+      changed = plt.factoryOrangeCore,
+      removed = plt.mechRedCore,
     },
-
     term = {
       black = plt.bg_darkest,
       red = plt.mechRedCore,
@@ -160,190 +138,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.engineBrownBright):brighten(0.2):to_hex(),
       cyan_bright = color(plt.steelGrayBright):brighten(0.18):to_hex(),
       white_bright = color(plt.chromeWhiteBright):brighten(0.1):to_hex(),
-      indexed1 = plt.dieselYellow,
-      indexed2 = plt.factoryOrange,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.exhaustGray,
-      ["@comment.documentation"] = plt.exhaustGrayBright,
-      ["@comment.error"] = plt.errorRed,
-      ["@comment.warning"] = plt.warningAmber,
-      ["@comment.todo"] = plt.dieselYellowBright,
-      ["@comment.note"] = plt.metropolisBlue,
-
-      ["@constant"] = plt.chromeWhite,
-      ["@constant.builtin"] = plt.chromeWhiteCore,
-      ["@constant.macro"] = plt.artDecoGold,
-
-      ["@string"] = plt.militaryGreenCore,
-      ["@string.documentation"] = plt.militaryGreenCore,
-      ["@string.regex"] = plt.tankGreen,
-      ["@string.escape"] = plt.factoryOrangeBright,
-      ["@string.special"] = plt.militaryGreenBright,
-      ["@string.special.symbol"] = plt.artDecoGold,
-      ["@string.special.url"] = plt.metropolisBlue,
-      ["@string.special.path"] = plt.militaryGreenCore,
-
-      ["@character"] = plt.militaryGreenCore,
-      ["@character.special"] = plt.dieselYellow,
-
-      ["@number"] = plt.chromeWhite,
-      ["@number.float"] = plt.chromeWhiteCore,
-
-      ["@boolean"] = plt.factoryOrange,
-
-      ["@function"] = plt.militaryGreenCore,
-      ["@function.builtin"] = plt.militaryGreenCore,
-      ["@function.call"] = plt.militaryGreenCore,
-      ["@function.macro"] = plt.metropolisBluCore,
-      ["@function.method"] = plt.militaryGreenBright,
-      ["@function.method.call"] = plt.militaryGreenBright,
-
-      ["@constructor"] = plt.engineBrownCore,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.steelGrayCore,
-      ["@keyword.coroutine"] = plt.metropolisBluCore,
-      ["@keyword.function"] = plt.steelGrayCore,
-      ["@keyword.operator"] = plt.dieselYellowCore,
-      ["@keyword.return"] = plt.steelGrayCore,
-      ["@keyword.import"] = plt.metropolisBluCore,
-      ["@keyword.storage"] = plt.steelGrayCore,
-      ["@keyword.repeat"] = plt.steelGrayCore,
-      ["@keyword.conditional"] = plt.steelGrayCore,
-      ["@keyword.exception"] = plt.mechRedCore,
-      ["@keyword.directive"] = plt.metropolisBluCore,
-      ["@keyword.directive.define"] = plt.metropolisBluCore,
-
-      ["@conditional"] = plt.steelGrayCore,
-      ["@conditional.ternary"] = plt.steelGrayCore,
-
-      ["@repeat"] = plt.steelGrayCore,
-
-      ["@label"] = plt.artDecoGold,
-
-      ["@operator"] = plt.dieselYellowCore,
-
-      ["@exception"] = plt.mechRedCore,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.steelGrayBright,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.engineBrownCore,
-      ["@type.builtin"] = plt.engineBrownCore,
-      ["@type.definition"] = plt.engineBrownCore,
-      ["@type.qualifier"] = plt.steelGrayCore,
-
-      ["@attribute"] = plt.artDecoGold,
-      ["@attribute.builtin"] = plt.artDecoGold,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.engineBrownCore,
-      ["@module.builtin"] = plt.engineBrownCore,
-
-      ["@namespace"] = plt.engineBrownCore,
-      ["@namespace.builtin"] = plt.engineBrownCore,
-
-      ["@punctuation.delimiter"] = plt.fg_dark,
-      ["@punctuation.bracket"] = plt.fg_dark,
-      ["@punctuation.special"] = plt.dieselYellowCore,
-
-      ["@tag"] = plt.steelGrayCore,
-      ["@tag.attribute"] = plt.artDecoGold,
-      ["@tag.delimiter"] = plt.dieselYellowCore,
-      ["@tag.builtin"] = plt.steelGrayCore,
-
-      ["@markup.strong"] = { fg = plt.factoryOrangeBright, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.exhaustGray, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.metropolisBlue, underline = true },
-      ["@markup.heading"] = plt.dieselYellowBright,
-      ["@markup.heading.1"] = plt.dieselYellowBright,
-      ["@markup.heading.2"] = plt.factoryOrangeBright,
-      ["@markup.heading.3"] = plt.steelGrayBright,
-      ["@markup.heading.4"] = plt.militaryGreenBright,
-      ["@markup.heading.5"] = plt.metropolisBlueBright,
-      ["@markup.heading.6"] = plt.artDecoGoldBright,
-      ["@markup.quote"] = plt.exhaustGray,
-      ["@markup.math"] = plt.chromeWhite,
-      ["@markup.link"] = plt.metropolisBlue,
-      ["@markup.link.label"] = plt.metropolisBlueBright,
-      ["@markup.link.url"] = plt.metropolisBlue,
-      ["@markup.raw"] = plt.militaryGreenCore,
-      ["@markup.raw.block"] = plt.militaryGreenCore,
-      ["@markup.list"] = plt.steelGrayCore,
-      ["@markup.list.checked"] = plt.militaryGreenCore,
-      ["@markup.list.unchecked"] = plt.exhaustGray,
-
-      ["@diff.plus"] = plt.militaryGreenCore,
-      ["@diff.minus"] = plt.mechRedCore,
-      ["@diff.delta"] = plt.factoryOrangeCore,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.bg_lightest,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.engineBrownCore,
-      ["@constructor.javascript"] = plt.engineBrownCore,
-      ["@constructor.typescript"] = plt.engineBrownCore,
-      ["@namespace.rust"] = plt.engineBrownCore,
-      ["@type.qualifier.rust"] = plt.steelGrayCore,
-      ["@constant.macro.c"] = plt.artDecoGold,
-      ["@constant.macro.cpp"] = plt.artDecoGold,
-      ["@namespace.go"] = plt.engineBrownCore,
-      ["@property.css"] = plt.militaryGreenBright,
-      ["@type.css"] = plt.steelGrayCore,
-      ["@label.json"] = plt.artDecoGold,
-      ["@field.yaml"] = plt.militaryGreenBright,
-      ["@property.toml"] = plt.militaryGreenBright,
-      ["@function.builtin.bash"] = plt.militaryGreenCore,
-      ["@string.regexp"] = plt.tankGreen,
-      ["@character.special.regex"] = plt.dieselYellow,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.engineBrownCore,
-      ["@lsp.type.interface"] = plt.engineBrownCore,
-      ["@lsp.type.struct"] = plt.engineBrownCore,
-      ["@lsp.type.enum"] = plt.engineBrownCore,
-      ["@lsp.type.enumMember"] = plt.chromeWhiteCore,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.engineBrownCore,
-
-      ["@lsp.type.macro"] = plt.artDecoGold,
-      ["@lsp.type.decorator"] = plt.artDecoGold,
-
-      ["@lsp.type.builtinType"] = plt.engineBrownCore,
-      ["@lsp.type.selfParameter"] = plt.steelGrayBright,
-      ["@lsp.type.typeParameter"] = plt.engineBrownCore,
-
-      ["@lsp.type.array"] = plt.engineBrownCore,
-      ["@lsp.type.object"] = plt.engineBrownCore,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.chromeWhiteCore,
-      ["@lsp.type.enumConstant"] = plt.chromeWhiteCore,
-
-      ["@lsp.type.event"] = plt.engineBrownCore,
-      ["@lsp.type.regexp"] = plt.tankGreen,
-      ["@lsp.type.unresolvedReference"] = plt.engineBrownCore,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.sootBlackLight, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.chromeWhiteCore,
-      ["@lsp.mod.async"] = plt.steelGrayCore,
-      ["@lsp.mod.static"] = plt.steelGrayBright,
-      ["@lsp.mod.abstract"] = plt.engineBrownCore,
-      ["@lsp.mod.defaultLibrary"] = plt.engineBrownCore,
-      ["@lsp.mod.documentation"] = plt.exhaustGrayBright,
     },
   }
 end
@@ -352,7 +146,6 @@ return {
   name = "Punk – Dieselpunk",
   author = "PrismPunk.nvim",
   description = "Industrial revolution — diesel yellow, steel gray, military green, Art Deco machinery.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +164,6 @@ return {
     base0E = palette.artDecoGoldCore,
     base0F = palette.engineBrownCore,
   },
-
   palette = palette,
   get = M.get,
 }

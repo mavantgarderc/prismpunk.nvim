@@ -6,76 +6,60 @@ return {
   bg_light = "#3d2d1c",
   bg_lighter = "#4a3722",
   bg_lightest = "#57412a",
-
   fg_lightest = "#fff8e8",
   fg_light = "#f0e6d0",
   fg_mid = "#d8c8a8",
   fg_dark = "#b8a888",
-
   bg_alt1 = "#150f08",
   bg_alt2 = "#0a0602",
   bg_alt3 = "#1f1710",
   bg_alt4 = "#050301",
-
   reporterYellow = "#ffd700",
   reporterYellowBright = "#ffea4d",
   reporterYellowCore = "#f0c800",
   reporterYellowDeep = "#d4af37",
   reporterYellowDark = "#b89530",
-
   jacketYellow = "#ffdb58",
   jacketYellowBright = "#ffe97d",
   jacketYellowCore = "#f0c745",
   jacketYellowDeep = "#d4a838",
-
   newsRed = "#d94a4a",
   newsRedBright = "#ff5f5f",
   newsRedCore = "#c23838",
   newsRedDeep = "#a02828",
-
   cameraGray = "#8a8480",
   cameraGrayLight = "#9f9a95",
   cameraGrayDark = "#6f6b68",
-
   microphoneBlue = "#4a7a9a",
   microphoneBlueBright = "#5f9ab8",
   microphoneBlueCore = "#3a627a",
   microphoneBlueDeep = "#2d4a5f",
-
   notebookPaper = "#efe8d8",
   notebookPaperAged = "#d8d0b8",
   notebookInk = "#3a3128",
-
   pressPassGreen = "#5a7a5a",
   pressPassGreenBright = "#7a9a7a",
   pressPassGreenCore = "#4a6248",
   pressPassGreenDeep = "#3a4a38",
-
   channelSix = "#5f8fb8",
   channelSixBright = "#7dafd8",
   channelSixCore = "#4a7098",
   channelSixDeep = "#385678",
-
   headlineBlack = "#2a2520",
   headlineBlackDeep = "#1a1510",
-
   truthOrange = "#d97a4a",
   truthOrangeBright = "#ff9565",
   truthOrangeDeep = "#b86238",
-
   investigatePurple = "#8a6b9a",
   investigatePurpleBright = "#a885b8",
   investigatePurpleCore = "#6f5678",
   investigatePurpleDeep = "#5a4460",
-
   studioLights = "#fff5d0",
   studioLightsDim = "#e8d8b0",
-
   dangerRed = "#e74c3c",
   warningAmber = "#f39c12",
   infoBlue = "#3498db",
   successGreen = "#27ae60",
-
   newsroom = "#1f1710",
   breakingNews = "#d94a38",
   journalist = "#d4af37",

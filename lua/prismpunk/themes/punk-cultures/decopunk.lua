@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.punk-cultures.decopunk")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.champagneGoldCore,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.velvetRedCore,
       command = plt.metropolisBlueCore,
     },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.jazzPurpleDeep,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.elegantGray,
-      header1 = plt.champagneGoldBright,
-      header2 = plt.artDecoTealBright,
-      special = plt.jazzPurple,
-      nontext = plt.bg_lightest,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.elegantGray,
-      indent = plt.bg_lighter,
-      indent_scope = plt.champagneGoldCore,
-      picker = plt.flamingoRose,
-      yank = plt.sunburstYellowBright,
-      mark = plt.artDecoTeal,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_dark,
-        bg_inactive = plt.bg_darkest,
-        fg_alternate = plt.champagneGoldBright,
-        bg_alternate = plt.bg_darkest,
-        indicator = plt.champagneGoldCore,
-      },
-      pmenu = {
-        fg = plt.fg_light,
-        fg_sel = plt.fg_lightest,
-        fg_border = plt.elegantGray,
-        bg_border = plt.bg_light,
-        bg = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_sbar = plt.bg_light,
-        bg_thumb = plt.elegantGrayLight,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.elegantGray,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.champagneGoldCore,
       accent2 = plt.jazzPurpleCore,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.flamingoRoseCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.champagneGoldBright,
       rainbow2 = plt.jazzPurpleBright,
@@ -95,54 +30,97 @@ M.get = function(opts, plt)
       rainbow6 = plt.geometricGreenBright,
       rainbow7 = plt.zigzagBronzeBright,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_dark,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      bg_visual = plt.bg_mid,
+      border = plt.elegantGray,
+      cursorline = plt.bg_dark,
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.champagneGoldCore,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.bg_lightest,
+      selection = plt.bg_mid,
+      win_separator = plt.elegantGray,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.elegantGray,
+      },
+      pmenu = {
+        bg = plt.bg_light,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_thumb = plt.elegantGrayLight,
+        fg = plt.fg_light,
+        fg_sel = plt.fg_lightest,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_dark,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
-      attribute = plt.sunburstYellow,
-      boolean = plt.artDecoTeal,
+      attribute = plt.sunburstYellowCore,
+      boolean = plt.artDecoTealCore,
       comment = plt.elegantGray,
-      constant = plt.pearlWhite,
+      constant = plt.pearlWhiteCore,
       deprecated = plt.velvetBlack,
       func = plt.artDecoTealCore,
       identifier = plt.fg_lightest,
       keyword = plt.champagneGoldCore,
       method = plt.artDecoTealBright,
-      number = plt.pearlWhite,
+      number = plt.pearlWhiteCore,
       operator = plt.jazzPurpleCore,
       parameter = plt.fg_mid,
       preproc = plt.metropolisBlueCore,
       punct = plt.fg_dark,
-      regex = plt.flamingoRose,
+      regex = plt.flamingoRoseCore,
+      special = plt.jazzPurpleCore,
       statement = plt.champagneGoldCore,
       string = plt.artDecoTealCore,
-      symbol = plt.sunburstYellow,
+      symbol = plt.sunburstYellowCore,
       type = plt.crystalSilverCore,
       variable = plt.fg_lightest,
-      special = plt.jazzPurple,
-      special2 = plt.flamingoRose,
-      special3 = plt.zigzagBronze,
     },
-
-    vcs = {
-      added = plt.geometricGreenCore,
-      removed = plt.velvetRedCore,
-      changed = plt.chevronOrangeCore,
+    diag = {
+      error = plt.errorRed,
+      warning = plt.warningAmber,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.jazzPurpleCore,
     },
-
     diff = {
       add = plt.geometricGreenCore,
       change = plt.chevronOrangeCore,
       delete = plt.velvetRedCore,
-      text = plt.jazzPurple,
+      text = plt.jazzPurpleCore,
     },
-
-    diag = {
-      ok = plt.successGreen,
-      error = plt.errorRed,
-      warning = plt.warningAmber,
-      info = plt.infoBlue,
-      hint = plt.jazzPurple,
+    vcs = {
+      added = plt.geometricGreenCore,
+      changed = plt.chevronOrangeCore,
+      removed = plt.velvetRedCore,
     },
-
     term = {
       black = plt.bg_darkest,
       red = plt.velvetRedCore,
@@ -160,190 +138,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.jazzPurpleBright):brighten(0.15):to_hex(),
       cyan_bright = color(plt.artDecoTealBright):brighten(0.15):to_hex(),
       white_bright = plt.pearlWhiteBright,
-      indexed1 = plt.champagneGold,
-      indexed2 = plt.jazzPurple,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.elegantGray,
-      ["@comment.documentation"] = plt.elegantGrayLight,
-      ["@comment.error"] = plt.errorRed,
-      ["@comment.warning"] = plt.warningAmber,
-      ["@comment.todo"] = plt.sunburstYellowBright,
-      ["@comment.note"] = plt.jazzPurple,
-
-      ["@constant"] = plt.pearlWhite,
-      ["@constant.builtin"] = plt.pearlWhiteCore,
-      ["@constant.macro"] = plt.sunburstYellow,
-
-      ["@string"] = plt.artDecoTealCore,
-      ["@string.documentation"] = plt.artDecoTealCore,
-      ["@string.regex"] = plt.flamingoRose,
-      ["@string.escape"] = plt.champagneGoldBright,
-      ["@string.special"] = plt.artDecoTealBright,
-      ["@string.special.symbol"] = plt.sunburstYellow,
-      ["@string.special.url"] = plt.metropolisBlue,
-      ["@string.special.path"] = plt.artDecoTealCore,
-
-      ["@character"] = plt.artDecoTealCore,
-      ["@character.special"] = plt.sunburstYellow,
-
-      ["@number"] = plt.pearlWhite,
-      ["@number.float"] = plt.pearlWhiteCore,
-
-      ["@boolean"] = plt.artDecoTeal,
-
-      ["@function"] = plt.artDecoTealCore,
-      ["@function.builtin"] = plt.artDecoTealCore,
-      ["@function.call"] = plt.artDecoTealCore,
-      ["@function.macro"] = plt.metropolisBlueCore,
-      ["@function.method"] = plt.artDecoTealBright,
-      ["@function.method.call"] = plt.artDecoTealBright,
-
-      ["@constructor"] = plt.crystalSilverCore,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.champagneGoldCore,
-      ["@keyword.coroutine"] = plt.metropolisBlueCore,
-      ["@keyword.function"] = plt.champagneGoldCore,
-      ["@keyword.operator"] = plt.jazzPurpleCore,
-      ["@keyword.return"] = plt.champagneGoldCore,
-      ["@keyword.import"] = plt.metropolisBlueCore,
-      ["@keyword.storage"] = plt.champagneGoldCore,
-      ["@keyword.repeat"] = plt.champagneGoldCore,
-      ["@keyword.conditional"] = plt.champagneGoldCore,
-      ["@keyword.exception"] = plt.velvetRedCore,
-      ["@keyword.directive"] = plt.metropolisBlueCore,
-      ["@keyword.directive.define"] = plt.metropolisBlueCore,
-
-      ["@conditional"] = plt.champagneGoldCore,
-      ["@conditional.ternary"] = plt.champagneGoldCore,
-
-      ["@repeat"] = plt.champagneGoldCore,
-
-      ["@label"] = plt.sunburstYellow,
-
-      ["@operator"] = plt.jazzPurpleCore,
-
-      ["@exception"] = plt.velvetRedCore,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.champagneGoldBright,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.crystalSilverCore,
-      ["@type.builtin"] = plt.crystalSilverCore,
-      ["@type.definition"] = plt.crystalSilverCore,
-      ["@type.qualifier"] = plt.champagneGoldCore,
-
-      ["@attribute"] = plt.sunburstYellow,
-      ["@attribute.builtin"] = plt.sunburstYellow,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.crystalSilverCore,
-      ["@module.builtin"] = plt.crystalSilverCore,
-
-      ["@namespace"] = plt.crystalSilverCore,
-      ["@namespace.builtin"] = plt.crystalSilverCore,
-
-      ["@punctuation.delimiter"] = plt.fg_dark,
-      ["@punctuation.bracket"] = plt.fg_dark,
-      ["@punctuation.special"] = plt.jazzPurpleCore,
-
-      ["@tag"] = plt.champagneGoldCore,
-      ["@tag.attribute"] = plt.sunburstYellow,
-      ["@tag.delimiter"] = plt.jazzPurpleCore,
-      ["@tag.builtin"] = plt.champagneGoldCore,
-
-      ["@markup.strong"] = { fg = plt.champagneGoldBright, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.elegantGray, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.jazzPurple, underline = true },
-      ["@markup.heading"] = plt.champagneGoldBright,
-      ["@markup.heading.1"] = plt.champagneGoldBright,
-      ["@markup.heading.2"] = plt.jazzPurpleBright,
-      ["@markup.heading.3"] = plt.artDecoTealBright,
-      ["@markup.heading.4"] = plt.flamingoRoseBright,
-      ["@markup.heading.5"] = plt.metropolisBlueBright,
-      ["@markup.heading.6"] = plt.geometricGreenBright,
-      ["@markup.quote"] = plt.elegantGray,
-      ["@markup.math"] = plt.pearlWhite,
-      ["@markup.link"] = plt.metropolisBlue,
-      ["@markup.link.label"] = plt.metropolisBlueBright,
-      ["@markup.link.url"] = plt.metropolisBlue,
-      ["@markup.raw"] = plt.artDecoTealCore,
-      ["@markup.raw.block"] = plt.artDecoTealCore,
-      ["@markup.list"] = plt.champagneGoldCore,
-      ["@markup.list.checked"] = plt.geometricGreenCore,
-      ["@markup.list.unchecked"] = plt.elegantGray,
-
-      ["@diff.plus"] = plt.geometricGreenCore,
-      ["@diff.minus"] = plt.velvetRedCore,
-      ["@diff.delta"] = plt.chevronOrangeCore,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.bg_lightest,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.crystalSilverCore,
-      ["@constructor.javascript"] = plt.crystalSilverCore,
-      ["@constructor.typescript"] = plt.crystalSilverCore,
-      ["@namespace.rust"] = plt.crystalSilverCore,
-      ["@type.qualifier.rust"] = plt.champagneGoldCore,
-      ["@constant.macro.c"] = plt.sunburstYellow,
-      ["@constant.macro.cpp"] = plt.sunburstYellow,
-      ["@namespace.go"] = plt.crystalSilverCore,
-      ["@property.css"] = plt.artDecoTealBright,
-      ["@type.css"] = plt.champagneGoldCore,
-      ["@label.json"] = plt.sunburstYellow,
-      ["@field.yaml"] = plt.artDecoTealBright,
-      ["@property.toml"] = plt.artDecoTealBright,
-      ["@function.builtin.bash"] = plt.artDecoTealCore,
-      ["@string.regexp"] = plt.flamingoRose,
-      ["@character.special.regex"] = plt.sunburstYellow,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.crystalSilverCore,
-      ["@lsp.type.interface"] = plt.crystalSilverCore,
-      ["@lsp.type.struct"] = plt.crystalSilverCore,
-      ["@lsp.type.enum"] = plt.crystalSilverCore,
-      ["@lsp.type.enumMember"] = plt.pearlWhiteCore,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.crystalSilverCore,
-
-      ["@lsp.type.macro"] = plt.sunburstYellow,
-      ["@lsp.type.decorator"] = plt.sunburstYellow,
-
-      ["@lsp.type.builtinType"] = plt.crystalSilverCore,
-      ["@lsp.type.selfParameter"] = plt.champagneGoldBright,
-      ["@lsp.type.typeParameter"] = plt.crystalSilverCore,
-
-      ["@lsp.type.array"] = plt.crystalSilverCore,
-      ["@lsp.type.object"] = plt.crystalSilverCore,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.pearlWhiteCore,
-      ["@lsp.type.enumConstant"] = plt.pearlWhiteCore,
-
-      ["@lsp.type.event"] = plt.crystalSilverCore,
-      ["@lsp.type.regexp"] = plt.flamingoRose,
-      ["@lsp.type.unresolvedReference"] = plt.crystalSilverCore,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.velvetBlack, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.pearlWhiteCore,
-      ["@lsp.mod.async"] = plt.champagneGoldCore,
-      ["@lsp.mod.static"] = plt.champagneGoldBright,
-      ["@lsp.mod.abstract"] = plt.crystalSilverCore,
-      ["@lsp.mod.defaultLibrary"] = plt.crystalSilverCore,
-      ["@lsp.mod.documentation"] = plt.elegantGrayLight,
     },
   }
 end
@@ -352,7 +146,6 @@ return {
   name = "Punk – Decopunk",
   author = "PrismPunk.nvim",
   description = "Art Deco glamour — champagne gold, jazz purple, geometric elegance, Gatsby nights.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +164,6 @@ return {
     base0E = palette.jazzPurpleCore,
     base0F = palette.champagneGoldCore,
   },
-
   palette = palette,
   get = M.get,
 }

@@ -1,5 +1,4 @@
 return {
-  sumiInkn1 = "#0F0F15",
   sumiInk0 = "#16161D",
   sumiInk1 = "#181820",
   sumiInk2 = "#1A1A22",
@@ -7,26 +6,21 @@ return {
   sumiInk4 = "#2A2A37",
   sumiInk5 = "#363646",
   sumiInk6 = "#54546D",
-
-  oldWhite = "#C8C093",
+  sumiInkShadow = "#0F0F15",
+  sumiInkEcho = "#1C1C24",
+  sumiInkTint = "#242430",
   fujiWhite = "#DCD7BA",
+  oldWhite = "#C8C093",
   fujiGray = "#727169",
-
-  dragonWhite = "#C5C9C5",
   dragonGray = "#9E9B93",
   dragonGray2 = "#9E9B93",
   dragonGray3 = "#7A8382",
-
-  dragonBlack2 = "#1D1C19",
-  dragonBlack3 = "#181616",
-  dragonBlack5 = "#393836",
-  dragonBlack6 = "#625E5A",
-
+  katanaGray = "#717C7C",
   dragonRed = "#C4746E",
   dragonPink = "#A292A3",
-  dragonYellow = "#C4B28A",
   dragonOrange = "#B6927B",
   dragonOrange2 = "#B98D7B",
+  dragonYellow = "#C4B28A",
   dragonGreen = "#699469",
   dragonGreen2 = "#8A9A7B",
   dragonBlue = "#658594",
@@ -36,10 +30,15 @@ return {
   dragonAqua = "#8EA49E",
   dragonAsh = "#737C73",
   dragonTeal = "#949FB5",
-
   springViolet1 = "#938AA9",
   waveAqua1 = "#6A9589",
   waveAqua2 = "#7AA89F",
-
-  katanaGray = "#717C7C",
+  dragonGlow = "#E6C4A0",
+  dragonVivid = "#F0D4B0",
+  dragonFlare = "#F8E4C0",
+  dragonAccent1 = "#3A2F35",
+  dragonAccent2 = "#44363D",
+  dragonAccent3 = "#4E3D45",
+  dragonAccent4 = "#58444D",
+  dragonAccent5 = "#624B55",
 }

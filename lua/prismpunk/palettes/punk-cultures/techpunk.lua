@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0C0E12",
   bg_darker = "#11141A",
   bg_dark = "#171B22",
@@ -7,101 +6,42 @@ return {
   bg_light = "#232932",
   bg_lighter = "#29303A",
   bg_lightest = "#2F3742",
-
   fg_lightest = "#EDF2F7",
   fg_light = "#D4DBE6",
   fg_mid = "#B0BBC8",
   fg_dark = "#8A96A8",
-
   bg_alt1 = "#14171E",
   bg_alt2 = "#0E1014",
   bg_alt3 = "#1A1E26",
   bg_alt4 = "#0F1216",
-
-  techBlue = "#0EA5E9",
   techBlueCore = "#0284C7",
   techBlueBright = "#38BDF8",
-  techBlueDeep = "#0369A1",
-  techBlueDark = "#075985",
-
-  dataGreen = "#10B981",
   dataGreenCore = "#059669",
   dataGreenBright = "#34D399",
-  dataGreenDeep = "#047857",
-  dataGreenDark = "#065F46",
-
-  quantumViolet = "#8B5CF6",
   quantumVioletCore = "#7C3AED",
   quantumVioletBright = "#A78BFA",
-  quantumVioletDeep = "#6D28D9",
-  quantumVioletDark = "#5B21B6",
-
-  plasmaOrange = "#F59E0B",
   plasmaOrangeCore = "#D97706",
   plasmaOrangeBright = "#FBBF24",
-  plasmaOrangeDeep = "#B45309",
-  plasmaOrangeDark = "#92400E",
-
-  neonCyan = "#06B6D4",
   neonCyanCore = "#0891B2",
   neonCyanBright = "#22D3EE",
-  neonCyanDeep = "#0E7490",
-  neonCyanDark = "#155E75",
-
-  circuitGreen = "#22C55E",
   circuitGreenCore = "#16A34A",
   circuitGreenBright = "#4ADE80",
-  circuitGreenDeep = "#15803D",
-  circuitGreenDark = "#166534",
-
-  binaryWhite = "#F8FAFC",
   binaryWhiteCore = "#E2E8F0",
   binaryWhiteBright = "#FFFFFF",
-  binaryWhiteDeep = "#CBD5E1",
-  binaryWhiteDark = "#94A3B8",
-
-  laserRed = "#EF4444",
   laserRedCore = "#DC2626",
   laserRedBright = "#F87171",
-  laserRedDeep = "#B91C1C",
-  laserRedDark = "#991B1B",
-
-  hologramPink = "#EC4899",
   hologramPinkCore = "#DB2777",
   hologramPinkBright = "#F472B6",
-  hologramPinkDeep = "#BE185D",
-  hologramPinkDark = "#9F1239",
-
-  networkBlue = "#3B82F6",
   networkBlueCore = "#2563EB",
   networkBlueBright = "#60A5FA",
-  networkBlueDeep = "#1D4ED8",
-  networkBlueDark = "#1E40AF",
-
-  streamPurple = "#A855F7",
   streamPurpleCore = "#9333EA",
   streamPurpleBright = "#C084FC",
-  streamPurpleDeep = "#7E22CE",
-  streamPurpleDark = "#6B21A8",
-
-  signalYellow = "#EAB308",
   signalYellowCore = "#CA8A04",
   signalYellowBright = "#FDE047",
-  signalYellowDeep = "#A16207",
-  signalYellowDark = "#854D0E",
-
   metalGray = "#64748B",
   metalGrayLight = "#94A3B8",
-  metalGrayDark = "#475569",
-  serverBlack = "#1E293B",
-  wireGray = "#475569",
-
   successGreen = "#10B981",
   warningAmber = "#F59E0B",
   infoBlue = "#0EA5E9",
   errorRed = "#EF4444",
-
-  technology = "#0EA5E9",
-  innovation = "#8B5CF6",
-  digital = "#06B6D4",
 }

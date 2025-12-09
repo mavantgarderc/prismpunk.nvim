@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0A0A08",
   bg_darker = "#121210",
   bg_dark = "#1A1A16",
@@ -7,101 +6,39 @@ return {
   bg_light = "#2E2E26",
   bg_lighter = "#38382E",
   bg_lightest = "#424236",
-
   fg_lightest = "#E8E4D8",
   fg_light = "#D0C8B8",
   fg_mid = "#B0A898",
   fg_dark = "#888070",
-
   bg_alt1 = "#161612",
   bg_alt2 = "#0E0E0C",
   bg_alt3 = "#1E1E18",
   bg_alt4 = "#12120E",
-
-  graniteGray = "#808080",
   graniteGrayCore = "#707070",
   graniteGrayBright = "#909090",
   graniteGrayDeep = "#606060",
-  graniteGrayDark = "#505050",
-
-  flintBlack = "#2A2A24",
-  flintBlackCore = "#242420",
-  flintBlackBright = "#34342C",
-  flintBlackDeep = "#1E1E18",
-  flintBlackDark = "#141410",
-
-  limestoneCream = "#D4C8B0",
-  limestoneCreamCore = "#C4B8A0",
-  limestoneCreamBright = "#E4D8C0",
-  limestoneCreamDeep = "#B4A890",
-  limestoneCreamDark = "#948878",
-
-  sandstoneYellow = "#C8A878",
   sandstoneYellowCore = "#B89868",
   sandstoneYellowBright = "#D8B888",
   sandstoneYellowDeep = "#A88858",
-  sandstoneYellowDark = "#887048",
-
-  slateBlue = "#6A7A8A",
   slateBlueCore = "#5A6A7A",
   slateBlueBright = "#7A8A9A",
-  slateBlueDeep = "#4A5A6A",
-  slateBlueDark = "#3A4A5A",
-
-  obsidianBlack = "#1A1A1A",
-  obsidianBlackCore = "#1E1E1E",
-  obsidianBlackBright = "#242424",
-  obsidianBlackDeep = "#141414",
-  obsidianBlackDark = "#0E0E0E",
-
-  clayBrown = "#8B7355",
   clayBrownCore = "#7A6448",
   clayBrownBright = "#9B8365",
-  clayBrownDeep = "#6A5438",
-  clayBrownDark = "#4E3E28",
-
-  ashGray = "#9A9A8A",
-  ashGrayCore = "#8A8A7A",
-  ashGrayBright = "#AAAA9A",
-  ashGrayDeep = "#7A7A6A",
-  ashGrayDark = "#6A6A5A",
-
-  charcoal = "#36362E",
-  charcoalCore = "#2C2C26",
-  charcoalBright = "#40403A",
-  charcoalDeep = "#26261E",
-  charcoalDark = "#1A1A14",
-
-  copperOre = "#B87333",
   copperOreCore = "#A5662E",
   copperOreBright = "#CB8547",
-  copperOreDeep = "#8A5528",
-  copperOreDark = "#6E421F",
-
-  ironOxide = "#A0522D",
   ironOxideCore = "#8E4826",
   ironOxideBright = "#B86341",
-  ironOxideDeep = "#7A3E20",
-  ironOxideDark = "#5E2F18",
-
-  mossGreen = "#5A6A4A",
   mossGreenCore = "#4A5A3A",
   mossGreenBright = "#6A7A5A",
-  mossGreenDeep = "#3A4A2A",
-  mossGreenDark = "#2A3A1A",
-
+  ashGrayCore = "#8A8A7A",
+  ashGrayBright = "#AAAA9A",
+  limestoneCreamCore = "#C4B8A0",
+  limestoneCreamBright = "#E4D8C0",
   rockGray = "#6A6A5E",
   rockGrayLight = "#7A7A6E",
-  rockGrayDark = "#5A5A4E",
   boulderGray = "#4A4A3E",
-  pebbleGray = "#8A8A7E",
-
   successGreen = "#5A6A4A",
   warningAmber = "#C8A878",
   infoBlue = "#6A7A8A",
   errorRed = "#A0522D",
-
-  stone = "#808080",
-  earth = "#8B7355",
-  primitive = "#C8A878",
 }

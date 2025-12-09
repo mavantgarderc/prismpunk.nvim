@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0C0E10",
   bg_darker = "#121416",
   bg_dark = "#181C1E",
@@ -7,101 +6,53 @@ return {
   bg_light = "#262C2E",
   bg_lighter = "#2E3436",
   bg_lightest = "#363C3E",
-
   fg_lightest = "#F5F8FA",
   fg_light = "#E0E8ED",
   fg_mid = "#C0CCD6",
   fg_dark = "#98A8B4",
-
   bg_alt1 = "#14181A",
   bg_alt2 = "#0E1012",
   bg_alt3 = "#1A1E22",
   bg_alt4 = "#101214",
-
-  atomicOrange = "#FF6B35",
   atomicOrangeCore = "#F55A24",
   atomicOrangeBright = "#FF8558",
   atomicOrangeDeep = "#E54918",
   atomicOrangeDark = "#CC3810",
-
-  chromeBlue = "#00B4D8",
   chromeBlueCore = "#0096C7",
   chromeBlueBright = "#48CAE4",
   chromeBlueDeep = "#0077B6",
   chromeBlueDark = "#03045E",
-
-  reactorGreen = "#06FFA5",
   reactorGreenCore = "#05E095",
   reactorGreenBright = "#39FFB9",
   reactorGreenDeep = "#04C780",
   reactorGreenDark = "#039B68",
-
-  raygunRed = "#EF476F",
   raygunRedCore = "#E63958",
   raygunRedBright = "#F26888",
   raygunRedDeep = "#D82648",
   raygunRedDark = "#BB1838",
-
-  turbineYellow = "#FFD60A",
   turbineYellowCore = "#FFC300",
   turbineYellowBright = "#FFE040",
   turbineYellowDeep = "#E6AF00",
-  turbineYellowDark = "#CC9900",
-
-  jetAgeBlue = "#4CC9F0",
   jetAgeBlueCore = "#3ABEEB",
   jetAgeBlueBright = "#72D5F5",
   jetAgeBlueDeep = "#28A3D6",
   jetAgeBlueDark = "#1A7FA0",
-
-  spaceWhite = "#F8F9FA",
   spaceWhiteCore = "#E9ECEF",
   spaceWhiteBright = "#FFFFFF",
-  spaceWhiteDeep = "#DEE2E6",
-  spaceWhiteDark = "#CED4DA",
-
-  rocketSilver = "#ADB5BD",
   rocketSilverCore = "#9DA5AD",
   rocketSilverBright = "#C8CED4",
-  rocketSilverDeep = "#8D959D",
-  rocketSilverDark = "#6C757D",
-
-  nucleusViolet = "#B565D8",
   nucleusVioletCore = "#A552C6",
   nucleusVioletBright = "#C57EE6",
-  nucleusVioletDeep = "#9040B0",
-  nucleusVioletDark = "#7A3090",
-
-  geiger = "#00D9FF",
   geigerCore = "#00C4E6",
   geigerBright = "#33E1FF",
-  geigerDeep = "#00AECC",
-  geigerDark = "#0090AA",
-
-  radiumGlow = "#ADFF2F",
   radiumGlowCore = "#9BEB1B",
   radiumGlowBright = "#C1FF5C",
-  radiumGlowDeep = "#8AD70F",
-  radiumGlowDark = "#6FB808",
-
-  falloutGray = "#8B95A0",
-  falloutGrayCore = "#7B8590",
+  falloutGray = "#7B8590",
   falloutGrayBright = "#A0AAB5",
-  falloutGrayDeep = "#6B7580",
-  falloutGrayDark = "#5B6570",
-
   steelGray = "#6C7A89",
   steelGrayLight = "#8895A4",
-  steelGrayDark = "#5A6875",
-  retroGray = "#495057",
-  chromeGray = "#7D8A97",
-
   successGreen = "#06FFA5",
   warningAmber = "#FFD60A",
   infoBlue = "#00B4D8",
   errorRed = "#EF476F",
-
-  atomic = "#FF6B35",
-  chrome = "#00B4D8",
-  reactor = "#06FFA5",
 }

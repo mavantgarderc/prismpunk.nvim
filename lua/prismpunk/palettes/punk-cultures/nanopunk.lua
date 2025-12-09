@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#08080C",
   bg_darker = "#0E0E14",
   bg_dark = "#14141C",
@@ -7,101 +6,49 @@ return {
   bg_light = "#20202C",
   bg_lighter = "#262634",
   bg_lightest = "#2C2C3C",
-
   fg_lightest = "#F0F0FA",
   fg_light = "#D8D8E8",
   fg_mid = "#B8B8D0",
   fg_dark = "#9090A8",
-
   bg_alt1 = "#101016",
   bg_alt2 = "#0A0A10",
   bg_alt3 = "#161620",
   bg_alt4 = "#0C0C12",
-
-  quantumViolet = "#9D4EDD",
   quantumVioletCore = "#8B3FCC",
   quantumVioletBright = "#B565EE",
   quantumVioletDeep = "#7830B8",
-  quantumVioletDark = "#6020A0",
-
-  nanoGreen = "#39FF14",
   nanoGreenCore = "#2EE610",
   nanoGreenBright = "#5AFF3D",
   nanoGreenDeep = "#26CC0C",
-  nanoGreenDark = "#1FA008",
-
-  particleBlue = "#00D9FF",
   particleBlueCore = "#00C4E6",
   particleBlueBright = "#33E1FF",
   particleBlueDeep = "#00AECC",
-  particleBlueDark = "#0090AA",
-
-  molecularPink = "#FF006E",
   molecularPinkCore = "#E6005F",
   molecularPinkBright = "#FF1A7F",
   molecularPinkDeep = "#CC0050",
-  molecularPinkDark = "#A50040",
-
-  atomicYellow = "#FFF01F",
   atomicYellowCore = "#E6D91B",
   atomicYellowBright = "#FFFF4F",
   atomicYellowDeep = "#CCBE16",
-  atomicYellowDark = "#A09812",
-
-  electronCyan = "#00FFFF",
   electronCyanCore = "#00E6E6",
   electronCyanBright = "#33FFFF",
   electronCyanDeep = "#00CCCC",
-  electronCyanDark = "#00A0A0",
-
-  cellularOrange = "#FF9500",
   cellularOrangeCore = "#E68500",
   cellularOrangeBright = "#FFA733",
-  cellularOrangeDeep = "#CC7300",
-  cellularOrangeDark = "#A05B00",
-
-  proteinPurple = "#B026FF",
   proteinPurpleCore = "#9F21E6",
   proteinPurpleBright = "#C44FFF",
-  proteinPurpleDeep = "#8B1CCC",
-  proteinPurpleDark = "#6F16A0",
-
-  synapticBlue = "#4D9FFF",
   synapticBlueCore = "#448FE6",
   synapticBlueBright = "#6DB3FF",
-  synapticBlueDeep = "#3A7FCC",
-  synapticBlueDark = "#2E66A0",
-
-  superpositionWhite = "#FAFAFF",
   superpositionWhiteCore = "#E8E8F5",
   superpositionWhiteBright = "#FFFFFF",
-  superpositionWhiteDeep = "#D8D8E5",
-  superpositionWhiteDark = "#C0C0D0",
-
-  entanglementRed = "#FF1744",
   entanglementRedCore = "#E61439",
   entanglementRedBright = "#FF4569",
-  entanglementRedDeep = "#CC122E",
-  entanglementRedDark = "#A00E24",
-
-  wavefunctionGold = "#FFD700",
   wavefunctionGoldCore = "#E6C200",
   wavefunctionGoldBright = "#FFE433",
-  wavefunctionGoldDeep = "#CCAD00",
-  wavefunctionGoldDark = "#A08800",
-
   microGray = "#5A5A70",
   microGrayLight = "#6A6A80",
-  microGrayDark = "#4A4A60",
   quantumBlack = "#14141C",
-  nanoGray = "#7A7A90",
-
   successGreen = "#39FF14",
   warningAmber = "#FFF01F",
   infoBlue = "#00D9FF",
   errorRed = "#FF1744",
-
-  quantum = "#9D4EDD",
-  nano = "#39FF14",
-  molecular = "#FF006E",
 }

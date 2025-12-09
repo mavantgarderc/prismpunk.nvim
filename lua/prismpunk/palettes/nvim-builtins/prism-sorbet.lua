@@ -6,62 +6,49 @@ return {
   bg_light = "#2d2f3c",
   bg_lighter = "#363841",
   bg_lightest = "#3f424f",
-
   fg_lightest = "#dadada",
   fg_light = "#c5c8d1",
   fg_mid = "#a6a8b1",
   fg_dark = "#8787af",
-
   bg_alt1 = "#1c1e2e",
   bg_alt2 = "#121418",
   bg_alt3 = "#212430",
   bg_alt4 = "#0e1015",
-
   lavenderBright = "#d7d7ff",
   lavenderCore = "#af87d7",
   lavenderDeep = "#8787af",
   lavenderDark = "#5f5f87",
-
   coralBright = "#ff5f5f",
   coralCore = "#d75f5f",
   coralDeep = "#d7005f",
-
   goldenBright = "#ffd75f",
   goldenCore = "#d7af5f",
   goldenDeep = "#ffaf00",
-
   skyBright = "#87d7ff",
   skyCore = "#87afd7",
   skyDeep = "#87afff",
-
   limeBright = "#87ff5f",
   limeCore = "#87d75f",
   limeDeep = "#00af5f",
-
   tealBright = "#5fd7d7",
   tealCore = "#5fafaf",
   tealDeep = "#5fd7af",
-
   magentaBright = "#ff87ff",
   magentaCore = "#ff5fff",
   magentaDeep = "#ff00af",
-
   sorbetPurple = "#af87d7",
   sorbetCoral = "#d75f5f",
   sorbetGold = "#d7af5f",
   sorbetSky = "#87afd7",
   sorbetLime = "#87d75f",
   sorbetTeal = "#5fafaf",
-
   shadowGray = "#5f5f87",
   dimGray = "#707070",
   lightGray = "#dadada",
-
   dangerRed = "#ff5f5f",
   warningOrange = "#ffaf00",
   infoBlue = "#00afff",
   successGreen = "#87d75f",
-
   twilightIndigo = "#5f5f87",
   moonGlow = "#d7d7ff",
 }

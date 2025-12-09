@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.punk-cultures.duskpunk")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.sunsetOrangeCore,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.emberRedCore,
       command = plt.goldenHourCore,
     },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.goldenHourDeep,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.currentGray,
-      header1 = plt.sunsetOrangeBright,
-      header2 = plt.duskyRoseBright,
-      special = plt.duskViolet,
-      nontext = plt.bg_lightest,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.currentGray,
-      indent = plt.bg_lighter,
-      indent_scope = plt.sunsetOrangeCore,
-      picker = plt.goldenHour,
-      yank = plt.fadingAmberBright,
-      mark = plt.twilightBlue,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_dark,
-        bg_inactive = plt.bg_darkest,
-        fg_alternate = plt.sunsetOrangeBright,
-        bg_alternate = plt.bg_darkest,
-        indicator = plt.sunsetOrangeCore,
-      },
-      pmenu = {
-        fg = plt.fg_light,
-        fg_sel = plt.fg_lightest,
-        fg_border = plt.currentGray,
-        bg_border = plt.bg_light,
-        bg = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_sbar = plt.bg_light,
-        bg_thumb = plt.currentGrayLight,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.currentGray,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.sunsetOrangeCore,
       accent2 = plt.twilightBlueCore,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.duskVioletCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.sunsetOrangeBright,
       rainbow2 = plt.duskyRoseBright,
@@ -95,54 +30,97 @@ M.get = function(opts, plt)
       rainbow6 = plt.fadingAmberBright,
       rainbow7 = plt.neonFlickerBright,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_dark,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      bg_visual = plt.bg_mid,
+      border = plt.currentGray,
+      cursorline = plt.bg_dark,
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.sunsetOrangeCore,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.bg_lightest,
+      selection = plt.bg_mid,
+      win_separator = plt.currentGray,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.currentGray,
+      },
+      pmenu = {
+        bg = plt.bg_light,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_thumb = plt.currentGrayLight,
+        fg = plt.fg_light,
+        fg_sel = plt.fg_lightest,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_dark,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
-      attribute = plt.goldenHour,
-      boolean = plt.twilightBlue,
+      attribute = plt.goldenHourCore,
+      boolean = plt.twilightBlueCore,
       comment = plt.shadowPurple,
-      constant = plt.horizonGold,
+      constant = plt.horizonGoldCore,
       deprecated = plt.midnightBlack,
       func = plt.duskyRoseCore,
       identifier = plt.fg_lightest,
       keyword = plt.sunsetOrangeCore,
       method = plt.duskyRoseBright,
-      number = plt.horizonGold,
+      number = plt.horizonGoldCore,
       operator = plt.fadingAmberCore,
       parameter = plt.fg_mid,
       preproc = plt.duskVioletCore,
       punct = plt.fg_dark,
-      regex = plt.twilightWine,
+      regex = plt.twilightWineCore,
+      special = plt.duskVioletCore,
       statement = plt.sunsetOrangeCore,
       string = plt.duskyRoseCore,
-      symbol = plt.goldenHour,
+      symbol = plt.goldenHourCore,
       type = plt.twilightBlueCore,
       variable = plt.fg_lightest,
-      special = plt.duskViolet,
-      special2 = plt.neonFlicker,
-      special3 = plt.eveningGreen,
     },
-
-    vcs = {
-      added = plt.eveningGreenCore,
-      removed = plt.emberRedCore,
-      changed = plt.goldenHourCore,
+    diag = {
+      error = plt.errorRed,
+      warning = plt.warningAmber,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.duskVioletCore,
     },
-
     diff = {
       add = plt.eveningGreenCore,
       change = plt.goldenHourCore,
       delete = plt.emberRedCore,
-      text = plt.duskViolet,
+      text = plt.duskVioletCore,
     },
-
-    diag = {
-      ok = plt.successGreen,
-      error = plt.errorRed,
-      warning = plt.warningAmber,
-      info = plt.infoBlue,
-      hint = plt.duskViolet,
+    vcs = {
+      added = plt.eveningGreenCore,
+      changed = plt.goldenHourCore,
+      removed = plt.emberRedCore,
     },
-
     term = {
       black = plt.bg_darkest,
       red = plt.emberRedCore,
@@ -160,190 +138,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.duskVioletBright):brighten(0.15):to_hex(),
       cyan_bright = color(plt.duskyRoseBright):brighten(0.15):to_hex(),
       white_bright = plt.horizonGoldBright,
-      indexed1 = plt.sunsetOrange,
-      indexed2 = plt.goldenHour,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.shadowPurple,
-      ["@comment.documentation"] = plt.shadowPurpleLight,
-      ["@comment.error"] = plt.errorRed,
-      ["@comment.warning"] = plt.warningAmber,
-      ["@comment.todo"] = plt.goldenHourBright,
-      ["@comment.note"] = plt.duskViolet,
-
-      ["@constant"] = plt.horizonGold,
-      ["@constant.builtin"] = plt.horizonGoldCore,
-      ["@constant.macro"] = plt.goldenHour,
-
-      ["@string"] = plt.duskyRoseCore,
-      ["@string.documentation"] = plt.duskyRoseCore,
-      ["@string.regex"] = plt.twilightWine,
-      ["@string.escape"] = plt.fadingAmberBright,
-      ["@string.special"] = plt.duskyRoseBright,
-      ["@string.special.symbol"] = plt.goldenHour,
-      ["@string.special.url"] = plt.twilightBlue,
-      ["@string.special.path"] = plt.duskyRoseCore,
-
-      ["@character"] = plt.duskyRoseCore,
-      ["@character.special"] = plt.goldenHour,
-
-      ["@number"] = plt.horizonGold,
-      ["@number.float"] = plt.horizonGoldCore,
-
-      ["@boolean"] = plt.twilightBlue,
-
-      ["@function"] = plt.duskyRoseCore,
-      ["@function.builtin"] = plt.duskyRoseCore,
-      ["@function.call"] = plt.duskyRoseCore,
-      ["@function.macro"] = plt.duskVioletCore,
-      ["@function.method"] = plt.duskyRoseBright,
-      ["@function.method.call"] = plt.duskyRoseBright,
-
-      ["@constructor"] = plt.twilightBlueCore,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.sunsetOrangeCore,
-      ["@keyword.coroutine"] = plt.duskVioletCore,
-      ["@keyword.function"] = plt.sunsetOrangeCore,
-      ["@keyword.operator"] = plt.fadingAmberCore,
-      ["@keyword.return"] = plt.sunsetOrangeCore,
-      ["@keyword.import"] = plt.duskVioletCore,
-      ["@keyword.storage"] = plt.sunsetOrangeCore,
-      ["@keyword.repeat"] = plt.sunsetOrangeCore,
-      ["@keyword.conditional"] = plt.sunsetOrangeCore,
-      ["@keyword.exception"] = plt.emberRedCore,
-      ["@keyword.directive"] = plt.duskVioletCore,
-      ["@keyword.directive.define"] = plt.duskVioletCore,
-
-      ["@conditional"] = plt.sunsetOrangeCore,
-      ["@conditional.ternary"] = plt.sunsetOrangeCore,
-
-      ["@repeat"] = plt.sunsetOrangeCore,
-
-      ["@label"] = plt.goldenHour,
-
-      ["@operator"] = plt.fadingAmberCore,
-
-      ["@exception"] = plt.emberRedCore,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.sunsetOrangeBright,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.twilightBlueCore,
-      ["@type.builtin"] = plt.twilightBlueCore,
-      ["@type.definition"] = plt.twilightBlueCore,
-      ["@type.qualifier"] = plt.sunsetOrangeCore,
-
-      ["@attribute"] = plt.goldenHour,
-      ["@attribute.builtin"] = plt.goldenHour,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.twilightBlueCore,
-      ["@module.builtin"] = plt.twilightBlueCore,
-
-      ["@namespace"] = plt.twilightBlueCore,
-      ["@namespace.builtin"] = plt.twilightBlueCore,
-
-      ["@punctuation.delimiter"] = plt.fg_dark,
-      ["@punctuation.bracket"] = plt.fg_dark,
-      ["@punctuation.special"] = plt.fadingAmberCore,
-
-      ["@tag"] = plt.sunsetOrangeCore,
-      ["@tag.attribute"] = plt.goldenHour,
-      ["@tag.delimiter"] = plt.fadingAmberCore,
-      ["@tag.builtin"] = plt.sunsetOrangeCore,
-
-      ["@markup.strong"] = { fg = plt.sunsetOrangeBright, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.shadowPurple, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.duskViolet, underline = true },
-      ["@markup.heading"] = plt.sunsetOrangeBright,
-      ["@markup.heading.1"] = plt.sunsetOrangeBright,
-      ["@markup.heading.2"] = plt.duskyRoseBright,
-      ["@markup.heading.3"] = plt.twilightBlueBright,
-      ["@markup.heading.4"] = plt.goldenHourBright,
-      ["@markup.heading.5"] = plt.duskVioletBright,
-      ["@markup.heading.6"] = plt.fadingAmberBright,
-      ["@markup.quote"] = plt.shadowPurple,
-      ["@markup.math"] = plt.horizonGold,
-      ["@markup.link"] = plt.twilightBlue,
-      ["@markup.link.label"] = plt.twilightBlueBright,
-      ["@markup.link.url"] = plt.twilightBlue,
-      ["@markup.raw"] = plt.duskyRoseCore,
-      ["@markup.raw.block"] = plt.duskyRoseCore,
-      ["@markup.list"] = plt.sunsetOrangeCore,
-      ["@markup.list.checked"] = plt.eveningGreenCore,
-      ["@markup.list.unchecked"] = plt.shadowPurple,
-
-      ["@diff.plus"] = plt.eveningGreenCore,
-      ["@diff.minus"] = plt.emberRedCore,
-      ["@diff.delta"] = plt.goldenHourCore,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.bg_lightest,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.twilightBlueCore,
-      ["@constructor.javascript"] = plt.twilightBlueCore,
-      ["@constructor.typescript"] = plt.twilightBlueCore,
-      ["@namespace.rust"] = plt.twilightBlueCore,
-      ["@type.qualifier.rust"] = plt.sunsetOrangeCore,
-      ["@constant.macro.c"] = plt.goldenHour,
-      ["@constant.macro.cpp"] = plt.goldenHour,
-      ["@namespace.go"] = plt.twilightBlueCore,
-      ["@property.css"] = plt.duskyRoseBright,
-      ["@type.css"] = plt.sunsetOrangeCore,
-      ["@label.json"] = plt.goldenHour,
-      ["@field.yaml"] = plt.duskyRoseBright,
-      ["@property.toml"] = plt.duskyRoseBright,
-      ["@function.builtin.bash"] = plt.duskyRoseCore,
-      ["@string.regexp"] = plt.twilightWine,
-      ["@character.special.regex"] = plt.goldenHour,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.twilightBlueCore,
-      ["@lsp.type.interface"] = plt.twilightBlueCore,
-      ["@lsp.type.struct"] = plt.twilightBlueCore,
-      ["@lsp.type.enum"] = plt.twilightBlueCore,
-      ["@lsp.type.enumMember"] = plt.horizonGoldCore,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.twilightBlueCore,
-
-      ["@lsp.type.macro"] = plt.goldenHour,
-      ["@lsp.type.decorator"] = plt.goldenHour,
-
-      ["@lsp.type.builtinType"] = plt.twilightBlueCore,
-      ["@lsp.type.selfParameter"] = plt.sunsetOrangeBright,
-      ["@lsp.type.typeParameter"] = plt.twilightBlueCore,
-
-      ["@lsp.type.array"] = plt.twilightBlueCore,
-      ["@lsp.type.object"] = plt.twilightBlueCore,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.horizonGoldCore,
-      ["@lsp.type.enumConstant"] = plt.horizonGoldCore,
-
-      ["@lsp.type.event"] = plt.twilightBlueCore,
-      ["@lsp.type.regexp"] = plt.twilightWine,
-      ["@lsp.type.unresolvedReference"] = plt.twilightBlueCore,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.midnightBlack, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.horizonGoldCore,
-      ["@lsp.mod.async"] = plt.sunsetOrangeCore,
-      ["@lsp.mod.static"] = plt.sunsetOrangeBright,
-      ["@lsp.mod.abstract"] = plt.twilightBlueCore,
-      ["@lsp.mod.defaultLibrary"] = plt.twilightBlueCore,
-      ["@lsp.mod.documentation"] = plt.shadowPurpleLight,
     },
   }
 end
@@ -352,7 +146,6 @@ return {
   name = "Punk – Duskpunk",
   author = "PrismPunk.nvim",
   description = "Twilight transition — sunset orange, dusky rose, twilight blue, golden hour warmth.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +164,6 @@ return {
     base0E = palette.duskVioletCore,
     base0F = palette.twilightWineCore,
   },
-
   palette = palette,
   get = M.get,
 }

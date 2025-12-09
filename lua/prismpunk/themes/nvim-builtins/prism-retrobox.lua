@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.nvim-builtins.prism-retrobox")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.retroGray,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.retroRed,
       command = plt.retroYellow,
     },
-
-    ui = {
-      fg = plt.fg_light,
-      fg_dim = plt.fg_mid,
-      fg_dimmer = plt.fg_dark,
-      fg_dark = plt.retroGray,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.retroGreenDeep,
-      bg_visual = plt.retroBlueDeep,
-      bg_statusline = plt.bg_light,
-      border = plt.retroGrayDeep,
-      header1 = plt.retroGreen,
-      header2 = plt.retroYellow,
-      special = plt.retroOrange,
-      nontext = plt.retroGrayDeep,
-      whitespace = plt.retroGrayDark,
-      win_separator = plt.bg_dark,
-      indent = plt.bg_lighter,
-      indent_scope = plt.retroGray,
-      picker = plt.retroPurple,
-      yank = plt.retroYellow,
-      mark = plt.retroBlue,
-      scrollbar = plt.retroGrayDark,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_darkest,
-        fg_inactive = plt.retroGray,
-        bg_inactive = plt.bg_mid,
-        fg_alternate = plt.fg_light,
-        bg_alternate = plt.bg_mid,
-        indicator = plt.retroYellow,
-      },
-      pmenu = {
-        fg = plt.fg_light,
-        fg_sel = plt.fg_light,
-        fg_border = plt.retroGray,
-        bg_border = plt.bg_mid,
-        bg = plt.bg_mid,
-        bg_sel = plt.bg_light,
-        bg_sbar = plt.bg_mid,
-        bg_thumb = plt.retroGrayDark,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.retroGray,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.retroRed,
       accent2 = plt.retroGreen,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.retroAqua,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.retroRed,
       rainbow2 = plt.retroOrange,
@@ -95,54 +30,97 @@ M.get = function(opts, plt)
       rainbow6 = plt.retroBlue,
       rainbow7 = plt.retroPurple,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_dark,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      bg_visual = plt.bg_mid,
+      border = plt.retroGrayDeep,
+      cursorline = plt.bg_dark,
+      fg = plt.fg_light,
+      fg_dim = plt.fg_mid,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.retroGray,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_light,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.retroGrayDeep,
+      selection = plt.bg_mid,
+      win_separator = plt.bg_dark,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.retroGray,
+      },
+      pmenu = {
+        bg = plt.bg_mid,
+        bg_border = plt.bg_mid,
+        bg_sbar = plt.bg_mid,
+        bg_sel = plt.bg_light,
+        bg_thumb = plt.retroGrayDark,
+        fg = plt.fg_light,
+        fg_sel = plt.fg_light,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_mid,
+        bg_selected = plt.bg_darkest,
+        fg_inactive = plt.retroGray,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
       attribute = plt.retroYellow,
       boolean = plt.retroPurple,
       comment = plt.retroGray,
       constant = plt.retroPurple,
       deprecated = plt.retroGrayDeep,
-      func = plt.retroGreen,
+      func = { fg = plt.retroGreen, bold = true },
       identifier = plt.fg_light,
       keyword = plt.retroRed,
-      method = plt.retroGreen,
+      method = { fg = plt.retroGreen, bold = true },
       number = plt.retroPurple,
       operator = plt.retroAqua,
       parameter = plt.fg_mid,
       preproc = plt.retroAqua,
       punct = plt.fg_dark,
       regex = plt.retroOrange,
+      special = plt.retroOrange,
       statement = plt.retroRed,
       string = plt.retroGreen,
       symbol = plt.retroYellow,
       type = plt.retroYellow,
       variable = plt.fg_light,
-      special = plt.retroOrange,
-      special2 = plt.retroAqua,
-      special3 = plt.retroBlue,
     },
-
-    vcs = {
-      added = plt.retroGreen,
-      removed = plt.retroRed,
-      changed = plt.retroYellow,
+    diag = {
+      error = plt.retroRed,
+      warning = plt.retroOrange,
+      info = plt.retroBlue,
+      ok = plt.retroGreen,
+      hint = plt.retroAqua,
     },
-
     diff = {
       add = plt.retroGreen,
       change = plt.retroYellow,
       delete = plt.retroRed,
       text = plt.retroBlue,
     },
-
-    diag = {
-      ok = plt.retroGreen,
-      error = plt.retroRed,
-      warning = plt.retroOrange,
-      info = plt.retroBlue,
-      hint = plt.retroAqua,
+    vcs = {
+      added = plt.retroGreen,
+      changed = plt.retroYellow,
+      removed = plt.retroRed,
     },
-
     term = {
       black = plt.bg_darkest,
       red = plt.retroRedDark,
@@ -160,190 +138,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.retroPurple):brighten(0.2):to_hex(),
       cyan_bright = color(plt.retroAqua):brighten(0.2):to_hex(),
       white_bright = color(plt.fg_light):brighten(0.2):to_hex(),
-      indexed1 = plt.retroYellow,
-      indexed2 = plt.retroRed,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.retroGray,
-      ["@comment.documentation"] = plt.retroGray,
-      ["@comment.error"] = plt.retroRed,
-      ["@comment.warning"] = plt.retroOrange,
-      ["@comment.todo"] = plt.retroYellow,
-      ["@comment.note"] = plt.retroAqua,
-
-      ["@constant"] = plt.retroPurple,
-      ["@constant.builtin"] = plt.retroPurple,
-      ["@constant.macro"] = plt.retroAqua,
-
-      ["@string"] = plt.retroGreen,
-      ["@string.documentation"] = plt.retroGreen,
-      ["@string.regex"] = plt.retroOrange,
-      ["@string.escape"] = plt.retroOrange,
-      ["@string.special"] = plt.retroOrange,
-      ["@string.special.symbol"] = plt.retroYellow,
-      ["@string.special.url"] = plt.retroBlue,
-      ["@string.special.path"] = plt.retroGreen,
-
-      ["@character"] = plt.retroPurple,
-      ["@character.special"] = plt.retroOrange,
-
-      ["@number"] = plt.retroPurple,
-      ["@number.float"] = plt.retroPurple,
-
-      ["@boolean"] = plt.retroPurple,
-
-      ["@function"] = { fg = plt.retroGreen, bold = true },
-      ["@function.builtin"] = { fg = plt.retroGreen, bold = true },
-      ["@function.call"] = { fg = plt.retroGreen, bold = true },
-      ["@function.macro"] = plt.retroAqua,
-      ["@function.method"] = { fg = plt.retroGreen, bold = true },
-      ["@function.method.call"] = { fg = plt.retroGreen, bold = true },
-
-      ["@constructor"] = plt.retroYellow,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.retroRed,
-      ["@keyword.coroutine"] = plt.retroRed,
-      ["@keyword.function"] = plt.retroRed,
-      ["@keyword.operator"] = plt.retroAqua,
-      ["@keyword.return"] = plt.retroRed,
-      ["@keyword.import"] = plt.retroAqua,
-      ["@keyword.storage"] = plt.retroOrange,
-      ["@keyword.repeat"] = plt.retroRed,
-      ["@keyword.conditional"] = plt.retroRed,
-      ["@keyword.exception"] = plt.retroRed,
-      ["@keyword.directive"] = plt.retroAqua,
-      ["@keyword.directive.define"] = plt.retroAqua,
-
-      ["@conditional"] = plt.retroRed,
-      ["@conditional.ternary"] = plt.retroRed,
-
-      ["@repeat"] = plt.retroRed,
-
-      ["@label"] = plt.retroRed,
-
-      ["@operator"] = plt.retroAqua,
-
-      ["@exception"] = plt.retroRed,
-
-      ["@variable"] = plt.fg_light,
-      ["@variable.builtin"] = plt.retroBlue,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_mid,
-
-      ["@type"] = plt.retroYellow,
-      ["@type.builtin"] = plt.retroYellow,
-      ["@type.definition"] = plt.retroYellow,
-      ["@type.qualifier"] = plt.retroOrange,
-
-      ["@attribute"] = plt.retroYellow,
-      ["@attribute.builtin"] = plt.retroYellow,
-
-      ["@property"] = plt.fg_mid,
-
-      ["@field"] = plt.fg_mid,
-
-      ["@module"] = plt.retroYellow,
-      ["@module.builtin"] = plt.retroYellow,
-
-      ["@namespace"] = plt.retroYellow,
-      ["@namespace.builtin"] = plt.retroYellow,
-
-      ["@punctuation.delimiter"] = plt.fg_dark,
-      ["@punctuation.bracket"] = plt.fg_dark,
-      ["@punctuation.special"] = plt.retroOrange,
-
-      ["@tag"] = plt.retroBlue,
-      ["@tag.attribute"] = plt.retroYellow,
-      ["@tag.delimiter"] = plt.retroOrange,
-      ["@tag.builtin"] = plt.retroBlue,
-
-      ["@markup.strong"] = { fg = plt.retroGreen, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.retroGray, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.retroBlue, underline = true },
-      ["@markup.heading"] = { fg = plt.retroGreen, bold = true },
-      ["@markup.heading.1"] = { fg = plt.retroGreen, bold = true },
-      ["@markup.heading.2"] = plt.retroYellow,
-      ["@markup.heading.3"] = plt.retroBlue,
-      ["@markup.heading.4"] = plt.retroAqua,
-      ["@markup.heading.5"] = plt.retroOrange,
-      ["@markup.heading.6"] = plt.retroPurple,
-      ["@markup.quote"] = plt.retroGray,
-      ["@markup.math"] = plt.retroPurple,
-      ["@markup.link"] = plt.retroBlue,
-      ["@markup.link.label"] = plt.retroAqua,
-      ["@markup.link.url"] = { fg = plt.retroBlue, underline = true },
-      ["@markup.raw"] = plt.retroGreen,
-      ["@markup.raw.block"] = plt.retroGreen,
-      ["@markup.list"] = plt.retroRed,
-      ["@markup.list.checked"] = plt.retroGreen,
-      ["@markup.list.unchecked"] = plt.retroGray,
-
-      ["@diff.plus"] = plt.retroGreen,
-      ["@diff.minus"] = plt.retroRed,
-      ["@diff.delta"] = plt.retroYellow,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.retroGrayDeep,
-      ["@spell"] = plt.fg_light,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_mid,
-      ["@constructor.python"] = plt.retroYellow,
-      ["@constructor.javascript"] = plt.retroYellow,
-      ["@constructor.typescript"] = plt.retroYellow,
-      ["@namespace.rust"] = plt.retroYellow,
-      ["@type.qualifier.rust"] = plt.retroOrange,
-      ["@constant.macro.c"] = plt.retroAqua,
-      ["@constant.macro.cpp"] = plt.retroAqua,
-      ["@namespace.go"] = plt.retroYellow,
-      ["@property.css"] = plt.retroBlue,
-      ["@type.css"] = plt.retroYellow,
-      ["@label.json"] = plt.retroYellow,
-      ["@field.yaml"] = plt.retroBlue,
-      ["@property.toml"] = plt.retroBlue,
-      ["@function.builtin.bash"] = { fg = plt.retroGreen, bold = true },
-      ["@string.regexp"] = plt.retroOrange,
-      ["@character.special.regex"] = plt.retroOrange,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.retroYellow,
-      ["@lsp.type.interface"] = plt.retroYellow,
-      ["@lsp.type.struct"] = plt.retroYellow,
-      ["@lsp.type.enum"] = plt.retroYellow,
-      ["@lsp.type.enumMember"] = plt.retroPurple,
-      ["@lsp.type.property"] = plt.fg_mid,
-      ["@lsp.type.namespace"] = plt.retroYellow,
-
-      ["@lsp.type.macro"] = plt.retroAqua,
-      ["@lsp.type.decorator"] = plt.retroYellow,
-
-      ["@lsp.type.builtinType"] = plt.retroYellow,
-      ["@lsp.type.selfParameter"] = plt.retroBlue,
-      ["@lsp.type.typeParameter"] = plt.retroYellow,
-
-      ["@lsp.type.array"] = plt.retroYellow,
-      ["@lsp.type.object"] = plt.retroYellow,
-      ["@lsp.type.key"] = plt.fg_mid,
-      ["@lsp.type.null"] = plt.retroPurple,
-      ["@lsp.type.enumConstant"] = plt.retroPurple,
-
-      ["@lsp.type.event"] = plt.retroYellow,
-      ["@lsp.type.regexp"] = plt.retroOrange,
-      ["@lsp.type.unresolvedReference"] = plt.retroYellow,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.retroGrayDeep, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.retroPurple,
-      ["@lsp.mod.async"] = plt.retroRed,
-      ["@lsp.mod.static"] = plt.retroBlue,
-      ["@lsp.mod.abstract"] = plt.retroYellow,
-      ["@lsp.mod.defaultLibrary"] = plt.retroYellow,
-      ["@lsp.mod.documentation"] = plt.retroGray,
     },
   }
 end
@@ -352,7 +146,6 @@ return {
   name = "Retrobox",
   author = "PrismPunk.nvim (Original by Maxim Kim, ported from gruvbox)",
   description = "Retro groove color scheme with warm earthy tones.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +164,6 @@ return {
     base0E = palette.retroPurple,
     base0F = palette.retroOrangeDark,
   },
-
   palette = palette,
   get = M.get,
 }

@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0A0C10",
   bg_darker = "#0F1218",
   bg_dark = "#14181F",
@@ -7,101 +6,56 @@ return {
   bg_light = "#202530",
   bg_lighter = "#262C38",
   bg_lightest = "#2C3340",
-
   fg_lightest = "#F5F8FA",
   fg_light = "#E0E8F0",
   fg_mid = "#C0CCD8",
   fg_dark = "#98A8B8",
-
   bg_alt1 = "#12151C",
   bg_alt2 = "#0C0E14",
   bg_alt3 = "#181C24",
   bg_alt4 = "#0E1116",
-
-  silverGear = "#C0C8D0",
   silverGearCore = "#B0B8C0",
   silverGearBright = "#D0D8E0",
   silverGearDeep = "#A0A8B0",
   silverGearDark = "#808890",
-
-  whiteGold = "#F0E8D8",
   whiteGoldCore = "#E0D8C8",
   whiteGoldBright = "#FFF8E8",
   whiteGoldDeep = "#D0C8B8",
   whiteGoldDark = "#B0A898",
-
-  sapphireJewel = "#2E5A9E",
   sapphireJewelCore = "#264E8E",
   sapphireJewelBright = "#3E6AAE",
   sapphireJewelDeep = "#1E3E7E",
   sapphireJewelDark = "#162E5E",
-
-  rubyJewel = "#9E2E4E",
   rubyJewelCore = "#8E264E",
   rubyJewelBright = "#AE3E5E",
   rubyJewelDeep = "#7E1E3E",
   rubyJewelDark = "#5E162E",
-
-  emeraldJewel = "#2E9E5A",
   emeraldJewelCore = "#268E4E",
   emeraldJewelBright = "#3EAE6A",
   emeraldJewelDeep = "#1E7E3E",
   emeraldJewelDark = "#165E2E",
-
-  platinumWhite = "#E8F0F8",
   platinumWhiteCore = "#D8E0E8",
-  platinumWhiteBright = "#F8FFFF",
-  platinumWhiteDeep = "#C8D0D8",
-  platinumWhiteDark = "#A8B0B8",
-
-  celestialBlue = "#4A6E9E",
+  platinumWhiteBright = "#FFFFFF",
   celestialBlueCore = "#3A5E8E",
   celestialBlueBright = "#5A7EAE",
   celestialBlueDeep = "#2A4E7E",
   celestialBlueDark = "#1A3E6E",
-
-  moonsilver = "#D0D8E8",
   moonsilverCore = "#C0C8D8",
   moonsilverBright = "#E0E8F8",
   moonsilverDeep = "#B0B8C8",
   moonsilverDark = "#9098A8",
-
-  starlight = "#F8F8FF",
   starlightCore = "#E8E8F5",
   starlightBright = "#FFFFFF",
-  starlightDeep = "#D8D8E5",
-  starlightDark = "#C0C0D0",
-
-  tickSilver = "#B0B8C8",
   tickSilverCore = "#A0A8B8",
   tickSilverBright = "#C0C8D8",
-  tickSilverDeep = "#9098A8",
-  tickSilverDark = "#788090",
-
-  tockGold = "#D8C8A8",
   tockGoldCore = "#C8B898",
   tockGoldBright = "#E8D8B8",
-  tockGoldDeep = "#B8A888",
-  tockGoldDark = "#988878",
-
-  pendulumBlack = "#1A1E28",
-  pendulumBlackCore = "#14181F",
-  pendulumBlackBright = "#242832",
-  pendulumBlackDeep = "#0F1218",
-  pendulumBlackDark = "#0A0C10",
-
   mechanismGray = "#6E7A88",
   mechanismGrayLight = "#7E8A98",
   mechanismGrayDark = "#5E6A78",
   shadowBlack = "#1E242E",
-  precisionGray = "#8E98A8",
-
   successGreen = "#2E9E5A",
   warningAmber = "#D8B848",
   infoBlue = "#4A6E9E",
   errorRed = "#9E2E4E",
-
-  precision = "#C0C8D0",
-  jewel = "#2E5A9E",
-  time = "#F0E8D8",
 }

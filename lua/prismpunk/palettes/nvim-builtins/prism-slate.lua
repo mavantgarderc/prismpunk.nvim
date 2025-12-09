@@ -6,54 +6,42 @@ return {
   bg_light = "#4a4a4a",
   bg_lighter = "#545454",
   bg_lightest = "#5e5e5e",
-
   fg_lightest = "#ffffff",
   fg_light = "#e5e5e5",
   fg_mid = "#c6c6c6",
   fg_dark = "#8a8a8a",
-
   bg_alt1 = "#2f2f2f",
   bg_alt2 = "#1f1f1f",
   bg_alt3 = "#3c3c3c",
   bg_alt4 = "#000000",
-
   skyBright = "#87d7ff",
   skyCore = "#5f87d7",
   skyDeep = "#5f5f87",
-
   goldBright = "#ffd700",
   goldCore = "#d7d787",
   goldDeep = "#afaf87",
-
   coralBright = "#ff8787",
   coralCore = "#ffafaf",
   coralDeep = "#d78787",
-
   peachBright = "#ffd7af",
   peachCore = "#d7af87",
   peachDeep = "#af875f",
-
   copperBright = "#ffaf87",
   copperCore = "#d7875f",
   copperDeep = "#af6f4f",
-
   jadeBright = "#87ff87",
   jadeCore = "#5faf5f",
   jadeDeep = "#5f8700",
-
   structureGreen = "#00ff00",
   oliveGreen = "#87875f",
   forestGreen = "#00875f",
-
   chalkWhite = "#ffffff",
   stoneGray = "#666666",
   darkSlate = "#333333",
-
   dangerRed = "#ff0000",
   warningYellow = "#ffff00",
   infoBlue = "#5f87d7",
   successGreen = "#00ff00",
-
   slateBlue = "#5f87d7",
   slateGold = "#d7d787",
   slateCopper = "#d7875f",

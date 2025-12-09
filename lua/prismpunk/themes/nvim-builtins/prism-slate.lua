@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.nvim-builtins.prism-slate")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.skyCore,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.coralCore,
       command = plt.goldBright,
     },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.copperDeep,
-      bg_visual = plt.oliveGreen,
-      bg_statusline = plt.goldDeep,
-      border = plt.stoneGray,
-      header1 = plt.goldBright,
-      header2 = plt.goldCore,
-      special = plt.goldCore,
-      nontext = plt.skyCore,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.stoneGray,
-      indent = plt.bg_lighter,
-      indent_scope = plt.skyCore,
-      picker = plt.coralCore,
-      yank = plt.goldBright,
-      mark = plt.goldCore,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.goldDeep,
-        fg_inactive = plt.stoneGray,
-        bg_inactive = plt.bg_dark,
-        fg_alternate = plt.coralCore,
-        bg_alternate = plt.bg_dark,
-        indicator = plt.goldBright,
-      },
-      pmenu = {
-        fg = plt.fg_lightest,
-        fg_sel = plt.bg_darkest,
-        fg_border = plt.bg_lighter,
-        bg_border = plt.bg_light,
-        bg = plt.bg_light,
-        bg_sel = plt.goldCore,
-        bg_sbar = plt.bg_darkest,
-        bg_thumb = plt.goldBright,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.stoneGray,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.skyCore,
       accent2 = plt.goldCore,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.peachCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.skyCore,
       rainbow2 = plt.goldCore,
@@ -95,7 +30,56 @@ M.get = function(opts, plt)
       rainbow6 = plt.coralCore,
       rainbow7 = plt.structureGreen,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_dark,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.goldDeep,
+      bg_visual = plt.oliveGreen,
+      border = plt.stoneGray,
+      cursorline = plt.bg_dark,
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.skyCore,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.skyCore,
+      selection = plt.oliveGreen,
+      win_separator = plt.stoneGray,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.stoneGray,
+      },
+      pmenu = {
+        bg = plt.bg_light,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_darkest,
+        bg_sel = plt.goldCore,
+        bg_thumb = plt.goldBright,
+        fg = plt.fg_lightest,
+        fg_sel = plt.bg_darkest,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_dark,
+        bg_selected = plt.goldDeep,
+        fg_inactive = plt.stoneGray,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
       attribute = plt.goldBright,
       boolean = plt.coralCore,
@@ -112,37 +96,31 @@ M.get = function(opts, plt)
       preproc = plt.copperCore,
       punct = plt.fg_mid,
       regex = plt.goldCore,
+      special = plt.goldCore,
       statement = plt.skyCore,
       string = plt.skyBright,
       symbol = plt.goldCore,
       type = plt.skyCore,
       variable = plt.fg_lightest,
-      special = plt.goldCore,
-      special2 = plt.peachCore,
-      special3 = plt.structureGreen,
     },
-
-    vcs = {
-      added = plt.jadeCore,
-      removed = plt.dangerRed,
-      changed = plt.skyCore,
+    diag = {
+      error = plt.dangerRed,
+      warning = plt.warningYellow,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.goldCore,
     },
-
     diff = {
       add = plt.jadeCore,
       change = plt.skyCore,
       delete = plt.dangerRed,
       text = plt.fg_mid,
     },
-
-    diag = {
-      ok = plt.successGreen,
-      error = plt.dangerRed,
-      warning = plt.warningYellow,
-      info = plt.infoBlue,
-      hint = plt.goldCore,
+    vcs = {
+      added = plt.jadeCore,
+      changed = plt.skyCore,
+      removed = plt.dangerRed,
     },
-
     term = {
       black = plt.bg_alt4,
       red = plt.dangerRed,
@@ -152,6 +130,7 @@ M.get = function(opts, plt)
       magenta = plt.coralCore,
       cyan = plt.skyBright,
       white = plt.fg_light,
+
       black_bright = color(plt.bg_alt4):brighten(0.6):to_hex(),
       red_bright = color(plt.dangerRed):brighten(0.2):to_hex(),
       green_bright = color(plt.successGreen):brighten(0.1):to_hex(),
@@ -160,190 +139,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.coralCore):brighten(0.2):to_hex(),
       cyan_bright = color(plt.skyBright):brighten(0.1):to_hex(),
       white_bright = color(plt.fg_light):brighten(0.2):to_hex(),
-      indexed1 = plt.goldBright,
-      indexed2 = plt.dangerRed,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.stoneGray,
-      ["@comment.documentation"] = plt.fg_dark,
-      ["@comment.error"] = plt.dangerRed,
-      ["@comment.warning"] = plt.warningYellow,
-      ["@comment.todo"] = plt.dangerRed,
-      ["@comment.note"] = plt.goldCore,
-
-      ["@constant"] = plt.coralCore,
-      ["@constant.builtin"] = plt.coralBright,
-      ["@constant.macro"] = plt.goldBright,
-
-      ["@string"] = plt.skyBright,
-      ["@string.documentation"] = plt.skyBright,
-      ["@string.regex"] = plt.goldCore,
-      ["@string.escape"] = plt.goldBright,
-      ["@string.special"] = plt.goldCore,
-      ["@string.special.symbol"] = plt.goldCore,
-      ["@string.special.url"] = plt.skyCore,
-      ["@string.special.path"] = plt.skyBright,
-
-      ["@character"] = plt.skyBright,
-      ["@character.special"] = plt.goldCore,
-
-      ["@number"] = plt.copperCore,
-      ["@number.float"] = plt.copperCore,
-
-      ["@boolean"] = plt.coralCore,
-
-      ["@function"] = plt.peachCore,
-      ["@function.builtin"] = plt.peachCore,
-      ["@function.call"] = plt.peachCore,
-      ["@function.macro"] = plt.goldBright,
-      ["@function.method"] = plt.peachBright,
-      ["@function.method.call"] = plt.peachBright,
-
-      ["@constructor"] = plt.skyCore,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.skyCore,
-      ["@keyword.coroutine"] = plt.structureGreen,
-      ["@keyword.function"] = plt.skyCore,
-      ["@keyword.operator"] = plt.copperCore,
-      ["@keyword.return"] = plt.skyCore,
-      ["@keyword.import"] = plt.structureGreen,
-      ["@keyword.storage"] = plt.skyCore,
-      ["@keyword.repeat"] = plt.skyCore,
-      ["@keyword.conditional"] = plt.skyCore,
-      ["@keyword.exception"] = plt.dangerRed,
-      ["@keyword.directive"] = plt.goldBright,
-      ["@keyword.directive.define"] = plt.goldBright,
-
-      ["@conditional"] = plt.skyCore,
-      ["@conditional.ternary"] = plt.skyCore,
-
-      ["@repeat"] = plt.skyCore,
-
-      ["@label"] = plt.goldBright,
-
-      ["@operator"] = plt.copperCore,
-
-      ["@exception"] = plt.dangerRed,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.structureGreen,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.skyCore,
-      ["@type.builtin"] = plt.skyCore,
-      ["@type.definition"] = plt.skyCore,
-      ["@type.qualifier"] = plt.skyCore,
-
-      ["@attribute"] = plt.goldBright,
-      ["@attribute.builtin"] = plt.goldBright,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.skyCore,
-      ["@module.builtin"] = plt.skyCore,
-
-      ["@namespace"] = plt.skyCore,
-      ["@namespace.builtin"] = plt.skyCore,
-
-      ["@punctuation.delimiter"] = plt.fg_mid,
-      ["@punctuation.bracket"] = plt.fg_mid,
-      ["@punctuation.special"] = plt.goldCore,
-
-      ["@tag"] = plt.skyCore,
-      ["@tag.attribute"] = plt.goldBright,
-      ["@tag.delimiter"] = plt.fg_mid,
-      ["@tag.builtin"] = plt.skyCore,
-
-      ["@markup.strong"] = { fg = plt.goldBright, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.stoneGray, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.skyCore, underline = true },
-      ["@markup.heading"] = plt.goldBright,
-      ["@markup.heading.1"] = plt.goldBright,
-      ["@markup.heading.2"] = plt.goldCore,
-      ["@markup.heading.3"] = plt.skyCore,
-      ["@markup.heading.4"] = plt.peachCore,
-      ["@markup.heading.5"] = plt.jadeCore,
-      ["@markup.heading.6"] = plt.copperCore,
-      ["@markup.quote"] = plt.stoneGray,
-      ["@markup.math"] = plt.copperCore,
-      ["@markup.link"] = plt.skyCore,
-      ["@markup.link.label"] = plt.goldCore,
-      ["@markup.link.url"] = plt.skyCore,
-      ["@markup.raw"] = plt.skyBright,
-      ["@markup.raw.block"] = plt.skyBright,
-      ["@markup.list"] = plt.skyCore,
-      ["@markup.list.checked"] = plt.jadeCore,
-      ["@markup.list.unchecked"] = plt.stoneGray,
-
-      ["@diff.plus"] = plt.jadeCore,
-      ["@diff.minus"] = plt.dangerRed,
-      ["@diff.delta"] = plt.skyCore,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.stoneGray,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.skyCore,
-      ["@constructor.javascript"] = plt.skyCore,
-      ["@constructor.typescript"] = plt.skyCore,
-      ["@namespace.rust"] = plt.skyCore,
-      ["@type.qualifier.rust"] = plt.skyCore,
-      ["@constant.macro.c"] = plt.goldBright,
-      ["@constant.macro.cpp"] = plt.goldBright,
-      ["@namespace.go"] = plt.skyCore,
-      ["@property.css"] = plt.peachBright,
-      ["@type.css"] = plt.skyCore,
-      ["@label.json"] = plt.goldCore,
-      ["@field.yaml"] = plt.peachBright,
-      ["@property.toml"] = plt.peachBright,
-      ["@function.builtin.bash"] = plt.peachCore,
-      ["@string.regexp"] = plt.goldCore,
-      ["@character.special.regex"] = plt.goldBright,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.skyCore,
-      ["@lsp.type.interface"] = plt.skyCore,
-      ["@lsp.type.struct"] = plt.skyCore,
-      ["@lsp.type.enum"] = plt.skyCore,
-      ["@lsp.type.enumMember"] = plt.coralCore,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.skyCore,
-
-      ["@lsp.type.macro"] = plt.goldBright,
-      ["@lsp.type.decorator"] = plt.goldBright,
-
-      ["@lsp.type.builtinType"] = plt.skyCore,
-      ["@lsp.type.selfParameter"] = plt.structureGreen,
-      ["@lsp.type.typeParameter"] = plt.skyCore,
-
-      ["@lsp.type.array"] = plt.skyCore,
-      ["@lsp.type.object"] = plt.skyCore,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.coralCore,
-      ["@lsp.type.enumConstant"] = plt.coralCore,
-
-      ["@lsp.type.event"] = plt.skyCore,
-      ["@lsp.type.regexp"] = plt.goldCore,
-      ["@lsp.type.unresolvedReference"] = plt.skyCore,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.stoneGray, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.coralCore,
-      ["@lsp.mod.async"] = plt.skyCore,
-      ["@lsp.mod.static"] = plt.structureGreen,
-      ["@lsp.mod.abstract"] = plt.skyCore,
-      ["@lsp.mod.defaultLibrary"] = plt.skyCore,
-      ["@lsp.mod.documentation"] = plt.fg_dark,
     },
   }
 end
@@ -352,7 +147,6 @@ return {
   name = "Slate",
   author = "PrismPunk.nvim (Original by Ralph Amissah)",
   description = "Remake of slate - classic refined darkness.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +165,6 @@ return {
     base0E = palette.coralCore,
     base0F = palette.structureGreen,
   },
-
   palette = palette,
   get = M.get,
 }

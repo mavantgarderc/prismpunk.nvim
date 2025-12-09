@@ -6,77 +6,55 @@ return {
   bg_light = "#2d2722",
   bg_lighter = "#362f2a",
   bg_lightest = "#403833",
-
   fg_lightest = "#e8dfd5",
   fg_light = "#d4c8ba",
   fg_mid = "#b8a898",
   fg_dark = "#9a8876",
-
   bg_alt1 = "#120e0b",
   bg_alt2 = "#080605",
   bg_alt3 = "#1a1510",
   bg_alt4 = "#040302",
-
   wisdomGray = "#8a8071",
   wisdomGrayBright = "#a39885",
   wisdomGrayCore = "#78705f",
   wisdomGrayDeep = "#5f5849",
   wisdomGrayDark = "#4a4437",
-
   senseiRobe = "#6b4e3d",
   senseiRobeBright = "#8a6551",
   senseiRobeCore = "#5a3f2f",
   senseiRobeDeep = "#4a3222",
-
   meditationPurple = "#8b7ba8",
   meditationPurpleBright = "#a895c2",
   meditationPurpleCore = "#75648f",
   meditationPurpleDeep = "#5e4f72",
-
   zenGreen = "#6b8e6f",
   zenGreenBright = "#85a889",
   zenGreenCore = "#577258",
   zenGreenDeep = "#455a46",
-
   candleGold = "#d4af37",
   candleGoldBright = "#f0c950",
   candleGoldCore = "#b89530",
   candleGoldDeep = "#9a7928",
-
   incenseSmoke = "#9a9183",
   incenseSmokeLight = "#b4a898",
   incenseSmokeDark = "#7f766a",
-
   scrollPaper = "#d8c9ad",
   scrollPaperAged = "#c4b59a",
   scrollInk = "#3a3128",
-
   dojoWood = "#6b5744",
   dojoWoodDark = "#5a483a",
   dojoFloor = "#4a3d31",
-
   tatamiBrown = "#8b7355",
   tatamiBrownLight = "#a38a6f",
   tatamiBrownDark = "#6f5a42",
-
   teaGreen = "#87a96b",
   teaGreenBright = "#a1c285",
   teaGreenDeep = "#6d8a54",
-
   ancientRed = "#8b5a5a",
   ancientRedBright = "#a57171",
   ancientRedDeep = "#6f4747",
-
   spiritualBlue = "#6b8ca8",
   spiritualBlueBright = "#85a8c4",
   spiritualBlueDeep = "#577088",
-
-  dangerRed = "#c45555",
-  warningAmber = "#d4a537",
-  infoBlue = "#6b8ca8",
-  successGreen = "#6b8e6f",
-
   dojoShadow = "#1a1510",
-  enlightenment = "#f0e6d2",
-  karma = "#8b7ba8",
 }

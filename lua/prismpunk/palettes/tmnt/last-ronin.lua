@@ -6,80 +6,53 @@ return {
   bg_light = "#242222",
   bg_lighter = "#2d2b2b",
   bg_lightest = "#363434",
-
   fg_lightest = "#d8d0d0",
   fg_light = "#c0b8b8",
   fg_mid = "#a09898",
   fg_dark = "#807878",
-
   bg_alt1 = "#120f0f",
   bg_alt2 = "#070505",
   bg_alt3 = "#1a1616",
   bg_alt4 = "#030202",
-
   roninGray = "#6b6560",
   roninGrayBright = "#857f78",
   roninGrayCore = "#5a554f",
   roninGrayDeep = "#4a4540",
   roninGrayDark = "#3a3530",
-
   fadedBlue = "#4d6b7a",
   fadedBlueBright = "#5f7f91",
   fadedBlueCore = "#3f5663",
   fadedBlueDeep = "#32444e",
-
   fadedRed = "#7a4d4d",
   fadedRedBright = "#915f5f",
   fadedRedCore = "#633f3f",
   fadedRedDeep = "#4e3232",
-
   fadedPurple = "#6b5d7a",
   fadedPurpleBright = "#7f7091",
   fadedPurpleCore = "#5a4e63",
   fadedPurpleDeep = "#483e4e",
-
   fadedOrange = "#7a5d4d",
   fadedOrangeBright = "#917055",
   fadedOrangeCore = "#634e3f",
   fadedOrangeDeep = "#4e3e32",
-
   ashGray = "#8a8480",
   ashGrayLight = "#9f9b95",
   ashGrayDark = "#6f6b68",
-
   bloodRust = "#5a3838",
   bloodRustDark = "#4a2d2d",
   bloodRustDeep = "#3a2222",
-
   rainSteel = "#6b7a7a",
   rainSteelBright = "#7f9191",
   rainSteelCore = "#5a6565",
   rainSteelDeep = "#4a5252",
-
   moonlight = "#8a9499",
   moonlightBright = "#a1adb3",
   moonlightDim = "#707c82",
-
   shadowBlack = "#1a1515",
   shadowBlackDeep = "#0f0c0c",
-
   scarTissue = "#7a6b6b",
   oldWound = "#634f4f",
-
-  memoryBlue = "#3d5a6b",
-  memoryRed = "#6b3d3d",
-  memoryPurple = "#5a4d6b",
-  memoryOrange = "#6b5a3d",
-
   vengeance = "#8a5555",
   vengeanceDeep = "#6f4444",
-
-  dangerRed = "#a55555",
-  warningAmber = "#a58555",
-  infoBlue = "#556ba5",
-  successGreen = "#558a6b",
-
   tokyoRain = "#4a5555",
-  loneWarrior = "#5a5550",
-  finalStand = "#6b4d4d",
 }

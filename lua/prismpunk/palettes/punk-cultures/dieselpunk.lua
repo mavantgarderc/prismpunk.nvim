@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0A0908",
   bg_darker = "#121110",
   bg_dark = "#1A1816",
@@ -7,101 +6,48 @@ return {
   bg_light = "#2C2822",
   bg_lighter = "#353028",
   bg_lightest = "#3E382E",
-
   fg_lightest = "#E8E4DC",
   fg_light = "#D0C8BC",
   fg_mid = "#B0A898",
   fg_dark = "#8A8070",
-
   bg_alt1 = "#161412",
   bg_alt2 = "#0D0C0A",
   bg_alt3 = "#1E1C18",
   bg_alt4 = "#0F0E0C",
-
-  dieselYellow = "#E6BE00",
   dieselYellowCore = "#CCA900",
   dieselYellowBright = "#FFD700",
   dieselYellowDeep = "#B39500",
   dieselYellowDark = "#8A7500",
-
-  oilBlack = "#1A1A1A",
-  oilBlackCore = "#242424",
-  oilBlackBright = "#2E2E2E",
-  oilBlackDeep = "#141414",
-  oilBlackDark = "#0E0E0E",
-
-  steelGray = "#6E7A8A",
-  steelGrayCore = "#5E6A7A",
-  steelGrayBright = "#7E8A9A",
-  steelGrayDeep = "#4E5A6A",
-  steelGrayDark = "#3E4A5A",
-
-  factoryOrange = "#D56C2B",
   factoryOrangeCore = "#C2601F",
   factoryOrangeBright = "#E87F3F",
   factoryOrangeDeep = "#B05418",
   factoryOrangeDark = "#8A4212",
-
-  militaryGreen = "#4A5F3A",
+  steelGrayCore = "#5E6A7A",
+  steelGrayBright = "#7E8A9A",
+  steelGrayDeep = "#4E5A6A",
+  steelGrayDark = "#3E4A5A",
   militaryGreenCore = "#3F5230",
   militaryGreenBright = "#5A6F4A",
   militaryGreenDeep = "#354526",
   militaryGreenDark = "#28351C",
-
-  mechRed = "#A03030",
   mechRedCore = "#8F2828",
   mechRedBright = "#B83838",
   mechRedDeep = "#802020",
   mechRedDark = "#601818",
-
-  chromeWhite = "#D8D8D8",
   chromeWhiteCore = "#C8C8C8",
   chromeWhiteBright = "#E8E8E8",
-  chromeWhiteDeep = "#B0B0B0",
-  chromeWhiteDark = "#989898",
-
-  artDecoGold = "#C9A500",
   artDecoGoldCore = "#B59400",
   artDecoGoldBright = "#DDB700",
-  artDecoGoldDeep = "#A08400",
-  artDecoGoldDark = "#7D6600",
-
-  metropolisBlue = "#3A5F7A",
   metropolisBluCore = "#2F4F68",
   metropolisBlueBright = "#4A6F8A",
-  metropolisBlueDeep = "#254056",
-  metropolisBlueDark = "#1A3044",
-
-  exhaustGray = "#5A5850",
-  exhaustGrayCore = "#4A4840",
+  exhaustGray = "#4A4840",
   exhaustGrayBright = "#6A6860",
-  exhaustGrayDeep = "#3A3830",
-  exhaustGrayDark = "#2A2820",
-
-  engineBrown = "#5C4A3A",
   engineBrownCore = "#4E3E30",
   engineBrownBright = "#6E5A4A",
-  engineBrownDeep = "#423226",
-  engineBrownDark = "#30241A",
-
-  tankGreen = "#4F5F3F",
   tankGreenCore = "#445235",
-  tankGreenBright = "#5F6F4F",
-  tankGreenDeep = "#3A442B",
-  tankGreenDark = "#2A3420",
-
-  sootBlack = "#2A2620",
   sootBlackLight = "#3A3630",
-  sootBlackDark = "#1A1610",
-  grimeGray = "#4E4A42",
-  rustOrange = "#A0563A",
-
   successGreen = "#4A5F3A",
   warningAmber = "#E6BE00",
   infoBlue = "#3A5F7A",
   errorRed = "#A03030",
-
-  industry = "#E6BE00",
-  machinery = "#6E7A8A",
-  artDeco = "#C9A500",
 }

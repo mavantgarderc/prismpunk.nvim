@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0A0606",
   bg_darker = "#120C0C",
   bg_dark = "#1A1212",
@@ -7,101 +6,41 @@ return {
   bg_light = "#2E1E1E",
   bg_lighter = "#382424",
   bg_lightest = "#422A2A",
-
   fg_lightest = "#F5E8E8",
   fg_light = "#E0C8C8",
   fg_mid = "#C0A0A0",
   fg_dark = "#A07878",
-
   bg_alt1 = "#160E0E",
   bg_alt2 = "#0E0808",
   bg_alt3 = "#1E1414",
   bg_alt4 = "#100A0A",
-
-  bloodRed = "#DC143C",
   bloodRedCore = "#C81230",
   bloodRedBright = "#E63958",
-  bloodRedDeep = "#B00F28",
-  bloodRedDark = "#900C20",
-
-  arterialSplash = "#FF0000",
   arterialSplashCore = "#E60000",
   arterialSplashBright = "#FF3333",
-  arterialSplashDeep = "#CC0000",
-  arterialSplashDark = "#A00000",
-
-  visceralPink = "#FF1493",
   visceralPinkCore = "#E61285",
   visceralPinkBright = "#FF3DAA",
-  visceralPinkDeep = "#CC0F75",
-  visceralPinkDark = "#A00C5E",
-
-  bruisePurple = "#8B008B",
   bruisePurpleCore = "#7A007A",
   bruisePurpleBright = "#A020A0",
-  bruisePurpleDeep = "#6A006A",
-  bruisePurpleDark = "#500050",
-
-  goreOrange = "#FF4500",
   goreOrangeCore = "#E63E00",
   goreOrangeBright = "#FF6633",
-  goreOrangeDeep = "#CC3300",
-  goreOrangeDark = "#A02600",
-
-  fleshTone = "#E8BCA8",
   fleshToneCore = "#D8AC98",
   fleshToneBright = "#F8CCB8",
-  fleshToneDeep = "#C89C88",
-  fleshToneDark = "#A88070",
-
-  lacerationRed = "#8B0000",
   lacerationRedCore = "#7A0000",
   lacerationRedBright = "#A52A2A",
-  lacerationRedDeep = "#6A0000",
-  lacerationRedDark = "#4E0000",
-
-  mutilationMaroon = "#800020",
   mutilationMaroonCore = "#70001C",
   mutilationMaroonBright = "#A0003A",
-  mutilationMaroonDeep = "#600018",
-  mutilationMaroonDark = "#400010",
-
-  carnageYellow = "#FFD700",
   carnageYellowCore = "#E6C200",
   carnageYellowBright = "#FFE433",
-  carnageYellowDeep = "#CCAD00",
-  carnageYellowDark = "#A08800",
-
-  boneWhite = "#F5F5DC",
   boneWhiteCore = "#E5E5CC",
   boneWhiteBright = "#FFFFF0",
-  boneWhiteDeep = "#D5D5BC",
-  boneWhiteDark = "#B8B8A0",
-
-  organRed = "#B22222",
-  organRedCore = "#A01E1E",
-  organRedBright = "#C83838",
-  organRedDeep = "#901818",
-  organRedDark = "#701212",
-
-  infectionGreen = "#228B22",
   infectionGreenCore = "#1E7A1E",
   infectionGreenBright = "#32A032",
-  infectionGreenDeep = "#186A18",
-  infectionGreenDark = "#105010",
-
   shockGray = "#6A5A5A",
   shockGrayLight = "#7A6A6A",
-  shockGrayDark = "#5A4A4A",
   traumaBlack = "#1A1212",
-  violenceGray = "#8A7070",
-
   successGreen = "#228B22",
   warningAmber = "#FFD700",
   infoBlue = "#4169E1",
   errorRed = "#DC143C",
-
-  violence = "#DC143C",
-  gore = "#FF0000",
-  visceral = "#FF1493",
 }

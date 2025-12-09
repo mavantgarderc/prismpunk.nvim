@@ -6,59 +6,46 @@ return {
   bg_light = "#444444",
   bg_lighter = "#4e4e4e",
   bg_lightest = "#585858",
-
   fg_lightest = "#dadada",
   fg_light = "#c7c7c7",
   fg_mid = "#9e9e9e",
   fg_dark = "#767676",
-
   bg_alt1 = "#242424",
   bg_alt2 = "#181818",
   bg_alt3 = "#2c2c2c",
   bg_alt4 = "#121212",
-
   roseBright = "#ff87af",
   roseCore = "#d75f87",
   roseDeep = "#af5f5f",
-
   greenBright = "#87d787",
   greenCore = "#5faf5f",
   greenDeep = "#5f875f",
-
   mauveBright = "#d7afd7",
   mauveCore = "#af87af",
   mauveDeep = "#875f87",
-
   tealBright = "#87d7d7",
   tealCore = "#87afaf",
   tealDeep = "#5f8787",
-
   bronzeBright = "#d7af87",
   bronzeCore = "#af875f",
   bronzeDeep = "#875f5f",
-
   blueBright = "#87afd7",
   blueCore = "#5f87af",
   blueDeep = "#5f5f87",
-
   amberBright = "#ffaf5f",
   amberCore = "#d7875f",
   amberDeep = "#af5f5f",
-
   jadeBright = "#5fd75f",
   jadeCore = "#5faf5f",
   jadeDeep = "#5f875f",
-
   steelGray = "#9e9e9e",
   slateGray = "#767676",
   charcoalGray = "#585858",
   shadowGray = "#444444",
-
   dangerRed = "#d75f5f",
   warningOrange = "#ffaf5f",
   infoBlue = "#5fafd7",
   successGreen = "#5fd75f",
-
   industrialSteel = "#87afaf",
   dustyRose = "#d75f87",
   mutedBronze = "#af875f",

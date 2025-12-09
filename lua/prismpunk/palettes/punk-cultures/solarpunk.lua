@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0A0F0A",
   bg_darker = "#0F160F",
   bg_dark = "#141D14",
@@ -7,101 +6,46 @@ return {
   bg_light = "#202C20",
   bg_lighter = "#263426",
   bg_lightest = "#2C3C2C",
-
   fg_lightest = "#F0F5E8",
   fg_light = "#D8E4C8",
   fg_mid = "#B8CCA0",
   fg_dark = "#90A878",
-
   bg_alt1 = "#121812",
   bg_alt2 = "#0C110C",
   bg_alt3 = "#181F18",
   bg_alt4 = "#0E130E",
-
-  solarYellow = "#FFD93D",
   solarYellowCore = "#F0C830",
   solarYellowBright = "#FFE76F",
   solarYellowDeep = "#DDB820",
-  solarYellowDark = "#BFA015",
-
-  livingGreen = "#6BCF7F",
   livingGreenCore = "#5EBD70",
   livingGreenBright = "#7FDF92",
   livingGreenDeep = "#4FA560",
-  livingGreenDark = "#408050",
-
-  photosynthesisGreen = "#4CAF50",
   photosynthesisGreenCore = "#43A047",
   photosynthesisGreenBright = "#66BB6A",
   photosynthesisGreenDeep = "#388E3C",
-  photosynthesisGreenDark = "#2E7D32",
-
-  windTurquoise = "#3DDBD9",
   windTurquoiseCore = "#36C5C3",
   windTurquoiseBright = "#5FE3E1",
   windTurquoiseDeep = "#2FAAA8",
-  windTurquoiseDark = "#268A88",
-
-  skyBlue = "#6EC1E4",
   skyBlueCore = "#61AED8",
   skyBlueBright = "#88D0ED",
-  skyBlueDeep = "#5098C0",
-  skyBlueDark = "#407AA0",
-
-  earthBrown = "#8B7355",
   earthBrownCore = "#7A634A",
   earthBrownBright = "#9F8567",
-  earthBrownDeep = "#6E5340",
-  earthBrownDark = "#5A4330",
-
-  bioLime = "#A4D65E",
   bioLimeCore = "#95C554",
   bioLimeBright = "#B7E078",
   bioLimeDeep = "#82AB48",
-  bioLimeDark = "#6A8A38",
-
-  renewableOrange = "#FFA726",
   renewableOrangeCore = "#FB8C00",
   renewableOrangeBright = "#FFB74D",
-  renewableOrangeDeep = "#F57C00",
-  renewableOrangeDark = "#EF6C00",
-
-  harmonyPurple = "#AB47BC",
   harmonyPurpleCore = "#9C27B0",
   harmonyPurpleBright = "#BA68C8",
-  harmonyPurpleDeep = "#8E24AA",
-  harmonyPurpleDark = "#7B1FA2",
-
-  mossGreen = "#8FBC8F",
-  mossGreenCore = "#7FAC7F",
-  mossGreenBright = "#A4CCA4",
-  mossGreenDeep = "#6F9C6F",
-  mossGreenDark = "#5F8C5F",
-
-  bloomPink = "#EC407A",
+  mossGreen = "#7FAC7F",
+  mossGreenLight = "#A4CCA4",
   bloomPinkCore = "#E91E63",
   bloomPinkBright = "#F06292",
-  bloomPinkDeep = "#D81B60",
-  bloomPinkDark = "#C2185B",
-
-  leafViolet = "#7E57C2",
-  leafVioletCore = "#673AB7",
-  leafVioletBright = "#9575CD",
-  leafVioletDeep = "#5E35B1",
-  leafVioletDark = "#512DA8",
-
   forestGray = "#556B55",
   forestGrayLight = "#667C66",
-  forestGrayDark = "#445A44",
   rootBrown = "#5A4A3A",
-  vineGreen = "#4A5F4A",
-
   successGreen = "#66BB6A",
   warningAmber = "#FFD93D",
   infoBlue = "#6EC1E4",
   errorRed = "#EF5350",
-
-  solar = "#FFD93D",
-  nature = "#6BCF7F",
-  harmony = "#3DDBD9",
 }

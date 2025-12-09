@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.nvim-builtins.prism-habamax")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.mauveCore,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.roseCore,
       command = plt.bronzeCore,
     },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.shadowGray,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.slateGray,
-      header1 = plt.fg_lightest,
-      header2 = plt.bronzeCore,
-      special = plt.tealDeep,
-      nontext = plt.charcoalGray,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.slateGray,
-      indent = plt.bg_lighter,
-      indent_scope = plt.mauveCore,
-      picker = plt.roseCore,
-      yank = plt.amberBright,
-      mark = plt.mauveBright,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_mid,
-        bg_inactive = plt.bg_darkest,
-        fg_alternate = plt.steelGray,
-        bg_alternate = plt.bg_darkest,
-        indicator = plt.mauveCore,
-      },
-      pmenu = {
-        fg = plt.fg_light,
-        fg_sel = "none",
-        fg_border = plt.bg_lighter,
-        bg_border = plt.bg_mid,
-        bg = plt.bg_mid,
-        bg_sel = plt.bg_lightest,
-        bg_sbar = plt.bg_mid,
-        bg_thumb = plt.slateGray,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.slateGray,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.mauveCore,
       accent2 = plt.tealCore,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.greenCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.mauveCore,
       rainbow2 = plt.tealCore,
@@ -95,7 +30,56 @@ M.get = function(opts, plt)
       rainbow6 = plt.blueCore,
       rainbow7 = plt.amberCore,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_dark,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      bg_visual = plt.bg_mid,
+      border = plt.slateGray,
+      cursorline = plt.bg_dark,
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.mauveCore,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.charcoalGray,
+      selection = plt.bg_mid,
+      win_separator = plt.slateGray,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.slateGray,
+      },
+      pmenu = {
+        bg = plt.bg_mid,
+        bg_border = plt.bg_mid,
+        bg_sbar = plt.bg_mid,
+        bg_sel = plt.bg_lightest,
+        bg_thumb = plt.slateGray,
+        fg = plt.fg_light,
+        fg_sel = "none",
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_mid,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
       attribute = plt.bronzeCore,
       boolean = plt.roseCore,
@@ -112,37 +96,31 @@ M.get = function(opts, plt)
       preproc = plt.bronzeCore,
       punct = plt.fg_mid,
       regex = plt.tealDeep,
+      special = plt.tealDeep,
       statement = plt.mauveCore,
       string = plt.greenCore,
       symbol = plt.bronzeBright,
       type = plt.blueCore,
       variable = plt.fg_lightest,
-      special = plt.tealDeep,
-      special2 = plt.mauveBright,
-      special3 = plt.greenBright,
     },
-
-    vcs = {
-      added = plt.greenCore,
-      removed = plt.roseCore,
-      changed = plt.bronzeCore,
+    diag = {
+      error = plt.dangerRed,
+      warning = plt.warningOrange,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.tealCore,
     },
-
     diff = {
       add = plt.greenCore,
       change = plt.bronzeCore,
       delete = plt.roseCore,
       text = plt.tealCore,
     },
-
-    diag = {
-      ok = plt.successGreen,
-      error = plt.dangerRed,
-      warning = plt.warningOrange,
-      info = plt.infoBlue,
-      hint = plt.tealCore,
+    vcs = {
+      added = plt.greenCore,
+      changed = plt.bronzeCore,
+      removed = plt.roseCore,
     },
-
     term = {
       black = plt.bg_alt3,
       red = plt.roseCore,
@@ -160,190 +138,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.mauveCore):brighten(0.2):to_hex(),
       cyan_bright = color(plt.tealCore):brighten(0.2):to_hex(),
       white_bright = color(plt.steelGray):brighten(0.2):to_hex(),
-      indexed1 = plt.bronzeCore,
-      indexed2 = plt.roseCore,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.slateGray,
-      ["@comment.documentation"] = plt.fg_dark,
-      ["@comment.error"] = plt.dangerRed,
-      ["@comment.warning"] = plt.warningOrange,
-      ["@comment.todo"] = plt.infoBlue,
-      ["@comment.note"] = plt.tealCore,
-
-      ["@constant"] = plt.roseCore,
-      ["@constant.builtin"] = plt.roseBright,
-      ["@constant.macro"] = plt.bronzeCore,
-
-      ["@string"] = plt.greenCore,
-      ["@string.documentation"] = plt.greenCore,
-      ["@string.regex"] = plt.tealDeep,
-      ["@string.escape"] = plt.greenBright,
-      ["@string.special"] = plt.jadeBright,
-      ["@string.special.symbol"] = plt.bronzeBright,
-      ["@string.special.url"] = plt.tealCore,
-      ["@string.special.path"] = plt.greenCore,
-
-      ["@character"] = plt.greenBright,
-      ["@character.special"] = plt.bronzeBright,
-
-      ["@number"] = plt.bronzeCore,
-      ["@number.float"] = plt.bronzeCore,
-
-      ["@boolean"] = plt.roseCore,
-
-      ["@function"] = plt.tealCore,
-      ["@function.builtin"] = plt.tealCore,
-      ["@function.call"] = plt.tealCore,
-      ["@function.macro"] = plt.tealBright,
-      ["@function.method"] = plt.tealBright,
-      ["@function.method.call"] = plt.tealBright,
-
-      ["@constructor"] = plt.blueCore,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.mauveCore,
-      ["@keyword.coroutine"] = plt.mauveBright,
-      ["@keyword.function"] = plt.mauveCore,
-      ["@keyword.operator"] = plt.tealDeep,
-      ["@keyword.return"] = plt.mauveCore,
-      ["@keyword.import"] = plt.mauveBright,
-      ["@keyword.storage"] = plt.mauveCore,
-      ["@keyword.repeat"] = plt.mauveCore,
-      ["@keyword.conditional"] = plt.mauveCore,
-      ["@keyword.exception"] = plt.roseCore,
-      ["@keyword.directive"] = plt.bronzeCore,
-      ["@keyword.directive.define"] = plt.bronzeCore,
-
-      ["@conditional"] = plt.mauveCore,
-      ["@conditional.ternary"] = plt.mauveCore,
-
-      ["@repeat"] = plt.mauveCore,
-
-      ["@label"] = plt.mauveBright,
-
-      ["@operator"] = plt.tealDeep,
-
-      ["@exception"] = plt.roseCore,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.mauveBright,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.blueCore,
-      ["@type.builtin"] = plt.blueCore,
-      ["@type.definition"] = plt.blueCore,
-      ["@type.qualifier"] = plt.mauveCore,
-
-      ["@attribute"] = plt.bronzeCore,
-      ["@attribute.builtin"] = plt.bronzeCore,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.blueCore,
-      ["@module.builtin"] = plt.blueCore,
-
-      ["@namespace"] = plt.blueCore,
-      ["@namespace.builtin"] = plt.blueCore,
-
-      ["@punctuation.delimiter"] = plt.fg_mid,
-      ["@punctuation.bracket"] = plt.fg_mid,
-      ["@punctuation.special"] = plt.tealDeep,
-
-      ["@tag"] = plt.mauveCore,
-      ["@tag.attribute"] = plt.bronzeCore,
-      ["@tag.delimiter"] = plt.fg_mid,
-      ["@tag.builtin"] = plt.mauveCore,
-
-      ["@markup.strong"] = { fg = plt.fg_lightest, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.slateGray, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.bronzeBright, underline = true },
-      ["@markup.heading"] = plt.fg_lightest,
-      ["@markup.heading.1"] = plt.fg_lightest,
-      ["@markup.heading.2"] = plt.bronzeCore,
-      ["@markup.heading.3"] = plt.tealCore,
-      ["@markup.heading.4"] = plt.mauveCore,
-      ["@markup.heading.5"] = plt.greenCore,
-      ["@markup.heading.6"] = plt.roseCore,
-      ["@markup.quote"] = plt.fg_dark,
-      ["@markup.math"] = plt.bronzeCore,
-      ["@markup.link"] = plt.tealCore,
-      ["@markup.link.label"] = plt.tealBright,
-      ["@markup.link.url"] = plt.tealCore,
-      ["@markup.raw"] = plt.greenCore,
-      ["@markup.raw.block"] = plt.greenCore,
-      ["@markup.list"] = plt.mauveCore,
-      ["@markup.list.checked"] = plt.greenCore,
-      ["@markup.list.unchecked"] = plt.charcoalGray,
-
-      ["@diff.plus"] = plt.greenCore,
-      ["@diff.minus"] = plt.roseCore,
-      ["@diff.delta"] = plt.bronzeCore,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.charcoalGray,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.blueCore,
-      ["@constructor.javascript"] = plt.blueCore,
-      ["@constructor.typescript"] = plt.blueCore,
-      ["@namespace.rust"] = plt.blueCore,
-      ["@type.qualifier.rust"] = plt.mauveCore,
-      ["@constant.macro.c"] = plt.bronzeCore,
-      ["@constant.macro.cpp"] = plt.bronzeCore,
-      ["@namespace.go"] = plt.blueCore,
-      ["@property.css"] = plt.tealBright,
-      ["@type.css"] = plt.mauveCore,
-      ["@label.json"] = plt.bronzeCore,
-      ["@field.yaml"] = plt.tealBright,
-      ["@property.toml"] = plt.tealBright,
-      ["@function.builtin.bash"] = plt.tealCore,
-      ["@string.regexp"] = plt.tealDeep,
-      ["@character.special.regex"] = plt.bronzeBright,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.blueCore,
-      ["@lsp.type.interface"] = plt.blueCore,
-      ["@lsp.type.struct"] = plt.blueCore,
-      ["@lsp.type.enum"] = plt.blueCore,
-      ["@lsp.type.enumMember"] = plt.roseCore,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.blueCore,
-
-      ["@lsp.type.macro"] = plt.bronzeCore,
-      ["@lsp.type.decorator"] = plt.bronzeCore,
-
-      ["@lsp.type.builtinType"] = plt.blueCore,
-      ["@lsp.type.selfParameter"] = plt.mauveBright,
-      ["@lsp.type.typeParameter"] = plt.blueCore,
-
-      ["@lsp.type.array"] = plt.blueCore,
-      ["@lsp.type.object"] = plt.blueCore,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.roseCore,
-      ["@lsp.type.enumConstant"] = plt.roseCore,
-
-      ["@lsp.type.event"] = plt.blueCore,
-      ["@lsp.type.regexp"] = plt.tealDeep,
-      ["@lsp.type.unresolvedReference"] = plt.blueCore,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.charcoalGray, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.roseCore,
-      ["@lsp.mod.async"] = plt.mauveCore,
-      ["@lsp.mod.static"] = plt.mauveBright,
-      ["@lsp.mod.abstract"] = plt.blueCore,
-      ["@lsp.mod.defaultLibrary"] = plt.blueCore,
-      ["@lsp.mod.documentation"] = plt.fg_dark,
     },
   }
 end
@@ -352,7 +146,6 @@ return {
   name = "Habamax",
   author = "PrismPunk.nvim (Original by Maxim Kim)",
   description = "Hubba hubba hubba.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +164,6 @@ return {
     base0E = palette.mauveCore,
     base0F = palette.roseDeep,
   },
-
   palette = palette,
   get = M.get,
 }

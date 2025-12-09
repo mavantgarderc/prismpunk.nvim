@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.punk-cultures.solarpunk")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.livingGreenCore,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.bloomPinkCore,
       command = plt.windTurquoiseCore,
     },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.bioLimeDeep,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.forestGray,
-      header1 = plt.solarYellowBright,
-      header2 = plt.livingGreenBright,
-      special = plt.windTurquoise,
-      nontext = plt.bg_lightest,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.forestGray,
-      indent = plt.bg_lighter,
-      indent_scope = plt.livingGreenCore,
-      picker = plt.bioLime,
-      yank = plt.solarYellowBright,
-      mark = plt.windTurquoise,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_dark,
-        bg_inactive = plt.bg_darkest,
-        fg_alternate = plt.solarYellowBright,
-        bg_alternate = plt.bg_darkest,
-        indicator = plt.livingGreenCore,
-      },
-      pmenu = {
-        fg = plt.fg_light,
-        fg_sel = plt.fg_lightest,
-        fg_border = plt.forestGray,
-        bg_border = plt.bg_light,
-        bg = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_sbar = plt.bg_light,
-        bg_thumb = plt.forestGrayLight,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.forestGray,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.livingGreenCore,
       accent2 = plt.solarYellowCore,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.bioLimeCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.solarYellowBright,
       rainbow2 = plt.livingGreenBright,
@@ -95,54 +30,97 @@ M.get = function(opts, plt)
       rainbow6 = plt.harmonyPurpleBright,
       rainbow7 = plt.bloomPinkBright,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_dark,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      bg_visual = plt.bg_mid,
+      border = plt.forestGray,
+      cursorline = plt.bg_dark,
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.livingGreenCore,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.bg_lightest,
+      selection = plt.bg_mid,
+      win_separator = plt.forestGray,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.forestGray,
+      },
+      pmenu = {
+        bg = plt.bg_light,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_thumb = plt.forestGrayLight,
+        fg = plt.fg_light,
+        fg_sel = plt.fg_lightest,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_dark,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
-      attribute = plt.solarYellow,
-      boolean = plt.windTurquoise,
+      attribute = plt.solarYellowCore,
+      boolean = plt.windTurquoiseCore,
       comment = plt.forestGray,
-      constant = plt.solarYellow,
+      constant = plt.solarYellowCore,
       deprecated = plt.rootBrown,
       func = plt.photosynthesisGreenCore,
       identifier = plt.fg_lightest,
       keyword = plt.livingGreenCore,
       method = plt.photosynthesisGreenBright,
-      number = plt.solarYellow,
+      number = plt.solarYellowCore,
       operator = plt.windTurquoiseCore,
       parameter = plt.fg_mid,
       preproc = plt.skyBlueCore,
       punct = plt.fg_dark,
-      regex = plt.harmonyPurple,
+      regex = plt.harmonyPurpleCore,
+      special = plt.windTurquoiseCore,
       statement = plt.livingGreenCore,
       string = plt.bioLimeCore,
-      symbol = plt.solarYellow,
+      symbol = plt.solarYellowCore,
       type = plt.earthBrownCore,
       variable = plt.fg_lightest,
-      special = plt.windTurquoise,
-      special2 = plt.harmonyPurple,
-      special3 = plt.renewableOrange,
     },
-
-    vcs = {
-      added = plt.photosynthesisGreenCore,
-      removed = plt.bloomPinkCore,
-      changed = plt.renewableOrangeCore,
+    diag = {
+      error = plt.errorRed,
+      warning = plt.warningAmber,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.windTurquoiseCore,
     },
-
     diff = {
       add = plt.photosynthesisGreenCore,
       change = plt.renewableOrangeCore,
       delete = plt.bloomPinkCore,
-      text = plt.windTurquoise,
+      text = plt.windTurquoiseCore,
     },
-
-    diag = {
-      ok = plt.successGreen,
-      error = plt.errorRed,
-      warning = plt.warningAmber,
-      info = plt.infoBlue,
-      hint = plt.windTurquoise,
+    vcs = {
+      added = plt.photosynthesisGreenCore,
+      changed = plt.renewableOrangeCore,
+      removed = plt.bloomPinkCore,
     },
-
     term = {
       black = plt.bg_darkest,
       red = plt.bloomPinkCore,
@@ -160,190 +138,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.harmonyPurpleBright):brighten(0.15):to_hex(),
       cyan_bright = color(plt.windTurquoiseBright):brighten(0.15):to_hex(),
       white_bright = color(plt.fg_lightest):brighten(0.1):to_hex(),
-      indexed1 = plt.solarYellow,
-      indexed2 = plt.livingGreen,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.forestGray,
-      ["@comment.documentation"] = plt.forestGrayLight,
-      ["@comment.error"] = plt.errorRed,
-      ["@comment.warning"] = plt.warningAmber,
-      ["@comment.todo"] = plt.solarYellowBright,
-      ["@comment.note"] = plt.windTurquoise,
-
-      ["@constant"] = plt.solarYellow,
-      ["@constant.builtin"] = plt.solarYellowCore,
-      ["@constant.macro"] = plt.renewableOrange,
-
-      ["@string"] = plt.bioLimeCore,
-      ["@string.documentation"] = plt.bioLimeCore,
-      ["@string.regex"] = plt.harmonyPurple,
-      ["@string.escape"] = plt.solarYellowBright,
-      ["@string.special"] = plt.bioLimeBright,
-      ["@string.special.symbol"] = plt.solarYellow,
-      ["@string.special.url"] = plt.skyBlue,
-      ["@string.special.path"] = plt.bioLimeCore,
-
-      ["@character"] = plt.bioLimeCore,
-      ["@character.special"] = plt.solarYellow,
-
-      ["@number"] = plt.solarYellow,
-      ["@number.float"] = plt.solarYellowCore,
-
-      ["@boolean"] = plt.windTurquoise,
-
-      ["@function"] = plt.photosynthesisGreenCore,
-      ["@function.builtin"] = plt.photosynthesisGreenCore,
-      ["@function.call"] = plt.photosynthesisGreenCore,
-      ["@function.macro"] = plt.skyBlueCore,
-      ["@function.method"] = plt.photosynthesisGreenBright,
-      ["@function.method.call"] = plt.photosynthesisGreenBright,
-
-      ["@constructor"] = plt.earthBrownCore,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.livingGreenCore,
-      ["@keyword.coroutine"] = plt.skyBlueCore,
-      ["@keyword.function"] = plt.livingGreenCore,
-      ["@keyword.operator"] = plt.windTurquoiseCore,
-      ["@keyword.return"] = plt.livingGreenCore,
-      ["@keyword.import"] = plt.skyBlueCore,
-      ["@keyword.storage"] = plt.livingGreenCore,
-      ["@keyword.repeat"] = plt.livingGreenCore,
-      ["@keyword.conditional"] = plt.livingGreenCore,
-      ["@keyword.exception"] = plt.bloomPinkCore,
-      ["@keyword.directive"] = plt.skyBlueCore,
-      ["@keyword.directive.define"] = plt.skyBlueCore,
-
-      ["@conditional"] = plt.livingGreenCore,
-      ["@conditional.ternary"] = plt.livingGreenCore,
-
-      ["@repeat"] = plt.livingGreenCore,
-
-      ["@label"] = plt.solarYellow,
-
-      ["@operator"] = plt.windTurquoiseCore,
-
-      ["@exception"] = plt.bloomPinkCore,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.livingGreenBright,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.earthBrownCore,
-      ["@type.builtin"] = plt.earthBrownCore,
-      ["@type.definition"] = plt.earthBrownCore,
-      ["@type.qualifier"] = plt.livingGreenCore,
-
-      ["@attribute"] = plt.solarYellow,
-      ["@attribute.builtin"] = plt.solarYellow,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.earthBrownCore,
-      ["@module.builtin"] = plt.earthBrownCore,
-
-      ["@namespace"] = plt.earthBrownCore,
-      ["@namespace.builtin"] = plt.earthBrownCore,
-
-      ["@punctuation.delimiter"] = plt.fg_dark,
-      ["@punctuation.bracket"] = plt.fg_dark,
-      ["@punctuation.special"] = plt.windTurquoiseCore,
-
-      ["@tag"] = plt.livingGreenCore,
-      ["@tag.attribute"] = plt.solarYellow,
-      ["@tag.delimiter"] = plt.windTurquoiseCore,
-      ["@tag.builtin"] = plt.livingGreenCore,
-
-      ["@markup.strong"] = { fg = plt.solarYellowBright, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.forestGray, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.windTurquoise, underline = true },
-      ["@markup.heading"] = plt.solarYellowBright,
-      ["@markup.heading.1"] = plt.solarYellowBright,
-      ["@markup.heading.2"] = plt.livingGreenBright,
-      ["@markup.heading.3"] = plt.windTurquoiseBright,
-      ["@markup.heading.4"] = plt.skyBlueBright,
-      ["@markup.heading.5"] = plt.bioLimeBright,
-      ["@markup.heading.6"] = plt.harmonyPurpleBright,
-      ["@markup.quote"] = plt.forestGray,
-      ["@markup.math"] = plt.solarYellow,
-      ["@markup.link"] = plt.skyBlue,
-      ["@markup.link.label"] = plt.skyBlueBright,
-      ["@markup.link.url"] = plt.skyBlue,
-      ["@markup.raw"] = plt.bioLimeCore,
-      ["@markup.raw.block"] = plt.bioLimeCore,
-      ["@markup.list"] = plt.livingGreenCore,
-      ["@markup.list.checked"] = plt.photosynthesisGreenCore,
-      ["@markup.list.unchecked"] = plt.forestGray,
-
-      ["@diff.plus"] = plt.photosynthesisGreenCore,
-      ["@diff.minus"] = plt.bloomPinkCore,
-      ["@diff.delta"] = plt.renewableOrangeCore,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.bg_lightest,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.earthBrownCore,
-      ["@constructor.javascript"] = plt.earthBrownCore,
-      ["@constructor.typescript"] = plt.earthBrownCore,
-      ["@namespace.rust"] = plt.earthBrownCore,
-      ["@type.qualifier.rust"] = plt.livingGreenCore,
-      ["@constant.macro.c"] = plt.solarYellow,
-      ["@constant.macro.cpp"] = plt.solarYellow,
-      ["@namespace.go"] = plt.earthBrownCore,
-      ["@property.css"] = plt.photosynthesisGreenBright,
-      ["@type.css"] = plt.livingGreenCore,
-      ["@label.json"] = plt.solarYellow,
-      ["@field.yaml"] = plt.photosynthesisGreenBright,
-      ["@property.toml"] = plt.photosynthesisGreenBright,
-      ["@function.builtin.bash"] = plt.photosynthesisGreenCore,
-      ["@string.regexp"] = plt.harmonyPurple,
-      ["@character.special.regex"] = plt.solarYellow,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.earthBrownCore,
-      ["@lsp.type.interface"] = plt.earthBrownCore,
-      ["@lsp.type.struct"] = plt.earthBrownCore,
-      ["@lsp.type.enum"] = plt.earthBrownCore,
-      ["@lsp.type.enumMember"] = plt.solarYellowCore,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.earthBrownCore,
-
-      ["@lsp.type.macro"] = plt.solarYellow,
-      ["@lsp.type.decorator"] = plt.solarYellow,
-
-      ["@lsp.type.builtinType"] = plt.earthBrownCore,
-      ["@lsp.type.selfParameter"] = plt.livingGreenBright,
-      ["@lsp.type.typeParameter"] = plt.earthBrownCore,
-
-      ["@lsp.type.array"] = plt.earthBrownCore,
-      ["@lsp.type.object"] = plt.earthBrownCore,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.solarYellowCore,
-      ["@lsp.type.enumConstant"] = plt.solarYellowCore,
-
-      ["@lsp.type.event"] = plt.earthBrownCore,
-      ["@lsp.type.regexp"] = plt.harmonyPurple,
-      ["@lsp.type.unresolvedReference"] = plt.earthBrownCore,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.rootBrown, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.solarYellowCore,
-      ["@lsp.mod.async"] = plt.livingGreenCore,
-      ["@lsp.mod.static"] = plt.livingGreenBright,
-      ["@lsp.mod.abstract"] = plt.earthBrownCore,
-      ["@lsp.mod.defaultLibrary"] = plt.earthBrownCore,
-      ["@lsp.mod.documentation"] = plt.forestGrayLight,
     },
   }
 end
@@ -352,7 +146,6 @@ return {
   name = "Punk – Solarpunk",
   author = "PrismPunk.nvim",
   description = "Green technology future — solar yellow, living green, wind turquoise, sustainable harmony.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +164,6 @@ return {
     base0E = palette.livingGreenCore,
     base0F = palette.harmonyPurpleCore,
   },
-
   palette = palette,
   get = M.get,
 }

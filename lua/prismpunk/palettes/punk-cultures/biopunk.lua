@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#08100A",
   bg_darker = "#0E160F",
   bg_dark = "#141C15",
@@ -7,101 +6,60 @@ return {
   bg_light = "#202C21",
   bg_lighter = "#263427",
   bg_lightest = "#2C3C2D",
-
   fg_lightest = "#E8F5EA",
   fg_light = "#D0E4D2",
   fg_mid = "#B0C8B2",
   fg_dark = "#88A88A",
-
   bg_alt1 = "#101812",
   bg_alt2 = "#0A100C",
   bg_alt3 = "#161E17",
   bg_alt4 = "#0C140D",
-
-  dnaGreen = "#39FF14",
   dnaGreenCore = "#2EE610",
   dnaGreenBright = "#5AFF3D",
   dnaGreenDeep = "#26CC0C",
   dnaGreenDark = "#1FA008",
-
-  mutationPink = "#FF10F0",
   mutationPinkCore = "#E60DD9",
   mutationPinkBright = "#FF3FF5",
   mutationPinkDeep = "#CC0AC0",
   mutationPinkDark = "#A008A0",
-
-  cellCyan = "#00FFC8",
   cellCyanCore = "#00E6B4",
   cellCyanBright = "#33FFD4",
   cellCyanDeep = "#00CC9F",
   cellCyanDark = "#00A080",
-
-  petriYellow = "#E8FF00",
   petriYellowCore = "#D4E600",
   petriYellowBright = "#F0FF33",
   petriYellowDeep = "#BCCC00",
   petriYellowDark = "#98A000",
-
-  biohazardOrange = "#FF6600",
   biohazardOrangeCore = "#E65C00",
   biohazardOrangeBright = "#FF8533",
   biohazardOrangeDeep = "#CC5000",
   biohazardOrangeDark = "#A04000",
-
-  enzymeBlue = "#00C8FF",
   enzymeBlueCore = "#00B4E6",
   enzymeBlueBright = "#33D4FF",
   enzymeBlueDeep = "#009FCC",
   enzymeBlueDark = "#0080A0",
-
-  tissueRed = "#FF3366",
   tissueRedCore = "#E62E5C",
   tissueRedBright = "#FF5C85",
   tissueRedDeep = "#CC2650",
   tissueRedDark = "#A01F40",
-
-  organViolet = "#B429F9",
   organVioletCore = "#A024E0",
   organVioletBright = "#C74FFF",
   organVioletDeep = "#8C1FCC",
   organVioletDark = "#7018A0",
-
-  synapseGold = "#FFB000",
   synapseGoldCore = "#E69E00",
   synapseGoldBright = "#FFC233",
   synapseGoldDeep = "#CC8800",
   synapseGoldDark = "#A06A00",
-
-  cultureMedium = "#88D498",
   cultureMediumCore = "#78C088",
   cultureMediumBright = "#98E4A8",
-  cultureMediumDeep = "#68AC78",
-  cultureMediumDark = "#508860",
-
-  specimenWhite = "#F0FFF0",
   specimenWhiteCore = "#E0F5E0",
   specimenWhiteBright = "#FFFFFF",
-  specimenWhiteDeep = "#D0E5D0",
-  specimenWhiteDark = "#B8D0B8",
-
-  contaminationRed = "#DC143C",
   contaminationRedCore = "#C81230",
-  contaminationRedBright = "#E63958",
-  contaminationRedDeep = "#B00F28",
-  contaminationRedDark = "#900C20",
-
   labGray = "#6A7A6A",
   labGrayLight = "#7A8A7A",
   labGrayDark = "#5A6A5A",
-  sterileSilver = "#A8B8A8",
-  bioGray = "#88A088",
-
   successGreen = "#39FF14",
   warningAmber = "#FFB000",
   infoBlue = "#00C8FF",
   errorRed = "#DC143C",
-
-  genetic = "#39FF14",
-  mutation = "#FF10F0",
-  organic = "#00FFC8",
 }

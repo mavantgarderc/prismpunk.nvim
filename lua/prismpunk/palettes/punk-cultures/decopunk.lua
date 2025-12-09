@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0A0808",
   bg_darker = "#121010",
   bg_dark = "#1A1616",
@@ -7,101 +6,56 @@ return {
   bg_light = "#2E2626",
   bg_lighter = "#382E2E",
   bg_lightest = "#423636",
-
   fg_lightest = "#F5F0E8",
   fg_light = "#E0D8C8",
   fg_mid = "#C8B8A0",
   fg_dark = "#A89078",
-
   bg_alt1 = "#161212",
   bg_alt2 = "#0E0C0C",
   bg_alt3 = "#1E1A1A",
   bg_alt4 = "#100E0E",
-
-  champagneGold = "#F4D03F",
   champagneGoldCore = "#E6C230",
   champagneGoldBright = "#FFE060",
   champagneGoldDeep = "#D4AF26",
   champagneGoldDark = "#B8941D",
-
-  artDecoTeal = "#008B8B",
   artDecoTealCore = "#007878",
   artDecoTealBright = "#00A0A0",
   artDecoTealDeep = "#006565",
   artDecoTealDark = "#005252",
-
-  jazzPurple = "#9932CC",
   jazzPurpleCore = "#8828B8",
   jazzPurpleBright = "#AA44DD",
   jazzPurpleDeep = "#771FA8",
   jazzPurpleDark = "#5F1885",
-
-  metropolisBlue = "#4169E1",
   metropolisBlueCore = "#3A5FCD",
   metropolisBlueBright = "#5A7EF5",
   metropolisBlueDeep = "#2F4FB8",
   metropolisBlueDark = "#253F98",
-
-  velvetRed = "#DC143C",
   velvetRedCore = "#C81230",
   velvetRedBright = "#E63958",
   velvetRedDeep = "#B00F28",
   velvetRedDark = "#900C20",
-
-  geometricGreen = "#2E8B57",
   geometricGreenCore = "#287A4D",
   geometricGreenBright = "#3FA066",
   geometricGreenDeep = "#236A43",
   geometricGreenDark = "#1A5032",
-
-  pearlWhite = "#FFF8DC",
   pearlWhiteCore = "#F5E8C8",
   pearlWhiteBright = "#FFFAED",
-  pearlWhiteDeep = "#E8D8B8",
-  pearlWhiteDark = "#D0C0A0",
-
-  crystalSilver = "#C0C0C0",
   crystalSilverCore = "#B0B0B0",
   crystalSilverBright = "#D0D0D0",
-  crystalSilverDeep = "#A0A0A0",
-  crystalSilverDark = "#808080",
-
-  flamingoRose = "#FF69B4",
   flamingoRoseCore = "#E65CA8",
   flamingoRoseBright = "#FF85C4",
-  flamingoRoseDeep = "#CC4F90",
-  flamingoRoseDark = "#A03F72",
-
-  zigzagBronze = "#CD7F32",
   zigzagBronzeCore = "#B8702C",
   zigzagBronzeBright = "#D89950",
-  zigzagBronzeDeep = "#A86225",
-  zigzagBronzeDark = "#85491D",
-
-  chevronOrange = "#FF8C00",
   chevronOrangeCore = "#E67D00",
   chevronOrangeBright = "#FFA033",
-  chevronOrangeDeep = "#CC6F00",
-  chevronOrangeDark = "#A05900",
-
-  sunburstYellow = "#FFD700",
   sunburstYellowCore = "#E6C200",
   sunburstYellowBright = "#FFE433",
-  sunburstYellowDeep = "#CCAD00",
-  sunburstYellowDark = "#A08800",
-
   elegantGray = "#6A6058",
   elegantGrayLight = "#7A7068",
   elegantGrayDark = "#5A5048",
   velvetBlack = "#1A1616",
-  decoGray = "#88807A",
-
   successGreen = "#2E8B57",
   warningAmber = "#FFD700",
   infoBlue = "#4169E1",
   errorRed = "#DC143C",
-
-  glamour = "#F4D03F",
-  elegance = "#9932CC",
-  gatsby = "#008B8B",
 }

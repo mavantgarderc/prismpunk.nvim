@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#0D0A08",
   bg_darker = "#141210",
   bg_dark = "#1C1916",
@@ -7,101 +6,40 @@ return {
   bg_light = "#2D2922",
   bg_lighter = "#363128",
   bg_lightest = "#3F392E",
-
   fg_lightest = "#F5EAD6",
   fg_light = "#D4C4A8",
   fg_mid = "#B3A485",
   fg_dark = "#8A7A5E",
-
   bg_alt1 = "#17140F",
   bg_alt2 = "#0F0D0B",
   bg_alt3 = "#1F1C17",
   bg_alt4 = "#12100D",
-
-  brassGold = "#B5A642",
   brassGoldCore = "#9D8E39",
   brassGoldBright = "#C9BA5F",
   brassGoldDeep = "#8A7630",
-  brassGoldDark = "#6E5D25",
-
-  copperOrange = "#C77826",
   copperOrangeCore = "#B56920",
   copperOrangeBright = "#D98F3D",
   copperOrangeDeep = "#9D5518",
-  copperOrangeDark = "#7D4412",
-
-  steamWhite = "#E8DCC8",
-  steamWhiteCore = "#D4C4A8",
-  steamWhiteBright = "#F5EAD6",
-  steamWhiteDeep = "#C0B090",
-  steamWhiteDark = "#A89878",
-
-  cogwheelBrown = "#8B6F47",
   cogwheelBrownCore = "#7A5D3A",
   cogwheelBrownBright = "#A08558",
-  cogwheelBrownDeep = "#5C4428",
-  cogwheelBrownDark = "#3D2C1A",
-
-  ironGray = "#6E6A5F",
-  ironGrayCore = "#5C5850",
-  ironGrayBright = "#807C71",
-  ironGrayDeep = "#4A4640",
-  ironGrayDark = "#383430",
-
-  bronzeGreen = "#6B7C3F",
   bronzeGreenCore = "#5A6A35",
   bronzeGreenBright = "#7D8F4A",
-  bronzeGreenDeep = "#4A5428",
-  bronzeGreenDark = "#3A4420",
-
-  mahoganyRed = "#8B4513",
   mahoganyRedCore = "#7A3B10",
   mahoganyRedBright = "#A0501C",
-  mahoganyRedDeep = "#6A2F0D",
-  mahoganyRedDark = "#4E220A",
-
-  velvetCrimson = "#8B0000",
   velvetCrimsonCore = "#7A0000",
   velvetCrimsonBright = "#A52A2A",
-  velvetCrimsonDeep = "#6A0000",
-  velvetCrimsonDark = "#4E0000",
-
-  gasLampYellow = "#FFD700",
   gasLampYellowCore = "#E6C200",
   gasLampYellowBright = "#FFEB3B",
-  gasLampYellowDeep = "#CCA700",
-  gasLampYellowDark = "#A08500",
-
-  coalSmoke = "#3E3B36",
-  coalSmokeCore = "#322F2B",
-  coalSmokeBright = "#4A4742",
-  coalSmokeDeep = "#262421",
-  coalSmokeDark = "#1A1816",
-
-  rivetsSteel = "#8B8680",
-  rivetsSteelCore = "#7A756F",
-  rivetsSteelBright = "#9D9891",
-  rivetsSteelDeep = "#6A655F",
-  rivetsSteelDark = "#4E4A45",
-
-  pistonBlue = "#4A6E8A",
   pistonBlueCore = "#3F5E78",
   pistonBlueBright = "#5A7E9A",
-  pistonBlueDeep = "#345068",
-  pistonBlueDark = "#283E50",
-
-  rustBrown = "#8B4726",
-  rustBrownLight = "#9D5738",
-  rustBrownDark = "#6A3518",
-  sootGray = "#4A4640",
-  patinaBrown = "#6E5D4A",
-
+  steamWhiteCore = "#D4C4A8",
+  steamWhiteBright = "#F5EAD6",
+  ironGray = "#5C5850",
+  ironGrayBright = "#807C71",
+  coalSmoke = "#322F2B",
+  coalSmokeBright = "#4A4742",
   successGreen = "#6B7C3F",
   warningAmber = "#C77826",
   infoBlue = "#4A6E8A",
   errorRed = "#8B0000",
-
-  machinery = "#B5A642",
-  victorian = "#8B4513",
-  steam = "#E8DCC8",
 }

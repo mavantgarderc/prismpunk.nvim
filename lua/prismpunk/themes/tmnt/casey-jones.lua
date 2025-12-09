@@ -7,6 +7,9 @@ local M = {}
 ---@param plt table
 ---@return table
 M.get = function(opts, plt)
+  plt = plt or palette
+  opts = opts or {}
+
   return {
     modes = {
       normal = plt.hockeyWhiteCore,
@@ -14,67 +17,6 @@ M.get = function(opts, plt)
       visual = plt.streetBlue,
       replace = plt.vigilanteRed,
       command = plt.golfClubGold,
-    },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.nyStreets,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.hockeyStick,
-      header1 = plt.hockeyWhiteBright,
-      header2 = plt.vigilanteRed,
-      special = plt.graffiti,
-      nontext = plt.asphaltDark,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.hockeyStick,
-      indent = plt.bg_lighter,
-      indent_scope = plt.hockeyWhiteCore,
-      picker = plt.graffiti,
-      yank = plt.golfClubGoldBright,
-      mark = plt.graffitiCyan,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_dark,
-        bg_inactive = plt.bg_darkest,
-        fg_alternate = plt.hockeyWhiteBright,
-        bg_alternate = plt.bg_darkest,
-        indicator = plt.hockeyWhiteCore,
-      },
-      pmenu = {
-        fg = plt.fg_light,
-        fg_sel = plt.fg_lightest,
-        fg_border = plt.concrete,
-        bg_border = plt.bg_light,
-        bg = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_sbar = plt.bg_light,
-        bg_thumb = plt.hockeyStick,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.hockeyStick,
-        bg_border = plt.bg_darker,
-      },
     },
 
     accent = {
@@ -96,6 +38,80 @@ M.get = function(opts, plt)
       rainbow7 = plt.graffitiCyan,
     },
 
+    ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_mid,
+      fg_dark = plt.fg_dark,
+      fg_reverse = plt.bg_alt1,
+
+      bg = plt.bg_darkest,
+      bg_dim = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+
+      bg_gutter = (opts.gutter ~= false) and plt.bg_light or "none",
+      bg_cursorline = plt.bg_dark,
+      bg_cursorline_alt = plt.bg_mid,
+      cursorline = plt.bg_dark,
+      bg_highlight = plt.bg_mid,
+      bg_search = plt.graffitiCyan,
+      bg_visual = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+
+      border = plt.hockeyStick,
+      header1 = plt.streetBlueBright,
+      header2 = plt.hockeyWhiteBright,
+      special = plt.graffiti,
+      nontext = plt.asphaltDark,
+      whitespace = plt.concrete,
+      win_separator = plt.hockeyStick,
+      indent = plt.bg_lighter,
+      indent_scope = plt.hockeyWhiteCore,
+      picker = plt.graffiti,
+      yank = plt.golfClubGoldBright,
+      mark = plt.graffitiCyan,
+      scrollbar = plt.bg_lighter,
+
+      selection = plt.bg_mid,
+      line_nr = plt.bg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      line_nr_active = plt.fg_lightest,
+
+      float = {
+        fg = plt.fg_light,
+        bg = plt.bg_darker,
+        fg_border = plt.hockeyStick,
+        bg_border = plt.bg_darker,
+      },
+
+      pmenu = {
+        fg = plt.fg_light,
+        fg_sel = plt.fg_lightest,
+        fg_border = plt.hockeyStick,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.hockeyStick,
+      },
+
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        bg_alternate = plt.bg_darkest,
+        fg_inactive = plt.fg_dark,
+        fg_selected = plt.fg_lightest,
+        fg_alternate = plt.streetBlueBright,
+        indicator = plt.hockeyWhiteCore,
+      },
+    },
+
     syn = {
       attribute = plt.golfClubGold,
       boolean = plt.vigilanteRed,
@@ -112,35 +128,44 @@ M.get = function(opts, plt)
       preproc = plt.graffiti,
       punct = plt.fg_dark,
       regex = plt.graffitiCyan,
+      special = plt.graffiti,
+      special2 = plt.graffitiPink,
+      special3 = plt.golfClubGoldBright,
       statement = plt.hockeyWhiteCore,
       string = plt.alleyGreen,
       symbol = plt.golfClubGold,
       type = plt.hockeyStick,
       variable = plt.fg_lightest,
-      special = plt.graffiti,
-      special2 = plt.vigilanteRed,
-      special3 = plt.streetBlue,
     },
 
-    vcs = {
-      added = plt.alleyGreen,
-      removed = plt.vigilanteRed,
-      changed = plt.golfClubGold,
+    diag = {
+      error = plt.dangerRed,
+      warning = plt.warningAmber,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.graffiti,
+
+      virtual_text_error = plt.dangerRed,
+      virtual_text_warning = plt.warningAmber,
+      virtual_text_info = plt.infoBlue,
+      virtual_text_ok = plt.successGreen,
+      virtual_text_hint = plt.graffiti,
     },
 
     diff = {
       add = plt.alleyGreen,
+      add_inline = plt.alleyGreenDeep,
       change = plt.golfClubGold,
+      change_inline = plt.golfClubGoldDeep,
       delete = plt.vigilanteRed,
+      delete_inline = plt.vigilanteRedDeep,
       text = plt.streetBlue,
     },
 
-    diag = {
-      ok = plt.successGreen,
-      error = plt.dangerRed,
-      warning = plt.warningAmber,
-      info = plt.infoBlue,
-      hint = plt.graffiti,
+    vcs = {
+      added = plt.alleyGreen,
+      changed = plt.golfClubGold,
+      removed = plt.vigilanteRed,
     },
 
     term = {
@@ -152,6 +177,7 @@ M.get = function(opts, plt)
       magenta = plt.graffiti,
       cyan = plt.graffitiCyan,
       white = plt.hockeyWhite,
+
       black_bright = color(plt.nyStreets):brighten(0.6):to_hex(),
       red_bright = color(plt.vigilanteRedBright):brighten(0.2):to_hex(),
       green_bright = color(plt.alleyGreenBright):brighten(0.2):to_hex(),
@@ -160,190 +186,9 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.graffitiPink):brighten(0.2):to_hex(),
       cyan_bright = color(plt.graffitiCyan):brighten(0.2):to_hex(),
       white_bright = color(plt.hockeyWhiteBright):brighten(0.2):to_hex(),
+
       indexed1 = plt.golfClubGold,
       indexed2 = plt.vigilanteRed,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.asphalt,
-      ["@comment.documentation"] = plt.concrete,
-      ["@comment.error"] = plt.dangerRed,
-      ["@comment.warning"] = plt.warningAmber,
-      ["@comment.todo"] = plt.golfClubGold,
-      ["@comment.note"] = plt.graffiti,
-
-      ["@constant"] = plt.maskWhite,
-      ["@constant.builtin"] = plt.maskWhite,
-      ["@constant.macro"] = plt.golfClubGold,
-
-      ["@string"] = plt.alleyGreen,
-      ["@string.documentation"] = plt.alleyGreen,
-      ["@string.regex"] = plt.graffitiCyan,
-      ["@string.escape"] = plt.golfClubGoldBright,
-      ["@string.special"] = plt.alleyGreenBright,
-      ["@string.special.symbol"] = plt.golfClubGold,
-      ["@string.special.url"] = plt.streetBlue,
-      ["@string.special.path"] = plt.alleyGreen,
-
-      ["@character"] = plt.alleyGreen,
-      ["@character.special"] = plt.golfClubGold,
-
-      ["@number"] = plt.golfClubGold,
-      ["@number.float"] = plt.golfClubGold,
-
-      ["@boolean"] = plt.vigilanteRed,
-
-      ["@function"] = plt.streetBlue,
-      ["@function.builtin"] = plt.streetBlue,
-      ["@function.call"] = plt.streetBlue,
-      ["@function.macro"] = plt.graffiti,
-      ["@function.method"] = plt.streetBlueBright,
-      ["@function.method.call"] = plt.streetBlueBright,
-
-      ["@constructor"] = plt.hockeyStick,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.hockeyWhiteCore,
-      ["@keyword.coroutine"] = plt.graffiti,
-      ["@keyword.function"] = plt.hockeyWhiteCore,
-      ["@keyword.operator"] = plt.vigilanteRed,
-      ["@keyword.return"] = plt.hockeyWhiteCore,
-      ["@keyword.import"] = plt.graffiti,
-      ["@keyword.storage"] = plt.hockeyWhiteCore,
-      ["@keyword.repeat"] = plt.hockeyWhiteCore,
-      ["@keyword.conditional"] = plt.hockeyWhiteCore,
-      ["@keyword.exception"] = plt.vigilanteRedBright,
-      ["@keyword.directive"] = plt.graffiti,
-      ["@keyword.directive.define"] = plt.graffiti,
-
-      ["@conditional"] = plt.hockeyWhiteCore,
-      ["@conditional.ternary"] = plt.hockeyWhiteCore,
-
-      ["@repeat"] = plt.hockeyWhiteCore,
-
-      ["@label"] = plt.golfClubGold,
-
-      ["@operator"] = plt.vigilanteRed,
-
-      ["@exception"] = plt.vigilanteRedBright,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.hockeyWhiteBright,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.hockeyStick,
-      ["@type.builtin"] = plt.hockeyStick,
-      ["@type.definition"] = plt.hockeyStick,
-      ["@type.qualifier"] = plt.hockeyWhiteCore,
-
-      ["@attribute"] = plt.golfClubGold,
-      ["@attribute.builtin"] = plt.golfClubGold,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.hockeyStick,
-      ["@module.builtin"] = plt.hockeyStick,
-
-      ["@namespace"] = plt.hockeyStick,
-      ["@namespace.builtin"] = plt.hockeyStick,
-
-      ["@punctuation.delimiter"] = plt.fg_dark,
-      ["@punctuation.bracket"] = plt.fg_dark,
-      ["@punctuation.special"] = plt.graffiti,
-
-      ["@tag"] = plt.hockeyWhiteCore,
-      ["@tag.attribute"] = plt.golfClubGold,
-      ["@tag.delimiter"] = plt.vigilanteRed,
-      ["@tag.builtin"] = plt.hockeyWhiteCore,
-
-      ["@markup.strong"] = { fg = plt.hockeyWhiteBright, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.asphalt, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.graffiti, underline = true },
-      ["@markup.heading"] = plt.hockeyWhiteBright,
-      ["@markup.heading.1"] = plt.hockeyWhiteBright,
-      ["@markup.heading.2"] = plt.vigilanteRed,
-      ["@markup.heading.3"] = plt.streetBlue,
-      ["@markup.heading.4"] = plt.golfClubGold,
-      ["@markup.heading.5"] = plt.alleyGreen,
-      ["@markup.heading.6"] = plt.graffiti,
-      ["@markup.quote"] = plt.asphalt,
-      ["@markup.math"] = plt.golfClubGold,
-      ["@markup.link"] = plt.streetBlue,
-      ["@markup.link.label"] = plt.streetBlueBright,
-      ["@markup.link.url"] = plt.streetBlue,
-      ["@markup.raw"] = plt.alleyGreen,
-      ["@markup.raw.block"] = plt.alleyGreen,
-      ["@markup.list"] = plt.hockeyWhiteCore,
-      ["@markup.list.checked"] = plt.alleyGreen,
-      ["@markup.list.unchecked"] = plt.asphalt,
-
-      ["@diff.plus"] = plt.alleyGreen,
-      ["@diff.minus"] = plt.vigilanteRed,
-      ["@diff.delta"] = plt.golfClubGold,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.asphaltDark,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.hockeyStick,
-      ["@constructor.javascript"] = plt.hockeyStick,
-      ["@constructor.typescript"] = plt.hockeyStick,
-      ["@namespace.rust"] = plt.hockeyStick,
-      ["@type.qualifier.rust"] = plt.hockeyWhiteCore,
-      ["@constant.macro.c"] = plt.golfClubGold,
-      ["@constant.macro.cpp"] = plt.golfClubGold,
-      ["@namespace.go"] = plt.hockeyStick,
-      ["@property.css"] = plt.streetBlueBright,
-      ["@type.css"] = plt.hockeyWhiteCore,
-      ["@label.json"] = plt.golfClubGold,
-      ["@field.yaml"] = plt.streetBlueBright,
-      ["@property.toml"] = plt.streetBlueBright,
-      ["@function.builtin.bash"] = plt.streetBlue,
-      ["@string.regexp"] = plt.graffitiCyan,
-      ["@character.special.regex"] = plt.golfClubGold,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.hockeyStick,
-      ["@lsp.type.interface"] = plt.hockeyStick,
-      ["@lsp.type.struct"] = plt.hockeyStick,
-      ["@lsp.type.enum"] = plt.hockeyStick,
-      ["@lsp.type.enumMember"] = plt.maskWhite,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.hockeyStick,
-
-      ["@lsp.type.macro"] = plt.golfClubGold,
-      ["@lsp.type.decorator"] = plt.golfClubGold,
-
-      ["@lsp.type.builtinType"] = plt.hockeyStick,
-      ["@lsp.type.selfParameter"] = plt.hockeyWhiteBright,
-      ["@lsp.type.typeParameter"] = plt.hockeyStick,
-
-      ["@lsp.type.array"] = plt.hockeyStick,
-      ["@lsp.type.object"] = plt.hockeyStick,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.maskWhite,
-      ["@lsp.type.enumConstant"] = plt.maskWhite,
-
-      ["@lsp.type.event"] = plt.hockeyStick,
-      ["@lsp.type.regexp"] = plt.graffitiCyan,
-      ["@lsp.type.unresolvedReference"] = plt.hockeyStick,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.asphaltDark, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.maskWhite,
-      ["@lsp.mod.async"] = plt.hockeyWhiteCore,
-      ["@lsp.mod.static"] = plt.hockeyWhiteBright,
-      ["@lsp.mod.abstract"] = plt.hockeyStick,
-      ["@lsp.mod.defaultLibrary"] = plt.hockeyStick,
-      ["@lsp.mod.documentation"] = plt.concrete,
     },
   }
 end
@@ -352,7 +197,6 @@ return {
   name = "TMNT – Casey Jones",
   author = "PrismPunk.nvim",
   description = "Street vigilante — hockey mask, improvised weapons, rough justice.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +215,6 @@ return {
     base0E = palette.graffiti,
     base0F = palette.baseballBat,
   },
-
   palette = palette,
   get = M.get,
 }

@@ -6,67 +6,53 @@ return {
   bg_light = "#24242f",
   bg_lighter = "#2d2d38",
   bg_lightest = "#363642",
-
   fg_lightest = "#e8e8f0",
   fg_light = "#d0d0e0",
   fg_mid = "#b0b0c8",
   fg_dark = "#8888a0",
-
   bg_alt1 = "#12121a",
   bg_alt2 = "#080810",
   bg_alt3 = "#1a1a24",
   bg_alt4 = "#050508",
-
   hockeyWhite = "#e8e8f0",
   hockeyWhiteBright = "#f5f5ff",
   hockeyWhiteCore = "#d0d0e0",
   hockeyWhiteDeep = "#b0b0c8",
-
   vigilanteRed = "#d94a4a",
   vigilanteRedBright = "#ff5f5f",
   vigilanteRedCore = "#c23838",
   vigilanteRedDeep = "#a02828",
-
   streetBlue = "#4a6b8a",
   streetBlueBright = "#5f85a8",
   streetBlueCore = "#3a5670",
   streetBlueDeep = "#2d4458",
-
   alleyGreen = "#4a7a5a",
   alleyGreenBright = "#5f9872",
   alleyGreenCore = "#3a6248",
   alleyGreenDeep = "#2d4a38",
-
   golfClubGold = "#d4a537",
   golfClubGoldBright = "#f0c050",
   golfClubGoldCore = "#b88f30",
   golfClubGoldDeep = "#9a7728",
-
   baseballBat = "#8a6f47",
   baseballBatDark = "#6f5a38",
   baseballBatDeep = "#5a4830",
-
   hockeyStick = "#9a9490",
   hockeyStickLight = "#afa8a0",
   hockeyStickDark = "#7a7470",
-
   maskWhite = "#d8d8e8",
   maskWhiteStained = "#b8b8c8",
   maskShadow = "#4a4a58",
-
   graffiti = "#d94ab8",
   graffitiPink = "#ff5fd9",
   graffitiCyan = "#5fd9ff",
-
   asphalt = "#5a5a68",
   asphaltDark = "#4a4a58",
   concrete = "#6a6a78",
-
   dangerRed = "#e74c3c",
   warningAmber = "#f39c12",
   infoBlue = "#3498db",
   successGreen = "#27ae60",
-
   nyStreets = "#1a1a24",
   vigilante = "#a03838",
   roughJustice = "#7a5a4a",

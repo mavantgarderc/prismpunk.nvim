@@ -49,20 +49,13 @@ return {
         package.loaded.prismpunk = nil
 
         local ok, prismpunk = pcall(require, "prismpunk")
-        if ok and prismpunk and prismpunk.setup then
-          prismpunk.setup(M.opts)
-          vim.notify("PrismPunk theme setup completed: " .. M.opts.theme)
+        if not ok or not prismpunk or type(prismpunk.setup) ~= "function" then return false end
 
-          vim.defer_fn(function()
-            vim.cmd.colorscheme(M.colorscheme)
-            vim.notify("PrismPunk colorscheme applied: " .. M.colorscheme)
-          end, 50)
+        prismpunk.setup(M.opts)
 
-          return true
-        end
+        vim.defer_fn(function() pcall(vim.cmd.colorscheme, M.colorscheme) end, 50)
 
-        vim.notify("prismpunk.nvim theme could not be loaded", vim.log.levels.WARN)
-        return false
+        return true
       end
 
       local function ensure_hipatterns()
@@ -85,7 +78,7 @@ return {
       end
 
       local function get_contrast_color(hex)
-        local r, g, b = unpack(hex_to_rgb(hex))  -- luacheck: ignore
+        local r, g, b = unpack(hex_to_rgb(hex)) -- luacheck: ignore
         local luminance = 0.299 * r + 0.587 * g + 0.114 * b
         return luminance > 0.5 and "#000000" or "#FFFFFF"
       end
@@ -333,12 +326,6 @@ return {
           local bufname = vim.api.nvim_buf_get_name(bufnr)
           if bufname:match("prismpunk") then process_buffer(bufnr) end
         end, 100)
-      else
-        if not theme_loaded then
-          vim.notify("prismpunk: Failed to load theme", vim.log.levels.ERROR)
-        else
-          vim.notify("prismpunk: Failed to load mini.hipatterns", vim.log.levels.ERROR)
-        end
       end
     end,
   },
@@ -394,6 +381,9 @@ return {
                 -- INJUSTICE LEAGUE
                 elseif colorscheme_name:match("injustice%-league") then
                   category = "dc/injustice-league"
+                -- ARKHAM ASYLUM
+                elseif colorscheme_name:match("arkham%-aylum") then
+                  category = "dc/arkham-asylum"
                 -- JUSTICE LEAGUE
                 elseif colorscheme_name:match("justice%-league") then
                   category = "dc/justice-league"
@@ -444,15 +434,31 @@ return {
         return theme_groups, themes
       end
 
+      local function prismpunk_startup_message(msg, level)
+        level = level or vim.log.levels.INFO
+        local ok, n = pcall(require, "notify")
+        if ok and type(n) == "function" then
+          n(msg, level, { timeout = false })
+        else
+          vim.api.nvim_echo({ { msg, "MoreMsg" } }, true, {})
+        end
+      end
+
       local theme_groups, all_themes = scan_prismpunk_colorschemes()
 
       if #all_themes == 0 then
         theme_groups = {
           ["dc/lantern-corps"] = { "lantern-corps-phantom-corrupted" },
         }
-        vim.notify("No prismpunk colorschemes found, using fallback", vim.log.levels.WARN)
+        vim.schedule(
+          function() prismpunk_startup_message("No prismpunk colorschemes found, using fallback", vim.log.levels.WARN) end
+        )
       else
-        vim.notify("Found " .. #all_themes .. " prismpunk colorschemes", vim.log.levels.INFO)
+        vim.schedule(
+          function()
+            prismpunk_startup_message("Found " .. #all_themes .. " prismpunk colorschemes", vim.log.levels.INFO)
+          end
+        )
       end
 
       require("raphael").setup({

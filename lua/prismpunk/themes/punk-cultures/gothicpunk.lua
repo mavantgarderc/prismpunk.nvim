@@ -3,10 +3,8 @@ local palette = require("prismpunk.palettes.punk-cultures.gothicpunk")
 
 local M = {}
 
----@param opts table
----@param plt table
----@return table
 M.get = function(opts, plt)
+  plt = plt or palette
   return {
     modes = {
       normal = plt.cryptVioletCore,
@@ -15,68 +13,6 @@ M.get = function(opts, plt)
       replace = plt.bloodMoonCore,
       command = plt.pentagramPurpleCore,
     },
-
-    ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      fg_reverse = plt.bg_alt1,
-      bg_m4 = plt.bg_alt4,
-      bg_m3 = plt.bg_alt3,
-      bg_m2 = plt.bg_darkest,
-      bg_m1 = plt.bg_darker,
-      bg_dim = plt.bg_darker,
-      bg = plt.bg_darkest,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = opts.gutter and plt.bg_light or "none",
-      bg_cursorline = plt.bg_dark,
-      bg_cursorline_alt = plt.bg_mid,
-      bg_search = plt.vampireRedDeep,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.gargoyleGray,
-      header1 = plt.bloodMoonBright,
-      header2 = plt.cryptVioletBright,
-      special = plt.pentagramPurple,
-      nontext = plt.bg_lightest,
-      whitespace = plt.bg_lightest,
-      win_separator = plt.gargoyleGray,
-      indent = plt.bg_lighter,
-      indent_scope = plt.cryptVioletCore,
-      picker = plt.roseRed,
-      yank = plt.candlelightGoldBright,
-      mark = plt.pentagramPurple,
-      scrollbar = plt.bg_lighter,
-      tabline = {
-        bg = plt.bg_darkest,
-        fg_selected = plt.fg_lightest,
-        bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_dark,
-        bg_inactive = plt.bg_darkest,
-        fg_alternate = plt.bloodMoonBright,
-        bg_alternate = plt.bg_darkest,
-        indicator = plt.cryptVioletCore,
-      },
-      pmenu = {
-        fg = plt.fg_light,
-        fg_sel = plt.fg_lightest,
-        fg_border = plt.gargoyleGray,
-        bg_border = plt.bg_light,
-        bg = plt.bg_light,
-        bg_sel = plt.bg_lighter,
-        bg_sbar = plt.bg_light,
-        bg_thumb = plt.gargoyleGrayBright,
-      },
-      float = {
-        fg = plt.fg_light,
-        bg = plt.bg_darker,
-        fg_border = plt.gargoyleGray,
-        bg_border = plt.bg_darker,
-      },
-    },
-
     accent = {
       accent1 = plt.cryptVioletCore,
       accent2 = plt.vampireRedCore,
@@ -85,7 +21,6 @@ M.get = function(opts, plt)
       accent5 = plt.roseRedCore,
       invert = plt.bg_light,
     },
-
     rainbow = {
       rainbow1 = plt.cryptVioletBright,
       rainbow2 = plt.vampireRedBright,
@@ -95,54 +30,97 @@ M.get = function(opts, plt)
       rainbow6 = plt.candlelightGoldBright,
       rainbow7 = plt.ritualGreenBright,
     },
-
+    ui = {
+      bg = plt.bg_darkest,
+      bg_cursorline = plt.bg_dark,
+      bg_dim = plt.bg_darkest,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_highlight = plt.bg_mid,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_statusline = plt.bg_light,
+      bg_visual = plt.bg_mid,
+      border = plt.gargoyleGray,
+      cursorline = plt.bg_dark,
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_reverse = plt.bg_alt1,
+      indent = plt.bg_lighter,
+      indent_scope = plt.cryptVioletCore,
+      line_nr = plt.bg_lightest,
+      line_nr_active = plt.fg_lightest,
+      line_nr_dim = plt.bg_lighter,
+      nontext = plt.bg_lightest,
+      selection = plt.bg_mid,
+      win_separator = plt.gargoyleGray,
+      float = {
+        bg = plt.bg_darker,
+        bg_border = plt.bg_darker,
+        fg = plt.fg_light,
+        fg_border = plt.gargoyleGray,
+      },
+      pmenu = {
+        bg = plt.bg_light,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_thumb = plt.gargoyleGrayBright,
+        fg = plt.fg_light,
+        fg_sel = plt.fg_lightest,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_dark,
+        fg_selected = plt.fg_lightest,
+      },
+    },
     syn = {
-      attribute = plt.candlelightGold,
-      boolean = plt.pentagramPurple,
+      attribute = plt.candlelightGoldCore,
+      boolean = plt.pentagramPurpleCore,
       comment = plt.gargoyleGray,
-      constant = plt.ghostWhite,
+      constant = plt.ghostWhiteCore,
       deprecated = plt.mourningBlack,
       func = plt.bloodMoonCore,
       identifier = plt.fg_lightest,
       keyword = plt.cryptVioletCore,
       method = plt.bloodMoonBright,
-      number = plt.ghostWhite,
+      number = plt.ghostWhiteCore,
       operator = plt.vampireRedCore,
       parameter = plt.fg_mid,
       preproc = plt.pentagramPurpleCore,
       punct = plt.fg_dark,
-      regex = plt.roseRed,
+      regex = plt.roseRedCore,
+      special = plt.pentagramPurpleCore,
       statement = plt.cryptVioletCore,
       string = plt.bloodMoonCore,
-      symbol = plt.candlelightGold,
+      symbol = plt.candlelightGoldCore,
       type = plt.cobwebGrayCore,
       variable = plt.fg_lightest,
-      special = plt.pentagramPurple,
-      special2 = plt.roseRed,
-      special3 = plt.ritualGreen,
     },
-
-    vcs = {
-      added = plt.ritualGreenCore,
-      removed = plt.vampireRedCore,
-      changed = plt.candlelightGoldCore,
+    diag = {
+      error = plt.errorRed,
+      warning = plt.warningAmber,
+      info = plt.infoBlue,
+      ok = plt.successGreen,
+      hint = plt.pentagramPurpleCore,
     },
-
     diff = {
       add = plt.ritualGreenCore,
       change = plt.candlelightGoldCore,
       delete = plt.vampireRedCore,
-      text = plt.pentagramPurple,
+      text = plt.pentagramPurpleCore,
     },
-
-    diag = {
-      ok = plt.successGreen,
-      error = plt.errorRed,
-      warning = plt.warningAmber,
-      info = plt.infoBlue,
-      hint = plt.pentagramPurple,
+    vcs = {
+      added = plt.ritualGreenCore,
+      changed = plt.candlelightGoldCore,
+      removed = plt.vampireRedCore,
     },
-
     term = {
       black = plt.bg_darkest,
       red = plt.vampireRedCore,
@@ -160,190 +138,6 @@ M.get = function(opts, plt)
       magenta_bright = color(plt.pentagramPurpleBright):brighten(0.15):to_hex(),
       cyan_bright = color(plt.cobwebGrayBright):brighten(0.15):to_hex(),
       white_bright = plt.ghostWhiteBright,
-      indexed1 = plt.bloodMoon,
-      indexed2 = plt.cryptViolet,
-    },
-
-    treesitter = {
-      ["@comment"] = plt.gargoyleGray,
-      ["@comment.documentation"] = plt.gargoyleGrayBright,
-      ["@comment.error"] = plt.errorRed,
-      ["@comment.warning"] = plt.warningAmber,
-      ["@comment.todo"] = plt.candlelightGoldBright,
-      ["@comment.note"] = plt.pentagramPurple,
-
-      ["@constant"] = plt.ghostWhite,
-      ["@constant.builtin"] = plt.ghostWhiteCore,
-      ["@constant.macro"] = plt.candlelightGold,
-
-      ["@string"] = plt.bloodMoonCore,
-      ["@string.documentation"] = plt.bloodMoonCore,
-      ["@string.regex"] = plt.roseRed,
-      ["@string.escape"] = plt.vampireRedBright,
-      ["@string.special"] = plt.bloodMoonBright,
-      ["@string.special.symbol"] = plt.candlelightGold,
-      ["@string.special.url"] = plt.cryptViolet,
-      ["@string.special.path"] = plt.bloodMoonCore,
-
-      ["@character"] = plt.bloodMoonCore,
-      ["@character.special"] = plt.candlelightGold,
-
-      ["@number"] = plt.ghostWhite,
-      ["@number.float"] = plt.ghostWhiteCore,
-
-      ["@boolean"] = plt.pentagramPurple,
-
-      ["@function"] = plt.bloodMoonCore,
-      ["@function.builtin"] = plt.bloodMoonCore,
-      ["@function.call"] = plt.bloodMoonCore,
-      ["@function.macro"] = plt.pentagramPurpleCore,
-      ["@function.method"] = plt.bloodMoonBright,
-      ["@function.method.call"] = plt.bloodMoonBright,
-
-      ["@constructor"] = plt.cobwebGrayCore,
-
-      ["@parameter"] = plt.fg_mid,
-      ["@parameter.builtin"] = plt.fg_light,
-
-      ["@keyword"] = plt.cryptVioletCore,
-      ["@keyword.coroutine"] = plt.pentagramPurpleCore,
-      ["@keyword.function"] = plt.cryptVioletCore,
-      ["@keyword.operator"] = plt.vampireRedCore,
-      ["@keyword.return"] = plt.cryptVioletCore,
-      ["@keyword.import"] = plt.pentagramPurpleCore,
-      ["@keyword.storage"] = plt.cryptVioletCore,
-      ["@keyword.repeat"] = plt.cryptVioletCore,
-      ["@keyword.conditional"] = plt.cryptVioletCore,
-      ["@keyword.exception"] = plt.vampireRedCore,
-      ["@keyword.directive"] = plt.pentagramPurpleCore,
-      ["@keyword.directive.define"] = plt.pentagramPurpleCore,
-
-      ["@conditional"] = plt.cryptVioletCore,
-      ["@conditional.ternary"] = plt.cryptVioletCore,
-
-      ["@repeat"] = plt.cryptVioletCore,
-
-      ["@label"] = plt.candlelightGold,
-
-      ["@operator"] = plt.vampireRedCore,
-
-      ["@exception"] = plt.vampireRedCore,
-
-      ["@variable"] = plt.fg_lightest,
-      ["@variable.builtin"] = plt.cryptVioletBright,
-      ["@variable.parameter"] = plt.fg_mid,
-      ["@variable.member"] = plt.fg_light,
-
-      ["@type"] = plt.cobwebGrayCore,
-      ["@type.builtin"] = plt.cobwebGrayCore,
-      ["@type.definition"] = plt.cobwebGrayCore,
-      ["@type.qualifier"] = plt.cryptVioletCore,
-
-      ["@attribute"] = plt.candlelightGold,
-      ["@attribute.builtin"] = plt.candlelightGold,
-
-      ["@property"] = plt.fg_light,
-
-      ["@field"] = plt.fg_light,
-
-      ["@module"] = plt.cobwebGrayCore,
-      ["@module.builtin"] = plt.cobwebGrayCore,
-
-      ["@namespace"] = plt.cobwebGrayCore,
-      ["@namespace.builtin"] = plt.cobwebGrayCore,
-
-      ["@punctuation.delimiter"] = plt.fg_dark,
-      ["@punctuation.bracket"] = plt.fg_dark,
-      ["@punctuation.special"] = plt.vampireRedCore,
-
-      ["@tag"] = plt.cryptVioletCore,
-      ["@tag.attribute"] = plt.candlelightGold,
-      ["@tag.delimiter"] = plt.vampireRedCore,
-      ["@tag.builtin"] = plt.cryptVioletCore,
-
-      ["@markup.strong"] = { fg = plt.bloodMoonBright, bold = true },
-      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
-      ["@markup.strikethrough"] = { fg = plt.gargoyleGray, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.pentagramPurple, underline = true },
-      ["@markup.heading"] = plt.bloodMoonBright,
-      ["@markup.heading.1"] = plt.bloodMoonBright,
-      ["@markup.heading.2"] = plt.cryptVioletBright,
-      ["@markup.heading.3"] = plt.vampireRedBright,
-      ["@markup.heading.4"] = plt.pentagramPurpleBright,
-      ["@markup.heading.5"] = plt.roseRedBright,
-      ["@markup.heading.6"] = plt.candlelightGoldBright,
-      ["@markup.quote"] = plt.gargoyleGray,
-      ["@markup.math"] = plt.ghostWhite,
-      ["@markup.link"] = plt.cryptViolet,
-      ["@markup.link.label"] = plt.cryptVioletBright,
-      ["@markup.link.url"] = plt.cryptViolet,
-      ["@markup.raw"] = plt.bloodMoonCore,
-      ["@markup.raw.block"] = plt.bloodMoonCore,
-      ["@markup.list"] = plt.cryptVioletCore,
-      ["@markup.list.checked"] = plt.ritualGreenCore,
-      ["@markup.list.unchecked"] = plt.gargoyleGray,
-
-      ["@diff.plus"] = plt.ritualGreenCore,
-      ["@diff.minus"] = plt.vampireRedCore,
-      ["@diff.delta"] = plt.candlelightGoldCore,
-
-      ["@none"] = "none",
-      ["@conceal"] = plt.bg_lightest,
-      ["@spell"] = plt.fg_lightest,
-      ["@nospell"] = "none",
-
-      ["@lsp.type.property.lua"] = plt.fg_light,
-      ["@constructor.python"] = plt.cobwebGrayCore,
-      ["@constructor.javascript"] = plt.cobwebGrayCore,
-      ["@constructor.typescript"] = plt.cobwebGrayCore,
-      ["@namespace.rust"] = plt.cobwebGrayCore,
-      ["@type.qualifier.rust"] = plt.cryptVioletCore,
-      ["@constant.macro.c"] = plt.candlelightGold,
-      ["@constant.macro.cpp"] = plt.candlelightGold,
-      ["@namespace.go"] = plt.cobwebGrayCore,
-      ["@property.css"] = plt.bloodMoonBright,
-      ["@type.css"] = plt.cryptVioletCore,
-      ["@label.json"] = plt.candlelightGold,
-      ["@field.yaml"] = plt.bloodMoonBright,
-      ["@property.toml"] = plt.bloodMoonBright,
-      ["@function.builtin.bash"] = plt.bloodMoonCore,
-      ["@string.regexp"] = plt.roseRed,
-      ["@character.special.regex"] = plt.candlelightGold,
-    },
-
-    lsp = {
-      ["@lsp.type.class"] = plt.cobwebGrayCore,
-      ["@lsp.type.interface"] = plt.cobwebGrayCore,
-      ["@lsp.type.struct"] = plt.cobwebGrayCore,
-      ["@lsp.type.enum"] = plt.cobwebGrayCore,
-      ["@lsp.type.enumMember"] = plt.ghostWhiteCore,
-      ["@lsp.type.property"] = plt.fg_light,
-      ["@lsp.type.namespace"] = plt.cobwebGrayCore,
-
-      ["@lsp.type.macro"] = plt.candlelightGold,
-      ["@lsp.type.decorator"] = plt.candlelightGold,
-
-      ["@lsp.type.builtinType"] = plt.cobwebGrayCore,
-      ["@lsp.type.selfParameter"] = plt.cryptVioletBright,
-      ["@lsp.type.typeParameter"] = plt.cobwebGrayCore,
-
-      ["@lsp.type.array"] = plt.cobwebGrayCore,
-      ["@lsp.type.object"] = plt.cobwebGrayCore,
-      ["@lsp.type.key"] = plt.fg_light,
-      ["@lsp.type.null"] = plt.ghostWhiteCore,
-      ["@lsp.type.enumConstant"] = plt.ghostWhiteCore,
-
-      ["@lsp.type.event"] = plt.cobwebGrayCore,
-      ["@lsp.type.regexp"] = plt.roseRed,
-      ["@lsp.type.unresolvedReference"] = plt.cobwebGrayCore,
-
-      ["@lsp.mod.deprecated"] = { fg = plt.mourningBlack, strikethrough = true },
-      ["@lsp.mod.readonly"] = plt.ghostWhiteCore,
-      ["@lsp.mod.async"] = plt.cryptVioletCore,
-      ["@lsp.mod.static"] = plt.cryptVioletBright,
-      ["@lsp.mod.abstract"] = plt.cobwebGrayCore,
-      ["@lsp.mod.defaultLibrary"] = plt.cobwebGrayCore,
-      ["@lsp.mod.documentation"] = plt.gargoyleGrayBright,
     },
   }
 end
@@ -352,7 +146,6 @@ return {
   name = "Punk – Gothic Punk",
   author = "PrismPunk.nvim",
   description = "Victorian gothic — vampire red, crypt violet, blood moon, dark romance, occult shadows.",
-
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,
@@ -371,7 +164,6 @@ return {
     base0E = palette.pentagramPurpleCore,
     base0F = palette.bloodMoonCore,
   },
-
   palette = palette,
   get = M.get,
 }

@@ -174,7 +174,8 @@ end
 return {
   name = "Apokolips – Grayven",
   author = "PrismPunk.nvim",
-  description = "The son Darkseid erased from history. Molten gold arrogance, frozen starlight vengeance, and the black void of a throne he will burn the universe to claim.",
+  description = "The son Darkseid erased from history. Molten gold arrogance, "
+	.. "frozen starlight vengeance, and the black void of a throne he will burn the universe to claim.",
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,

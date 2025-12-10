@@ -174,7 +174,8 @@ end
 return {
   name = "Apokolips – Pythia",
   author = "PrismPunk.nvim",
-  description = "The broken oracle who sees every future except her own. Violet fire in dying eyes. The voice of inevitable doom.",
+  description = "The broken oracle who sees every future except her own. "
+    .. "Violet fire in dying eyes. The voice of inevitable doom.",
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,

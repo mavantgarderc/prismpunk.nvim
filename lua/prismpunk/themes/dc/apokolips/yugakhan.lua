@@ -173,7 +173,8 @@ end
 return {
   name = "Apokolips – Yuga Khan",
   author = "PrismPunk.nvim",
-  description = "The First. The Last. The one who imprisoned the Old Gods and broke the Source itself. Cold cosmic teal and absolute black. There is no warmth here — only the end.",
+  description = "The First. The Last. The one who imprisoned the Old Gods and broke the Source itself. "
+    .. "Cold cosmic teal and absolute black. There is no warmth here — only the end.",
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,

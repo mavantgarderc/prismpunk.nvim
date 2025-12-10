@@ -174,7 +174,8 @@ end
 return {
   name = "Apokolips – Desaad",
   author = "PrismPunk.nvim",
-  description = "The master of pain. Sickly venom green, infected crimson, and the pale light of dying screams. Your code will beg for mercy.",
+  description = "The master of pain. Sickly venom green, infected crimson, "
+    .. "and the pale light of dying screams. Your code will beg for mercy.",
   base16 = {
     base00 = palette.bg_darkest,
     base01 = palette.bg_darker,

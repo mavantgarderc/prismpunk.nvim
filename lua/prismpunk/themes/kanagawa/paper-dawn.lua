@@ -178,7 +178,7 @@ return {
   name = "Kanagawa Paper – Dawn",
   author = "PrismPunk.nvim",
   description = "True sunset parchment. Warm, golden-hour light. "
-		.. "Deep ink contrast. The most beautiful light theme you’ll ever use.",
+    .. "Deep ink contrast. The most beautiful light theme you’ll ever use.",
   base16 = {
     base00 = palette.paperWhite,
     base01 = palette.lightBeige,

@@ -1,39 +1,56 @@
 return {
-  torture_void = "#0a0f05",
-  pain_depth = "#121a08",
-  agony_shadow = "#1a250f",
-  suffering_core = "#223016",
-
-  desaad_skin = "#3a4d2a",
+  tortureVoid = "#0a0f05",
+  painDepth = "#121a08",
+  agonyShadow = "#1a250f",
+  sufferingCore = "#223016",
+  desaadSkin = "#3a4d2a",
   torment_flesh = "#4f6638",
   sadist_flesh = "#66844d",
   venom_circuits = "#88aa66",
-
   desaad_venom = "#aaff00",
   nerve_fire = "#bbff22",
   chemical_burn = "#ccff44",
   agony_glow = "#ddff77",
   torture_light = "#eeffaa",
-
   infected_blood = "#ff0033",
   surgical_red = "#ff2244",
   wound_crimson = "#ff4466",
   pain_pulse = "#ff6688",
   broken_vein = "#ff88aa",
-
   torture_steel = "#99ccdd",
   corpse_pale = "#bbddff",
   death_light = "#cceeff",
-
   term_red = "#ff4466",
   term_green = "#aaff00",
   term_blue = "#88ccff",
   term_yellow = "#eeffaa",
   term_cyan = "#ccff88",
-
   scream_void = "#003300",
   nerve_poison = "#004d00",
   acid_bath = "#006600",
   broken_mind = "#008800",
   final_scream = "#00aa00",
+
+  bg_darkest = "#0a0f05",
+  bg_darker = "#121a08",
+  bg_dark = "#1a250f",
+  bg_mid = "#223016",
+  bg_light = "#3a4d2a",
+  bg_lighter = "#4f6638",
+  bg_lightest = "#66844d",
+
+  bg_alt1 = "#003300",
+  bg_alt2 = "#004d00",
+  bg_alt3 = "#006600",
+  bg_alt4 = "#008800",
+
+  fg_lightest = "#eeffaa",
+  fg_light = "#ddff77",
+  fg_mid = "#ccff44",
+  fg_dark = "#88aa66",
+
+  dangerRed = "#ff0033",
+  warningAmber = "#ccff44",
+  infoBlue = "#99ccdd",
+  successGreen = "#00aa00",
 }

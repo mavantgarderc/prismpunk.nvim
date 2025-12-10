@@ -451,7 +451,7 @@ return {
           ["dc/lantern-corps"] = { "lantern-corps-phantom-corrupted" },
         }
         vim.schedule(
-          function() prismpunk_startup_message("No prismpunk colorschemes found, using fallback", vim.log.levels.WARN) end
+          function() prismpunk_startup_message("No colorschemes found, using fallback", vim.log.levels.WARN) end
         )
       else
         vim.schedule(

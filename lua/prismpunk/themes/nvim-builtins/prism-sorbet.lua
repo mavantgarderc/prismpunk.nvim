@@ -3,6 +3,9 @@ local palette = require("prismpunk.palettes.nvim-builtins.prism-sorbet")
 
 local M = {}
 
+---@param opts table|nil
+---@param plt table|nil
+---@return table
 M.get = function(opts, plt)
   plt = plt or palette
   opts = opts or {}

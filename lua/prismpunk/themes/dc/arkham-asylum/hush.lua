@@ -192,7 +192,8 @@ end
 return {
   name = "Hush – Silence in Bandages",
   author = "PrismPunk.nvim",
-  description = "A surgeon’s precision wrapped in lies and gauze. Cold dossiers, muted arteries, and the quiet hatred of a man who rebuilt his own face just to destroy a childhood friend.",
+  description = "A surgeon’s precision wrapped in lies and gauze. Cold dossiers, muted arteries, "
+    .. "and the quiet hatred of a man who rebuilt his own face just to destroy a childhood friend.",
 
   base16 = {
     base00 = palette.bg_darkest,

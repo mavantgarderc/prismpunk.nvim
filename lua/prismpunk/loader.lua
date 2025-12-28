@@ -167,20 +167,17 @@ end
 --- @param theme_module table
 --- @param palette_table table
 local function apply_terminals(theme_module, palette_table)
-  -- Check if theme has base16 colors defined
   if not theme_module.base16 then
     vim.notify("[prismpunk] Theme missing base16 colors - skipping terminal export", vim.log.levels.WARN)
     return
   end
 
   vim.schedule(function()
-    -- Apply colors to Neovim's built-in terminal
     local success, err = pcall(terminals.apply, { colors = theme_module.base16 })
     if not success then
       vim.notify(string.format("[prismpunk] Terminal apply warning: %s", tostring(err)), vim.log.levels.WARN)
     end
 
-    -- Export to external terminal emulators (Ghostty, Alacritty, Kitty)
     local theme_for_export = {
       name = theme_module.name,
       colors = theme_module.base16,
@@ -247,6 +244,10 @@ function M.load(theme_spec, opts)
   local theme_path, theme_module
   ok, theme_path, theme_module = pcall(resolve_theme_module, parsed)
   if not ok then return false, tostring(theme_path) end
+
+  if type(theme_module) ~= "table" or type(theme_module.get) ~= "function" then
+    return false, string.format("[prismpunk] Theme module missing required 'get' function: %s", theme_path)
+  end
 
   local palette_universe = parsed.universe or (theme_module.palette and theme_module.palette.universe) or nil
   local palette_name = (theme_module.palette and theme_module.palette.name) or parsed.name
@@ -333,6 +334,13 @@ function M.load(theme_spec, opts)
     return false, string.format("[prismpunk] theme.get() must return table, got %s", type(theme_result))
   end
 
+  if not theme_result.ui or not theme_result.syn then
+    vim.notify(
+      string.format("[prismpunk] Warning: Theme %s may be missing required structure (ui, syn)", theme_key),
+      vim.log.levels.WARN
+    )
+  end
+
   validate_contrast(theme_result)
 
   local normalized
@@ -349,9 +357,9 @@ function M.load(theme_spec, opts)
     save_to_disk_cache(cache_key, cache_data)
   end
 
-  ok, _ = pcall(highlights.apply, theme_result, config.options) -- luacheck: ignore
+  ok, err = pcall(highlights.apply, theme_result, config.options) --luacheck: ignore
   if not ok then -- luachec: ignore
-    return false, string.format("[prismpunk] Failed to apply highlights: %s", tostring(_)) -- luacheck: ignore
+    return false, string.format("[prismpunk] Failed to apply highlights: %s", tostring(err)) -- luacheck: ignore
   end
 
   apply_terminals(theme_module, palette_table)
@@ -360,6 +368,104 @@ function M.load(theme_spec, opts)
   loaded_theme = theme_key
 
   return true, theme_result
+end
+
+-- Cache for theme listing to improve performance
+local themes_cache = nil
+local themes_cache_time = 0
+local CACHE_TTL = 30
+
+--- Discover and list all available themes
+--- @return table List of theme names in "universe/theme" format
+function M.list_themes()
+  ---@diagnostic disable-next-line: param-type-mismatch
+  local current_time = os.time(os.date("*t"))
+  if themes_cache and (current_time - themes_cache_time) < CACHE_TTL then return themes_cache end
+
+  local themes = {}
+
+  local themes_dir = vim.fn.stdpath("data") .. "/site/lua/prismpunk/themes" --luacheck: ignore
+
+  local current_dir = debug.getinfo(1).source:match("@?(.*/)") or "."
+  local current_themes_dir = current_dir:gsub("/lua/prismpunk/loader%.lua$", "") .. "/lua/prismpunk/themes"
+
+  local possible_dirs = {
+    current_themes_dir,
+    vim.fn.stdpath("data") .. "/site/pack/*/start/*/lua/prismpunk/themes",
+    vim.fn.stdpath("data") .. "/site/lua/prismpunk/themes",
+  }
+
+  local themes_dir = nil --luacheck: ignore
+  for _, dir in ipairs(possible_dirs) do
+    if vim.fn.isdirectory(dir) == 1 then
+      themes_dir = dir
+      break
+    end
+  end
+
+  if not themes_dir then
+    local fallback_themes = {
+      "kanagawa/paper-edo",
+      "kanagawa/paper-dawn",
+      "kanagawa/paper-dragon",
+      "dc/lantern-corps/phantom-corrupted",
+      "dc/lantern-corps/green",
+      "dc/lantern-corps/red",
+      "tmnt/leonardo",
+      "tmnt/raphael",
+      "tmnt/donatello",
+      "tmnt/michelangelo",
+      "justice-league/superman",
+      "justice-league/batman",
+      "justice-league/wonder-woman",
+      "injustice-league/joker",
+      "injustice-league/sinestro",
+    }
+
+    for _, theme in ipairs(fallback_themes) do
+      local parsed = require("prismpunk.config").parse_theme(theme)
+      local theme_path
+      if parsed.universe then
+        theme_path = "prismpunk.themes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
+      else
+        theme_path = "prismpunk.themes." .. parsed.name
+      end
+
+      local ok, _ = pcall(require, theme_path)
+      if ok then table.insert(themes, theme) end
+    end
+
+    themes_cache = themes
+    themes_cache_time = current_time
+    return themes
+  end
+
+  local universes = vim.fn.readdir(themes_dir)
+
+  for _, universe in ipairs(universes) do
+    local universe_path = themes_dir .. "/" .. universe
+
+    if vim.fn.isdirectory(universe_path) == 1 then
+      local theme_files = vim.fn.readdir(universe_path)
+
+      for _, file in ipairs(theme_files) do
+        if file:match("%.lua$") then
+          local theme_name = file:gsub("%.lua$", "")
+          table.insert(themes, universe .. "/" .. theme_name)
+        end
+      end
+    end
+  end
+
+  themes_cache = themes
+  themes_cache_time = current_time
+  return themes
+end
+
+--- Clear the theme listing cache
+function M.clear_theme_cache()
+  themes_cache = nil
+  themes_cache_time = 0
 end
 
 M._highlight_cache = highlight_cache

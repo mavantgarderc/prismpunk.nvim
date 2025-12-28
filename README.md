@@ -1,6 +1,6 @@
 # PrismPunk.nvim
 
-A NeoVim cclorscheme plugin including: Impressionism, Kanagawa, Michelangelo from TMNT, DecoPunk, & so many more...
+A NeoVim colorscheme plugin including: Impressionism, Kanagawa, Michelangelo from TMNT, DecoPunk, & so many more...
 
 ## Installation
 
@@ -94,6 +94,8 @@ All of these work:
 - `:PrismpunkExportGhostty`: Export current theme to Ghostty config.
 - `:PrismpunkReload`: Clear cache and reload the current theme (for live dev changes).
 - `:PrismpunkListThemes`: List all available themes.
+- `:PrismpunkCurrentTheme`: Show the currently active theme.
+- `:PrismpunkPreview <theme_name>`: Preview a theme without loading it.
 - More commands coming soon for preview and random selection.
 
 ## Features
@@ -248,6 +250,15 @@ require("prismpunk").setup({
 -- Clear cache and reload theme
 require("prismpunk.loader").clear_cache()
 require("prismpunk").load("lantern-corps/green")
+```
+
+## Testing
+
+To run the tests for PrismPunk.nvim:
+
+```bash
+# If using plenary.nvim for testing
+nvim --headless -c "PlenaryBustedDirectory tests/ {minimal_init = 'tests/minimal_init.lua'}"
 ```
 
 ## Contributing

@@ -35,13 +35,13 @@ M.get = function(opts, plt)
       bg_visual = plt.killshot_red,
       bg_statusline = plt.lawton_core,
 
-      border = plt.tactical_gray,
+      border = plt.red_dot, -- Signature red dot for identity
       header1 = plt.red_dot,
       header2 = plt.gunmetal,
       special = plt.contract_red,
-      nontext = plt.scope_night,
-      whitespace = plt.killzone_glow,
-      win_separator = plt.tactical_gray,
+      nontext = plt.sterile_white, -- Better contrast
+      whitespace = plt.cold_scope, -- Better contrast
+      win_separator = plt.red_dot, -- Signature red dot for identity
       indent = plt.scope_night,
       indent_scope = plt.cold_scope,
       picker = plt.contract_white,
@@ -53,7 +53,7 @@ M.get = function(opts, plt)
         bg = plt.void_black,
         fg_selected = plt.contract_white,
         bg_selected = plt.lawton_core,
-        fg_inactive = plt.target_paper,
+        fg_inactive = plt.sterile_white, -- Better contrast
         bg_inactive = plt.void_black,
         fg_alternate = plt.red_dot,
         bg_alternate = plt.void_black,
@@ -68,13 +68,13 @@ M.get = function(opts, plt)
         bg = plt.lawton_core,
         bg_sel = plt.scope_night,
         bg_sbar = plt.lawton_core,
-        bg_thumb = plt.tactical_gray,
+        bg_thumb = plt.red_dot, -- Signature red dot for identity
       },
 
       float = {
         fg = plt.contract_white,
         bg = plt.scope_night,
-        fg_border = plt.lawton_core,
+        fg_border = plt.red_dot, -- Signature red dot for identity
         bg_border = plt.scope_night,
       },
     },
@@ -101,7 +101,7 @@ M.get = function(opts, plt)
     syn = {
       attribute = plt.contract_white,
       boolean = plt.killshot_red,
-      comment = plt.target_paper,
+      comment = plt.sterile_white, -- Brighter for better contrast
       constant = plt.tactical_gray,
       deprecated = plt.killzone_glow,
       func = plt.red_dot,
@@ -110,12 +110,12 @@ M.get = function(opts, plt)
       method = plt.gunmetal,
       number = plt.arterial_red,
       operator = plt.cold_scope,
-      parameter = plt.sterile_white,
+      parameter = plt.contract_white, -- Brighter for better contrast
       preproc = plt.killshot_red,
       punct = plt.contract_white,
       regex = plt.barrel_steel,
       statement = plt.red_dot,
-      string = plt.tactical_gray,
+      string = plt.contract_white, -- Brighter for better contrast
       symbol = plt.contract_white,
       type = plt.gunmetal,
       variable = plt.contract_white,
@@ -297,7 +297,7 @@ M.get = function(opts, plt)
       ["@property.toml"] = plt.sterile_white,
       ["@function.builtin.bash"] = plt.gunmetal,
       ["@string.regexp"] = plt.barrel_steel,
-      ["@character.special.regex"] = plt.gunmetal,
+      ["@character.special.regex"] = plt.cold_scope,
     },
 
     lsp = {

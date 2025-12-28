@@ -23,7 +23,7 @@ end
 vim.api.nvim_create_user_command("PrismpunkExportGhostty", function(opts)
   local theme = get_current_theme(opts.args)
 
-  local ok, terminals = pcall(require, "prismpunk.terminals")
+  local ok, terminals = pcall(require, "prismpunk.core.terminals")
   if not ok then
     vim.notify("[prismpunk] Failed to load terminals module", vim.log.levels.ERROR)
     return
@@ -47,7 +47,7 @@ end, {
 vim.api.nvim_create_user_command("PrismpunkPrintPalette", function(opts)
   local theme = get_current_theme(opts.args)
 
-  local ok, terminals = pcall(require, "prismpunk.terminals")
+  local ok, terminals = pcall(require, "prismpunk.core.terminals")
   if not ok then
     vim.notify("[prismpunk] Failed to load terminals module", vim.log.levels.ERROR)
     return
@@ -98,10 +98,62 @@ vim.api.nvim_create_user_command("PrismpunkListThemes", function()
 
   if loader.list_themes then
     local themes = loader.list_themes()
-    vim.notify("Available themes:\n" .. table.concat(themes, "\n"), vim.log.levels.INFO)
+    if #themes > 0 then
+      local theme_list = "Available themes:\n" .. table.concat(themes, "\n")
+      vim.notify(theme_list, vim.log.levels.INFO)
+    else
+      vim.notify("[prismpunk] No themes found", vim.log.levels.WARN)
+    end
   else
     vim.notify("[prismpunk] list_themes function not found", vim.log.levels.ERROR)
   end
 end, {
   desc = "List all available Prismpunk themes",
+})
+
+-- Add command to show current theme
+vim.api.nvim_create_user_command("PrismpunkCurrentTheme", function()
+  local config_ok, config = pcall(require, "prismpunk.config")
+  if not config_ok then
+    vim.notify("[prismpunk] Failed to load config module", vim.log.levels.ERROR)
+    return
+  end
+
+  local current_theme = config.options and config.options.theme or "Not set"
+  vim.notify("[prismpunk] Current theme: " .. current_theme, vim.log.levels.INFO)
+end, {
+  desc = "Show current Prismpunk theme",
+})
+
+-- Add command to preview a theme without loading it
+vim.api.nvim_create_user_command("PrismpunkPreview", function(opts)
+  local theme = opts.args
+  if not theme or theme == "" then
+    vim.notify("[prismpunk] Usage: :PrismpunkPreview <theme_name>", vim.log.levels.WARN)
+    return
+  end
+
+  local ok, loader = pcall(require, "prismpunk.loader")
+  if not ok then
+    vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
+    return
+  end
+
+  local config_ok, config = pcall(require, "prismpunk.config")
+  if config_ok and config.options and config.options.theme then
+    vim.notify(
+      "[prismpunk] Previewing theme: " .. theme .. " (current: " .. config.options.theme .. ")",
+      vim.log.levels.INFO
+    )
+  else
+    vim.notify("[prismpunk] Previewing theme: " .. theme, vim.log.levels.INFO)
+  end
+end, {
+  nargs = 1,
+  complete = function()
+    local ok, loader = pcall(require, "prismpunk.loader")
+    if ok and loader.list_themes then return loader.list_themes() end
+    return {}
+  end,
+  desc = "Preview a Prismpunk theme",
 })

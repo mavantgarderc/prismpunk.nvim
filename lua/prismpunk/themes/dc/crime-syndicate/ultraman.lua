@@ -36,13 +36,13 @@ M.get = function(opts, plt)
       bg_search = plt.kryptoniteGreen,
       bg_visual = plt.dreadPurple,
       bg_statusline = plt.bg_light,
-      border = plt.tyrannyRed, -- Signature red for tyranny
+      border = plt.tyrannyRed,
       header1 = plt.despotGold,
       header2 = plt.tyrannyRed,
       special = plt.subjugationTeal,
-      nontext = plt.fg_dark, -- Better contrast
+      nontext = plt.fg_dark,
       whitespace = plt.bg_lightest,
-      win_separator = plt.tyrannyRed, -- Signature red for tyranny
+      win_separator = plt.tyrannyRed,
       indent = plt.bg_lighter,
       indent_scope = plt.enslaverBlue,
       picker = plt.atrocityOrange,
@@ -53,7 +53,7 @@ M.get = function(opts, plt)
         bg = plt.bg_darkest,
         fg_selected = plt.fg_lightest,
         bg_selected = plt.bg_dark,
-        fg_inactive = plt.fg_light, -- Better contrast
+        fg_inactive = plt.fg_light,
         bg_inactive = plt.bg_darkest,
         fg_alternate = plt.despotGold,
         bg_alternate = plt.bg_darkest,
@@ -67,12 +67,12 @@ M.get = function(opts, plt)
         bg = plt.bg_light,
         bg_sel = plt.bg_lighter,
         bg_sbar = plt.bg_light,
-        bg_thumb = plt.tyrannyRed, -- Signature red for tyranny
+        bg_thumb = plt.tyrannyRed,
       },
       float = {
         fg = plt.fg_light,
         bg = plt.bg_mid,
-        fg_border = plt.tyrannyRed, -- Signature red for tyranny
+        fg_border = plt.tyrannyRed,
         bg_border = plt.bg_mid,
       },
     },
@@ -99,7 +99,7 @@ M.get = function(opts, plt)
     syn = {
       attribute = plt.atrocityOrange,
       boolean = plt.kryptoniteGreen,
-      comment = plt.fg_light, -- Brighter for better contrast
+      comment = plt.fg_light,
       constant = plt.despotGold,
       deprecated = plt.fg_mid,
       func = plt.enslaverBlue,
@@ -108,9 +108,9 @@ M.get = function(opts, plt)
       method = plt.dominionViolet,
       number = plt.solarFlare,
       operator = plt.subjugationTeal,
-      parameter = plt.fg_light, -- Brighter for better contrast
+      parameter = plt.fg_light,
       preproc = plt.enslaverBlue,
-      punct = plt.fg_light, -- Brighter for better contrast
+      punct = plt.fg_light,
       regex = plt.atrocityOrange,
       statement = plt.tyrannyRed,
       string = plt.despotGold,
@@ -374,3 +374,4 @@ return {
   palette = palette,
   get = M.get,
 }
+

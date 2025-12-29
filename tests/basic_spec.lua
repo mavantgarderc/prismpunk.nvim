@@ -82,4 +82,3 @@ describe("PrismPunk Commands", function()
     assert.truthy(cmd_info:match("PrismpunkPreview"))
   end)
 end)
-

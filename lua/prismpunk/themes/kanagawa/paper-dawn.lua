@@ -200,4 +200,3 @@ return {
   palette = palette,
   get = M.get,
 }
-

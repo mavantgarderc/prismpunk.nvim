@@ -1,8 +1,4 @@
 return {
-  accentAmber = "#ffaf00",
-  accentCyan = "#00afff",
-  accentGreen = "#00ffaf",
-  accentMagenta = "#ff5fff",
   bg_alt1 = "#181818",
   bg_alt2 = "#0a0a0a",
   bg_alt3 = "#2a2a2a",
@@ -34,4 +30,8 @@ return {
   whisperCore = "#dadada",
   whisperDim = "#a0a0a0",
   whisperMid = "#c0c0c0",
+  accentAmber = "#ffaf00",
+  accentCyan = "#00afff",
+  accentGreen = "#00ffaf",
+  accentMagenta = "#ff5fff",
 }

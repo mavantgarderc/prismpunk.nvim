@@ -193,7 +193,7 @@ return {
     base0A = palette.chemicalYellowCore,
     base0B = palette.neonPinkCore,
     base0C = palette.toxicCyanCore,
-    base0D = palette.acidGreenCore,
+    base0D = palette.acidGreenDeep,
     base0E = palette.electricPurpleCore,
     base0F = palette.spillVioletCore,
   },

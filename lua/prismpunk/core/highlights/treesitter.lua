@@ -22,9 +22,9 @@ function M.apply(c, config)
   -- VARIABLES / FIELDS / PROPERTIES
   ---------------------------------------------------------------------------
   hl("@variable", merge({ fg = s.syn.variable }, var_style))
-  hl("@variable.builtin", merge({ fg = s.syn.constant }, constants_style))
-  hl("@variable.parameter", merge({ fg = s.syn.variable }, param_style))
-  hl("@variable.parameter.builtin", merge({ fg = s.syn.constant }, param_style))
+  hl("@variable.builtin", merge({ fg = s.syn.special }, constants_style))
+  hl("@variable.parameter", merge({ fg = s.syn.parameter }, param_style))
+  hl("@variable.parameter.builtin", merge({ fg = s.syn.keyword }, param_style))
   hl("@variable.member", merge({ fg = s.syn.variable }, var_style))
   hl("@field", merge({ fg = s.syn.variable }, var_style))
   hl("@property", merge({ fg = s.syn.variable }, var_style))
@@ -46,8 +46,8 @@ function M.apply(c, config)
   hl("@function.builtin", { fg = s.syn.func })
   hl("@function.macro", { fg = s.syn.special })
 
-  hl("@method", { fg = s.syn.func })
-  hl("@method.call", { fg = s.syn.func })
+  hl("@method", { fg = s.syn.method })
+  hl("@method.call", { fg = s.syn.method })
 
   hl("@function.method", { link = "@method" })
   hl("@function.method.call", { link = "@method.call" })
@@ -102,13 +102,13 @@ function M.apply(c, config)
   hl("@type.definition", merge({ fg = s.syn.type }, types_style))
   hl("@type.qualifier", merge({ fg = s.syn.keyword }, types_style))
 
-  hl("@attribute", merge({ fg = s.syn.type }, types_style))
-  hl("@attribute.builtin", merge({ fg = s.syn.type }, types_style))
+  hl("@attribute", merge({ fg = s.syn.attribute or s.syn.type }, types_style))
+  hl("@attribute.builtin", merge({ fg = s.syn.attribute or s.syn.type }, types_style))
 
   -- PUNCTUATION
   ---------------------------------------------------------------------------
-  hl("@punctuation.delimiter", { fg = s.syn.operator })
-  hl("@punctuation.bracket", { fg = s.syn.operator })
+  hl("@punctuation.delimiter", { fg = s.syn.punct })
+  hl("@punctuation.bracket", { fg = s.syn.punct })
   hl("@punctuation.special", { fg = s.syn.special })
   hl("@punctuation.special.method", { fg = s.syn.operator })
   hl("@punctuation.special.property", { fg = s.syn.operator })
@@ -208,13 +208,41 @@ function M.apply(c, config)
 
   -- PARAMETERS
   ---------------------------------------------------------------------------
-  hl("@parameter", merge({ fg = s.syn.variable }, param_style))
-  hl("@parameter.reference", { fg = s.syn.variable })
+  hl("@parameter", merge({ fg = s.syn.parameter }, param_style))
+  hl("@parameter.reference", { fg = s.syn.parameter })
 
   -- MARKDOWN / MARKUP SPECIALS
   ---------------------------------------------------------------------------
   hl("@text.literal.block.markdown", { fg = s.syn.string })
   hl("@text.literal.markdown_inline", { fg = s.syn.string })
+
+  -- LANGUAGE-SPECIFIC OVERRIDES
+  ---------------------------------------------------------------------------
+  -- Python: self, cls, __dunder__ methods should be distinct
+  hl("@variable.builtin.python", merge({ fg = s.syn.keyword }, var_style))
+  hl("@variable.parameter.python", merge({ fg = s.syn.parameter }, param_style))
+
+  -- JavaScript/TypeScript: this, super, arguments should be distinct
+  hl("@variable.builtin.javascript", merge({ fg = s.syn.keyword }, var_style))
+  hl("@variable.builtin.typescript", merge({ fg = s.syn.keyword }, var_style))
+  hl("@variable.builtin.javascriptreact", merge({ fg = s.syn.keyword }, var_style))
+  hl("@variable.builtin.typescriptreact", merge({ fg = s.syn.keyword }, var_style))
+
+  -- Lua: self in methods
+  hl("@variable.builtin.lua", merge({ fg = s.syn.keyword }, var_style))
+
+  -- Ruby: self, super
+  hl("@variable.builtin.ruby", merge({ fg = s.syn.keyword }, var_style))
+
+  -- Rust: self, Self
+  hl("@variable.builtin.rust", merge({ fg = s.syn.keyword }, var_style))
+
+  -- Go: nil, true, false as builtins
+  hl("@constant.builtin.go", merge({ fg = s.syn.constant }, constants_style))
+
+  -- C/C++: this pointer
+  hl("@variable.builtin.c", merge({ fg = s.syn.keyword }, var_style))
+  hl("@variable.builtin.cpp", merge({ fg = s.syn.keyword }, var_style))
 end
 
 return M

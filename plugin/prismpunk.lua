@@ -20,7 +20,7 @@ local function get_current_theme(arg)
   return config.theme or "kanagawa/paper-edo"
 end
 
-vim.api.nvim_create_user_command("PrismpunkExportGhostty", function(opts)
+vim.api.nvim_create_user_command("PrismExportGhostty", function(opts)
   local theme = get_current_theme(opts.args)
 
   local ok, terminals = pcall(require, "prismpunk.core.terminals")
@@ -44,7 +44,7 @@ end, {
   desc = "Export current theme to Ghostty config",
 })
 
-vim.api.nvim_create_user_command("PrismpunkPrintPalette", function(opts)
+vim.api.nvim_create_user_command("PrismPrintPalette", function(opts)
   local theme = get_current_theme(opts.args)
 
   local ok, terminals = pcall(require, "prismpunk.core.terminals")
@@ -68,7 +68,7 @@ end, {
   desc = "Print theme color palette",
 })
 
-vim.api.nvim_create_user_command("PrismpunkReload", function()
+vim.api.nvim_create_user_command("PrismReload", function()
   local ok, loader = pcall(require, "prismpunk.loader")
   if not ok then
     vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
@@ -86,10 +86,10 @@ vim.api.nvim_create_user_command("PrismpunkReload", function()
     vim.notify("[prismpunk] Failed to reload", vim.log.levels.ERROR)
   end
 end, {
-  desc = "Clear cache and reload Prismpunk theme",
+  desc = "Clear cache and reload PrismPunk theme",
 })
 
-vim.api.nvim_create_user_command("PrismpunkListThemes", function()
+vim.api.nvim_create_user_command("PrismListThemes", function()
   local ok, loader = pcall(require, "prismpunk.loader")
   if not ok then
     vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
@@ -108,11 +108,11 @@ vim.api.nvim_create_user_command("PrismpunkListThemes", function()
     vim.notify("[prismpunk] list_themes function not found", vim.log.levels.ERROR)
   end
 end, {
-  desc = "List all available Prismpunk themes",
+  desc = "List all available PrismPunk themes",
 })
 
 -- Add command to show current theme
-vim.api.nvim_create_user_command("PrismpunkCurrentTheme", function()
+vim.api.nvim_create_user_command("PrismCurrentTheme", function()
   local config_ok, config = pcall(require, "prismpunk.config")
   if not config_ok then
     vim.notify("[prismpunk] Failed to load config module", vim.log.levels.ERROR)
@@ -122,38 +122,5 @@ vim.api.nvim_create_user_command("PrismpunkCurrentTheme", function()
   local current_theme = config.options and config.options.theme or "Not set"
   vim.notify("[prismpunk] Current theme: " .. current_theme, vim.log.levels.INFO)
 end, {
-  desc = "Show current Prismpunk theme",
-})
-
--- Add command to preview a theme without loading it
-vim.api.nvim_create_user_command("PrismpunkPreview", function(opts)
-  local theme = opts.args
-  if not theme or theme == "" then
-    vim.notify("[prismpunk] Usage: :PrismpunkPreview <theme_name>", vim.log.levels.WARN)
-    return
-  end
-
-  local ok, loader = pcall(require, "prismpunk.loader")
-  if not ok then
-    vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
-    return
-  end
-
-  local config_ok, config = pcall(require, "prismpunk.config")
-  if config_ok and config.options and config.options.theme then
-    vim.notify(
-      "[prismpunk] Previewing theme: " .. theme .. " (current: " .. config.options.theme .. ")",
-      vim.log.levels.INFO
-    )
-  else
-    vim.notify("[prismpunk] Previewing theme: " .. theme, vim.log.levels.INFO)
-  end
-end, {
-  nargs = 1,
-  complete = function()
-    local ok, loader = pcall(require, "prismpunk.loader")
-    if ok and loader.list_themes then return loader.list_themes() end
-    return {}
-  end,
-  desc = "Preview a Prismpunk theme",
+  desc = "Show current PrismPunk theme",
 })

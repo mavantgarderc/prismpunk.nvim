@@ -72,12 +72,12 @@ end
 --- Register user commands
 local function register_commands()
   -- Clear cache command
-  vim.api.nvim_create_user_command("PrismPunkCacheClear", function() M.clear_cache() end, {
+  vim.api.nvim_create_user_command("PrismCacheClear", function() M.clear_cache() end, {
     desc = "Clear PrismPunk cache (palette + highlights)",
   })
 
   -- Cache stats command
-  vim.api.nvim_create_user_command("PrismPunkCacheStats", function()
+  vim.api.nvim_create_user_command("PrismCacheStats", function()
     local stats = M.cache_stats()
     local msg = string.format(
       "Cache Statistics:\n  Palette: %d hits, %d misses\n  Highlights: %d hits, %d misses",
@@ -92,13 +92,13 @@ local function register_commands()
   })
 
   --- Preview terminal config without writing
-  vim.api.nvim_create_user_command("PrismPunkPreview", function(args)
+  vim.api.nvim_create_user_command("PrismPreview", function(args)
     local parts = vim.split(args.args, "%s+")
     local theme = parts[1]
     local terminal = parts[2] or "kitty"
 
     if not theme then
-      vim.notify("[prismpunk] Usage: :PrismPunkPreview <theme> [terminal]", vim.log.levels.WARN)
+      vim.notify("[prismpunk] Usage: :PrismPreview <theme> [terminal]", vim.log.levels.WARN)
       return
     end
 
@@ -123,7 +123,7 @@ local function register_commands()
   })
 
   -- Load theme command
-  vim.api.nvim_create_user_command("PrismPunkLoad", function(args)
+  vim.api.nvim_create_user_command("PrismLoad", function(args)
     local success, err = M.load(args.args, { force_reload = true })
     if not success then vim.notify("[prismpunk] " .. tostring(err), vim.log.levels.ERROR) end
   end, {

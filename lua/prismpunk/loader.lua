@@ -358,7 +358,7 @@ function M.load(theme_spec, opts)
   end
 
   ok, err = pcall(highlights.apply, theme_result, config.options) --luacheck: ignore
-  if not ok then -- luachec: ignore
+  if not ok then -- luacheck: ignore
     return false, string.format("[prismpunk] Failed to apply highlights: %s", tostring(err)) -- luacheck: ignore
   end
 
@@ -383,8 +383,6 @@ function M.list_themes()
   if themes_cache and (current_time - themes_cache_time) < CACHE_TTL then return themes_cache end
 
   local themes = {}
-
-  local themes_dir = vim.fn.stdpath("data") .. "/site/lua/prismpunk/themes" --luacheck: ignore
 
   local current_dir = debug.getinfo(1).source:match("@?(.*/)") or "."
   local current_themes_dir = current_dir:gsub("/lua/prismpunk/loader%.lua$", "") .. "/lua/prismpunk/themes"

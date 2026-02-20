@@ -315,7 +315,7 @@ local KNOWN_PARENTS = {
   ["ultraviolet"] = "dc",
 }
 
-local DISCOVERY_PARENTS = { "dc", "marvel", "image", "idw" }
+local DISCOVERY_PARENTS = { "dc", "marvel" }
 
 local function parse_two_part_theme(category, name)
   local variants = {}

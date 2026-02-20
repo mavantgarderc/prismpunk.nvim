@@ -16,7 +16,7 @@ local highlight_cache = {}
 
 local loaded_theme = nil
 
-local cache_stats = {
+local highlight_cache_stats = {
   hits = 0,
   misses = 0,
 }
@@ -38,8 +38,8 @@ function M.get_cache_stats()
   return {
     palette_hits = palette_stats.hits,
     palette_misses = palette_stats.misses,
-    highlight_hits = cache_stats.hits,
-    highlight_misses = cache_stats.misses,
+    highlight_hits = highlight_cache_stats.hits,
+    highlight_misses = highlight_cache_stats.misses,
   }
 end
 
@@ -237,8 +237,9 @@ end
 
 function M.clear_cache()
   highlight_cache = {}
-  cache_stats.hits = 0
-  cache_stats.misses = 0
+  module_cache.themes = {}
+  highlight_cache_stats.hits = 0
+  highlight_cache_stats.misses = 0
 
   palette.clear_cache()
 
@@ -295,7 +296,7 @@ function M.load(theme_spec, opts)
 
   if config.options.cache.enable and not opts.force_reload then
     if highlight_cache[cache_key] then
-      cache_stats.hits = cache_stats.hits + 1
+      highlight_cache_stats.hits = highlight_cache_stats.hits + 1
       local cached = highlight_cache[cache_key]
 
       local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
@@ -318,7 +319,7 @@ function M.load(theme_spec, opts)
       local cache_mtime = get_mtime(cache_path)
 
       if not theme_mtime or (cache_mtime and cache_mtime >= theme_mtime) then
-        cache_stats.hits = cache_stats.hits + 1
+        highlight_cache_stats.hits = highlight_cache_stats.hits + 1
         highlight_cache[cache_key] = disk_cached
 
         local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
@@ -334,7 +335,7 @@ function M.load(theme_spec, opts)
     end
   end
 
-  cache_stats.misses = cache_stats.misses + 1
+  highlight_cache_stats.misses = highlight_cache_stats.misses + 1
 
   local start_ns_full = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
   local theme_result
@@ -479,6 +480,6 @@ function M.clear_theme_cache()
 end
 
 M._highlight_cache = highlight_cache
-M._cache_stats = cache_stats
+M._highlight_cache_stats = highlight_cache_stats
 
 return M

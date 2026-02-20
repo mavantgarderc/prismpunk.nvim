@@ -393,7 +393,7 @@ function M.list_themes()
     vim.fn.stdpath("data") .. "/site/lua/prismpunk/themes",
   }
 
-  local themes_dir = nil --luacheck: ignore
+  local themes_dir
   for _, dir in ipairs(possible_dirs) do
     if vim.fn.isdirectory(dir) == 1 then
       themes_dir = dir

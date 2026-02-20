@@ -299,40 +299,56 @@ end
 --- Auto-discovers themes by checking filesystem
 --- @param theme_spec string|table|nil
 --- @return table Normalized spec { universe = string|nil, name = string, variants = table }
---- Parse theme specification (SIMPLE & RELIABLE VERSION)
+local KNOWN_PARENTS = {
+  ["lantern-corps"] = "dc",
+  ["justice-league"] = "dc",
+  ["injustice-league"] = "dc",
+  ["bat-family"] = "dc",
+  ["arkham-asylum"] = "dc",
+  ["league-of-assassins"] = "dc",
+  ["crime-syndicate"] = "dc",
+  ["apokolips"] = "dc",
+  ["new-genesis"] = "dc",
+  ["super-family"] = "dc",
+  ["watchmen"] = "dc",
+  ["emotional-entities"] = "dc",
+  ["ultraviolet"] = "dc",
+}
+
+local DISCOVERY_PARENTS = { "dc", "marvel", "image", "idw" }
+
+local function parse_two_part_theme(category, name)
+  local variants = {}
+
+  local parent = KNOWN_PARENTS[category]
+  if parent then
+    local universe = parent .. "/" .. category
+    table.insert(variants, { universe = universe, name = name })
+    return { universe = universe, name = name, variants = variants }
+  end
+
+  table.insert(variants, { universe = category, name = name })
+
+  for _, parent_name in ipairs(DISCOVERY_PARENTS) do
+    table.insert(variants, { universe = parent_name .. "/" .. category, name = name })
+  end
+
+  return { universe = category, name = name, variants = variants }
+end
+
 function M.parse_theme(theme_spec)
   if not theme_spec or theme_spec == "" then return { universe = nil, name = nil, variants = {} } end
 
   if type(theme_spec) == "string" then
-    local variants = {}
-
-    -- Split by slashes
     local parts = vim.split(theme_spec, "/")
 
     if #parts == 3 then
-      -- Format: "dc/lantern-corps/phantom-corrupted"
       local universe = parts[1] .. "/" .. parts[2]
       local name = parts[3]
-      table.insert(variants, { universe = universe, name = name })
-      return { universe = universe, name = name, variants = variants }
+      return { universe = universe, name = name, variants = { { universe = universe, name = name } } }
     elseif #parts == 2 then
-      -- Format: "lantern-corps/phantom-corrupted" or "kanagawa/paper-sunset"
-      local category = parts[1]
-      local name = parts[2]
-
-      -- Special handling for known categories
-      if category == "lantern-corps" or category == "ultraviolet" then
-        -- These belong to dc universe
-        local universe = "dc/" .. category
-        table.insert(variants, { universe = universe, name = name })
-        return { universe = universe, name = name, variants = variants }
-      else
-        -- Others (like kanagawa) are their own universe
-        table.insert(variants, { universe = category, name = name })
-        return { universe = category, name = name, variants = variants }
-      end
+      return parse_two_part_theme(parts[1], parts[2])
     else
-      -- Plain name (no slashes)
       return { universe = nil, name = theme_spec, variants = {} }
     end
   elseif type(theme_spec) == "table" then

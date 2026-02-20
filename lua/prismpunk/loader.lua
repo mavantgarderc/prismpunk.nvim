@@ -96,6 +96,29 @@ local function get_mtime(path)
   return nil
 end
 
+--- Resolve theme file path from module path
+--- @param module_path string Module path like "prismpunk.themes.dc.lantern-corps.green"
+--- @return string|nil file_path
+local function resolve_theme_file(module_path)
+  local file_path = module_path:gsub("%.", "/") .. ".lua"
+
+  local searchpath = package.searchpath(module_path, package.path)
+  if searchpath then return searchpath end
+
+  local full_paths = {
+    vim.fn.getcwd() .. "/lua/" .. file_path,
+    vim.fn.stdpath("config") .. "/lua/" .. file_path,
+  }
+
+  for _, path in ipairs(full_paths) do
+    if vim.fn.filereadable(path) == 1 then
+      return path
+    end
+  end
+
+  return nil
+end
+
 --- Resolve theme module path with multiple format attempts
 --- @param spec table Normalized theme spec with variants
 --- @return string, table module_path, theme_module
@@ -288,19 +311,8 @@ function M.load(theme_spec, opts)
 
     local disk_cached = load_from_disk_cache(cache_key)
     if disk_cached then
-      local file_path = theme_path:gsub("%.", "/") .. ".lua"
-      local full_paths = {
-        vim.fn.getcwd() .. "/lua/" .. file_path,
-        vim.fn.stdpath("config") .. "/lua/" .. file_path,
-      }
-
-      local theme_mtime = nil
-      for _, path in ipairs(full_paths) do
-        if vim.fn.filereadable(path) == 1 then
-          theme_mtime = get_mtime(path)
-          break
-        end
-      end
+      local file_path = resolve_theme_file(theme_path)
+      local theme_mtime = file_path and get_mtime(file_path) or nil
 
       local cache_path = get_disk_cache_path(cache_key)
       local cache_mtime = get_mtime(cache_path)

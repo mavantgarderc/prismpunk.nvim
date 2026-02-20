@@ -106,8 +106,8 @@ local function register_commands()
     if content then
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(content, "\n"))
-      vim.api.nvim_buf_set_option(buf, "filetype", terminal)
-      vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
+      vim.api.nvim_buf_set_option_value(buf, "filetype", terminal)
+      vim.api.nvim_buf_set_option_value(buf, "bufhidden", "wipe")
 
       -- FIX: Create new split instead of replacing current buffer
       vim.cmd("new")

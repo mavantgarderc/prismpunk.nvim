@@ -95,7 +95,9 @@ local function resolve_palette_module(universe, name)
   table.insert(tries, string.format("prismpunk.palettes.%s", name))
 
   for _, module_path in ipairs(tries) do
-    -- Convert module path to file path
+    local searchpath = package.searchpath(module_path, package.path)
+    if searchpath then return module_path, searchpath end
+
     local file_path = module_path:gsub("%.", "/") .. ".lua"
     local full_paths = {
       vim.fn.getcwd() .. "/lua/" .. file_path,
@@ -105,10 +107,6 @@ local function resolve_palette_module(universe, name)
     for _, full_path in ipairs(full_paths) do
       if vim.fn.filereadable(full_path) == 1 then return module_path, full_path end
     end
-
-    -- Try loading as module (works for installed plugins)
-    local ok, _ = pcall(require, module_path)
-    if ok then return module_path, nil end
   end
 
   return nil, nil

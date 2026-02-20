@@ -56,8 +56,6 @@ end
 
 -- Optional: preview terminal config content for a theme
 M.preview = function(theme_name, terminal_name)
-  terminal_name = terminal_name
-
   if terminal_name == "ghostty" then
     return ghostty.export(theme_name)
   elseif terminal_name == "alacritty" then

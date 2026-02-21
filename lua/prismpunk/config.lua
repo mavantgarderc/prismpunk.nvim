@@ -12,6 +12,7 @@ M.defaults = {
   },
 
   theme = DEFAULT_THEME, -- Theme name (e.g., "phantom-corrupted" or "lantern-corps/phantom-corrupted")
+  themes = {}, -- Allowed themes/universes for discovery (whitelist)
   gutter = true, -- Enable gutter background
   validate_contrast = false, -- Validate color contrast (opt-in)
 
@@ -110,6 +111,7 @@ local schema = {
   },
 
   theme = { type = { "string", "nil" } },
+  themes = { type = "table" }, -- Array of allowed themes/universes
   gutter = { type = "boolean" },
   validate_contrast = { type = "boolean" },
 
@@ -363,6 +365,38 @@ function M.parse_theme(theme_spec)
   else
     error(string.format("[prismpunk] Invalid theme_spec type: %s (expected string or table)", type(theme_spec)))
   end
+end
+
+--- Check if a theme is allowed based on config.themes
+--- @param theme_spec string Theme to check (e.g., "dc/superman" or "kanagawa")
+--- @return boolean allowed
+function M.is_theme_allowed(theme_spec)
+  local allowed_themes = M.options.themes or {}
+  if #allowed_themes == 0 then return true end
+
+  local parsed = M.parse_theme(theme_spec)
+  local theme_name = parsed.name
+  local theme_universe = parsed.universe
+
+  for _, allowed in ipairs(allowed_themes) do
+    if allowed == theme_name or allowed == theme_universe then
+      return true
+    end
+    if theme_universe and allowed == theme_universe then
+      return true
+    end
+    if theme_name and allowed == theme_name then
+      return true
+    end
+  end
+
+  return false
+end
+
+--- Get list of allowed themes based on config
+--- @return table array of theme strings
+function M.get_allowed_themes()
+  return M.options.themes or {}
 end
 
 M.DEFAULT_THEME = DEFAULT_THEME

@@ -134,3 +134,43 @@ describe("palette._cache and _stats", function()
     assert.is_number(palette._stats.misses)
   end)
 end)
+
+describe("palette.create_theme", function()
+  before_each(function()
+    palette.clear_cache()
+  end)
+
+  it("creates theme from spec with base16", function()
+    local spec = {
+      name = "test-theme",
+      base16 = {
+        base00 = "#000000",
+        base05 = "#ffffff",
+      },
+      palette = {
+        fg = "#ffffff",
+        bg = "#000000",
+      },
+      get = function(_, plt)
+        return { ui = { fg = plt.fg, bg = plt.bg } }
+      end,
+    }
+
+    local result = palette.create_theme(spec)
+    assert.is_table(result)
+    assert.is_table(result.colors)
+    assert.is_table(result.theme)
+    assert.is_table(result.palette)
+  end)
+
+  it("handles spec without base16", function()
+    local spec = {
+      name = "simple-theme",
+      custom_field = "value",
+    }
+
+    local result = palette.create_theme(spec)
+    assert.is_table(result)
+    assert.is_true(result.name == "simple-theme" or result.custom_field == "value")
+  end)
+end)

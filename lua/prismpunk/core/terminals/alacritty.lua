@@ -70,7 +70,6 @@ M.export_and_reload = function(theme, conf)
   end
 
   local success = M.write_config(theme, conf.config_path)
-  vim.notify("[DEBUG] write_config returned: " .. tostring(success), vim.log.levels.INFO)
 
   if success then
     vim.notify("Prismpunk: Alacritty theme exported to " .. conf.config_path, vim.log.levels.INFO)

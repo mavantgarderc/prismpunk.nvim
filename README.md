@@ -77,6 +77,28 @@ return {
 }
 ```
 
+### Theme Filtering (Optional)
+
+Limit which themes are available for command completion:
+
+```lua
+require("prismpunk").setup({
+  theme = "dc/superman",  -- Default theme to load
+
+  -- Whitelist of allowed themes/universes
+  themes = {
+    "dc/superman",      -- Individual theme
+    "dc/batman",        -- Another specific theme
+    "kanagawa",         -- Universe: loads all kanagawa themes
+    "tmnt",             -- Universe: loads all tmnt themes
+  },
+})
+```
+
+- Use `"universe/name"` for individual themes (e.g., `"dc/superman"`)
+- Use `"universe"` to include all themes in that universe (e.g., `"kanagawa"`)
+- When `themes = {}` (default), all themes are available
+
 ### Theme Selection Formats
 
 All of these work:

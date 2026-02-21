@@ -56,8 +56,6 @@ end
 
 -- Optional: preview terminal config content for a theme
 M.preview = function(theme_name, terminal_name)
-  terminal_name = terminal_name
-
   if terminal_name == "ghostty" then
     return ghostty.export(theme_name)
   elseif terminal_name == "alacritty" then
@@ -94,12 +92,7 @@ M.get_palette = function(theme_name)
   local ok, spec = pcall(require, theme_path)
   if not ok then return nil end
 
-  local palette_table
-  if universe then
-    palette_table = punkpalette.create_palette(universe, name, spec.palette and spec.palette.overrides)
-  else
-    palette_table = punkpalette.create_palette(nil, name, spec.palette and spec.palette.overrides)
-  end
+  local palette_table = punkpalette.create_palette(universe, name, spec.palette and spec.palette.overrides)
 
   local theme_result
   if type(spec.get) == "function" then
@@ -132,21 +125,23 @@ M.print_palette = function(theme_name)
     return
   end
 
-  print("=== " .. p.metadata.name .. " ===\n")
+  local lines = { "=== " .. p.metadata.name .. " ===", "" }
 
   if p.palette and next(p.palette) then
-    print("--- Rich Palette ---")
+    table.insert(lines, "--- Rich Palette ---")
     for name, color in pairs(p.palette) do
-      print(string.format("%-20s %s", name, color))
+      table.insert(lines, string.format("%-20s %s", name, color))
     end
-    print("")
+    table.insert(lines, "")
   end
 
-  print("--- Base16 Colors ---")
+  table.insert(lines, "--- Base16 Colors ---")
   for i = 0, 15 do
     local key = i == 0 and "base00" or string.format("base%02X", i)
-    if p.base16[key] then print(string.format("%-8s %s", key, p.base16[key])) end
+    if p.base16[key] then table.insert(lines, string.format("%-8s %s", key, p.base16[key])) end
   end
+
+  vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO)
 end
 
 return M

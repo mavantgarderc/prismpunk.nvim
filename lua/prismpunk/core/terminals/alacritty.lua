@@ -70,7 +70,6 @@ M.export_and_reload = function(theme, conf)
   end
 
   local success = M.write_config(theme, conf.config_path)
-  vim.notify("[DEBUG] write_config returned: " .. tostring(success), vim.log.levels.INFO)
 
   if success then
     vim.notify("Prismpunk: Alacritty theme exported to " .. conf.config_path, vim.log.levels.INFO)
@@ -82,8 +81,13 @@ M.export_and_reload = function(theme, conf)
 end
 
 M.export = function(theme_name)
-  local universe, variant = punkconf.parse_theme(theme_name)
-  local theme_path = "prismpunk.themes." .. universe:gsub("%-", "%.") .. "." .. variant
+  local parsed = punkconf.parse_theme(theme_name)
+  local theme_path
+  if parsed.universe then
+    theme_path = "prismpunk.themes." .. parsed.universe:gsub("%-", "%.") .. "." .. parsed.name
+  else
+    theme_path = "prismpunk.themes." .. parsed.name
+  end
   local ok, spec = pcall(require, theme_path)
   if not ok then
     vim.notify("Failed to load theme: " .. theme_name, vim.log.levels.ERROR)
@@ -94,8 +98,13 @@ end
 
 M.save = function(theme_name, output_path)
   output_path = output_path or vim.fn.expand("~/.config/alacritty/prismpunk.toml")
-  local universe, variant = punkconf.parse_theme(theme_name)
-  local theme_path = "prismpunk.themes." .. universe:gsub("%-", "%.") .. "." .. variant
+  local parsed = punkconf.parse_theme(theme_name)
+  local theme_path
+  if parsed.universe then
+    theme_path = "prismpunk.themes." .. parsed.universe:gsub("%-", "%.") .. "." .. parsed.name
+  else
+    theme_path = "prismpunk.themes." .. parsed.name
+  end
   local ok, spec = pcall(require, theme_path)
   if not ok then
     vim.notify("Failed to load theme: " .. theme_name, vim.log.levels.ERROR)

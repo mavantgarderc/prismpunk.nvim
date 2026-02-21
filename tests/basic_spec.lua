@@ -28,10 +28,7 @@ describe("PrismPunk.nvim", function()
     if loader_ok and loader.list_themes then
       local themes = loader.list_themes()
       assert.truthy(themes)
-      assert.are.same(type(themes), "table")
-    else
-      -- If list_themes doesn't exist, that's fine for now
-      assert.truthy(true)
+      assert.equal("table", type(themes))
     end
   end)
 
@@ -73,12 +70,11 @@ end)
 
 describe("PrismPunk Commands", function()
   it("should register commands properly", function()
-    -- Test that the commands are registered by checking if they exist
     local cmd_info = vim.api.nvim_exec("command", true)
-    assert.truthy(cmd_info:match("PrismpunkListThemes"))
-    assert.truthy(cmd_info:match("PrismpunkReload"))
-    assert.truthy(cmd_info:match("PrismpunkExportGhostty"))
-    assert.truthy(cmd_info:match("PrismpunkCurrentTheme"))
-    assert.truthy(cmd_info:match("PrismpunkPreview"))
+    assert.truthy(cmd_info:match("PrismListThemes"))
+    assert.truthy(cmd_info:match("PrismReload"))
+    assert.truthy(cmd_info:match("PrismExportGhostty"))
+    assert.truthy(cmd_info:match("PrismCurrentTheme"))
+    assert.truthy(cmd_info:match("PrismPreview"))
   end)
 end)

@@ -16,7 +16,7 @@ local highlight_cache = {}
 
 local loaded_theme = nil
 
-local cache_stats = {
+local highlight_cache_stats = {
   hits = 0,
   misses = 0,
 }
@@ -29,7 +29,7 @@ local function debug_profile(label, start_ns)
   if not debug_cfg.profile_startup or not start_ns then return end
 
   local elapsed_ms = (vim.loop.hrtime() - start_ns) / 1e6
-  vim.notify(string.format("[prismpunk] %s: %.2fms", label, elapsed_ms), vim.log.levels.INFO)
+  vim.notify(string.format("[prismpunk] %s: %.2fms", label, elapsed_ms), vim.log.levels.DEBUG)
 end
 
 --- @return table
@@ -38,8 +38,8 @@ function M.get_cache_stats()
   return {
     palette_hits = palette_stats.hits,
     palette_misses = palette_stats.misses,
-    highlight_hits = cache_stats.hits,
-    highlight_misses = cache_stats.misses,
+    highlight_hits = highlight_cache_stats.hits,
+    highlight_misses = highlight_cache_stats.misses,
   }
 end
 
@@ -93,6 +93,29 @@ end
 local function get_mtime(path)
   local stat = vim.loop.fs_stat(path)
   if stat then return stat.mtime.sec end
+  return nil
+end
+
+--- Resolve theme file path from module path
+--- @param module_path string Module path like "prismpunk.themes.dc.lantern-corps.green"
+--- @return string|nil file_path
+local function resolve_theme_file(module_path)
+  local file_path = module_path:gsub("%.", "/") .. ".lua"
+
+  local searchpath = package.searchpath(module_path, package.path)
+  if searchpath then return searchpath end
+
+  local full_paths = {
+    vim.fn.getcwd() .. "/lua/" .. file_path,
+    vim.fn.stdpath("config") .. "/lua/" .. file_path,
+  }
+
+  for _, path in ipairs(full_paths) do
+    if vim.fn.filereadable(path) == 1 then
+      return path
+    end
+  end
+
   return nil
 end
 
@@ -214,8 +237,9 @@ end
 
 function M.clear_cache()
   highlight_cache = {}
-  cache_stats.hits = 0
-  cache_stats.misses = 0
+  module_cache.themes = {}
+  highlight_cache_stats.hits = 0
+  highlight_cache_stats.misses = 0
 
   palette.clear_cache()
 
@@ -249,7 +273,7 @@ function M.load(theme_spec, opts)
     return false, string.format("[prismpunk] Theme module missing required 'get' function: %s", theme_path)
   end
 
-  local palette_universe = parsed.universe or (theme_module.palette and theme_module.palette.universe) or nil
+  local palette_universe = parsed.universe or (theme_module.palette and theme_module.palette.universe)
   local palette_name = (theme_module.palette and theme_module.palette.name) or parsed.name
 
   if opts.force_reload then palette.clear_cache() end
@@ -272,7 +296,7 @@ function M.load(theme_spec, opts)
 
   if config.options.cache.enable and not opts.force_reload then
     if highlight_cache[cache_key] then
-      cache_stats.hits = cache_stats.hits + 1
+      highlight_cache_stats.hits = highlight_cache_stats.hits + 1
       local cached = highlight_cache[cache_key]
 
       local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
@@ -288,25 +312,14 @@ function M.load(theme_spec, opts)
 
     local disk_cached = load_from_disk_cache(cache_key)
     if disk_cached then
-      local file_path = theme_path:gsub("%.", "/") .. ".lua"
-      local full_paths = {
-        vim.fn.getcwd() .. "/lua/" .. file_path,
-        vim.fn.stdpath("config") .. "/lua/" .. file_path,
-      }
-
-      local theme_mtime = nil
-      for _, path in ipairs(full_paths) do
-        if vim.fn.filereadable(path) == 1 then
-          theme_mtime = get_mtime(path)
-          break
-        end
-      end
+      local file_path = resolve_theme_file(theme_path)
+      local theme_mtime = file_path and get_mtime(file_path) or nil
 
       local cache_path = get_disk_cache_path(cache_key)
       local cache_mtime = get_mtime(cache_path)
 
       if not theme_mtime or (cache_mtime and cache_mtime >= theme_mtime) then
-        cache_stats.hits = cache_stats.hits + 1
+        highlight_cache_stats.hits = highlight_cache_stats.hits + 1
         highlight_cache[cache_key] = disk_cached
 
         local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
@@ -322,7 +335,7 @@ function M.load(theme_spec, opts)
     end
   end
 
-  cache_stats.misses = cache_stats.misses + 1
+  highlight_cache_stats.misses = highlight_cache_stats.misses + 1
 
   local start_ns_full = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
   local theme_result
@@ -358,7 +371,7 @@ function M.load(theme_spec, opts)
   end
 
   ok, err = pcall(highlights.apply, theme_result, config.options) --luacheck: ignore
-  if not ok then -- luachec: ignore
+  if not ok then -- luacheck: ignore
     return false, string.format("[prismpunk] Failed to apply highlights: %s", tostring(err)) -- luacheck: ignore
   end
 
@@ -384,8 +397,6 @@ function M.list_themes()
 
   local themes = {}
 
-  local themes_dir = vim.fn.stdpath("data") .. "/site/lua/prismpunk/themes" --luacheck: ignore
-
   local current_dir = debug.getinfo(1).source:match("@?(.*/)") or "."
   local current_themes_dir = current_dir:gsub("/lua/prismpunk/loader%.lua$", "") .. "/lua/prismpunk/themes"
 
@@ -395,7 +406,7 @@ function M.list_themes()
     vim.fn.stdpath("data") .. "/site/lua/prismpunk/themes",
   }
 
-  local themes_dir = nil --luacheck: ignore
+  local themes_dir
   for _, dir in ipairs(possible_dirs) do
     if vim.fn.isdirectory(dir) == 1 then
       themes_dir = dir
@@ -469,6 +480,6 @@ function M.clear_theme_cache()
 end
 
 M._highlight_cache = highlight_cache
-M._cache_stats = cache_stats
+M._highlight_cache_stats = highlight_cache_stats
 
 return M

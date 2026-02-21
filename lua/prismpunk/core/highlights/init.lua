@@ -211,7 +211,7 @@ function M.apply(theme, config)
         error(string.format("[prismpunk] Critical highlight module failed: %s", module_name))
       end
     else
-      M.error("Failed to load highlight module: %s", module_name)
+      M.error("Highlight module %s not found", module_name)
       error(string.format("[prismpunk] Critical highlight module missing: %s", module_name))
     end
   end

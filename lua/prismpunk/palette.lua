@@ -95,7 +95,9 @@ local function resolve_palette_module(universe, name)
   table.insert(tries, string.format("prismpunk.palettes.%s", name))
 
   for _, module_path in ipairs(tries) do
-    -- Convert module path to file path
+    local searchpath = package.searchpath(module_path, package.path)
+    if searchpath then return module_path, searchpath end
+
     local file_path = module_path:gsub("%.", "/") .. ".lua"
     local full_paths = {
       vim.fn.getcwd() .. "/lua/" .. file_path,
@@ -105,10 +107,6 @@ local function resolve_palette_module(universe, name)
     for _, full_path in ipairs(full_paths) do
       if vim.fn.filereadable(full_path) == 1 then return module_path, full_path end
     end
-
-    -- Try loading as module (works for installed plugins)
-    local ok, _ = pcall(require, module_path)
-    if ok then return module_path, nil end
   end
 
   return nil, nil
@@ -226,6 +224,21 @@ function M.clear_cache()
     local cache_dir = vim.fn.stdpath("cache") .. "/prismpunk/palettes"
     if vim.fn.isdirectory(cache_dir) == 1 then vim.fn.delete(cache_dir, "rf") end
   end
+end
+
+--- Create theme from spec (for terminal export)
+--- @param spec table Theme module
+--- @return table theme result
+function M.create_theme(spec)
+  if spec.base16 then
+    return {
+      name = spec.name,
+      colors = spec.base16,
+      palette = spec.palette or {},
+      theme = spec.get and spec.get({}, spec.palette or {}) or {},
+    }
+  end
+  return spec
 end
 
 -- Export for testing

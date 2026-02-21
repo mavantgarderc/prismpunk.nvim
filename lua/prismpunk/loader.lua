@@ -273,7 +273,7 @@ function M.load(theme_spec, opts)
     return false, string.format("[prismpunk] Theme module missing required 'get' function: %s", theme_path)
   end
 
-  local palette_universe = parsed.universe or (theme_module.palette and theme_module.palette.universe) or nil
+  local palette_universe = parsed.universe or (theme_module.palette and theme_module.palette.universe)
   local palette_name = (theme_module.palette and theme_module.palette.name) or parsed.name
 
   if opts.force_reload then palette.clear_cache() end

@@ -29,9 +29,6 @@ describe("PrismPunk.nvim", function()
       local themes = loader.list_themes()
       assert.truthy(themes)
       assert.equal("table", type(themes))
-    else
-      -- If list_themes doesn't exist, that's fine for now
-      assert.truthy(true)
     end
   end)
 

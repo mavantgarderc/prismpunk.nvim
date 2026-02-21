@@ -67,6 +67,7 @@ local function check_modules()
     "prismpunk.loader",
     "prismpunk.core.highlights",
     "prismpunk.core.terminals",
+    "prismpunk.core.validate",
     "prismpunk.utils.color",
     "prismpunk.utils.base16",
     "prismpunk.utils.hsluv",
@@ -226,6 +227,90 @@ local function check_theme()
   end
 end
 
+local function check_contrast()
+  health_start("Contrast & Accessibility")
+
+  local ok, config = pcall(require, "prismpunk.config")
+  if not ok or not config.options then
+    health_warn("Configuration not loaded for contrast checks")
+    return
+  end
+
+  local theme = config.options.theme
+  if not theme or theme == "" then
+    health_info("No theme configured for contrast validation")
+    return
+  end
+
+  -- Load theme for validation
+  local ok_loader, loader = pcall(require, "prismpunk.loader")
+  if not ok_loader then
+    health_warn("Failed to load prismpunk.loader for contrast checks")
+    return
+  end
+
+  local theme_info = loader.get_theme_info(theme)
+  if not theme_info then
+    health_warn("Could not get theme info for: " .. theme)
+    return
+  end
+
+  -- Get the actual theme colors
+  local theme_path
+  local parsed = config.parse_theme(theme)
+  if parsed and parsed.universe then
+    theme_path = "prismpunk.themes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
+  else
+    theme_path = "prismpunk.themes." .. parsed.name
+  end
+
+  local ok_theme, theme_mod = pcall(require, theme_path)
+  if not ok_theme then
+    health_warn("Could not load theme module: " .. theme_path)
+    return
+  end
+
+  local palette = theme_info.palette
+  local theme_colors = {}
+  if type(theme_mod.get) == "function" then
+    local ok_get, result = pcall(theme_mod.get, {}, palette)
+    if ok_get then theme_colors = result end
+  end
+
+  if not theme_colors.ui or not theme_colors.syn then
+    health_warn("Theme missing required color structure for contrast check")
+    return
+  end
+
+  local validate = require("prismpunk.core.validate")
+  local contrast_opts = { level = "aa" }
+  local contrast_result = validate.check_wcag_contrast(theme_colors, contrast_opts)
+
+  local error_count = 0
+  local warn_count = 0
+
+  for _, check in ipairs(contrast_result.checks or {}) do
+    local ratio_str = string.format("%.1f:1", check.ratio)
+    if check.pass then
+      health_ok(string.format("%s: %s (PASS %s)", check.name, ratio_str, check.required_level))
+    else
+      if check.optional then
+        health_warn(string.format("%s: %s (below %s)", check.name, ratio_str, check.required_level))
+        warn_count = warn_count + 1
+      else
+        health_error(string.format("%s: %s (below %s)", check.name, ratio_str, check.required_level))
+        error_count = error_count + 1
+      end
+    end
+  end
+
+  if error_count == 0 and warn_count == 0 then
+    health_ok("All contrast checks passed")
+  end
+
+  health_info(string.format("Contrast validation: %d error(s), %d warning(s)", error_count, warn_count))
+end
+
 function M.check()
   check_nvim_version()
   check_config()
@@ -233,6 +318,7 @@ function M.check()
   check_cache()
   check_terminals()
   check_theme()
+  check_contrast()
 end
 
 return M

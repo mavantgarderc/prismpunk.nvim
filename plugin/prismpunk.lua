@@ -145,9 +145,6 @@ vim.api.nvim_create_user_command("PrismInfo", function(opts)
     return
   end
 
-  -- Convert dashes to slashes for compatibility (universe/name format)
-  theme_name = theme_name:gsub("-", "/", 1)
-
   local loader_ok, loader = pcall(require, "prismpunk.loader")
   if not loader_ok then
     vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
@@ -238,4 +235,140 @@ vim.api.nvim_create_user_command("PrismRandom", function(opts)
 end, {
   nargs = "?",
   desc = "Load a random theme",
+})
+
+-- Add PrismValidate command
+vim.api.nvim_create_user_command("PrismValidate", function(opts)
+  local args = vim.split(opts.args, "%s+", { plain = false, trimempty = true })
+  local theme_name = nil
+  local opts_internal = { level = "aa" }
+  local output_format = "text"
+  local validate_all = false
+
+  for _, arg in ipairs(args) do
+    if arg == "--json" then
+      output_format = "json"
+    elseif arg == "--quiet" then
+      output_format = "quiet"
+    elseif arg == "--all" then
+      validate_all = true
+    elseif arg == "--verbose" or arg == "-v" then
+      opts_internal.verbose = true
+    elseif arg == "--aaa" then
+      opts_internal.level = "aaa"
+    elseif arg == "--aa" then
+      opts_internal.level = "aa"
+    elseif arg ~= "" and not arg:match("^%-%w+") then
+      theme_name = arg
+    end
+  end
+
+  local validate = require("prismpunk.core.validate")
+
+  if validate_all then
+    -- Validate all themes
+    local loader_ok, loader = pcall(require, "prismpunk.loader")
+    if not loader_ok then
+      vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
+      return
+    end
+
+    -- Use list_themes to get ALL themes (ignore whitelist filter)
+    local themes = loader.list_themes()
+    if #themes == 0 then
+      vim.notify("[prismpunk] No themes found", vim.log.levels.WARN)
+      return
+    end
+
+    local results = {}
+    local error_count = 0
+    local pass_count = 0
+    local failed_themes = {}
+    local passed_themes = {}
+
+    for _, theme in ipairs(themes) do
+      local report = validate.validate_theme(theme, opts_internal)
+      table.insert(results, report)
+      if report.summary.passed then
+        pass_count = pass_count + 1
+        table.insert(passed_themes, theme)
+      else
+        error_count = error_count + 1
+        table.insert(failed_themes, theme)
+      end
+    end
+
+    if output_format == "json" then
+      vim.notify(vim.json.encode(results), vim.log.levels.INFO)
+    elseif output_format == "quiet" then
+      vim.cmd(string.format("exit %d", error_count > 0 and 1 or 0))
+    else
+      local lines = {
+        string.format("=== Validation Summary ==="),
+        string.format("Total: %d themes", #themes),
+        string.format("Passed: %d", pass_count),
+        string.format("Failed: %d", error_count),
+        "",
+      }
+
+      if #failed_themes > 0 and #failed_themes <= 50 then
+        table.insert(lines, "--- Failed Themes ---")
+        for _, theme in ipairs(failed_themes) do
+          table.insert(lines, "  ✗ " .. theme)
+        end
+        table.insert(lines, "")
+      end
+
+      if #passed_themes > 0 and #passed_themes <= 50 then
+        table.insert(lines, "--- Passed Themes ---")
+        for _, theme in ipairs(passed_themes) do
+          table.insert(lines, "  ✓ " .. theme)
+        end
+        table.insert(lines, "")
+      end
+
+      if #failed_themes > 50 then
+        table.insert(lines, string.format("(Showing first 50 of %d failed themes)", #failed_themes))
+        for i = 1, 50 do
+          table.insert(lines, "  ✗ " .. failed_themes[i])
+        end
+        table.insert(lines, "")
+      end
+
+      vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO)
+    end
+
+    return
+  end
+
+  -- Validate single theme
+  if not theme_name or theme_name == "" then
+    local config_ok, cfg = pcall(require, "prismpunk.config")
+    if config_ok and cfg.options then
+      theme_name = cfg.options.theme
+    end
+  end
+
+  if not theme_name or theme_name == "" then
+    vim.notify("[prismpunk] No theme specified and no default theme set", vim.log.levels.WARN)
+    return
+  end
+
+  local report = validate.validate_theme(theme_name, opts_internal)
+
+  if output_format == "json" then
+    vim.notify(vim.json.encode(report), vim.log.levels.INFO)
+  elseif output_format == "quiet" then
+    vim.cmd(string.format("exit %d", report.summary.passed and 0 or 1))
+  else
+    local report_text = validate.format_report(report)
+    if report.summary.passed then
+      vim.notify(report_text, vim.log.levels.INFO)
+    else
+      vim.notify(report_text, vim.log.levels.WARN)
+    end
+  end
+end, {
+  nargs = "*",
+  desc = "Validate theme(s) against WCAG and Base16 standards",
 })

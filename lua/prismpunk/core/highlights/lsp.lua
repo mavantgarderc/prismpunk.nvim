@@ -51,13 +51,11 @@ function M.apply(c, config)
   hl("@lsp.mod.definition", { fg = s.syn.type })
   hl("@lsp.mod.documentation", { fg = s.syn.comment })
   hl("@lsp.mod.modification", { fg = s.syn.keyword })
-  hl("@lsp.mod.readonly", { fg = s.syn.constant })
 
   -- PYTHON-SPECIFIC LSP SEMANTIC TOKENS
   ---------------------------------------------------------------------------
   -- The critical fix for Python's 'self' keyword
   hl("@lsp.type.selfKeyword.python", { fg = s.syn.keyword, italic = true })
-  hl("@lsp.type.clsKeyword.python", { fg = s.syn.keyword, italic = true })
   hl("@lsp.type.clsKeyword.python", { fg = s.syn.keyword, italic = true })
 
   -- Python built-in types and functions

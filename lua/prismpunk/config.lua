@@ -2,6 +2,8 @@
 --- Handles validation, merging, and theme spec parsing
 local M = {}
 
+local DEFAULT_THEME = "kanagawa/paper-edo"
+
 --- Default configuration schema
 M.defaults = {
   debug = {
@@ -9,7 +11,7 @@ M.defaults = {
     profile_startup = false,
   },
 
-  theme = nil, -- Theme name (e.g., "phantom-corrupted" or "lantern-corps/phantom-corrupted")
+  theme = DEFAULT_THEME, -- Theme name (e.g., "phantom-corrupted" or "lantern-corps/phantom-corrupted")
   gutter = true, -- Enable gutter background
   validate_contrast = false, -- Validate color contrast (opt-in)
 
@@ -362,5 +364,7 @@ function M.parse_theme(theme_spec)
     error(string.format("[prismpunk] Invalid theme_spec type: %s (expected string or table)", type(theme_spec)))
   end
 end
+
+M.DEFAULT_THEME = DEFAULT_THEME
 
 return M

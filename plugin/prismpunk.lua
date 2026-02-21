@@ -13,11 +13,13 @@ local function get_config()
   return _G.prismpunk_config or {}
 end
 
+local DEFAULT_THEME = "kanagawa/paper-edo"
+
 local function get_current_theme(arg)
   if arg and arg ~= "" then return arg end
 
   local config = get_config()
-  return config.theme or "kanagawa/paper-edo"
+  return config.theme or DEFAULT_THEME
 end
 
 vim.api.nvim_create_user_command("PrismExportGhostty", function(opts)

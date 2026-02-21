@@ -29,7 +29,7 @@ local function debug_profile(label, start_ns)
   if not debug_cfg.profile_startup or not start_ns then return end
 
   local elapsed_ms = (vim.loop.hrtime() - start_ns) / 1e6
-  vim.notify(string.format("[prismpunk] %s: %.2fms", label, elapsed_ms), vim.log.levels.INFO)
+  vim.notify(string.format("[prismpunk] %s: %.2fms", label, elapsed_ms), vim.log.levels.DEBUG)
 end
 
 --- @return table

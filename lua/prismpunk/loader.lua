@@ -484,24 +484,60 @@ function M.get_allowed_theme_list()
   local allowed = config.get_allowed_themes()
   if #allowed == 0 then return M.list_themes() end
 
+  local all_themes = M.list_themes()
   local result = {}
+
   for _, allowed_item in ipairs(allowed) do
-    local parsed = config.parse_theme(allowed_item)
-    if parsed.universe then
-      local universe_themes = {}
-      local all_themes = M.list_themes()
-      local prefix = parsed.universe .. "/"
-      for _, theme in ipairs(all_themes) do
-        if theme:sub(1, #prefix) == prefix then
-          table.insert(universe_themes, theme)
-        end
+    local is_universe = false
+    for _, theme in ipairs(all_themes) do
+      if theme:find("^" .. allowed_item .. "/") then
+        table.insert(result, theme)
+        is_universe = true
       end
-      for _, t in ipairs(universe_themes) do table.insert(result, t) end
-    else
+    end
+
+    if not is_universe then
       table.insert(result, allowed_item)
     end
   end
+
   return result
+end
+
+--- Get theme information (metadata + colors)
+--- @param theme_name string Theme to get info for
+--- @return table|nil theme_info
+function M.get_theme_info(theme_name)
+  local parsed = config.parse_theme(theme_name)
+  if not parsed.name then return nil end
+
+  local theme_path
+  if parsed.universe then
+    theme_path = "prismpunk.themes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
+  else
+    theme_path = "prismpunk.themes." .. parsed.name
+  end
+
+  local ok, theme = pcall(require, theme_path)
+  if not ok then return nil end
+
+  local palette_table
+  local palette_universe = parsed.universe or (theme.palette and theme.palette.universe)
+  local palette_name = (theme.palette and theme.palette.name) or parsed.name
+
+  local palette_ok, palette_result = pcall(palette.create_palette, palette_universe, palette_name, theme.palette and theme.palette.overrides)
+  if palette_ok then
+    palette_table = palette_result
+  end
+
+  return {
+    name = theme.name or parsed.name,
+    author = theme.author or "Unknown",
+    description = theme.description or "No description",
+    universe = parsed.universe,
+    base16 = theme.base16 or {},
+    palette = palette_table or {},
+  }
 end
 
 --- Clear the theme listing cache

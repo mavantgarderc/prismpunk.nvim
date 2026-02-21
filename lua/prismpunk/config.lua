@@ -379,13 +379,18 @@ function M.is_theme_allowed(theme_spec)
   local theme_universe = parsed.universe
 
   for _, allowed in ipairs(allowed_themes) do
+    -- Exact match for individual theme
     if allowed == theme_name then
       return true
     end
-    if theme_universe and allowed == theme_universe then
+
+    -- Check if theme's universe starts with allowed prefix
+    if theme_universe and theme_universe:find("^" .. allowed) then
       return true
     end
-    if allowed == theme_universe:gsub(".*/", "") then
+
+    -- Check allowed item matches the first part of universe
+    if theme_universe and allowed == theme_universe:match("^([^/]+)") then
       return true
     end
   end

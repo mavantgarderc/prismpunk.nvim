@@ -128,3 +128,114 @@ vim.api.nvim_create_user_command("PrismCurrentTheme", function()
 end, {
   desc = "Show current PrismPunk theme",
 })
+
+-- Add PrismInfo command
+vim.api.nvim_create_user_command("PrismInfo", function(opts)
+  local theme_name = opts.args and opts.args ~= "" and opts.args or nil
+
+  if not theme_name then
+    local config_ok, cfg = pcall(require, "prismpunk.config")
+    if config_ok and cfg.options then
+      theme_name = cfg.options.theme
+    end
+  end
+
+  if not theme_name then
+    vim.notify("[prismpunk] No theme specified and no default theme set", vim.log.levels.WARN)
+    return
+  end
+
+  -- Convert dashes to slashes for compatibility (universe/name format)
+  theme_name = theme_name:gsub("-", "/", 1)
+
+  local loader_ok, loader = pcall(require, "prismpunk.loader")
+  if not loader_ok then
+    vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
+    return
+  end
+
+  local info = loader.get_theme_info(theme_name)
+  if not info then
+    vim.notify("[prismpunk] Theme not found: " .. theme_name, vim.log.levels.ERROR)
+    return
+  end
+
+  local lines = {
+    "=== " .. info.name .. " ===",
+    "Author: " .. info.author,
+    "Universe: " .. (info.universe or "none"),
+    "",
+    info.description,
+    "",
+    "--- Base16 Colors ---",
+  }
+
+  for i = 0, 15 do
+    local key = i == 0 and "base00" or string.format("base%02X", i)
+    if info.base16[key] then
+      table.insert(lines, string.format("%-8s %s", key, info.base16[key]))
+    end
+  end
+
+  if info.palette and next(info.palette) then
+    table.insert(lines, "")
+    table.insert(lines, "--- Rich Palette ---")
+    for name, color in pairs(info.palette) do
+      table.insert(lines, string.format("%-20s %s", name, color))
+    end
+  end
+
+  vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO)
+end, {
+  nargs = "?",
+  desc = "Show theme information",
+})
+
+-- Add PrismRandom command
+vim.api.nvim_create_user_command("PrismRandom", function(opts)
+  local loader_ok, loader = pcall(require, "prismpunk.loader")
+  if not loader_ok then
+    vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
+    return
+  end
+
+  local themes = loader.get_allowed_theme_list()
+  if #themes == 0 then
+    themes = loader.list_themes()
+  end
+
+  if #themes == 0 then
+    vim.notify("[prismpunk] No themes available", vim.log.levels.ERROR)
+    return
+  end
+
+  local universe_filter = opts.args and opts.args ~= "" and opts.args or nil
+  if universe_filter then
+    -- Convert dashes to slashes for compatibility (universe/name format)
+    universe_filter = universe_filter:gsub("-", "/", 1)
+    local filtered = {}
+    local prefix = universe_filter .. "/"
+    for _, t in ipairs(themes) do
+      if t:sub(1, #prefix) == prefix then
+        table.insert(filtered, t)
+      end
+    end
+    if #filtered > 0 then themes = filtered end
+  end
+
+  local random_index = math.random(1, #themes)
+  local random_theme = themes[random_index]
+
+  local prismpunk_ok, prismpunk = pcall(require, "prismpunk")
+  if prismpunk_ok then
+    local success, err = prismpunk.load(random_theme)
+    if success then
+      vim.notify("[prismpunk] Loaded random theme: " .. random_theme, vim.log.levels.INFO)
+    else
+      vim.notify("[prismpunk] Failed to load theme: " .. tostring(err), vim.log.levels.ERROR)
+    end
+  end
+end, {
+  nargs = "?",
+  desc = "Load a random theme",
+})

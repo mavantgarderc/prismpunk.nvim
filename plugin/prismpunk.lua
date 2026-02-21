@@ -40,6 +40,7 @@ end, {
   nargs = "?",
   complete = function()
     local ok, loader = pcall(require, "prismpunk.loader")
+    if ok and loader.get_allowed_theme_list then return loader.get_allowed_theme_list() end
     if ok and loader.list_themes then return loader.list_themes() end
     return {}
   end,
@@ -64,6 +65,7 @@ end, {
   nargs = "?",
   complete = function()
     local ok, loader = pcall(require, "prismpunk.loader")
+    if ok and loader.get_allowed_theme_list then return loader.get_allowed_theme_list() end
     if ok and loader.list_themes then return loader.list_themes() end
     return {}
   end,

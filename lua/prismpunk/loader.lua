@@ -262,6 +262,10 @@ function M.load(theme_spec, opts)
 
   if not parsed.name then return false, "[prismpunk] No theme specified" end
 
+  if not config.is_theme_allowed(theme_spec) then
+    vim.notify("[prismpunk] Theme not in configured themes list: " .. tostring(theme_spec), vim.log.levels.WARN)
+  end
+
   local theme_key = (parsed.universe or "") .. "/" .. parsed.name
   if opts.skip_if_loaded and loaded_theme == theme_key then return true, { _cached = true } end
 
@@ -471,6 +475,33 @@ function M.list_themes()
   themes_cache = themes
   themes_cache_time = current_time
   return themes
+end
+
+--- Get list of allowed themes for command completion
+--- Filters themes based on config.themes
+--- @return table List of theme names
+function M.get_allowed_theme_list()
+  local allowed = config.get_allowed_themes()
+  if #allowed == 0 then return M.list_themes() end
+
+  local result = {}
+  for _, allowed_item in ipairs(allowed) do
+    local parsed = config.parse_theme(allowed_item)
+    if parsed.universe then
+      local universe_themes = {}
+      local all_themes = M.list_themes()
+      local prefix = parsed.universe .. "/"
+      for _, theme in ipairs(all_themes) do
+        if theme:sub(1, #prefix) == prefix then
+          table.insert(universe_themes, theme)
+        end
+      end
+      for _, t in ipairs(universe_themes) do table.insert(result, t) end
+    else
+      table.insert(result, allowed_item)
+    end
+  end
+  return result
 end
 
 --- Clear the theme listing cache

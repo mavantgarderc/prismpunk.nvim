@@ -77,6 +77,28 @@ return {
 }
 ```
 
+### Theme Filtering (Optional)
+
+Limit which themes are available for command completion:
+
+```lua
+require("prismpunk").setup({
+  theme = "kanagawa/paper-edo",  -- Default theme to load
+
+  -- Whitelist of allowed themes/universes
+  themes = {
+    "kanagawa/paper-edo",  -- Individual theme
+    "kanagawa/paper-dawn", -- Another kanagawa theme
+    "tmnt",                -- Universe: loads all tmnt themes
+    "dc",                  -- Universe: loads all dc themes
+  },
+})
+```
+
+- Use `"universe/name"` for individual themes (e.g., `"kanagawa/paper-edo"`)
+- Use `"universe"` to include all themes in that universe (e.g., `"tmnt"`)
+- When `themes = {}` (default), all themes are available
+
 ### Theme Selection Formats
 
 All of these work:

@@ -226,6 +226,35 @@ function M.clear_cache()
   end
 end
 
+--- Create theme from spec (for terminal export)
+--- @param spec table Theme module
+--- @return table theme result
+function M.create_theme(spec)
+  local universe = spec.palette and spec.palette.universe or nil
+  local name = spec.palette and spec.palette.name or spec.name
+
+  local palette_table = M.create_palette(universe, name, spec.palette and spec.palette.overrides)
+
+  if type(spec.get) == "function" then
+    local ok, result = pcall(spec.get, {}, palette_table)
+    if ok then
+      return {
+        name = spec.name,
+        colors = spec.base16 or {},
+        palette = palette_table,
+        theme = result,
+      }
+    end
+  end
+
+  return {
+    name = spec.name,
+    colors = spec.base16 or {},
+    palette = palette_table,
+    theme = spec,
+  }
+end
+
 -- Export for testing
 M._cache = palette_cache
 M._stats = cache_stats

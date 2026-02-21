@@ -379,13 +379,13 @@ function M.is_theme_allowed(theme_spec)
   local theme_universe = parsed.universe
 
   for _, allowed in ipairs(allowed_themes) do
-    if allowed == theme_name or allowed == theme_universe then
+    if allowed == theme_name then
       return true
     end
     if theme_universe and allowed == theme_universe then
       return true
     end
-    if theme_name and allowed == theme_name then
+    if allowed == theme_universe:gsub(".*/", "") then
       return true
     end
   end

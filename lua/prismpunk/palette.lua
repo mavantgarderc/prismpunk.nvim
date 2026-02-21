@@ -230,29 +230,15 @@ end
 --- @param spec table Theme module
 --- @return table theme result
 function M.create_theme(spec)
-  local universe = spec.palette and spec.palette.universe or nil
-  local name = spec.palette and spec.palette.name or spec.name
-
-  local palette_table = M.create_palette(universe, name, spec.palette and spec.palette.overrides)
-
-  if type(spec.get) == "function" then
-    local ok, result = pcall(spec.get, {}, palette_table)
-    if ok then
-      return {
-        name = spec.name,
-        colors = spec.base16 or {},
-        palette = palette_table,
-        theme = result,
-      }
-    end
+  if spec.base16 then
+    return {
+      name = spec.name,
+      colors = spec.base16,
+      palette = spec.palette or {},
+      theme = spec.get and spec.get({}, spec.palette or {}) or {},
+    }
   end
-
-  return {
-    name = spec.name,
-    colors = spec.base16 or {},
-    palette = palette_table,
-    theme = spec,
-  }
+  return spec
 end
 
 -- Export for testing

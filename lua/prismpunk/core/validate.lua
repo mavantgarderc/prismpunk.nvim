@@ -473,6 +473,81 @@ function M.check_wcag_contrast(theme, opts)
   return results
 end
 
+--- Suggest color adjustments to meet WCAG contrast
+--- @param fg string Current foreground hex
+--- @param bg string Current background hex
+--- @param target_ratio number Target contrast ratio (4.5 for AA, 7 for AAA)
+--- @return table suggestions { current_ratio, target_ratio, fg_suggestion, bg_suggestion, actions }
+function M.suggest_contrast_fix(fg, bg, target_ratio)
+  local suggestions = {
+    current_ratio = 0,
+    target_ratio = target_ratio,
+    fg_current = fg,
+    bg_current = bg,
+    fg_suggestion = nil,
+    bg_suggestion = nil,
+    actions = {},
+    passes = false,
+  }
+
+  local lum1 = color.get_luminance(fg)
+  local lum2 = color.get_luminance(bg)
+  suggestions.current_ratio = color.calculate_contrast(lum1, lum2)
+
+  if suggestions.current_ratio >= target_ratio then
+    suggestions.passes = true
+    return suggestions
+  end
+
+  local bg_is_dark = lum2 < 0.5
+  local fg_obj = color.new(fg)
+  local bg_obj = color.new(bg)
+
+  local fg_adjusted = color.new(fg)
+  local steps = 0
+  while steps < 20 do
+    if bg_is_dark then
+      fg_adjusted = color.new(fg_adjusted:to_hex()):brighten(0.05)
+    else
+      fg_adjusted = color.new(fg_adjusted:to_hex()):darken(0.05)
+    end
+    local new_lum = color.get_luminance(fg_adjusted:to_hex())
+    local new_ratio = color.calculate_contrast(new_lum, lum2)
+    if new_ratio >= target_ratio then
+      suggestions.fg_suggestion = fg_adjusted:to_hex()
+      table.insert(suggestions.actions, string.format(
+        "Adjust fg: %s -> %s (ratio: %.1f:1)", fg, fg_adjusted:to_hex(), new_ratio))
+      break
+    end
+    steps = steps + 1
+  end
+
+  local bg_adjusted = color.new(bg)
+  steps = 0
+  while steps < 20 do
+    if bg_is_dark then
+      bg_adjusted = color.new(bg_adjusted:to_hex()):darken(0.05)
+    else
+      bg_adjusted = color.new(bg_adjusted:to_hex()):brighten(0.05)
+    end
+    local new_lum = color.get_luminance(bg_adjusted:to_hex())
+    local new_ratio = color.calculate_contrast(lum1, new_lum)
+    if new_ratio >= target_ratio then
+      suggestions.bg_suggestion = bg_adjusted:to_hex()
+      table.insert(suggestions.actions, string.format(
+        "Adjust bg: %s -> %s (ratio: %.1f:1)", bg, bg_adjusted:to_hex(), new_ratio))
+      break
+    end
+    steps = steps + 1
+  end
+
+  if not suggestions.fg_suggestion and not suggestions.bg_suggestion then
+    table.insert(suggestions.actions, "Consider using a more contrasting color pair")
+  end
+
+  return suggestions
+end
+
 -- ============================================================================
 -- BASE16 VALIDATION
 -- ============================================================================
@@ -788,6 +863,11 @@ function M.format_report(report)
         table.insert(lines, string.format("%s %-20s %s (%s)", mark, check.name, ratio_str, check.required_level))
       else
         table.insert(lines, string.format("%s %-20s %s (needs %s)", mark, check.name, ratio_str, check.required_level))
+        local threshold = check.required_level == "AAA" and 7.0 or 4.5
+        local suggestions = M.suggest_contrast_fix(check.fg, check.bg, threshold)
+        for _, action in ipairs(suggestions.actions) do
+          table.insert(lines, "    SUGGEST: " .. action)
+        end
       end
     end
     for _, err in ipairs(contrast.errors or {}) do

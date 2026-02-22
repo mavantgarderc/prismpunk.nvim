@@ -1,10 +1,12 @@
 --- PrismPunk Theme Validation Module
---- Validates themes against WCAG, Base16, and highlight coverage standards
+--- Validates themes against WCAG, Base16, color format, and schema standards
 local M = {}
 
 local color = require("prismpunk.utils.color")
+local schema = require("prismpunk.utils.schema")
 
---- WCAG Contrast thresholds
+M.STRICT_HEX_PATTERN = "^#%x%x%x%x%x%x$"
+
 local WCAG = {
   AA_NORMAL = 4.5,
   AA_LARGE = 3.0,
@@ -12,15 +14,8 @@ local WCAG = {
   AAA_LARGE = 4.5,
 }
 
---- Required Base16 colors
-local REQUIRED_BASE16 = {
-  "base00", "base01", "base02", "base03",
-  "base04", "base05", "base06", "base07",
-  "base08", "base09", "base0A", "base0B",
-  "base0C", "base0D", "base0E", "base0F",
-}
+local REQUIRED_BASE16 = schema.BASE16_KEYS
 
---- Required UI colors for contrast checking
 local REQUIRED_UI_CONTRASTS = {
   { name = "Normal FG vs BG", fg = "ui.fg", bg = "ui.bg", level = "AAA" },
   { name = "Visual FG vs BG", fg = "ui.fg", bg = "ui.selection", level = "AA" },
@@ -34,15 +29,370 @@ local REQUIRED_UI_CONTRASTS = {
   { name = "diag.warning vs BG", fg = "diag.warning", bg = "ui.bg", level = "AA" },
 }
 
---- Required theme structure sections
-local REQUIRED_SECTIONS = {
-  "ui", "syn", "diag", "term",
-}
+local REQUIRED_SECTIONS = { "ui", "syn", "diag", "term" }
 
---- Get nested value from table using dot notation
---- @param tbl table
---- @param path string|nil
---- @return any
+-- ============================================================================
+-- HEX COLOR VALIDATION
+-- ============================================================================
+
+--- Validate a hex color string against strict pattern
+--- @param s any Value to validate
+--- @param context string|nil Context for error messages
+--- @return boolean valid, string|nil normalized, string|nil error
+function M.validate_hex(s, context)
+  context = context or "unknown"
+  if type(s) ~= "string" then
+    return false, nil, string.format("[%s] expected string, got %s", context, type(s))
+  end
+  if not s:match(M.STRICT_HEX_PATTERN) then
+    return false, nil, string.format("[%s] invalid hex: '%s'", context, s)
+  end
+  return true, s:lower(), nil
+end
+
+--- Normalize a hex color (auto-fix common issues)
+--- @param s any Input value
+--- @return string normalized_hex, string|nil error
+function M.normalize_hex(s)
+  if type(s) ~= "string" then return "#000000", "expected string, got " .. type(s) end
+
+  local hex = s:gsub("%s+", "")
+
+  if hex:sub(1, 1) ~= "#" then hex = "#" .. hex end
+
+  if #hex == 4 then
+    hex = "#" .. hex:sub(2, 2):rep(2) .. hex:sub(3, 3):rep(2) .. hex:sub(4, 4):rep(2)
+  end
+
+  if not hex:match(M.STRICT_HEX_PATTERN) then
+    return "#000000", string.format("cannot normalize: '%s'", s)
+  end
+
+  return hex:lower(), nil
+end
+
+--- Validate and optionally fix a single color value
+--- @param value any Color value to validate
+--- @param key string Key name for context
+--- @return boolean valid, string normalized, string|nil error, boolean was_fixed
+function M.validate_color_value(value, key)
+  if type(value) ~= "string" then
+    return false, "#000000", string.format("%s: expected string, got %s", key, type(value)), false
+  end
+
+  local valid, normalized, err = M.validate_hex(value, key)
+  if valid then return true, normalized, nil, false end
+
+  local fixed, fix_err = M.normalize_hex(value)
+  if not fix_err then return true, fixed, nil, true end
+
+  return false, "#000000", string.format("%s: %s", key, err), false
+end
+
+--- Validate all color values in a table
+--- @param tbl table Table with color values
+--- @param context string Context for error messages
+--- @return table results { valid, errors, warnings, fixed, invalid_colors }
+function M.validate_color_table(tbl, context)
+  context = context or "colors"
+  local results = {
+    valid = true,
+    errors = {},
+    warnings = {},
+    fixed = {},
+    invalid_colors = {},
+  }
+
+  if type(tbl) ~= "table" then
+    table.insert(results.errors, string.format("[%s] expected table, got %s", context, type(tbl)))
+    results.valid = false
+    return results
+  end
+
+  for key, value in pairs(tbl) do
+    if type(value) == "string" and (value:match("^#") or schema.is_color_key(key)) then
+      local valid, normalized, err, was_fixed = M.validate_color_value(value, string.format("%s.%s", context, key))
+      if not valid then
+        table.insert(results.errors, err)
+        table.insert(results.invalid_colors, { key = key, value = value, error = err })
+        results.valid = false
+      elseif was_fixed then
+        results.fixed[key] = normalized
+        table.insert(results.warnings, string.format("%s.%s: normalized '%s' -> '%s'", context, key, value, normalized))
+      end
+    end
+  end
+
+  return results
+end
+
+-- ============================================================================
+-- PALETTE SCHEMA VALIDATION
+-- ============================================================================
+
+--- Validate palette against schema
+--- @param palette table Palette to validate
+--- @return table results { valid, errors, warnings, missing_required, missing_recommended }
+function M.validate_palette_schema(palette)
+  local results = {
+    valid = true,
+    errors = {},
+    warnings = {},
+    missing_required = {},
+    missing_recommended = {},
+  }
+
+  if type(palette) ~= "table" then
+    table.insert(results.errors, "palette must be a table")
+    results.valid = false
+    return results
+  end
+
+  for _, item in ipairs(schema.PALETTE_SCHEMA.required) do
+    if not palette[item.key] then
+      table.insert(results.errors, string.format("missing required: %s (%s)", item.key, item.desc))
+      table.insert(results.missing_required, item.key)
+      results.valid = false
+    elseif type(palette[item.key]) ~= "string" then
+      table.insert(results.errors, string.format("%s must be string, got %s", item.key, type(palette[item.key])))
+      results.valid = false
+    else
+      local valid, _, err = M.validate_hex(palette[item.key], item.key)
+      if not valid then
+        table.insert(results.errors, string.format("%s: %s", item.key, err))
+        results.valid = false
+      end
+    end
+  end
+
+  for _, item in ipairs(schema.PALETTE_SCHEMA.recommended) do
+    if not palette[item.key] then
+      table.insert(results.warnings, string.format("missing recommended: %s (%s)", item.key, item.desc))
+      table.insert(results.missing_recommended, item.key)
+    end
+  end
+
+  return results
+end
+
+-- ============================================================================
+-- THEME COLOR VALIDATION
+-- ============================================================================
+
+--- Deep scan all color values in theme
+--- @param theme table Theme colors from get()
+--- @return table results { valid, errors, warnings, invalid_colors, sections }
+function M.check_color_formats(theme)
+  local results = {
+    valid = true,
+    errors = {},
+    warnings = {},
+    invalid_colors = {},
+    sections = {},
+  }
+
+  if type(theme) ~= "table" then
+    table.insert(results.errors, "theme must be a table")
+    results.valid = false
+    return results
+  end
+
+  local function scan_table(tbl, path)
+    if type(tbl) ~= "table" then return end
+    for key, value in pairs(tbl) do
+      local full_path = path and (path .. "." .. key) or key
+      if type(value) == "string" then
+        if value:match("^#") then
+          local valid, _, err = M.validate_hex(value, full_path)
+          if not valid then
+            table.insert(results.errors, err)
+            table.insert(results.invalid_colors, { path = full_path, value = value, error = err })
+            results.valid = false
+          end
+        end
+      elseif type(value) == "table" then
+        scan_table(value, full_path)
+      end
+    end
+  end
+
+  scan_table(theme, nil)
+
+  results.count = #results.errors
+  return results
+end
+
+--- Validate theme color schema (required sections/keys)
+--- @param theme table Theme colors from get()
+--- @return table results { valid, errors, warnings, missing }
+function M.check_theme_color_schema(theme)
+  local results = {
+    valid = true,
+    errors = {},
+    warnings = {},
+    missing = {},
+    sections = {},
+  }
+
+  if type(theme) ~= "table" then
+    table.insert(results.errors, "theme must be a table")
+    results.valid = false
+    return results
+  end
+
+  for section_name, section_schema in pairs(schema.THEME_COLOR_SCHEMA) do
+    local section_result = {
+      name = section_name,
+      present = false,
+      missing_required = {},
+      missing_recommended = {},
+      has_errors = false,
+    }
+
+    if not theme[section_name] then
+      if #section_schema.required > 0 then
+        table.insert(results.errors, string.format("missing section: %s", section_name))
+        section_result.has_errors = true
+        results.valid = false
+      end
+    else
+      section_result.present = true
+
+      for _, key in ipairs(section_schema.required) do
+        if not theme[section_name][key] then
+          local missing_key = string.format("%s.%s", section_name, key)
+          table.insert(results.missing, missing_key)
+          table.insert(results.errors, string.format("missing required: %s", missing_key))
+          table.insert(section_result.missing_required, key)
+          results.valid = false
+        end
+      end
+
+      for _, key in ipairs(section_schema.recommended) do
+        if not theme[section_name][key] then
+          local missing_key = string.format("%s.%s", section_name, key)
+          table.insert(results.warnings, string.format("missing recommended: %s", missing_key))
+          table.insert(section_result.missing_recommended, key)
+        end
+      end
+    end
+
+    table.insert(results.sections, section_result)
+  end
+
+  return results
+end
+
+-- ============================================================================
+-- AUTO-FIX FUNCTIONS
+-- ============================================================================
+
+--- Auto-fix a palette (normalize hex, add missing keys with defaults)
+--- @param palette table Palette to fix
+--- @param opts table|nil Options { generate_missing: boolean }
+--- @return table fixed_palette, table changes
+function M.fix_palette(palette, opts)
+  opts = opts or {}
+  local fixed = vim.tbl_deep_extend("force", {}, palette or {})
+  local changes = { normalized = {}, added = {}, schema_fixed = {} }
+
+  for key, value in pairs(fixed) do
+    if type(value) == "string" and (value:match("^#") or schema.is_color_key(key)) then
+      local normalized, err = M.normalize_hex(value)
+      if not err and normalized ~= value then
+        changes.normalized[key] = { from = value, to = normalized }
+        fixed[key] = normalized
+      elseif err then
+        changes.normalized[key] = { from = value, to = "#000000", error = err }
+        fixed[key] = "#000000"
+      end
+    end
+  end
+
+  if opts.generate_missing then
+    if not fixed.bg_darkest then
+      if fixed.bg then
+        fixed.bg_darkest = fixed.bg
+        changes.added.bg_darkest = { source = "bg", value = fixed.bg }
+      else
+        fixed.bg_darkest = "#000000"
+        changes.added.bg_darkest = { source = "default", value = "#000000" }
+      end
+    end
+
+    if not fixed.fg_lightest then
+      if fixed.fg then
+        fixed.fg_lightest = fixed.fg
+        changes.added.fg_lightest = { source = "fg", value = fixed.fg }
+      else
+        fixed.fg_lightest = "#ffffff"
+        changes.added.fg_lightest = { source = "default", value = "#ffffff" }
+      end
+    end
+
+    for _, item in ipairs(schema.PALETTE_SCHEMA.recommended) do
+      if not fixed[item.key] then
+        changes.schema_fixed[item.key] = { status = "missing", desc = item.desc }
+      end
+    end
+  end
+
+  return fixed, changes
+end
+
+--- Auto-fix base16 palette (fill missing colors)
+--- @param base16 table Base16 colors
+--- @return table fixed_base16, table changes
+function M.fix_base16(base16)
+  local fixed = vim.tbl_deep_extend("force", {}, base16 or {})
+  local changes = {}
+
+  local bg = fixed.base00 or "#000000"
+  local fg = fixed.base05 or "#ffffff"
+
+  local default_base16 = {
+    base00 = bg,
+    base01 = bg,
+    base02 = bg,
+    base03 = "#4a4a4a",
+    base04 = "#8a8a8a",
+    base05 = fg,
+    base06 = fg,
+    base07 = "#ffffff",
+    base08 = "#ff0000",
+    base09 = "#ff8800",
+    base0A = "#ffff00",
+    base0B = "#00ff00",
+    base0C = "#00ffff",
+    base0D = "#0000ff",
+    base0E = "#ff00ff",
+    base0F = "#884400",
+  }
+
+  for i = 0, 15 do
+    local key = string.format("base%02X", i)
+    if not fixed[key] then
+      fixed[key] = default_base16[key]
+      changes[key] = { status = "generated", value = default_base16[key] }
+    else
+      local normalized, err = M.normalize_hex(fixed[key])
+      if err then
+        changes[key] = { status = "fixed", from = fixed[key], to = normalized }
+        fixed[key] = normalized
+      elseif normalized ~= fixed[key] then
+        changes[key] = { status = "normalized", from = fixed[key], to = normalized }
+        fixed[key] = normalized
+      end
+    end
+  end
+
+  return fixed, changes
+end
+
+-- ============================================================================
+-- WCAG CONTRAST VALIDATION
+-- ============================================================================
+
 local function get_nested(tbl, path)
   if not tbl or not path then return nil end
   local parts = vim.split(path, ".", { plain = true })
@@ -55,10 +405,6 @@ local function get_nested(tbl, path)
   return current
 end
 
---- Calculate contrast ratio between two colors
---- @param fg string|nil hex color
---- @param bg string|nil hex color
---- @return number ratio, number|nil lum1, number|nil lum2
 local function calc_contrast(fg, bg)
   if not fg or not bg then return 0 end
   local lum1 = color.get_luminance(fg)
@@ -69,13 +415,12 @@ end
 
 --- Check WCAG contrast for theme colors
 --- @param theme table Theme colors table
---- @param opts table Options { level: "aa"|"aaa" }
+--- @param opts table|nil Options { level: "aa"|"aaa" }
 --- @return table Validation results
 function M.check_wcag_contrast(theme, opts)
   opts = opts or {}
   local level = opts.level or "aa"
   local threshold = level == "aaa" and WCAG.AAA_NORMAL or WCAG.AA_NORMAL
-  local large_threshold = level == "aaa" and WCAG.AAA_LARGE or WCAG.AA_LARGE
 
   local results = {
     level = level,
@@ -89,7 +434,6 @@ function M.check_wcag_contrast(theme, opts)
     local fg = get_nested(theme, check.fg)
     local bg = get_nested(theme, check.bg)
 
-    -- Handle complex types (tables for float/pmenu)
     if type(fg) == "table" then fg = fg.fg end
     if type(bg) == "table" then bg = bg.bg end
 
@@ -129,6 +473,10 @@ function M.check_wcag_contrast(theme, opts)
   return results
 end
 
+-- ============================================================================
+-- BASE16 VALIDATION
+-- ============================================================================
+
 --- Check Base16 palette completeness
 --- @param theme table Theme with base16 or palette
 --- @return table Validation results
@@ -138,6 +486,7 @@ function M.check_base16_palette(theme)
     present = {},
     missing = {},
     count = 0,
+    invalid = {},
   }
 
   local base16 = theme.base16
@@ -149,16 +498,29 @@ function M.check_base16_palette(theme)
 
   for _, key in ipairs(REQUIRED_BASE16) do
     if base16[key] then
-      table.insert(results.present, key)
-      results.count = results.count + 1
+      local valid, _, err = M.validate_hex(base16[key], key)
+      if not valid then
+        table.insert(results.invalid, { key = key, value = base16[key], error = err })
+      else
+        table.insert(results.present, key)
+        results.count = results.count + 1
+      end
     else
       table.insert(results.missing, key)
       results.complete = false
     end
   end
 
+  if #results.invalid > 0 then
+    results.complete = false
+  end
+
   return results
 end
+
+-- ============================================================================
+-- THEME STRUCTURE VALIDATION
+-- ============================================================================
 
 --- Check required theme structure sections
 --- @param theme table Theme colors
@@ -180,7 +542,6 @@ function M.check_theme_structure(theme)
     end
   end
 
-  -- Check for required UI colors
   local required_ui = { "fg", "bg" }
   for _, key in ipairs(required_ui) do
     if not theme.ui or not theme.ui[key] then
@@ -189,7 +550,6 @@ function M.check_theme_structure(theme)
     end
   end
 
-  -- Check for required syntax colors
   local required_syn = { "comment", "keyword", "func", "string", "type", "variable" }
   for _, key in ipairs(required_syn) do
     if not theme.syn or not theme.syn[key] then
@@ -198,7 +558,6 @@ function M.check_theme_structure(theme)
     end
   end
 
-  -- Check for required diagnostic colors
   local required_diag = { "error", "warning", "info", "hint" }
   for _, key in ipairs(required_diag) do
     if not theme.diag or not theme.diag[key] then
@@ -210,18 +569,13 @@ function M.check_theme_structure(theme)
   return results
 end
 
---- Count defined highlight groups from a loaded theme
---- @return number Count of defined groups (approximate)
-local function count_defined_highlights()
-  local count = 0
-  local hl = vim.api.nvim_get_hl(0, {})
-  for _ in pairs(hl) do count = count + 1 end
-  return count
-end
+-- ============================================================================
+-- MAIN VALIDATION FUNCTION
+-- ============================================================================
 
 --- Validate a theme by name
 --- @param theme_name string Theme name (universe/name or just name)
---- @param opts table Options
+--- @param opts table|nil Options { level, fix, schema, color_formats, strict }
 --- @return table Validation report
 function M.validate_theme(theme_name, opts)
   opts = opts or {}
@@ -235,9 +589,9 @@ function M.validate_theme(theme_name, opts)
       warnings = 0,
       passed = true,
     },
+    fixes = {},
   }
 
-  -- Parse and load theme
   local config = require("prismpunk.config")
   local parsed = config.parse_theme(theme_name)
   if not parsed or not parsed.name then
@@ -246,12 +600,10 @@ function M.validate_theme(theme_name, opts)
     return report
   end
 
-  -- Try to load theme module using variants (similar to loader)
   local theme_path
   local theme_mod
   local tries = {}
 
-  -- Add variants if available
   if parsed.variants and #parsed.variants > 0 then
     for _, variant in ipairs(parsed.variants) do
       if variant.universe and variant.universe ~= "" then
@@ -261,7 +613,6 @@ function M.validate_theme(theme_name, opts)
     end
   end
 
-  -- Add direct path
   if parsed.universe and parsed.universe ~= "" then
     local universe_dotted = parsed.universe:gsub("/", ".")
     table.insert(tries, string.format("prismpunk.themes.%s.%s", universe_dotted, parsed.name))
@@ -283,16 +634,13 @@ function M.validate_theme(theme_name, opts)
     return report
   end
 
-  -- Get theme colors via palette
   local palette = require("prismpunk.palette")
   local palette_universe = parsed.universe or (theme_mod.palette and theme_mod.palette.universe)
   local palette_name = (theme_mod.palette and theme_mod.palette.name) or parsed.name
 
-  -- Try multiple paths for palette loading
   local palette_table
   local palette_tries = {}
 
-  -- Add variants for palette
   if parsed.variants and #parsed.variants > 0 then
     for _, variant in ipairs(parsed.variants) do
       if variant.universe and variant.universe ~= "" then
@@ -303,7 +651,6 @@ function M.validate_theme(theme_name, opts)
     end
   end
 
-  -- Add direct paths
   table.insert(palette_tries, { palette_universe, palette_name })
   table.insert(palette_tries, { nil, palette_name })
 
@@ -323,7 +670,6 @@ function M.validate_theme(theme_name, opts)
     return report
   end
 
-  -- Get theme colors
   local theme_colors
   if type(theme_mod.get) == "function" then
     local get_ok, result = pcall(theme_mod.get, {}, palette_table)
@@ -338,34 +684,76 @@ function M.validate_theme(theme_name, opts)
     return report
   end
 
-  -- Run all validations
   local contrast_opts = { level = opts.level or "aa" }
   local contrast_result = M.check_wcag_contrast(theme_colors, contrast_opts)
   report.checks.contrast = contrast_result
   if not contrast_result.passed then
     report.summary.errors = report.summary.errors + #contrast_result.errors
     report.summary.warnings = report.summary.warnings + #contrast_result.warnings
-    report.valid = false
+    if not opts.schema then report.valid = false end
   end
 
   local base16_result = M.check_base16_palette(theme_mod)
   report.checks.base16 = base16_result
   if not base16_result.complete then
-    report.summary.errors = report.summary.errors + #base16_result.missing
-    report.valid = false
+    report.summary.errors = report.summary.errors + #base16_result.missing + #base16_result.invalid
+    if not opts.schema then report.valid = false end
   end
 
   local structure_result = M.check_theme_structure(theme_colors)
   report.checks.structure = structure_result
   if not structure_result.valid then
     report.summary.errors = report.summary.errors + #structure_result.errors
-    report.valid = false
+    if not opts.schema then report.valid = false end
+  end
+
+  local color_format_result = M.check_color_formats(theme_colors)
+  report.checks.color_formats = color_format_result
+  if not color_format_result.valid then
+    report.summary.errors = report.summary.errors + #color_format_result.errors
+    if not opts.schema then report.valid = false end
+  end
+
+  local palette_schema_result = M.validate_palette_schema(palette_table)
+  report.checks.palette_schema = palette_schema_result
+  if not palette_schema_result.valid then
+    report.summary.errors = report.summary.errors + #palette_schema_result.errors
+    if not opts.schema then report.valid = false end
+  end
+
+  local theme_schema_result = M.check_theme_color_schema(theme_colors)
+  report.checks.theme_schema = theme_schema_result
+  if not theme_schema_result.valid then
+    report.summary.errors = report.summary.errors + #theme_schema_result.errors
+    if not opts.schema then report.valid = false end
+  end
+  report.summary.warnings = report.summary.warnings + #theme_schema_result.warnings
+
+  if opts.strict then
+    if #contrast_result.warnings > 0 or #palette_schema_result.warnings > 0 or #theme_schema_result.warnings > 0 then
+      report.valid = false
+    end
+  end
+
+  if opts.fix then
+    if not palette_schema_result.valid or color_format_result.valid == false then
+      local fixed_palette, palette_changes = M.fix_palette(palette_table, { generate_missing = true })
+      report.fixes.palette = palette_changes
+    end
+    if not base16_result.complete or #base16_result.invalid > 0 then
+      local fixed_base16, base16_changes = M.fix_base16(theme_mod.base16 or {})
+      report.fixes.base16 = base16_changes
+    end
   end
 
   report.summary.passed = report.valid and report.summary.errors == 0
 
   return report
 end
+
+-- ============================================================================
+-- REPORT FORMATTING
+-- ============================================================================
 
 --- Generate human-readable validation report
 --- @param report table Validation report from validate_theme
@@ -382,21 +770,26 @@ function M.format_report(report)
     return table.concat(lines, "\n")
   end
 
-  -- Contrast checks
+  local function format_check_result(passed, label)
+    if passed then
+      return "[OK] " .. label
+    else
+      return "[FAIL] " .. label
+    end
+  end
+
   local contrast = report.checks.contrast
   if contrast then
-    table.insert(lines, "[✓] WCAG Contrast (" .. contrast.level .. ")")
+    table.insert(lines, format_check_result(contrast.passed, "WCAG Contrast (" .. contrast.level .. ")"))
     for _, check in ipairs(contrast.checks or {}) do
-      local status = check.pass and "PASS" or "FAIL"
-      local mark = check.pass and "✓" or "✗"
+      local mark = check.pass and "  OK " or "  FAIL"
       local ratio_str = string.format("%.1f:1", check.ratio)
       if check.pass then
-        table.insert(lines, string.format("  %s %-20s %s (%s %s)", mark, check.name, ratio_str, check.required_level, status))
+        table.insert(lines, string.format("%s %-20s %s (%s)", mark, check.name, ratio_str, check.required_level))
       else
-        table.insert(lines, string.format("  %s %-20s %s (%s %s)", mark, check.name, ratio_str, check.required_level, status))
+        table.insert(lines, string.format("%s %-20s %s (needs %s)", mark, check.name, ratio_str, check.required_level))
       end
     end
-
     for _, err in ipairs(contrast.errors or {}) do
       table.insert(lines, "  ERROR: " .. tostring(err))
     end
@@ -406,25 +799,28 @@ function M.format_report(report)
     table.insert(lines, "")
   end
 
-  -- Base16 checks
   local base16 = report.checks.base16
   if base16 then
-    if base16.complete then
-      table.insert(lines, "[✓] Base16 Palette: Complete (" .. base16.count .. "/16)")
+    if base16.complete and #base16.invalid == 0 then
+      table.insert(lines, string.format("[OK] Base16 Palette: Complete (%d/16)", base16.count))
     else
-      table.insert(lines, "[✗] Base16 Palette: Incomplete (" .. base16.count .. "/16)")
-      table.insert(lines, "  MISSING: " .. table.concat(base16.missing, ", "))
+      table.insert(lines, string.format("[FAIL] Base16 Palette: %d/16 complete", base16.count))
+      if #base16.missing > 0 then
+        table.insert(lines, "  MISSING: " .. table.concat(base16.missing, ", "))
+      end
+      for _, inv in ipairs(base16.invalid or {}) do
+        table.insert(lines, string.format("  INVALID: %s = '%s' (%s)", inv.key, inv.value, inv.error))
+      end
     end
     table.insert(lines, "")
   end
 
-  -- Structure checks
   local structure = report.checks.structure
   if structure then
     if structure.valid then
-      table.insert(lines, "[✓] Theme Structure: Valid")
+      table.insert(lines, "[OK] Theme Structure: Valid")
     else
-      table.insert(lines, "[✗] Theme Structure: Invalid")
+      table.insert(lines, "[FAIL] Theme Structure: Invalid")
       for _, err in ipairs(structure.errors or {}) do
         table.insert(lines, "  ERROR: " .. err)
       end
@@ -432,14 +828,76 @@ function M.format_report(report)
     table.insert(lines, "")
   end
 
-  -- Summary
+  local color_formats = report.checks.color_formats
+  if color_formats then
+    if color_formats.valid then
+      table.insert(lines, "[OK] Color Formats: All valid")
+    else
+      table.insert(lines, string.format("[FAIL] Color Formats: %d invalid", #color_formats.invalid_colors))
+      for _, inv in ipairs(color_formats.invalid_colors) do
+        table.insert(lines, string.format("  INVALID: %s = '%s'", inv.path, inv.value))
+      end
+    end
+    table.insert(lines, "")
+  end
+
+  local palette_schema = report.checks.palette_schema
+  if palette_schema then
+    if palette_schema.valid then
+      table.insert(lines, "[OK] Palette Schema: Valid")
+    else
+      table.insert(lines, "[FAIL] Palette Schema: Invalid")
+      for _, err in ipairs(palette_schema.errors or {}) do
+        table.insert(lines, "  ERROR: " .. err)
+      end
+    end
+    for _, warn in ipairs(palette_schema.warnings or {}) do
+      table.insert(lines, "  WARN: " .. warn)
+    end
+    table.insert(lines, "")
+  end
+
+  local theme_schema = report.checks.theme_schema
+  if theme_schema then
+    if theme_schema.valid then
+      table.insert(lines, "[OK] Theme Schema: Valid")
+    else
+      table.insert(lines, "[FAIL] Theme Schema: Invalid")
+      for _, err in ipairs(theme_schema.errors or {}) do
+        table.insert(lines, "  ERROR: " .. err)
+      end
+    end
+    for _, warn in ipairs(theme_schema.warnings or {}) do
+      table.insert(lines, "  WARN: " .. warn)
+    end
+    table.insert(lines, "")
+  end
+
+  if report.fixes and next(report.fixes) then
+    table.insert(lines, "--- Auto-Fixes Applied ---")
+    if report.fixes.palette then
+      for key, change in pairs(report.fixes.palette.normalized or {}) do
+        table.insert(lines, string.format("  %s: '%s' -> '%s'", key, change.from, change.to))
+      end
+      for key, change in pairs(report.fixes.palette.added or {}) do
+        table.insert(lines, string.format("  %s: added from %s", key, change.source))
+      end
+    end
+    if report.fixes.base16 then
+      for key, change in pairs(report.fixes.base16) do
+        table.insert(lines, string.format("  %s: %s", key, change.status))
+      end
+    end
+    table.insert(lines, "")
+  end
+
   table.insert(lines, string.format("Summary: %d error(s), %d warning(s)",
     report.summary.errors, report.summary.warnings))
 
   if report.summary.passed then
-    table.insert(lines, "[✓] VALIDATION PASSED")
+    table.insert(lines, "[OK] VALIDATION PASSED")
   else
-    table.insert(lines, "[✗] VALIDATION FAILED")
+    table.insert(lines, "[FAIL] VALIDATION FAILED")
   end
 
   return table.concat(lines, "\n")

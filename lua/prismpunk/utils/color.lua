@@ -4,32 +4,56 @@ local M = {}
 
 local hsluv = require("prismpunk.utils.hsluv")
 
-local function _is_string_hex(s) return type(s) == "string" and s:match("^#?[%x]+$") ~= nil end
+local STRICT_HEX_PATTERN = "^#%x%x%x%x%x%x$"
 
-local function _normalize_hex(hex)
-  if type(hex) ~= "string" then return "#000000" end
+local function _is_string_hex(s)
+  return type(s) == "string" and s:match(STRICT_HEX_PATTERN) ~= nil
+end
+
+local function _normalize_hex(hex, context)
+  context = context or "color"
+  if type(hex) ~= "string" then
+    vim.notify(string.format("[prismpunk] %s: expected string, got %s, using fallback #000000", context, type(hex)), vim.log.levels.ERROR)
+    return "#000000"
+  end
+
+  local original = hex
   hex = hex:gsub("%s+", "")
+
   if hex:sub(1, 1) ~= "#" then hex = "#" .. hex end
+
   if #hex == 4 then
-    -- #abc -> #aabbcc
     local r = hex:sub(2, 2)
     local g = hex:sub(3, 3)
     local b = hex:sub(4, 4)
     hex = "#" .. r .. r .. g .. g .. b .. b
   end
-  if #hex ~= 7 or not _is_string_hex(hex) then return "#000000" end
+
+  if not hex:match(STRICT_HEX_PATTERN) then
+    vim.notify(string.format("[prismpunk] %s: invalid hex '%s', using fallback #000000", context, original), vim.log.levels.ERROR)
+    return "#000000"
+  end
+
+  return hex:lower()
+end
+
+local function _validate_computed_hex(hex, operation)
+  if not hex:match(STRICT_HEX_PATTERN) then
+    vim.notify(string.format("[prismpunk] %s produced invalid hex '%s', reverting to #000000", operation, hex), vim.log.levels.ERROR)
+    return "#000000"
+  end
   return hex:lower()
 end
 
 local function _safe_hex_to_rgb(hex)
-  hex = _normalize_hex(hex)
+  hex = _normalize_hex(hex, "hex_to_rgb")
   local ok, rgb = pcall(hsluv.hex_to_rgb, hex)
   if not ok or type(rgb) ~= "table" then return { 0, 0, 0 } end
   return rgb
 end
 
 local function _safe_hex_to_hsluv(hex)
-  hex = _normalize_hex(hex)
+  hex = _normalize_hex(hex, "hex_to_hsluv")
   local ok, h = pcall(hsluv.hex_to_hsluv, hex)
   if not ok or type(h) ~= "table" then return { 0, 0, 0 } end
   return h
@@ -49,7 +73,7 @@ end
 --- @return table Color object with methods
 --- @usage local c = color("#ff0000"):brighten(0.2):to_hex()
 function M.new(hex)
-  hex = _normalize_hex(hex)
+  hex = _normalize_hex(hex, "color.new")
 
   local obj = {
     hex = hex,
@@ -62,12 +86,12 @@ function M.new(hex)
   --- @return table self
   function obj:brighten(factor)
     factor = tonumber(factor) or 0
-    factor = _clamp(factor, -1, 1) -- allow negative for darken
+    factor = _clamp(factor, -1, 1)
     local h = { self.hsluv[1], self.hsluv[2], self.hsluv[3] }
     h[3] = _clamp(h[3] + (factor * 100), 0, 100)
     self.hsluv = h
     self.rgb = hsluv.hsluv_to_rgb(h)
-    self.hex = hsluv.hsluv_to_hex(h)
+    self.hex = _validate_computed_hex(hsluv.hsluv_to_hex(h), "brighten")
     return self
   end
 
@@ -90,7 +114,7 @@ function M.new(hex)
     h[2] = _clamp(h[2] + (factor * 100), 0, 100)
     self.hsluv = h
     self.rgb = hsluv.hsluv_to_rgb(h)
-    self.hex = hsluv.hsluv_to_hex(h)
+    self.hex = _validate_computed_hex(hsluv.hsluv_to_hex(h), "saturate")
     return self
   end
 
@@ -103,7 +127,7 @@ function M.new(hex)
     h[1] = (h[1] + degrees) % 360
     self.hsluv = h
     self.rgb = hsluv.hsluv_to_rgb(h)
-    self.hex = hsluv.hsluv_to_hex(h)
+    self.hex = _validate_computed_hex(hsluv.hsluv_to_hex(h), "rotate")
     return self
   end
 
@@ -122,7 +146,6 @@ function M.new(hex)
   return obj
 end
 
--- Make color() callable
 setmetatable(M, {
   __call = function(_, hex) return M.new(hex) end,
 })
@@ -137,8 +160,11 @@ function M.hex_to_rgb(hex) return _safe_hex_to_rgb(hex) end
 --- @return string
 function M.rgb_to_hex(rgb)
   local ok, res = pcall(hsluv.rgb_to_hex, rgb)
-  if not ok or type(res) ~= "string" then return "#000000" end
-  return _normalize_hex(res)
+  if not ok or type(res) ~= "string" then
+    vim.notify("[prismpunk] rgb_to_hex failed, using fallback #000000", vim.log.levels.ERROR)
+    return "#000000"
+  end
+  return _normalize_hex(res, "rgb_to_hex")
 end
 
 --- Brighten hex color
@@ -210,7 +236,7 @@ end
 local function _term_hex(plt, key, fallback)
   local v = plt and plt[key] or nil
   if not _is_string_hex(v or "") then return fallback end
-  return _normalize_hex(v)
+  return v:lower()
 end
 
 --- Generate terminal color table from palette
@@ -248,5 +274,7 @@ function M.term_from_palette(plt)
     white_bright = M.brighten(white, 0.15),
   }
 end
+
+M.STRICT_HEX_PATTERN = STRICT_HEX_PATTERN
 
 return M

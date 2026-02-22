@@ -258,6 +258,14 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
       opts_internal.level = "aaa"
     elseif arg == "--aa" then
       opts_internal.level = "aa"
+    elseif arg == "--fix" then
+      opts_internal.fix = true
+    elseif arg == "--schema" then
+      opts_internal.schema = true
+    elseif arg == "--strict" then
+      opts_internal.strict = true
+    elseif arg == "--color-formats" then
+      opts_internal.color_formats = true
     elseif arg ~= "" and not arg:match("^%-%w+") then
       theme_name = arg
     end
@@ -266,14 +274,12 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
   local validate = require("prismpunk.core.validate")
 
   if validate_all then
-    -- Validate all themes
     local loader_ok, loader = pcall(require, "prismpunk.loader")
     if not loader_ok then
       vim.notify("[prismpunk] Failed to load loader module", vim.log.levels.ERROR)
       return
     end
 
-    -- Use list_themes to get ALL themes (ignore whitelist filter)
     local themes = loader.list_themes()
     if #themes == 0 then
       vim.notify("[prismpunk] No themes found", vim.log.levels.WARN)
@@ -285,6 +291,7 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
     local pass_count = 0
     local failed_themes = {}
     local passed_themes = {}
+    local total_fixes = {}
 
     for _, theme in ipairs(themes) do
       local report = validate.validate_theme(theme, opts_internal)
@@ -295,6 +302,9 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
       else
         error_count = error_count + 1
         table.insert(failed_themes, theme)
+      end
+      if report.fixes and next(report.fixes) then
+        total_fixes[theme] = report.fixes
       end
     end
 
@@ -311,10 +321,22 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
         "",
       }
 
+      if opts_internal.fix and next(total_fixes) then
+        table.insert(lines, "--- Auto-Fixes Applied ---")
+        for theme_name, fixes in pairs(total_fixes) do
+          if fixes.palette then
+            for key, change in pairs(fixes.palette.normalized or {}) do
+              table.insert(lines, string.format("  %s.%s: '%s' -> '%s'", theme_name, key, change.from, change.to))
+            end
+          end
+        end
+        table.insert(lines, "")
+      end
+
       if #failed_themes > 0 and #failed_themes <= 50 then
         table.insert(lines, "--- Failed Themes ---")
         for _, theme in ipairs(failed_themes) do
-          table.insert(lines, "  ✗ " .. theme)
+          table.insert(lines, "  x " .. theme)
         end
         table.insert(lines, "")
       end
@@ -322,7 +344,7 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
       if #passed_themes > 0 and #passed_themes <= 50 then
         table.insert(lines, "--- Passed Themes ---")
         for _, theme in ipairs(passed_themes) do
-          table.insert(lines, "  ✓ " .. theme)
+          table.insert(lines, "  ok " .. theme)
         end
         table.insert(lines, "")
       end
@@ -330,7 +352,7 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
       if #failed_themes > 50 then
         table.insert(lines, string.format("(Showing first 50 of %d failed themes)", #failed_themes))
         for i = 1, 50 do
-          table.insert(lines, "  ✗ " .. failed_themes[i])
+          table.insert(lines, "  x " .. failed_themes[i])
         end
         table.insert(lines, "")
       end
@@ -341,7 +363,6 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
     return
   end
 
-  -- Validate single theme
   if not theme_name or theme_name == "" then
     local config_ok, cfg = pcall(require, "prismpunk.config")
     if config_ok and cfg.options then
@@ -370,5 +391,23 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
   end
 end, {
   nargs = "*",
-  desc = "Validate theme(s) against WCAG and Base16 standards",
+  desc = "Validate theme(s) against WCAG, color format, and schema standards",
+  complete = function(_, cmdline, _)
+    local args = vim.split(cmdline, "%s+", { trimempty = true })
+    local flags = { "--json", "--quiet", "--all", "--verbose", "-v", "--aaa", "--aa", "--fix", "--schema", "--strict", "--color-formats" }
+
+    if #args == 1 then
+      local ok, loader = pcall(require, "prismpunk.loader")
+      if ok then
+        local themes = loader.list_themes()
+        local completions = {}
+        for _, f in ipairs(flags) do table.insert(completions, f) end
+        for _, t in ipairs(themes) do table.insert(completions, t) end
+        return completions
+      end
+      return flags
+    end
+
+    return flags
+  end,
 })

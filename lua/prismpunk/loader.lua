@@ -6,6 +6,7 @@ local config = require("prismpunk.config")
 local palette = require("prismpunk.palette")
 local highlights = require("prismpunk.core.highlights")
 local terminals = require("prismpunk.core.terminals")
+local validate = require("prismpunk.core.validate")
 
 local module_cache = {
   themes = {},
@@ -361,6 +362,23 @@ function M.load(theme_spec, opts)
       string.format("[prismpunk] Warning: Theme %s may be missing required structure (ui, syn)", theme_key),
       vim.log.levels.WARN
     )
+  end
+
+  local validate_on_load = config.options.validate_on_load
+  if validate_on_load == nil or validate_on_load then
+    local color_result = validate.check_color_formats(theme_result)
+    if not color_result.valid then
+      for _, err in ipairs(color_result.errors) do
+        vim.notify("[prismpunk] Theme color error: " .. err, vim.log.levels.ERROR)
+      end
+    end
+
+    local schema_result = validate.check_theme_color_schema(theme_result)
+    if not schema_result.valid then
+      for _, err in ipairs(schema_result.errors) do
+        vim.notify("[prismpunk] Theme schema error: " .. err, vim.log.levels.ERROR)
+      end
+    end
   end
 
   validate_contrast(theme_result)

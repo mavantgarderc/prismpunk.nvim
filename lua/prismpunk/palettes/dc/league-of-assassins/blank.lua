@@ -1,28 +1,26 @@
 return {
-
-  void_black = "#0a0a0a",
-  blank_void = "#0d0d0f",
+  void_black = "#0A0A0A",
+  blank_void = "#0D0D0F",
   erased_core = "#111116",
   null_glow = "#181820",
+  tactical_black = "#0F0F12",
+  ghost_suit = "#16161A",
+  shadow_blank = "#1E1E24",
+  blank_mask = "#FFFFFF",
+  ghost_white = "#EEEEFF",
+  sterile_white = "#DDDDFF",
+  cold_void_white = "#CCCCCC",
+  reticle_red = "#FF1122",
+  target_lock = "#FF2233",
+  kill_confirm = "#FF4455",
+  blood_reticle = "#FF6677",
+  term_red = "#FF2233",
+  term_white = "#EEEEFF",
+  term_gray = "#CCCCCC",
+  term_red_bright = "#FF6677",
+  term_white_bright = "#FFFFFF",
 
-  tactical_black = "#0f0f12",
-  ghost_suit = "#16161a",
-  shadow_blank = "#1e1e24",
-
-  blank_mask = "#ffffff",
-  ghost_white = "#eeeeff",
-  sterile_white = "#ddddff",
-  cold_void_white = "#cccccc",
-
-  reticle_red = "#ff1122",
-  target_lock = "#ff2233",
-  kill_confirm = "#ff4455",
-  blood_reticle = "#ff6677",
-
-  term_red = "#ff2233",
-  term_white = "#eeeeff",
-  term_gray = "#cccccc",
-
-  term_red_bright = "#ff6677",
-  term_white_bright = "#ffffff",
+  bg_darkest = "#0A0A0A",
+  fg_lightest = "#FFFFFF",
 }
+

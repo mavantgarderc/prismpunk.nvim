@@ -41,4 +41,8 @@ return {
   dragonAccent3 = "#4E3D45",
   dragonAccent4 = "#58444D",
   dragonAccent5 = "#624B55",
+
+  bg_darkest = "#0F0F15",
+  fg_lightest = "#DCD7BA",
 }
+

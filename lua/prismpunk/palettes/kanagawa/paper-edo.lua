@@ -37,4 +37,8 @@ return {
   edoCoral = "#E68A80",
   edoAmber = "#F0C078",
   edoSlate = "#6B7888",
+
+  bg_darkest = "#0E0D12",
+  fg_lightest = "#DCD7BA",
 }
+

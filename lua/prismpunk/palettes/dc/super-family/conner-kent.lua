@@ -1,32 +1,29 @@
 return {
-
-  void_black = "#0a0c10",
-  lab_night = "#0d1118",
+  void_black = "#0A0C10",
+  lab_night = "#0D1118",
   kon_core = "#121824",
   ttk_glow = "#182030",
-
-  ttk_teal = "#00d4aa",
-  kon_teal = "#00e6bb",
-  solar_teal = "#00ffcc",
-  hope_teal = "#66ffee",
-
-  kon_red = "#ff2a44",
-  shield_red = "#ff3355",
-  ttk_red = "#ff4466",
-  rage_red = "#ff6677",
-
+  ttk_teal = "#00D4AA",
+  kon_teal = "#00E6BB",
+  solar_teal = "#00FFCC",
+  hope_teal = "#66FFEE",
+  kon_red = "#FF2A44",
+  shield_red = "#FF3355",
+  ttk_red = "#FF4466",
+  rage_red = "#FF6677",
   leather_black = "#111118",
   steel_gray = "#334455",
   tactical_gray = "#556677",
-  visor_blue = "#5577aa",
+  visor_blue = "#5577AA",
+  solar_white = "#EEFFFF",
+  clone_white = "#DDFFFF",
+  term_teal = "#00E6BB",
+  term_red = "#FF3355",
+  term_white = "#DDFFFF",
+  term_teal_bright = "#66FFEE",
+  term_red_bright = "#FF6677",
 
-  solar_white = "#eeffff",
-  clone_white = "#ddffff",
-
-  term_teal = "#00e6bb",
-  term_red = "#ff3355",
-  term_white = "#ddffff",
-
-  term_teal_bright = "#66ffee",
-  term_red_bright = "#ff6677",
+  bg_darkest = "#0A0C10",
+  fg_lightest = "#EEFFFF",
 }
+

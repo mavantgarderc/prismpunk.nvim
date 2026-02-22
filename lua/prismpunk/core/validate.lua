@@ -47,7 +47,7 @@ function M.validate_hex(s, context)
   if not s:match(M.STRICT_HEX_PATTERN) then
     return false, nil, string.format("[%s] invalid hex: '%s'", context, s)
   end
-  return true, s:lower(), nil
+  return true, s:upper(), nil
 end
 
 --- Normalize a hex color (auto-fix common issues)
@@ -68,7 +68,7 @@ function M.normalize_hex(s)
     return "#000000", string.format("cannot normalize: '%s'", s)
   end
 
-  return hex:lower(), nil
+  return hex:upper(), nil
 end
 
 --- Validate and optionally fix a single color value
@@ -124,6 +124,125 @@ function M.validate_color_table(tbl, context)
   end
 
   return results
+end
+
+-- ============================================================================
+-- SMART DERIVATION FUNCTIONS
+-- ============================================================================
+
+local function key_matches_pattern(key, patterns)
+  for _, pattern in ipairs(patterns) do
+    if key:lower():match(pattern:lower()) then return true end
+  end
+  return false
+end
+
+local function score_derivation_key(key, derivation_type)
+  local hints = schema.DERIVATION_HINTS[derivation_type]
+  if not hints then return 0 end
+
+  local score = 0
+  if key_matches_pattern(key, hints.prefer_patterns) then
+    score = score + 10
+  end
+  if key_matches_pattern(key, hints.exclude_patterns) then
+    score = score - 20
+  end
+  return score
+end
+
+--- Smart derive bg_darkest by finding lowest luminance color in palette
+--- @param palette table Palette to scan
+--- @return table result { value, source_key, luminance, scored_candidates }
+function M.smart_derive_bg_darkest(palette)
+  local result = {
+    value = "#000000",
+    source_key = "default",
+    luminance = 0,
+    scored_candidates = {},
+  }
+
+  if type(palette) ~= "table" then return result end
+
+  local candidates = {}
+
+  for key, value in pairs(palette) do
+    if type(value) == "string" and value:match("^#%x%x%x%x%x%x$") then
+      local lum = color.get_luminance(value)
+      local score = score_derivation_key(key, "darkest")
+
+      if score >= 0 then
+        table.insert(candidates, {
+          key = key,
+          value = value,
+          luminance = lum,
+          score = score,
+        })
+      end
+    end
+  end
+
+  table.sort(candidates, function(a, b)
+    if a.score ~= b.score then return a.score > b.score end
+    return a.luminance < b.luminance
+  end)
+
+  result.scored_candidates = candidates
+
+  if #candidates > 0 then
+    result.value = candidates[1].value
+    result.source_key = candidates[1].key
+    result.luminance = candidates[1].luminance
+  end
+
+  return result
+end
+
+--- Smart derive fg_lightest by finding highest luminance color in palette
+--- @param palette table Palette to scan
+--- @return table result { value, source_key, luminance, scored_candidates }
+function M.smart_derive_fg_lightest(palette)
+  local result = {
+    value = "#ffffff",
+    source_key = "default",
+    luminance = 1,
+    scored_candidates = {},
+  }
+
+  if type(palette) ~= "table" then return result end
+
+  local candidates = {}
+
+  for key, value in pairs(palette) do
+    if type(value) == "string" and value:match("^#%x%x%x%x%x%x$") then
+      local lum = color.get_luminance(value)
+      local score = score_derivation_key(key, "lightest")
+
+      if score >= 0 then
+        table.insert(candidates, {
+          key = key,
+          value = value,
+          luminance = lum,
+          score = score,
+        })
+      end
+    end
+  end
+
+  table.sort(candidates, function(a, b)
+    if a.score ~= b.score then return a.score > b.score end
+    return a.luminance > b.luminance
+  end)
+
+  result.scored_candidates = candidates
+
+  if #candidates > 0 then
+    result.value = candidates[1].value
+    result.source_key = candidates[1].key
+    result.luminance = candidates[1].luminance
+  end
+
+  return result
 end
 
 -- ============================================================================
@@ -311,23 +430,25 @@ function M.fix_palette(palette, opts)
 
   if opts.generate_missing then
     if not fixed.bg_darkest then
-      if fixed.bg then
-        fixed.bg_darkest = fixed.bg
-        changes.added.bg_darkest = { source = "bg", value = fixed.bg }
-      else
-        fixed.bg_darkest = "#000000"
-        changes.added.bg_darkest = { source = "default", value = "#000000" }
-      end
+      local derived = M.smart_derive_bg_darkest(fixed)
+      fixed.bg_darkest = derived.value
+      changes.added.bg_darkest = {
+        source = derived.source_key,
+        value = derived.value,
+        luminance = derived.luminance,
+        derivation = "smart",
+      }
     end
 
     if not fixed.fg_lightest then
-      if fixed.fg then
-        fixed.fg_lightest = fixed.fg
-        changes.added.fg_lightest = { source = "fg", value = fixed.fg }
-      else
-        fixed.fg_lightest = "#ffffff"
-        changes.added.fg_lightest = { source = "default", value = "#ffffff" }
-      end
+      local derived = M.smart_derive_fg_lightest(fixed)
+      fixed.fg_lightest = derived.value
+      changes.added.fg_lightest = {
+        source = derived.source_key,
+        value = derived.value,
+        luminance = derived.luminance,
+        derivation = "smart",
+      }
     end
 
     for _, item in ipairs(schema.PALETTE_SCHEMA.recommended) do
@@ -960,7 +1081,11 @@ function M.format_report(report)
         table.insert(lines, string.format("  %s: '%s' -> '%s'", key, change.from, change.to))
       end
       for key, change in pairs(report.fixes.palette.added or {}) do
-        table.insert(lines, string.format("  %s: added from %s", key, change.source))
+        if change.derivation == "smart" and change.luminance then
+          table.insert(lines, string.format("  %s: derived from %s (lum: %.3f)", key, change.source, change.luminance))
+        else
+          table.insert(lines, string.format("  %s: added from %s", key, change.source))
+        end
       end
     end
     if report.fixes.base16 then

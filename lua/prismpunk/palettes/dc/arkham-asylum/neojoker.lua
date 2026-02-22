@@ -1,26 +1,25 @@
 return {
-  void_black = "#0b080f",
-  ultraviolet_night = "#0f0c14",
+  void_black = "#0B080F",
+  ultraviolet_night = "#0F0C14",
   neo_core = "#131018",
-  circuit_glow = "#21182e",
+  circuit_glow = "#21182E",
+  neo_purple = "#BB00FF",
+  ultraviolet = "#DD22FF",
+  royal_circuit = "#EE44FF",
+  crown_purple = "#FF66FF",
+  venom_green = "#00FF99",
+  joker_lime = "#44FFAA",
+  acid_laugh = "#66FFCC",
+  restraint_white = "#E8E8FF",
+  chrome_silver = "#AABBEE",
+  neon_blacklight = "#2A1A3A",
+  term_purple = "#EE44FF",
+  term_green = "#44FFAA",
+  term_white = "#E8E8FF",
+  term_purple_bright = "#FF66FF",
+  term_green_bright = "#88FFDD",
 
-  neo_purple = "#bb00ff",
-  ultraviolet = "#dd22ff",
-  royal_circuit = "#ee44ff",
-  crown_purple = "#ff66ff",
-
-  venom_green = "#00ff99",
-  joker_lime = "#44ffaa",
-  acid_laugh = "#66ffcc",
-
-  restraint_white = "#e8e8ff",
-  chrome_silver = "#aabbee",
-  neon_blacklight = "#2a1a3a",
-
-  term_purple = "#ee44ff",
-  term_green = "#44ffaa",
-  term_white = "#e8e8ff",
-
-  term_purple_bright = "#ff66ff",
-  term_green_bright = "#88ffdd",
+  bg_darkest = "#0B080F",
+  fg_lightest = "#E8E8FF",
 }
+

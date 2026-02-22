@@ -4,8 +4,8 @@ local M = {}
 
 M.PALETTE_SCHEMA = {
   required = {
-    { key = "bg_darkest", desc = "Darkest background color" },
-    { key = "fg_lightest", desc = "Lightest foreground color" },
+    { key = "bg_darkest", desc = "Darkest background color", derivation = "darkest" },
+    { key = "fg_lightest", desc = "Lightest foreground color", derivation = "lightest" },
   },
   recommended = {
     { key = "bg_darker", desc = "Darker background" },
@@ -23,6 +23,17 @@ M.PALETTE_SCHEMA = {
     { key = "bg_alt2", desc = "Alternate background 2" },
     { key = "bg_alt3", desc = "Alternate background 3" },
     { key = "bg_alt4", desc = "Alternate background 4" },
+  },
+}
+
+M.DERIVATION_HINTS = {
+  darkest = {
+    prefer_patterns = { "^bg_", "^base00$", "^base01$", "^base02$", "void", "dark", "deep", "black" },
+    exclude_patterns = { "^fg_", "light", "bright", "white" },
+  },
+  lightest = {
+    prefer_patterns = { "^fg_", "^base05$", "^base06$", "^base07$", "light", "bright", "pale", "white" },
+    exclude_patterns = { "^bg_", "void", "dark", "deep", "black" },
   },
 }
 

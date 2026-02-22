@@ -1,31 +1,29 @@
 return {
-  void_black = "#0a0a0b",
-  mourning_night = "#0d0e10",
+  void_black = "#0A0A0B",
+  mourning_night = "#0D0E10",
   tatsu_core = "#111216",
-  ash_glow = "#1c1f26",
-
-  soultaker_steel = "#a0b8cc",
-  blade_edge = "#c8d8ee",
-  ghost_white = "#e8f0ff",
-
-  yamashiro_red = "#cc0022",
-  blood_silk = "#ee1144",
-  vengeance_red = "#ff3355",
-  arterial_red = "#ff5577",
-
-  trapped_jade = "#00cc99",
-  spirit_teal = "#22eebb",
-  soul_glow = "#44ffdd",
-
-  widow_black = "#0f1114",
+  ash_glow = "#1C1F26",
+  soultaker_steel = "#A0B8CC",
+  blade_edge = "#C8D8EE",
+  ghost_white = "#E8F0FF",
+  yamashiro_red = "#CC0022",
+  blood_silk = "#EE1144",
+  vengeance_red = "#FF3355",
+  arterial_red = "#FF5577",
+  trapped_jade = "#00CC99",
+  spirit_teal = "#22EEBB",
+  soul_glow = "#44FFDD",
+  widow_black = "#0F1114",
   ash_gray = "#445566",
   cold_steel = "#667788",
-
-  term_red = "#ff3355",
-  term_teal = "#44ffdd",
+  term_red = "#FF3355",
+  term_teal = "#44FFDD",
   term_gray = "#667788",
-  term_white = "#e8f0ff",
+  term_white = "#E8F0FF",
+  term_red_bright = "#FF7799",
+  term_teal_bright = "#66FFEE",
 
-  term_red_bright = "#ff7799",
-  term_teal_bright = "#66ffee",
+  bg_darkest = "#0A0A0B",
+  fg_lightest = "#E8F0FF",
 }
+

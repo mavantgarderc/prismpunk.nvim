@@ -1,33 +1,30 @@
 return {
-  void_black = "#080a08",
-  swamp_night = "#0a0d0b",
-  grundy_core = "#0e1210",
-  grave_glow = "#18221c",
-
+  void_black = "#080A08",
+  swamp_night = "#0A0D0B",
+  grundy_core = "#0E1210",
+  grave_glow = "#18221C",
   rot_green = "#226644",
   undead_flesh = "#338855",
-  swamp_moss = "#44aa77",
-  resurrection_green = "#55cc99",
-
+  swamp_moss = "#44AA77",
+  resurrection_green = "#55CC99",
   tombstone_gray = "#445555",
   corpse_gray = "#667777",
-  moon_bone = "#99aaaa",
-
+  moon_bone = "#99AAAA",
   death_blue = "#223366",
   rigor_blue = "#334488",
-  cold_vein = "#4455aa",
-
+  cold_vein = "#4455AA",
   grundy_blood = "#882222",
-  rust_red = "#aa3333",
+  rust_red = "#AA3333",
+  moon_sick = "#DDDDBB",
+  grave_white = "#EEEECC",
+  term_green = "#44AA77",
+  term_blue = "#4455AA",
+  term_red = "#AA3333",
+  term_white = "#EEEECC",
+  term_green_bright = "#66CC99",
+  term_blue_bright = "#6677CC",
 
-  moon_sick = "#ddddbb",
-  grave_white = "#eeeecc",
-
-  term_green = "#44aa77",
-  term_blue = "#4455aa",
-  term_red = "#aa3333",
-  term_white = "#eeeecc",
-
-  term_green_bright = "#66cc99",
-  term_blue_bright = "#6677cc",
+  bg_darkest = "#080A08",
+  fg_lightest = "#EEEECC",
 }
+

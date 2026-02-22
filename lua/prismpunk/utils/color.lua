@@ -34,7 +34,7 @@ local function _normalize_hex(hex, context)
     return "#000000"
   end
 
-  return hex:lower()
+  return hex:upper()
 end
 
 local function _validate_computed_hex(hex, operation)
@@ -42,7 +42,7 @@ local function _validate_computed_hex(hex, operation)
     vim.notify(string.format("[prismpunk] %s produced invalid hex '%s', reverting to #000000", operation, hex), vim.log.levels.ERROR)
     return "#000000"
   end
-  return hex:lower()
+  return hex:upper()
 end
 
 local function _safe_hex_to_rgb(hex)
@@ -236,7 +236,7 @@ end
 local function _term_hex(plt, key, fallback)
   local v = plt and plt[key] or nil
   if not _is_string_hex(v or "") then return fallback end
-  return v:lower()
+  return v:upper()
 end
 
 --- Generate terminal color table from palette

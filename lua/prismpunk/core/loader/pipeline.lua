@@ -66,6 +66,34 @@ local function apply_terminals(theme_module, palette_table)
   end)
 end
 
+local function run_validation(theme_result)
+  local validate_on_load = config.options.validate_on_load
+  if validate_on_load == false then return end
+
+  local validate_contrast_enabled = config.options.validate_contrast
+    and config.options.validate_contrast.enable
+
+  local result = validate.validate(theme_result, {
+    validate_colors = true,
+    validate_schema = true,
+    validate_contrast = validate_contrast_enabled,
+    contrast_level = config.options.validate_contrast and config.options.validate_contrast.level,
+  })
+
+  for _, err in ipairs(result.errors) do
+    vim.notify("[prismpunk] Theme validation error: " .. err, vim.log.levels.ERROR)
+  end
+
+  local report_level = vim.log.levels.INFO
+  if config.options.validate_contrast and config.options.validate_contrast.report_level then
+    report_level = vim.log.levels[config.options.validate_contrast.report_level:upper()] or vim.log.levels.INFO
+  end
+
+  for _, warn in ipairs(result.warnings) do
+    vim.notify("[prismpunk] Theme validation: " .. warn, report_level)
+  end
+end
+
 local function validate_theme(theme_result)
   local validate_on_load = config.options.validate_on_load
   if validate_on_load == nil or validate_on_load then
@@ -231,8 +259,7 @@ function M.execute(theme_spec, opts)
     )
   end
 
-  validate_theme(theme_result)
-  validate_contrast(theme_result)
+  run_validation(theme_result)
 
   local normalized
   ok, normalized = pcall(highlights.normalize_theme, theme_result, config.options)

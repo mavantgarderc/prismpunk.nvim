@@ -32,6 +32,106 @@ local REQUIRED_UI_CONTRASTS = {
 local REQUIRED_SECTIONS = { "ui", "syn", "diag", "term" }
 
 -- ============================================================================
+-- UNIFIED VALIDATION ENTRY POINT
+-- ============================================================================
+
+--- Unified validation for theme loading
+--- Single entry point that runs all validation checks on a theme
+--- @param theme table Theme colors from theme.get()
+--- @param opts table|nil Options { validate_colors: boolean, validate_schema: boolean, validate_contrast: boolean, contrast_level: "aa"|"aaa" }
+--- @return table results { valid, errors, warnings, checks }
+function M.validate(theme, opts)
+  opts = opts or {}
+  local results = {
+    valid = true,
+    errors = {},
+    warnings = {},
+    checks = {},
+  }
+
+  if not theme or type(theme) ~= "table" then
+    table.insert(results.errors, "theme must be a table")
+    results.valid = false
+    return results
+  end
+
+  if opts.validate_colors ~= false then
+    local color_result = M.check_color_formats(theme)
+    results.checks.color_formats = color_result
+    if not color_result.valid then
+      for _, err in ipairs(color_result.errors) do
+        table.insert(results.errors, err)
+      end
+      results.valid = false
+    end
+  end
+
+  if opts.validate_schema ~= false then
+    local schema_result = M.check_theme_color_schema(theme)
+    results.checks.schema = schema_result
+    if not schema_result.valid then
+      for _, err in ipairs(schema_result.errors) do
+        table.insert(results.errors, err)
+      end
+      results.valid = false
+    end
+    for _, warn in ipairs(schema_result.warnings) do
+      table.insert(results.warnings, warn)
+    end
+  end
+
+  if opts.validate_contrast then
+    local level = opts.contrast_level or "aa"
+    local contrast_result = M.check_wcag_contrast(theme, { level = level })
+    results.checks.contrast = contrast_result
+    if not contrast_result.passed then
+      for _, err in ipairs(contrast_result.errors) do
+        table.insert(results.errors, err)
+      end
+      for _, warn in ipairs(contrast_result.warnings) do
+        table.insert(results.warnings, warn)
+      end
+    end
+  end
+
+  local structure_result = M.check_theme_structure(theme)
+  results.checks.structure = structure_result
+  if not structure_result.valid then
+    for _, err in ipairs(structure_result.errors) do
+      table.insert(results.errors, err)
+    end
+    results.valid = false
+  end
+
+  return results
+end
+
+--- Quick validation for theme loading (minimal checks)
+--- @param theme table Theme colors from theme.get()
+--- @return boolean valid, string[] errors
+function M.quick_validate(theme)
+  if not theme or type(theme) ~= "table" then
+    return false, { "theme must be a table" }
+  end
+
+  local errors = {}
+
+  if not theme.ui or not theme.ui.fg or not theme.ui.bg then
+    table.insert(errors, "theme missing required ui.fg or ui.bg")
+  end
+
+  if not theme.syn then
+    table.insert(errors, "theme missing required syn section")
+  end
+
+  if not theme.diag then
+    table.insert(errors, "theme missing required diag section")
+  end
+
+  return #errors == 0, errors
+end
+
+-- ============================================================================
 -- HEX COLOR VALIDATION
 -- ============================================================================
 

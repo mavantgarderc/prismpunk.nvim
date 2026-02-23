@@ -1,32 +1,29 @@
 return {
-  void_black = "#0a0808",
-  inferno_night = "#0e0b0b",
+  void_black = "#0A0808",
+  inferno_night = "#0E0B0B",
   lynns_core = "#141010",
   flame_glow = "#221818",
-
-  ignition_orange = "#ff4400",
-
-  blaze_orange = "#ff5500",
-  inferno_orange = "#ff7700",
-  molten_yellow = "#ffaa00",
-
-  jetfuel_green = "#00ff88",
-  phosphorus_green = "#22ffaa",
-  toxic_flame = "#44ffcc",
-
-  charred_black = "#1c1818",
+  ignition_orange = "#FF4400",
+  blaze_orange = "#FF5500",
+  inferno_orange = "#FF7700",
+  molten_yellow = "#FFAA00",
+  jetfuel_green = "#00FF88",
+  phosphorus_green = "#22FFAA",
+  toxic_flame = "#44FFCC",
+  charred_black = "#1C1818",
   ash_gray = "#333030",
   ember_gray = "#554444",
+  plasma_white = "#FFFFEE",
+  firestorm_white = "#FFEECC",
+  term_orange = "#FF7700",
+  term_green = "#44FFCC",
+  term_yellow = "#FFAA00",
+  term_white = "#FFFFEE",
+  term_orange_bright = "#FF9933",
+  term_green_bright = "#66FFEE",
+  term_yellow_bright = "#FFCC44",
 
-  plasma_white = "#ffffee",
-  firestorm_white = "#ffeecc",
-
-  term_orange = "#ff7700",
-  term_green = "#44ffcc",
-  term_yellow = "#ffaa00",
-  term_white = "#ffffee",
-
-  term_orange_bright = "#ff9933",
-  term_green_bright = "#66ffee",
-  term_yellow_bright = "#ffcc44",
+  bg_darkest = "#0A0808",
+  fg_lightest = "#FFFFEE",
 }
+

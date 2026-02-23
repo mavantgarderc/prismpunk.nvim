@@ -1,34 +1,31 @@
 return {
-
-  void_black = "#0c0a12",
-  planet_night = "#0f0d18",
+  void_black = "#0C0A12",
+  planet_night = "#0F0D18",
   ink_core = "#141124",
-  deadline_glow = "#1a1628",
-
+  deadline_glow = "#1A1628",
   navy_trench = "#112244",
-  midnight_navy = "#1a2a55",
+  midnight_navy = "#1A2A55",
   daily_planet_blue = "#223366",
   reporter_navy = "#334477",
-
-  lois_red = "#cc1133",
-  breaking_red = "#dd2244",
-  headline_crimson = "#ee3355",
-  scoop_rage = "#ff5577",
-
-  lois_violet = "#aa22ff",
-  truth_purple = "#bb33ff",
-  justice_purple = "#cc55ff",
-  expose_purple = "#dd77ff",
-
-  press_white = "#eeffff",
-  page_cream = "#ddeeff",
-  ink_paper = "#cce0ff",
-
-  term_red = "#dd2244",
-  term_violet = "#bb33ff",
+  lois_red = "#CC1133",
+  breaking_red = "#DD2244",
+  headline_crimson = "#EE3355",
+  scoop_rage = "#FF5577",
+  lois_violet = "#AA22FF",
+  truth_purple = "#BB33FF",
+  justice_purple = "#CC55FF",
+  expose_purple = "#DD77FF",
+  press_white = "#EEFFFF",
+  page_cream = "#DDEEFF",
+  ink_paper = "#CCE0FF",
+  term_red = "#DD2244",
+  term_violet = "#BB33FF",
   term_navy = "#223366",
-  term_cream = "#ddeeff",
+  term_cream = "#DDEEFF",
+  term_red_bright = "#FF5577",
+  term_violet_bright = "#DD77FF",
 
-  term_red_bright = "#ff5577",
-  term_violet_bright = "#dd77ff",
+  bg_darkest = "#0C0A12",
+  fg_lightest = "#EEFFFF",
 }
+

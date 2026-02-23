@@ -1,30 +1,28 @@
 return {
-
-  space_void = "#0b0014",
+  space_void = "#0B0014",
   deep_czarnia = "#120022",
-  nebula_depth = "#1a0033",
+  nebula_depth = "#1A0033",
   exhaust_core = "#220044",
+  mainman_red = "#FF0033",
+  frag_red = "#FF1A44",
+  blood_glow = "#FF3355",
+  hook_crimson = "#FF5566",
+  cigar_cherry = "#FF7788",
+  arterial_spray = "#FF99AA",
+  chrome_steel = "#E0E0E0",
+  gunmetal = "#BBBBBB",
+  chain_silver = "#9999AA",
+  skull_white = "#FFFFFF",
+  cigar_ash = "#FFCC99",
+  beer_foam = "#FFFFCC",
+  plasma_orange = "#FF6600",
+  muzzle_flash = "#FF8844",
+  ozone_blue = "#4488FF",
+  term_red = "#FF3366",
+  term_green = "#88FF88",
+  term_blue = "#6688FF",
 
-  mainman_red = "#ff0033",
-  frag_red = "#ff1a44",
-  blood_glow = "#ff3355",
-  hook_crimson = "#ff5566",
-  cigar_cherry = "#ff7788",
-  arterial_spray = "#ff99aa",
-
-  chrome_steel = "#e0e0e0",
-  gunmetal = "#bbbbbb",
-  chain_silver = "#9999aa",
-  skull_white = "#ffffff",
-
-  cigar_ash = "#ffcc99",
-  beer_foam = "#ffffcc",
-
-  plasma_orange = "#ff6600",
-  muzzle_flash = "#ff8844",
-  ozone_blue = "#4488ff",
-
-  term_red = "#ff3366",
-  term_green = "#88ff88",
-  term_blue = "#6688ff",
+  bg_darkest = "#0B0014",
+  fg_lightest = "#FFFFFF",
 }
+

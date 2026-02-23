@@ -77,6 +77,72 @@ return {
 }
 ```
 
+### Theme Filtering (Optional)
+
+Limit which themes are available for command completion:
+
+```lua
+require("prismpunk").setup({
+  theme = "kanagawa/paper-edo",  -- Default theme to load
+
+  -- Whitelist of allowed themes/universes
+  themes = {
+    "kanagawa/paper-edo",  -- Individual theme
+    "kanagawa/paper-dawn", -- Another kanagawa theme
+    "tmnt",                -- Universe: loads all tmnt themes
+    "dc",                  -- Universe: loads all dc themes
+  },
+})
+```
+
+- Use `"universe/name"` for individual themes (e.g., `"kanagawa/paper-edo"`)
+- Use `"universe"` to include all themes in that universe (e.g., `"tmnt"`)
+- When `themes = {}` (default), all themes are available
+
+### Theme Validation (Optional)
+
+Validate themes against WCAG contrast and Base16 standards:
+
+```lua
+require("prismpunk").setup({
+  theme = "kanagawa/paper-edo",
+  
+  -- Enable automatic contrast validation on theme load (optional)
+  validate_contrast = {
+    enable = false,        -- Default: false (on-demand only via :PrismValidate)
+    level = "aa",          -- "aa" or "aaa"
+    report_level = "info", -- "info", "warn", "error"
+  },
+})
+```
+
+#### Validation Commands
+
+```vim
+" Validate current theme
+:PrismValidate
+
+" Validate specific theme
+:PrismValidate kanagawa/paper-edo
+
+" Validate with AAA level (stricter)
+:PrismValidate kanagawa/paper-edo --aaa
+
+" Validate all themes
+:PrismValidate --all
+
+" JSON output (for scripts)
+:PrismValidate kanagawa/paper-edo --json
+
+" Quiet mode (exit code only: 0=pass, 1=fail)
+:PrismValidate kanagawa/paper-edo --quiet
+```
+
+The validator checks:
+- **WCAG Contrast**: FG vs BG for Normal, Visual, CursorLine, Comment, Search, Float, Pmenu, LineNr, diagnostics
+- **Base16 Palette**: All 16 required colors (base00-base0F)
+- **Theme Structure**: Required sections (ui, syn, diag, term)
+
 ### Theme Selection Formats
 
 All of these work:
@@ -96,7 +162,10 @@ All of these work:
 - `:PrismpunkListThemes`: List all available themes.
 - `:PrismpunkCurrentTheme`: Show the currently active theme.
 - `:PrismpunkPreview <theme_name>`: Preview a theme without loading it.
-- More commands coming soon for preview and random selection.
+- `:PrismpunkInfo <theme_name>`: Show theme information (author, description, colors).
+- `:PrismpunkRandom [universe]`: Load a random theme (optionally filtered by universe).
+- `:PrismValidate [theme]`: Validate theme against WCAG contrast and Base16 standards.
+- `:checkhealth prismpunk`: Run health check including contrast validation.
 
 ## Features
 - **Customizable Styles**: Toggle italics/bold for comments, keywords, functions, variables.
@@ -107,7 +176,7 @@ All of these work:
   - Telescope, NvimTree, Lualine, nvim-cmp, nvim-dap, mini.nvim, indent-blankline.
   - Which-key, Flash, Oil (new!).
 - **Caching & Live Reload**: Fast loading with cache; clear and reload for dev.
-- **Accessibility**: Base16 palette with potential for contrast checks (coming soon).
+- **Accessibility**: WCAG contrast validation (AA/AAA), Base16 palette validation, theme structure checks.
 
 ## Terminal Emulator Integration
 

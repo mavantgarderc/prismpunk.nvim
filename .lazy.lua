@@ -1,28 +1,20 @@
 return {
-
   {
     "mavantgarderc/prismpunk.nvim",
     dev = true,
     dependencies = { "echasnovski/mini.hipatterns" },
     lazy = false,
     priority = 1000,
-    init = function()
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "VeryLazy",
-        callback = function() vim.cmd.colorscheme("lantern-corps-phantom-corrupted") end,
-      })
-    end,
+    -- init = function() end, -- REMOVED: Do not load theme in init or autocmd
     config = function()
       local M = {
         module = "prismpunk",
         colorscheme = "lantern-corps-phantom-corrupted",
         opts = {
           theme = "dc/lantern-corps/phantom-corrupted",
-
           terminals = {
             enabled = true,
             emulator = { "ghostty" },
-
             ghostty = {
               enabled = true,
               auto_reload = true,
@@ -45,17 +37,26 @@ return {
         return path:gsub("^oil:///*", "/"):gsub("^oil:", "")
       end
 
+      -- MOVED LOGIC: Setup and apply colorscheme immediately
       local function load_prismpunk_theme()
         package.loaded.prismpunk = nil
 
         local ok, prismpunk = pcall(require, "prismpunk")
         if not ok or not prismpunk or type(prismpunk.setup) ~= "function" then return false end
 
+        -- 1. Setup options
         prismpunk.setup(M.opts)
 
-        vim.defer_fn(function() pcall(vim.cmd.colorscheme, M.colorscheme) end, 50)
+        -- 2. Force TermGuiColors for proper rendering
+        vim.o.termguicolors = true
 
-        return true
+        -- 3. Apply the colorscheme immediately (Critical Fix)
+        if pcall(vim.cmd.colorscheme, M.colorscheme) then
+          return true
+        else
+          vim.notify("PrismPunk: Failed to load colorscheme " .. M.colorscheme, vim.log.levels.ERROR)
+          return false
+        end
       end
 
       local function ensure_hipatterns()
@@ -67,6 +68,7 @@ return {
         return true
       end
 
+      -- ... (Keep the rest of your helper functions: hex_to_rgb, get_contrast_color, etc.) ...
       local function hex_to_rgb(hex)
         hex = hex:gsub("#", "")
         if #hex == 3 then hex = hex:gsub("(.)", "%1%1") end

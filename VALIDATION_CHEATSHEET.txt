@@ -1,0 +1,72 @@
+NVIM Commands
+----------------------
+:PrismValidate                    Validate current theme
+:PrismValidate detox/ash          Validate specific theme
+:PrismValidate --all              Validate ALL 256 themes
+:PrismValidate --strict           Warnings become errors
+:PrismValidate --aaa              Use AAA contrast (stricter)
+:PrismValidate --json             JSON output
+:PrismValidate --quiet            Exit code only (0=pass, 1=fail)
+:PrismValidate --duplicates       Check for duplicate hex values
+:PrismValidate --all --duplicates Check all themes for duplicates
+
+:checkhealth prismpunk            Full health check with validation
+
+
+SCRIPT Commands (run from project root)
+-----------------------------------------
+
+# Preview changes (always do this first!)
+nvim -l scripts/fix_palettes.lua --dry-run --rederive --verbose
+
+# Fix ALL palettes (UPPERCASE hex + smart rederive)
+nvim -l scripts/fix_palettes.lua --rederive --verbose
+
+# Fix specific theme
+nvim -l scripts/fix_palettes.lua --rederive detox/ash
+nvim -l scripts/fix_palettes.lua --rederive punk-cultures/cyberpunk
+
+# Just normalize hex to UPPERCASE (no rederiving)
+nvim -l scripts/fix_palettes.lua --verbose
+
+# Add missing keys only (no rederiving)
+nvim -l scripts/fix_palettes.lua --dry-run --verbose
+
+
+WHAT THE FIXES DO
+--------------------------------------------------------------------------------
+
+--rederive    Replaces bg_darkest="#000000" and fg_lightest="#FFFFFF"
+              with actual darkest/lightest colors found in palette.
+              Uses luminance calculation + key name scoring.
+              Example: #000000 -> #0A0A0A (from ashVoid, lum: 0.003)
+
+(normalize)   Converts hex to UPPERCASE: #ff0000 -> #FF0000
+              Expands shorthand: #FFF -> #FFFFFF
+
+(missing)     Adds bg_darkest/fg_lightest if completely missing
+
+
+API
+---------------------------
+
+local validate = require("prismpunk.core.validate")
+
+-- Validate theme
+local report = validate.validate_theme("detox/ash", { level = "aa" })
+print(validate.format_report(report))
+
+-- Smart derive from custom palette
+local my_palette = { customVoid = "#050508", smokeCore = "#C5C5C5" }
+local fixed, changes = validate.fix_palette(my_palette, { generate_missing = true })
+-- fixed.bg_darkest = "#050508" (from customVoid)
+-- fixed.fg_lightest = "#C5C5C5" (from smokeCore)
+
+-- Check WCAG contrast
+local contrast = validate.check_wcag_contrast(theme_colors, { level = "aa" })
+
+-- Check color formats
+local formats = validate.check_color_formats(theme_colors)
+
+-- Check schema compliance
+local schema = validate.validate_palette_schema(palette)

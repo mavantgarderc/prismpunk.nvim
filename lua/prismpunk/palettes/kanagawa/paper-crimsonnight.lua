@@ -40,4 +40,8 @@ return {
   crimsonAccent2 = "#B02F35",
   crimsonAccent3 = "#C0343A",
   crimsonAccent4 = "#D03A40",
+
+  bg_darkest = "#204D51",
+  fg_lightest = "#DED9C7",
 }
+

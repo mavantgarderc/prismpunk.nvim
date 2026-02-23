@@ -2,6 +2,8 @@
 --- Handles validation, merging, and theme spec parsing
 local M = {}
 
+local DEFAULT_THEME = "kanagawa/paper-edo"
+
 --- Default configuration schema
 M.defaults = {
   debug = {
@@ -9,9 +11,14 @@ M.defaults = {
     profile_startup = false,
   },
 
-  theme = nil, -- Theme name (e.g., "phantom-corrupted" or "lantern-corps/phantom-corrupted")
+  theme = DEFAULT_THEME, -- Theme name (e.g., "phantom-corrupted" or "lantern-corps/phantom-corrupted")
+  themes = {}, -- Allowed themes/universes for discovery (whitelist)
   gutter = true, -- Enable gutter background
-  validate_contrast = false, -- Validate color contrast (opt-in)
+  validate_contrast = {
+    enable = false, -- Enable contrast validation on theme load (default: false, on-demand only)
+    level = "aa", -- "aa" or "aaa"
+    report_level = "info", -- "info", "warn", "error"
+  },
 
   styles = {
     comments = { italic = true },
@@ -108,8 +115,9 @@ local schema = {
   },
 
   theme = { type = { "string", "nil" } },
+  themes = { type = "table" }, -- Array of allowed themes/universes
   gutter = { type = "boolean" },
-  validate_contrast = { type = "boolean" },
+  validate_contrast = { type = "table" },
 
   styles = {
     type = "table",
@@ -299,40 +307,56 @@ end
 --- Auto-discovers themes by checking filesystem
 --- @param theme_spec string|table|nil
 --- @return table Normalized spec { universe = string|nil, name = string, variants = table }
---- Parse theme specification (SIMPLE & RELIABLE VERSION)
+local KNOWN_PARENTS = {
+  ["lantern-corps"] = "dc",
+  ["justice-league"] = "dc",
+  ["injustice-league"] = "dc",
+  ["bat-family"] = "dc",
+  ["arkham-asylum"] = "dc",
+  ["league-of-assassins"] = "dc",
+  ["crime-syndicate"] = "dc",
+  ["apokolips"] = "dc",
+  ["new-genesis"] = "dc",
+  ["super-family"] = "dc",
+  ["watchmen"] = "dc",
+  ["emotional-entities"] = "dc",
+  ["ultraviolet"] = "dc",
+}
+
+local DISCOVERY_PARENTS = { "dc", "marvel" }
+
+local function parse_two_part_theme(category, name)
+  local variants = {}
+
+  local parent = KNOWN_PARENTS[category]
+  if parent then
+    local universe = parent .. "/" .. category
+    table.insert(variants, { universe = universe, name = name })
+    return { universe = universe, name = name, variants = variants }
+  end
+
+  table.insert(variants, { universe = category, name = name })
+
+  for _, parent_name in ipairs(DISCOVERY_PARENTS) do
+    table.insert(variants, { universe = parent_name .. "/" .. category, name = name })
+  end
+
+  return { universe = category, name = name, variants = variants }
+end
+
 function M.parse_theme(theme_spec)
   if not theme_spec or theme_spec == "" then return { universe = nil, name = nil, variants = {} } end
 
   if type(theme_spec) == "string" then
-    local variants = {}
-
-    -- Split by slashes
     local parts = vim.split(theme_spec, "/")
 
     if #parts == 3 then
-      -- Format: "dc/lantern-corps/phantom-corrupted"
       local universe = parts[1] .. "/" .. parts[2]
       local name = parts[3]
-      table.insert(variants, { universe = universe, name = name })
-      return { universe = universe, name = name, variants = variants }
+      return { universe = universe, name = name, variants = { { universe = universe, name = name } } }
     elseif #parts == 2 then
-      -- Format: "lantern-corps/phantom-corrupted" or "kanagawa/paper-sunset"
-      local category = parts[1]
-      local name = parts[2]
-
-      -- Special handling for known categories
-      if category == "lantern-corps" or category == "ultraviolet" then
-        -- These belong to dc universe
-        local universe = "dc/" .. category
-        table.insert(variants, { universe = universe, name = name })
-        return { universe = universe, name = name, variants = variants }
-      else
-        -- Others (like kanagawa) are their own universe
-        table.insert(variants, { universe = category, name = name })
-        return { universe = category, name = name, variants = variants }
-      end
+      return parse_two_part_theme(parts[1], parts[2])
     else
-      -- Plain name (no slashes)
       return { universe = nil, name = theme_spec, variants = {} }
     end
   elseif type(theme_spec) == "table" then
@@ -346,5 +370,44 @@ function M.parse_theme(theme_spec)
     error(string.format("[prismpunk] Invalid theme_spec type: %s (expected string or table)", type(theme_spec)))
   end
 end
+
+--- Check if a theme is allowed based on config.themes
+--- @param theme_spec string Theme to check (e.g., "dc/superman" or "kanagawa")
+--- @return boolean allowed
+function M.is_theme_allowed(theme_spec)
+  local allowed_themes = M.options.themes or {}
+  if #allowed_themes == 0 then return true end
+
+  local parsed = M.parse_theme(theme_spec)
+  local theme_name = parsed.name
+  local theme_universe = parsed.universe
+
+  for _, allowed in ipairs(allowed_themes) do
+    -- Exact match for individual theme
+    if allowed == theme_name then
+      return true
+    end
+
+    -- Check if theme's universe starts with allowed prefix
+    if theme_universe and theme_universe:find("^" .. allowed) then
+      return true
+    end
+
+    -- Check allowed item matches the first part of universe
+    if theme_universe and allowed == theme_universe:match("^([^/]+)") then
+      return true
+    end
+  end
+
+  return false
+end
+
+--- Get list of allowed themes based on config
+--- @return table array of theme strings
+function M.get_allowed_themes()
+  return M.options.themes or {}
+end
+
+M.DEFAULT_THEME = DEFAULT_THEME
 
 return M

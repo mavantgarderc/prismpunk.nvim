@@ -1,28 +1,26 @@
 return {
-
-  void_black = "#0c0a18",
-  dream_void = "#0f0d20",
+  void_black = "#0C0A18",
+  dream_void = "#0F0D20",
   precog_core = "#141128",
-  starlight_glow = "#1a1638",
+  starlight_glow = "#1A1638",
+  dream_indigo = "#5522FF",
+  nia_indigo = "#6633FF",
+  precog_violet = "#7744FF",
+  starlight_purple = "#9988FF",
+  dreamer_pink = "#FF66DD",
+  nia_pink = "#FF77EE",
+  hope_pink = "#FF88FF",
+  cosmic_pink = "#FFAAEE",
+  morning_sky = "#AADDFF",
+  dream_sky = "#CCEEFF",
+  nia_white = "#EEFFFF",
+  term_indigo = "#6633FF",
+  term_pink = "#FF77EE",
+  term_sky = "#CCEEFF",
+  term_indigo_bright = "#9988FF",
+  term_pink_bright = "#FFAAFF",
 
-  dream_indigo = "#5522ff",
-  nia_indigo = "#6633ff",
-  precog_violet = "#7744ff",
-  starlight_purple = "#9988ff",
-
-  dreamer_pink = "#ff66dd",
-  nia_pink = "#ff77ee",
-  hope_pink = "#ff88ff",
-  cosmic_pink = "#ffaaee",
-
-  morning_sky = "#aaddff",
-  dream_sky = "#cceeff",
-  nia_white = "#eeffff",
-
-  term_indigo = "#6633ff",
-  term_pink = "#ff77ee",
-  term_sky = "#cceeff",
-
-  term_indigo_bright = "#9988ff",
-  term_pink_bright = "#ffaaff",
+  bg_darkest = "#0C0A18",
+  fg_lightest = "#EEFFFF",
 }
+

@@ -6,23 +6,19 @@ return {
   bg_light = "#28283C",
   bg_lighter = "#32324B",
   bg_lightest = "#3C3C5A",
-
   fg_lightest = "#E8E8F0",
   fg_light = "#C8C8D8",
   fg_mid = "#787888",
   fg_dark = "#585868",
-
   bg_alt1 = "#0F0F1A",
   bg_alt2 = "#05050A",
   bg_alt3 = "#1A1A25",
   bg_alt4 = "#12121A",
-
   voidCore = "#3A1A5A",
   voidGlow = "#4A2A6A",
   voidBright = "#5A3A7A",
   voidDeep = "#2A0A4A",
   voidDark = "#1A0A2A",
-
   necroticRage = "#5A1A1A",
   necroticAvarice = "#8B4C3C",
   necroticFear = "#5A4A1A",
@@ -30,9 +26,8 @@ return {
   necroticHope = "#1A1A5A",
   necroticCompassion = "#1A5A5A",
   necroticLove = "#7A2A3A",
-
-  -- Death-specific colors
   deathShroud = "#0D0D18",
   zombieGray = "#3A3A48",
   corpseWhite = "#B8B8C8",
 }
+

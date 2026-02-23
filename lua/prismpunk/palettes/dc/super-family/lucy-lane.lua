@@ -1,27 +1,25 @@
 return {
-
-  void_black = "#0a080c",
-  reactor_void = "#0c0910",
-  superwoman_core = "#120d18",
-  redfield_glow = "#180e20",
-
-  lane_red = "#cc1122",
-  superwoman_red = "#dd2233",
-  reactor_red = "#ee3344",
-  kryptonian_red = "#ff5566",
-
+  void_black = "#0A080C",
+  reactor_void = "#0C0910",
+  superwoman_core = "#120D18",
+  redfield_glow = "#180E20",
+  lane_red = "#CC1122",
+  superwoman_red = "#DD2233",
+  reactor_red = "#EE3344",
+  kryptonian_red = "#FF5566",
   shield_black = "#111111",
   tactical_gray = "#333344",
   lane_gray = "#445566",
   command_blue = "#557799",
-
-  energy_white = "#ffdddd",
-  reactor_white = "#ffeeee",
-
-  term_red = "#dd2233",
+  energy_white = "#FFDDDD",
+  reactor_white = "#FFEEEE",
+  term_red = "#DD2233",
   term_blue = "#557799",
-  term_white = "#ffeeee",
+  term_white = "#FFEEEE",
+  term_red_bright = "#FF5566",
+  term_blue_bright = "#88AADD",
 
-  term_red_bright = "#ff5566",
-  term_blue_bright = "#88aadd",
+  bg_darkest = "#0A080C",
+  fg_lightest = "#FFEEEE",
 }
+

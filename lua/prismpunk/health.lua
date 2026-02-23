@@ -67,6 +67,7 @@ local function check_modules()
     "prismpunk.loader",
     "prismpunk.core.highlights",
     "prismpunk.core.terminals",
+    "prismpunk.core.validate",
     "prismpunk.utils.color",
     "prismpunk.utils.base16",
     "prismpunk.utils.hsluv",
@@ -226,6 +227,243 @@ local function check_theme()
   end
 end
 
+local function check_contrast()
+  health_start("Contrast & Accessibility")
+
+  local ok, config = pcall(require, "prismpunk.config")
+  if not ok or not config.options then
+    health_warn("Configuration not loaded for contrast checks")
+    return
+  end
+
+  local theme = config.options.theme
+  if not theme or theme == "" then
+    health_info("No theme configured for contrast validation")
+    return
+  end
+
+  -- Load theme for validation
+  local ok_loader, loader = pcall(require, "prismpunk.loader")
+  if not ok_loader then
+    health_warn("Failed to load prismpunk.loader for contrast checks")
+    return
+  end
+
+  local theme_info = loader.get_theme_info(theme)
+  if not theme_info then
+    health_warn("Could not get theme info for: " .. theme)
+    return
+  end
+
+  -- Get the actual theme colors
+  local theme_path
+  local parsed = config.parse_theme(theme)
+  if parsed and parsed.universe then
+    theme_path = "prismpunk.themes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
+  else
+    theme_path = "prismpunk.themes." .. parsed.name
+  end
+
+  local ok_theme, theme_mod = pcall(require, theme_path)
+  if not ok_theme then
+    health_warn("Could not load theme module: " .. theme_path)
+    return
+  end
+
+  local palette = theme_info.palette
+  local theme_colors = {}
+  if type(theme_mod.get) == "function" then
+    local ok_get, result = pcall(theme_mod.get, {}, palette)
+    if ok_get then theme_colors = result end
+  end
+
+  if not theme_colors.ui or not theme_colors.syn then
+    health_warn("Theme missing required color structure for contrast check")
+    return
+  end
+
+  local validate = require("prismpunk.core.validate")
+  local contrast_opts = { level = "aa" }
+  local contrast_result = validate.check_wcag_contrast(theme_colors, contrast_opts)
+
+  local error_count = 0
+  local warn_count = 0
+
+  for _, check in ipairs(contrast_result.checks or {}) do
+    local ratio_str = string.format("%.1f:1", check.ratio)
+    if check.pass then
+      health_ok(string.format("%s: %s (PASS %s)", check.name, ratio_str, check.required_level))
+    else
+      if check.optional then
+        health_warn(string.format("%s: %s (below %s)", check.name, ratio_str, check.required_level))
+        warn_count = warn_count + 1
+      else
+        health_error(string.format("%s: %s (below %s)", check.name, ratio_str, check.required_level))
+        error_count = error_count + 1
+      end
+    end
+  end
+
+  if error_count == 0 and warn_count == 0 then
+    health_ok("All contrast checks passed")
+  end
+
+  health_info(string.format("Contrast validation: %d error(s), %d warning(s)", error_count, warn_count))
+end
+
+local function check_color_formats()
+  health_start("Color Format Validation")
+
+  local ok, config = pcall(require, "prismpunk.config")
+  if not ok or not config.options then
+    health_warn("Configuration not loaded for color format checks")
+    return
+  end
+
+  local theme = config.options.theme
+  if not theme or theme == "" then
+    health_info("No theme configured for color format validation")
+    return
+  end
+
+  local ok_loader, loader = pcall(require, "prismpunk.loader")
+  if not ok_loader then
+    health_warn("Failed to load prismpunk.loader for color format checks")
+    return
+  end
+
+  local theme_info = loader.get_theme_info(theme)
+  if not theme_info then
+    health_warn("Could not get theme info for: " .. theme)
+    return
+  end
+
+  local parsed = config.parse_theme(theme)
+  local theme_path
+  if parsed and parsed.universe then
+    theme_path = "prismpunk.themes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
+  else
+    theme_path = "prismpunk.themes." .. parsed.name
+  end
+
+  local ok_theme, theme_mod = pcall(require, theme_path)
+  if not ok_theme then
+    health_warn("Could not load theme module: " .. theme_path)
+    return
+  end
+
+  local palette = theme_info.palette
+  local theme_colors = {}
+  if type(theme_mod.get) == "function" then
+    local ok_get, result = pcall(theme_mod.get, {}, palette)
+    if ok_get then theme_colors = result end
+  end
+
+  local validate = require("prismpunk.core.validate")
+  local color_result = validate.check_color_formats(theme_colors)
+
+  if color_result.valid then
+    health_ok("All color formats valid")
+  else
+    for _, inv in ipairs(color_result.invalid_colors or {}) do
+      health_error(string.format("Invalid color: %s = '%s'", inv.path, inv.value))
+    end
+  end
+
+  local palette_result = validate.validate_color_table(palette, "palette")
+  if palette_result.valid then
+    health_ok("Palette color formats valid")
+  else
+    for _, err in ipairs(palette_result.errors or {}) do
+      health_error("Palette: " .. err)
+    end
+  end
+
+  health_info(string.format("Color format validation: %d invalid color(s)", #color_result.invalid_colors or 0))
+end
+
+local function check_schema_compliance()
+  health_start("Schema Compliance")
+
+  local ok, config = pcall(require, "prismpunk.config")
+  if not ok or not config.options then
+    health_warn("Configuration not loaded for schema checks")
+    return
+  end
+
+  local theme = config.options.theme
+  if not theme or theme == "" then
+    health_info("No theme configured for schema validation")
+    return
+  end
+
+  local ok_loader, loader = pcall(require, "prismpunk.loader")
+  if not ok_loader then
+    health_warn("Failed to load prismpunk.loader for schema checks")
+    return
+  end
+
+  local theme_info = loader.get_theme_info(theme)
+  if not theme_info then
+    health_warn("Could not get theme info for: " .. theme)
+    return
+  end
+
+  local validate = require("prismpunk.core.validate")
+
+  local palette_result = validate.validate_palette_schema(theme_info.palette or {})
+  if palette_result.valid then
+    health_ok("Palette schema valid")
+  else
+    for _, err in ipairs(palette_result.errors or {}) do
+      health_error("Palette schema: " .. err)
+    end
+  end
+
+  for _, warn in ipairs(palette_result.warnings or {}) do
+    health_warn("Palette schema: " .. warn)
+  end
+
+  local parsed = config.parse_theme(theme)
+  local theme_path
+  if parsed and parsed.universe then
+    theme_path = "prismpunk.themes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
+  else
+    theme_path = "prismpunk.themes." .. parsed.name
+  end
+
+  local ok_theme, theme_mod = pcall(require, theme_path)
+  if ok_theme and type(theme_mod.get) == "function" then
+    local ok_get, theme_colors = pcall(theme_mod.get, {}, theme_info.palette or {})
+    if ok_get then
+      local theme_schema_result = validate.check_theme_color_schema(theme_colors)
+      if theme_schema_result.valid then
+        health_ok("Theme schema valid")
+      else
+        for _, err in ipairs(theme_schema_result.errors or {}) do
+          health_error("Theme schema: " .. err)
+        end
+      end
+
+      for _, warn in ipairs(theme_schema_result.warnings or {}) do
+        health_warn("Theme schema: " .. warn)
+      end
+    end
+  end
+
+  local base16_result = validate.check_base16_palette(theme_info)
+  if base16_result.complete then
+    health_ok(string.format("Base16 palette complete (%d/16)", base16_result.count))
+  else
+    if #base16_result.missing > 0 then
+      health_error("Base16 missing: " .. table.concat(base16_result.missing, ", "))
+    end
+    for _, inv in ipairs(base16_result.invalid or {}) do
+      health_error(string.format("Base16 invalid: %s", inv.error))
+    end
+  end
+end
+
 function M.check()
   check_nvim_version()
   check_config()
@@ -233,6 +471,9 @@ function M.check()
   check_cache()
   check_terminals()
   check_theme()
+  check_color_formats()
+  check_schema_compliance()
+  check_contrast()
 end
 
 return M

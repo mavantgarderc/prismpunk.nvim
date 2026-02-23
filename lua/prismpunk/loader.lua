@@ -1,470 +1,26 @@
---- PrismPunk loader - orchestrates theme loading
---- Central coordinator for palette, theme, highlights, and terminals
+--- PrismPunk loader - main entry point for theme loading
+--- Delegates to resolver and pipeline modules
 local M = {}
 
 local config = require("prismpunk.config")
-local palette = require("prismpunk.palette")
-local highlights = require("prismpunk.core.highlights")
-local terminals = require("prismpunk.core.terminals")
-local validate = require("prismpunk.core.validate")
-local cache = require("prismpunk.core.cache")
-
-local module_cache = {
-  themes = {},
-}
-
-local highlight_cache = cache.new({
-  namespace = "highlights",
-  enable_disk = true,
-})
-
-local loaded_theme = nil
-
-local highlight_cache_stats = {
-  hits = 0,
-  misses = 0,
-}
-
-local function debug_profile(label, start_ns)
-  local debug_cfg = config.options.debug or {}
-  if not debug_cfg.profile_startup or not start_ns then return end
-
-  local elapsed_ms = (vim.loop.hrtime() - start_ns) / 1e6
-  vim.notify(string.format("[prismpunk] %s: %.2fms", label, elapsed_ms), vim.log.levels.DEBUG)
-end
+local resolver = require("prismpunk.core.loader.resolver")
+local pipeline = require("prismpunk.core.loader.pipeline")
 
 function M.get_cache_stats()
-  local palette_stats = palette.get_cache_stats()
-  return {
-    palette_hits = palette_stats.hits,
-    palette_misses = palette_stats.misses,
-    highlight_hits = highlight_cache_stats.hits,
-    highlight_misses = highlight_cache_stats.misses,
-  }
-end
-
-local function resolve_theme_file(module_path)
-  local file_path = module_path:gsub("%.", "/") .. ".lua"
-
-  local searchpath = package.searchpath(module_path, package.path)
-  if searchpath then return searchpath end
-
-  local full_paths = {
-    vim.fn.getcwd() .. "/lua/" .. file_path,
-    vim.fn.stdpath("config") .. "/lua/" .. file_path,
-  }
-
-  for _, path in ipairs(full_paths) do
-    if vim.fn.filereadable(path) == 1 then
-      return path
-    end
-  end
-
-  return nil
-end
-
-local function resolve_theme_module(spec)
-  local cache_key = (spec.universe or "") .. "/" .. spec.name
-  if module_cache.themes[cache_key] then
-    return module_cache.themes[cache_key].path, module_cache.themes[cache_key].module
-  end
-
-  local tries = {}
-
-  if spec.variants and #spec.variants > 0 then
-    for _, variant in ipairs(spec.variants) do
-      if variant.universe and variant.universe ~= "" then
-        local universe_dotted = variant.universe:gsub("/", ".")
-        table.insert(tries, string.format("prismpunk.themes.%s.%s", universe_dotted, variant.name))
-      end
-    end
-  end
-
-  if spec.universe and spec.universe ~= "" then
-    local universe_dotted = spec.universe:gsub("/", ".")
-    table.insert(tries, string.format("prismpunk.themes.%s.%s", universe_dotted, spec.name))
-  end
-  table.insert(tries, string.format("prismpunk.themes.%s", spec.name))
-
-  for _, module_path in ipairs(tries) do
-    local ok, mod = pcall(require, module_path)
-    if ok and type(mod) == "table" and type(mod.get) == "function" then
-      module_cache.themes[cache_key] = {
-        path = module_path,
-        module = mod,
-      }
-      return module_path, mod
-    end
-  end
-
-  local tried_paths = table.concat(tries, "\n  - ")
-  error(
-    string.format(
-      "[prismpunk] Could not resolve theme: %s\nTried:\n  - %s",
-      spec.universe and (spec.universe .. "/" .. spec.name) or spec.name,
-      tried_paths
-    )
-  )
-end
-
-local function highlight_cache_key(theme_path, palette_table, opts)
-  local cache_opts = {
-    gutter = opts.gutter,
-    styles = opts.styles,
-    validate_contrast = opts.validate_contrast and opts.validate_contrast.enable,
-  }
-
-  local key_parts = {
-    theme_path,
-    cache.hash(palette_table),
-    cache.hash(cache_opts),
-  }
-  return cache.hash(key_parts)
-end
-
-local function apply_terminals(theme_module, palette_table)
-  if not theme_module.base16 then
-    vim.notify("[prismpunk] Theme missing base16 colors - skipping terminal export", vim.log.levels.WARN)
-    return
-  end
-
-  vim.schedule(function()
-    local success, err = pcall(terminals.apply, { colors = theme_module.base16 })
-    if not success then
-      vim.notify(string.format("[prismpunk] Terminal apply warning: %s", tostring(err)), vim.log.levels.WARN)
-    end
-
-    local theme_for_export = {
-      name = theme_module.name,
-      colors = theme_module.base16,
-      palette = palette_table,
-    }
-    terminals.auto_export(theme_for_export, config.options)
-  end)
-end
-
-local function validate_contrast(theme)
-  local validate_opts = config.options.validate_contrast
-  if not validate_opts or not validate_opts.enable then return end
-
-  if not theme.ui or not theme.ui.fg or not theme.ui.bg then return end
-
-  local level = validate_opts.level or "aa"
-  local report_level = validate_opts.report_level or "info"
-
-  local ok, contrast_result = pcall(function()
-    return validate.check_wcag_contrast(theme, { level = level })
-  end)
-
-  if ok and contrast_result and not contrast_result.passed then
-    local level_num = vim.log.levels[report_level:upper()] or vim.log.levels.INFO
-
-    for _, err in ipairs(contrast_result.errors or {}) do
-      vim.notify(string.format("[prismpunk] Contrast: %s", err), level_num)
-    end
-    for _, warn in ipairs(contrast_result.warnings or {}) do
-      vim.notify(string.format("[prismpunk] Contrast: %s", warn), level_num)
-    end
-  end
+  return pipeline.get_cache_stats()
 end
 
 function M.clear_cache()
-  highlight_cache:clear()
-  module_cache.themes = {}
-  highlight_cache_stats.hits = 0
-  highlight_cache_stats.misses = 0
-
-  palette.clear_cache()
-end
-
-local function try_load_from_cache(cache_key, theme_module, palette_table)
-  local cached, source = highlight_cache:get(cache_key)
-  if not cached then return nil end
-  
-  highlight_cache_stats.hits = highlight_cache_stats.hits + 1
-
-  if source == "disk" then
-    local theme_path = resolve_theme_file(cached.theme_path or "")
-    local theme_mtime = theme_path and cache.get_mtime(theme_path) or nil
-    if theme_mtime and not highlight_cache:validate_disk_cache(cache_key, theme_mtime) then
-      return nil
-    end
-  end
-
-  local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
-
-  highlights.apply(cached.theme, config.options)
-  apply_terminals(theme_module, palette_table)
-
-  debug_profile("Apply from " .. source .. " cache", start_ns)
-
-  return cached.theme
+  pipeline.clear_cache()
+  vim.notify("[prismpunk] All caches cleared", vim.log.levels.INFO)
 end
 
 function M.load(theme_spec, opts)
-  opts = opts or {}
-
-  local ok, parsed = pcall(config.parse_theme, theme_spec or config.options.theme)
-  if not ok then return false, string.format("[prismpunk] Invalid theme spec: %s", tostring(parsed)) end
-
-  if not parsed.name then return false, "[prismpunk] No theme specified" end
-
-  if not config.is_theme_allowed(theme_spec) then
-    vim.notify("[prismpunk] Theme not in configured themes list: " .. tostring(theme_spec), vim.log.levels.WARN)
-  end
-
-  local theme_key = (parsed.universe or "") .. "/" .. parsed.name
-  if opts.skip_if_loaded and loaded_theme == theme_key then return true, { _cached = true } end
-
-  local theme_path, theme_module
-  ok, theme_path, theme_module = pcall(resolve_theme_module, parsed)
-  if not ok then return false, tostring(theme_path) end
-
-  if type(theme_module) ~= "table" or type(theme_module.get) ~= "function" then
-    return false, string.format("[prismpunk] Theme module missing required 'get' function: %s", theme_path)
-  end
-
-  local palette_universe = parsed.universe or (theme_module.palette and theme_module.palette.universe)
-  local palette_name = (theme_module.palette and theme_module.palette.name) or parsed.name
-
-  if opts.force_reload then palette.clear_cache() end
-
-  local palette_table
-  do
-    local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
-    ok, palette_table = pcall(
-      palette.create_palette,
-      palette_universe,
-      palette_name,
-      theme_module.palette and theme_module.palette.overrides
-    )
-    debug_profile("Create palette", start_ns)
-  end
-
-  if not ok then return false, string.format("[prismpunk] Failed to load palette: %s", tostring(palette_table)) end
-
-  local cache_key = highlight_cache_key(theme_path, palette_table, config.options)
-
-  if config.options.cache.enable and not opts.force_reload then
-    local cached_theme = try_load_from_cache(cache_key, theme_module, palette_table)
-    if cached_theme then
-      loaded_theme = theme_key
-      return true, cached_theme
-    end
-  end
-
-  highlight_cache_stats.misses = highlight_cache_stats.misses + 1
-
-  local start_ns_full = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
-  local theme_result
-  ok, theme_result = pcall(theme_module.get, config.options, palette_table)
-
-  if not ok then return false, string.format("[prismpunk] theme.get() failed: %s", tostring(theme_result)) end
-
-  if type(theme_result) ~= "table" then
-    return false, string.format("[prismpunk] theme.get() must return table, got %s", type(theme_result))
-  end
-
-  if not theme_result.ui or not theme_result.syn then
-    vim.notify(
-      string.format("[prismpunk] Warning: Theme %s may be missing required structure (ui, syn)", theme_key),
-      vim.log.levels.WARN
-    )
-  end
-
-  local validate_on_load = config.options.validate_on_load
-  if validate_on_load == nil or validate_on_load then
-    local color_result = validate.check_color_formats(theme_result)
-    if not color_result.valid then
-      for _, err in ipairs(color_result.errors) do
-        vim.notify("[prismpunk] Theme color error: " .. err, vim.log.levels.ERROR)
-      end
-    end
-
-    local schema_result = validate.check_theme_color_schema(theme_result)
-    if not schema_result.valid then
-      for _, err in ipairs(schema_result.errors) do
-        vim.notify("[prismpunk] Theme schema error: " .. err, vim.log.levels.ERROR)
-      end
-    end
-  end
-
-  validate_contrast(theme_result)
-
-  local normalized
-  ok, normalized = pcall(highlights.normalize_theme, theme_result, config.options)
-
-  if not ok then return false, string.format("[prismpunk] Failed to normalize theme: %s", tostring(normalized)) end
-
-  if config.options.cache.enable then
-    local cache_data = {
-      theme = theme_result,
-      normalized = normalized,
-      theme_path = theme_path,
-    }
-    highlight_cache:set(cache_key, cache_data)
-  end
-
-  ok, err = pcall(highlights.apply, theme_result, config.options)
-  if not ok then
-    return false, string.format("[prismpunk] Failed to apply highlights: %s", tostring(err))
-  end
-
-  apply_terminals(theme_module, palette_table)
-
-  debug_profile("Cold load (theme.get + normalize + highlights + terminals)", start_ns_full)
-  loaded_theme = theme_key
-
-  return true, theme_result
+  return pipeline.execute(theme_spec, opts)
 end
 
-local themes_cache = nil
-local themes_cache_time = 0
-local CACHE_TTL = 30
-
 function M.list_themes()
-  local current_time = os.time(os.date("*t"))
-  if themes_cache and (current_time - themes_cache_time) < CACHE_TTL then return themes_cache end
-
-  local themes = {}
-
-  local function find_themes_dir()
-    local searchpath = package.searchpath("prismpunk.loader", package.path)
-    if searchpath then
-      local loader_path = searchpath:gsub("/loader%.lua$", "")
-      local themes_path = loader_path .. "/themes"
-      if vim.fn.isdirectory(themes_path) == 1 then
-        return themes_path
-      end
-    end
-
-    local rtp = vim.opt.rtp:get()
-    for _, path in ipairs(rtp) do
-      local themes_paths = {
-        path .. "/prismpunk/themes",
-        path .. "/lua/prismpunk/themes",
-      }
-      for _, themes_path in ipairs(themes_paths) do
-        if vim.fn.isdirectory(themes_path) == 1 then
-          return themes_path
-        end
-      end
-    end
-
-    local data_path = vim.fn.stdpath("data")
-    local lazy_base = data_path .. "/lazy"
-    
-    if vim.fn.isdirectory(lazy_base) == 1 then
-      local subdirs = vim.fn.glob(lazy_base .. "/*", false, true) or {}
-      for _, subdir in ipairs(subdirs) do
-        if vim.fn.isdirectory(subdir) == 1 then
-          local themes_paths = {
-            subdir .. "/lua/prismpunk/themes",
-            subdir .. "/themes",
-          }
-          for _, themes_path in ipairs(themes_paths) do
-            if vim.fn.isdirectory(themes_path) == 1 then
-              return themes_path
-            end
-          end
-        end
-      end
-    end
-
-    local search_dirs = {
-      data_path .. "/site/pack/*/start/*/lua/prismpunk/themes",
-      data_path .. "/site/pack/*/opt/*/lua/prismpunk/themes",
-      data_path .. "/site/lua/prismpunk/themes",
-    }
-
-    for _, pattern in ipairs(search_dirs) do
-      local matches = vim.fn.glob(pattern, false, true) or {}
-      for _, match in ipairs(matches) do
-        if vim.fn.isdirectory(match) == 1 then
-          return match
-        end
-      end
-    end
-
-    local paths = { 
-      "./lua/prismpunk/themes", 
-      "../lua/prismpunk/themes",
-      vim.fn.getcwd() .. "/lua/prismpunk/themes"
-    }
-    for _, dir in ipairs(paths) do
-      if vim.fn.isdirectory(dir) == 1 then
-        return dir
-      end
-    end
-
-    return nil
-  end
-
-  local themes_dir = find_themes_dir()
-
-  if not themes_dir then
-    vim.schedule(function()
-      vim.notify("[prismpunk] Using fallback theme list - themes_dir not found", vim.log.levels.WARN)
-    end)
-  end
-
-  if not themes_dir then
-    local fallback_themes = {
-      "kanagawa/paper-edo",
-      "kanagawa/paper-dawn",
-      "kanagawa/paper-dragon",
-      "dc/lantern-corps/phantom-corrupted",
-      "dc/lantern-corps/green",
-      "dc/lantern-corps/red",
-      "tmnt/leonardo",
-      "tmnt/raphael",
-      "tmnt/donatello",
-      "tmnt/michelangelo",
-      "justice-league/superman",
-      "justice-league/batman",
-      "justice-league/wonder-woman",
-      "injustice-league/joker",
-      "injustice-league/sinestro",
-    }
-
-    for _, theme in ipairs(fallback_themes) do
-      local parsed = require("prismpunk.config").parse_theme(theme)
-      local theme_path
-      if parsed.universe then
-        theme_path = "prismpunk.themes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
-      else
-        theme_path = "prismpunk.themes." .. parsed.name
-      end
-
-      local ok, _ = pcall(require, theme_path)
-      if ok then table.insert(themes, theme) end
-    end
-
-    themes_cache = themes
-    themes_cache_time = current_time
-    return themes
-  end
-
-  local function scan_dir(dir, prefix)
-    prefix = prefix or ""
-    local entries = vim.fn.readdir(dir)
-
-    for _, name in ipairs(entries) do
-      local full_path = dir .. "/" .. name
-      if vim.fn.isdirectory(full_path) == 1 then
-        scan_dir(full_path, prefix .. name .. "/")
-      elseif name:match("%.lua$") then
-        local theme_name = name:gsub("%.lua$", "")
-        table.insert(themes, prefix .. theme_name)
-      end
-    end
-  end
-
-  scan_dir(themes_dir)
-
-  themes_cache = themes
-  themes_cache_time = current_time
-  return themes
+  return resolver.list_themes()
 end
 
 function M.get_allowed_theme_list()
@@ -492,64 +48,38 @@ function M.get_allowed_theme_list()
 end
 
 function M.get_theme_info(theme_name)
-  local parsed = config.parse_theme(theme_name)
-  if not parsed.name then return nil end
+  local info = resolver.get_theme_info(theme_name)
+  if not info then return nil end
 
-  local theme_path
-  local theme
-
-  local tries = {}
-  if parsed.variants and #parsed.variants > 0 then
-    for _, variant in ipairs(parsed.variants) do
-      if variant.universe and variant.universe ~= "" then
-        local uni = variant.universe:gsub("/", ".")
-        table.insert(tries, "prismpunk.themes." .. uni .. "." .. variant.name)
-      end
-    end
-  end
-
-  if parsed.universe and parsed.universe ~= "" then
-    local uni = parsed.universe:gsub("/", ".")
-    table.insert(tries, "prismpunk.themes." .. uni .. "." .. parsed.name)
-  end
-  table.insert(tries, "prismpunk.themes." .. parsed.name)
-
-  for _, path in ipairs(tries) do
-    local ok, mod = pcall(require, path)
-    if ok and type(mod) == "table" then
-      theme_path = path
-      theme = mod
-      break
-    end
-  end
-
-  if not theme then return nil end
-
+  local parsed = resolver.parse_theme_spec(theme_name)
   local palette_table
-  local palette_universe = parsed.universe or (theme.palette and theme.palette.universe)
-  local palette_name = (theme.palette and theme.palette.name) or parsed.name
 
-  local palette_ok, palette_result = pcall(palette.create_palette, palette_universe, palette_name, theme.palette and theme.palette.overrides)
-  if palette_ok then
-    palette_table = palette_result
+  if info.module and info.module.palette then
+    local palette_universe = parsed.universe or (info.module.palette and info.module.palette.universe)
+    local palette_name = (info.module.palette and info.module.palette.name) or parsed.name
+    
+    local palette = require("prismpunk.palette")
+    local ok, result = pcall(palette.create_palette, palette_universe, palette_name, info.module.palette and info.module.palette.overrides)
+    if ok then
+      palette_table = result
+    end
   end
 
   return {
-    name = theme.name or parsed.name,
-    author = theme.author or "Unknown",
-    description = theme.description or "No description",
-    universe = parsed.universe,
-    base16 = theme.base16 or {},
+    name = info.name,
+    author = info.author,
+    description = info.description,
+    universe = info.universe,
+    base16 = info.base16,
     palette = palette_table or {},
   }
 end
 
 function M.clear_theme_cache()
-  themes_cache = nil
-  themes_cache_time = 0
+  resolver.clear_themes_cache()
 end
 
-M._highlight_cache = highlight_cache
-M._highlight_cache_stats = highlight_cache_stats
+M._resolver = resolver
+M._pipeline = pipeline
 
 return M

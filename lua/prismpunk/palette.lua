@@ -84,6 +84,9 @@ local function resolve_palette_module(universe, name)
     for _, full_path in ipairs(full_paths) do
       if vim.fn.filereadable(full_path) == 1 then return module_path, full_path end
     end
+
+    local ok = pcall(require, module_path)
+    if ok then return module_path, nil end
   end
 
   return nil, nil

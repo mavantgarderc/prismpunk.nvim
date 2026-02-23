@@ -7,6 +7,8 @@ NVIM Commands
 :PrismValidate --aaa              Use AAA contrast (stricter)
 :PrismValidate --json             JSON output
 :PrismValidate --quiet            Exit code only (0=pass, 1=fail)
+:PrismValidate --duplicates       Check for duplicate hex values
+:PrismValidate --all --duplicates Check all themes for duplicates
 
 :checkhealth prismpunk            Full health check with validation
 

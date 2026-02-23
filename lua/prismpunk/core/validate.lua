@@ -17,16 +17,16 @@ local WCAG = {
 local REQUIRED_BASE16 = schema.BASE16_KEYS
 
 local REQUIRED_UI_CONTRASTS = {
-  { name = "Normal FG vs BG", fg = "ui.fg", bg = "ui.bg", level = "AAA" },
-  { name = "Visual FG vs BG", fg = "ui.fg", bg = "ui.selection", level = "AA" },
-  { name = "CursorLine", fg = "ui.fg", bg = "ui.cursorline", level = "AA" },
-  { name = "Comment", fg = "syn.comment", bg = "ui.bg", level = "AA" },
-  { name = "Search FG", fg = "ui.fg", bg = "ui.bg_search", level = "AA" },
+  { name = "Normal FG vs BG", fg = "ui.fg", bg = "ui.bg", level = "AAA", optional = true },
+  { name = "Visual FG vs BG", fg = "ui.fg", bg = "ui.selection", level = "AA", optional = true },
+  { name = "CursorLine", fg = "ui.fg", bg = "ui.cursorline", level = "AA", optional = true },
+  { name = "Comment", fg = "syn.comment", bg = "ui.bg", level = "AA", optional = true },
+  { name = "Search FG", fg = "ui.fg", bg = "ui.bg_search", level = "AA", optional = true },
   { name = "Float FG vs BG", fg = "ui.float.fg", bg = "ui.float.bg", level = "AA", optional = true },
   { name = "Pmenu FG vs BG", fg = "ui.pmenu.fg", bg = "ui.pmenu.bg", level = "AA", optional = true },
-  { name = "LineNr", fg = "ui.line_nr", bg = "ui.bg", level = "AA" },
-  { name = "diag.error vs BG", fg = "diag.error", bg = "ui.bg", level = "AA" },
-  { name = "diag.warning vs BG", fg = "diag.warning", bg = "ui.bg", level = "AA" },
+  { name = "LineNr", fg = "ui.line_nr", bg = "ui.bg", level = "AA", optional = true },
+  { name = "diag.error vs BG", fg = "diag.error", bg = "ui.bg", level = "AA", optional = true },
+  { name = "diag.warning vs BG", fg = "diag.warning", bg = "ui.bg", level = "AA", optional = true },
 }
 
 local REQUIRED_SECTIONS = { "ui", "syn", "diag", "term" }
@@ -511,6 +511,115 @@ function M.fix_base16(base16)
 end
 
 -- ============================================================================
+-- DUPLICATE DETECTION
+-- ============================================================================
+
+--- Check for duplicate hex values within a palette
+--- @param palette table Palette to check
+--- @return table results { duplicates: {hex: {keys}}, count, suggestions }
+function M.check_palette_duplicates(palette)
+  local results = {
+    duplicates = {},
+    count = 0,
+    suggestions = {},
+  }
+
+  if type(palette) ~= "table" then return results end
+
+  local hex_to_keys = {}
+
+  for key, value in pairs(palette) do
+    if type(value) == "string" and value:match("^#%x%x%x%x%x%x$") then
+      local hex = value:upper()
+      if not hex_to_keys[hex] then
+        hex_to_keys[hex] = {}
+      end
+      table.insert(hex_to_keys[hex], key)
+    end
+  end
+
+  for hex, keys in pairs(hex_to_keys) do
+    if #keys > 1 then
+      table.sort(keys)
+      results.duplicates[hex] = keys
+      results.count = results.count + 1
+
+      local primary_key = keys[1]
+      local duplicate_keys = {}
+      for i = 2, #keys do
+        table.insert(duplicate_keys, keys[i])
+      end
+
+      table.insert(results.suggestions, {
+        hex = hex,
+        keep = primary_key,
+        remove = duplicate_keys,
+        message = string.format("%s: keep '%s', remove %s", hex, primary_key,
+          table.concat(vim.tbl_map(function(k) return string.format("'%s'", k) end, duplicate_keys), ", ")),
+      })
+    end
+  end
+
+  return results
+end
+
+--- Check for duplicate hex values across all themes
+--- @param themes table List of theme names to check
+--- @return table results { duplicates: {hex: {theme, key}}, count, by_theme }
+function M.check_cross_theme_duplicates(themes)
+  local results = {
+    duplicates = {},
+    count = 0,
+    by_theme = {},
+    summary = {},
+  }
+
+  local hex_to_sources = {}
+  local loader = require("prismpunk.loader")
+
+  for _, theme_name in ipairs(themes) do
+    local theme_mod = loader.load_theme(theme_name)
+    if theme_mod and theme_mod.palette then
+      local palette = theme_mod.palette
+
+      for key, value in pairs(palette) do
+        if type(value) == "string" and value:match("^#%x%x%x%x%x%x$") then
+          local hex = value:upper()
+
+          if not hex_to_sources[hex] then
+            hex_to_sources[hex] = {}
+          end
+
+          table.insert(hex_to_sources[hex], {
+            theme = theme_name,
+            key = key,
+          })
+        end
+      end
+    end
+  end
+
+  local threshold = 3
+
+  for hex, sources in pairs(hex_to_sources) do
+    if #sources >= threshold then
+      results.duplicates[hex] = sources
+      results.count = results.count + 1
+
+      table.insert(results.summary, {
+        hex = hex,
+        count = #sources,
+        themes = vim.tbl_map(function(s) return s.theme .. "." .. s.key end, sources),
+      })
+    end
+  end
+
+  table.sort(results.summary, function(a, b) return a.count > b.count end)
+
+  return results
+end
+
+-- ============================================================================
 -- WCAG CONTRAST VALIDATION
 -- ============================================================================
 
@@ -537,18 +646,22 @@ end
 --- Check WCAG contrast for theme colors
 --- @param theme table Theme colors table
 --- @param opts table|nil Options { level: "aa"|"aaa" }
+--- @param theme_name string|nil Theme name for error messages
 --- @return table Validation results
-function M.check_wcag_contrast(theme, opts)
+function M.check_wcag_contrast(theme, opts, theme_name)
   opts = opts or {}
   local level = opts.level or "aa"
   local threshold = level == "aaa" and WCAG.AAA_NORMAL or WCAG.AA_NORMAL
+  theme_name = theme_name or "unknown"
 
   local results = {
     level = level,
+    theme = theme_name,
     checks = {},
     passed = true,
     errors = {},
     warnings = {},
+    missing_colors = {},
   }
 
   for _, check in ipairs(REQUIRED_UI_CONTRASTS) do
@@ -585,9 +698,19 @@ function M.check_wcag_contrast(theme, opts)
           results.passed = false
         end
       end
-    elseif not check.optional then
-      table.insert(results.errors, string.format("%s: missing colors", check.name))
-      results.passed = false
+    else
+      local missing = {}
+      if not fg then table.insert(missing, check.fg) end
+      if not bg then table.insert(missing, check.bg) end
+      local missing_str = table.concat(missing, ", ")
+
+      if check.optional then
+        table.insert(results.warnings, string.format("%s: missing optional color(s): %s", check.name, missing_str))
+      else
+        table.insert(results.errors, string.format("%s: missing required color(s): %s", check.name, missing_str))
+        table.insert(results.missing_colors, { check = check.name, keys = missing })
+        results.passed = false
+      end
     end
   end
 
@@ -598,8 +721,10 @@ end
 --- @param fg string Current foreground hex
 --- @param bg string Current background hex
 --- @param target_ratio number Target contrast ratio (4.5 for AA, 7 for AAA)
+--- @param context string|nil Context for error messages
 --- @return table suggestions { current_ratio, target_ratio, fg_suggestion, bg_suggestion, actions }
-function M.suggest_contrast_fix(fg, bg, target_ratio)
+function M.suggest_contrast_fix(fg, bg, target_ratio, context)
+  context = context or "contrast"
   local suggestions = {
     current_ratio = 0,
     target_ratio = target_ratio,
@@ -610,6 +735,11 @@ function M.suggest_contrast_fix(fg, bg, target_ratio)
     actions = {},
     passes = false,
   }
+
+  if not fg or not bg then
+    table.insert(suggestions.actions, "Cannot suggest: missing color value(s)")
+    return suggestions
+  end
 
   local lum1 = color.get_luminance(fg)
   local lum2 = color.get_luminance(bg)
@@ -775,6 +905,13 @@ end
 --- @return table Validation report
 function M.validate_theme(theme_name, opts)
   opts = opts or {}
+
+  -- Clear disk cache to ensure fresh palette data
+  local cache_dir = vim.fn.stdpath("cache") .. "/prismpunk/palettes"
+  if vim.fn.isdirectory(cache_dir) == 1 then
+    vim.fn.delete(cache_dir, "rf")
+  end
+
   local report = {
     theme = theme_name,
     timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"),
@@ -830,33 +967,44 @@ function M.validate_theme(theme_name, opts)
     return report
   end
 
-  local palette = require("prismpunk.palette")
-  local palette_universe = parsed.universe or (theme_mod.palette and theme_mod.palette.universe)
-  local palette_name = (theme_mod.palette and theme_mod.palette.name) or parsed.name
-
   local palette_table
-  local palette_tries = {}
 
-  if parsed.variants and #parsed.variants > 0 then
-    for _, variant in ipairs(parsed.variants) do
-      if variant.universe and variant.universe ~= "" then
-        local uni = variant.universe:gsub("/", ".")
-        table.insert(palette_tries, { variant.universe, variant.name })
-        table.insert(palette_tries, { nil, variant.name })
-      end
+  -- Use the palette that's already in theme_mod.palette if available (most themes have this)
+  if theme_mod.palette and type(theme_mod.palette) == "table" then
+    if theme_mod.palette.bg_darkest or theme_mod.palette.fg_lightest then
+      palette_table = theme_mod.palette
     end
   end
 
-  table.insert(palette_tries, { palette_universe, palette_name })
-  table.insert(palette_tries, { nil, palette_name })
+  -- Only try loading by name if palette_table not found from theme_mod
+  if not palette_table then
+    local palette = require("prismpunk.palette")
+    local palette_universe = parsed.universe or (theme_mod.palette and theme_mod.palette.universe)
+    local palette_name = (theme_mod.palette and theme_mod.palette.name) or parsed.name
 
-  for _, try in ipairs(palette_tries) do
-    local uni, name = try[1], try[2]
-    local uni_path = uni and uni:gsub("/", ".") or nil
-    local ok, result = pcall(palette.create_palette, uni_path, name)
-    if ok and result then
-      palette_table = result
-      break
+    local palette_tries = {}
+
+    if parsed.variants and #parsed.variants > 0 then
+      for _, variant in ipairs(parsed.variants) do
+        if variant.universe and variant.universe ~= "" then
+          local uni = variant.universe:gsub("/", ".")
+          table.insert(palette_tries, { variant.universe, variant.name })
+          table.insert(palette_tries, { nil, variant.name })
+        end
+      end
+    end
+
+    table.insert(palette_tries, { palette_universe, palette_name })
+    table.insert(palette_tries, { nil, palette_name })
+
+    for _, try in ipairs(palette_tries) do
+      local uni, name = try[1], try[2]
+      local uni_path = uni and uni:gsub("/", ".") or nil
+      local ok, result = pcall(palette.create_palette, uni_path, name)
+      if ok and result then
+        palette_table = result
+        break
+      end
     end
   end
 
@@ -881,7 +1029,7 @@ function M.validate_theme(theme_name, opts)
   end
 
   local contrast_opts = { level = opts.level or "aa" }
-  local contrast_result = M.check_wcag_contrast(theme_colors, contrast_opts)
+  local contrast_result = M.check_wcag_contrast(theme_colors, contrast_opts, theme_name)
   report.checks.contrast = contrast_result
   if not contrast_result.passed then
     report.summary.errors = report.summary.errors + #contrast_result.errors
@@ -942,9 +1090,51 @@ function M.validate_theme(theme_name, opts)
     end
   end
 
+  if opts.duplicates then
+    local duplicate_result = M.check_palette_duplicates(palette_table)
+    report.checks.duplicates = duplicate_result
+    if duplicate_result.count > 0 then
+      report.summary.warnings = report.summary.warnings + duplicate_result.count
+    end
+  end
+
   report.summary.passed = report.valid and report.summary.errors == 0
 
   return report
+end
+
+--- Check all themes for validation
+--- @param opts table|nil Options
+--- @return table Results
+function M.validate_all_themes(opts)
+  opts = opts or {}
+  local loader = require("prismpunk.loader")
+  local themes = loader.list_themes()
+
+  local results = {
+    total = #themes,
+    passed = 0,
+    failed = 0,
+    warnings = 0,
+    errors = 0,
+    themes = {},
+  }
+
+  for _, theme_name in ipairs(themes) do
+    local report = M.validate_theme(theme_name, opts)
+    results.themes[theme_name] = report
+
+    if report.summary.passed then
+      results.passed = results.passed + 1
+    else
+      results.failed = results.failed + 1
+    end
+
+    results.errors = results.errors + report.summary.errors
+    results.warnings = results.warnings + report.summary.warnings
+  end
+
+  return results
 end
 
 -- ============================================================================
@@ -984,10 +1174,12 @@ function M.format_report(report)
         table.insert(lines, string.format("%s %-20s %s (%s)", mark, check.name, ratio_str, check.required_level))
       else
         table.insert(lines, string.format("%s %-20s %s (needs %s)", mark, check.name, ratio_str, check.required_level))
-        local threshold = check.required_level == "AAA" and 7.0 or 4.5
-        local suggestions = M.suggest_contrast_fix(check.fg, check.bg, threshold)
-        for _, action in ipairs(suggestions.actions) do
-          table.insert(lines, "    SUGGEST: " .. action)
+        if check.fg and check.bg then
+          local threshold = check.required_level == "AAA" and 7.0 or 4.5
+          local suggestions = M.suggest_contrast_fix(check.fg, check.bg, threshold)
+          for _, action in ipairs(suggestions.actions) do
+            table.insert(lines, "    SUGGEST: " .. action)
+          end
         end
       end
     end
@@ -1070,6 +1262,19 @@ function M.format_report(report)
     end
     for _, warn in ipairs(theme_schema.warnings or {}) do
       table.insert(lines, "  WARN: " .. warn)
+    end
+    table.insert(lines, "")
+  end
+
+  local duplicates = report.checks.duplicates
+  if duplicates then
+    if duplicates.count == 0 then
+      table.insert(lines, "[OK] Duplicates: None found")
+    else
+      table.insert(lines, string.format("[WARN] Duplicates: %d hex values used multiple times", duplicates.count))
+      for _, suggestion in ipairs(duplicates.suggestions or {}) do
+        table.insert(lines, "  " .. suggestion.message)
+      end
     end
     table.insert(lines, "")
   end

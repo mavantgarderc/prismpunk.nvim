@@ -266,6 +266,8 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
       opts_internal.strict = true
     elseif arg == "--color-formats" then
       opts_internal.color_formats = true
+    elseif arg == "--duplicates" or arg == "--dupes" then
+      opts_internal.duplicates = true
     elseif arg ~= "" and not arg:match("^%-%w+") then
       theme_name = arg
     end
@@ -336,7 +338,33 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
       if #failed_themes > 0 and #failed_themes <= 50 then
         table.insert(lines, "--- Failed Themes ---")
         for _, theme in ipairs(failed_themes) do
-          table.insert(lines, "  x " .. theme)
+          local theme_report = nil
+          for _, r in ipairs(results) do
+            if r.theme == theme then
+              theme_report = r
+              break
+            end
+          end
+          if theme_report then
+            table.insert(lines, "  x " .. theme)
+            if theme_report.checks and theme_report.checks.contrast then
+              for _, err in ipairs(theme_report.checks.contrast.errors or {}) do
+                table.insert(lines, "      " .. err)
+              end
+            end
+            if theme_report.checks and theme_report.checks.structure then
+              for _, err in ipairs(theme_report.checks.structure.errors or {}) do
+                table.insert(lines, "      " .. err)
+              end
+            end
+            if theme_report.checks and theme_report.checks.palette_schema then
+              for _, err in ipairs(theme_report.checks.palette_schema.errors or {}) do
+                table.insert(lines, "      " .. err)
+              end
+            end
+          else
+            table.insert(lines, "  x " .. theme)
+          end
         end
         table.insert(lines, "")
       end
@@ -352,7 +380,24 @@ vim.api.nvim_create_user_command("PrismValidate", function(opts)
       if #failed_themes > 50 then
         table.insert(lines, string.format("(Showing first 50 of %d failed themes)", #failed_themes))
         for i = 1, 50 do
-          table.insert(lines, "  x " .. failed_themes[i])
+          local theme = failed_themes[i]
+          local theme_report = nil
+          for _, r in ipairs(results) do
+            if r.theme == theme then
+              theme_report = r
+              break
+            end
+          end
+          if theme_report then
+            table.insert(lines, "  x " .. theme)
+            if theme_report.checks and theme_report.checks.contrast then
+              for _, err in ipairs(theme_report.checks.contrast.errors or {}) do
+                table.insert(lines, "      " .. err)
+              end
+            end
+          else
+            table.insert(lines, "  x " .. theme)
+          end
         end
         table.insert(lines, "")
       end

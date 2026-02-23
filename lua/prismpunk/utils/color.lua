@@ -13,7 +13,7 @@ end
 local function _normalize_hex(hex, context)
   context = context or "color"
   if type(hex) ~= "string" then
-    vim.notify(string.format("[prismpunk] %s: expected string, got %s, using fallback #000000", context, type(hex)), vim.log.levels.ERROR)
+    vim.notify(string.format("[prismpunk] %s: expected hex string, got %s (value: %s), using fallback #000000", context, type(hex), tostring(hex)), vim.log.levels.ERROR)
     return "#000000"
   end
 

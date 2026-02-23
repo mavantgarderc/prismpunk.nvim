@@ -355,7 +355,7 @@ return {
     base08 = palette.neural_red,
     base09 = palette.regime_gold,
     base0A = palette.holt_teal,
-    base0B = palette.terrfic_teal,
+    base0B = palette.terffic_teal,
     base0C = palette.nanite_cyan,
     base0D = palette.cold_logic,
     base0E = palette.control_pulse,

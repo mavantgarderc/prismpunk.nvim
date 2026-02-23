@@ -1,5 +1,4 @@
 return {
-
   bg_darkest = "#000000",
   bg_darker = "#050508",
   bg_dark = "#0A0A0F",
@@ -7,91 +6,71 @@ return {
   bg_light = "#14141A",
   bg_lighter = "#1A1A20",
   bg_lightest = "#202026",
-
   fg_lightest = "#E8F0FF",
   fg_light = "#C8D8F0",
   fg_mid = "#A8C0E0",
   fg_dark = "#88A8D0",
-
   bg_alt1 = "#030306",
   bg_alt2 = "#010102",
   bg_alt3 = "#0C0C11",
   bg_alt4 = "#020204",
-
   quantumBlueCore = "#00D9FF",
   quantumBlue = "#00D9FF",
   quantumBlueBright = "#33E6FF",
   quantumBlueDeep = "#00B3D9",
-
   neuralPurple = "#9D4EDD",
   neuralPurpleBright = "#C77DFF",
   neuralPurpleCore = "#9D4EDD",
   neuralPurpleDeep = "#7B2CBF",
-
   voidCyan = "#00FFFF",
   voidCyanBright = "#5AFFFF",
   voidCyanCore = "#00FFFF",
   voidCyanDeep = "#00CCCC",
-
   cosmicGold = "#FFD700",
   cosmicGoldBright = "#FFE55C",
   cosmicGoldCore = "#FFD700",
   cosmicGoldDeep = "#D9B600",
-
   stellarWhite = "#E8F0FF",
   stellarWhiteBright = "#FFFFFF",
   stellarWhiteCore = "#E8F0FF",
   stellarWhiteDeep = "#C8D8F0",
-
   holographicTeal = "#00D4AA",
   holographicTealBright = "#1AE8C4",
   holographicTealCore = "#00D4AA",
-
   digitalGray = "#52576E",
   digitalGrayLight = "#6B7089",
   digitalGrayDark = "#3D4154",
-
   singularityWhite = "#F0F8FF",
   singularityWhiteCore = "#F0F8FF",
   singularityWhiteBright = "#FFFFFF",
-
   warpPurple = "#7209B7",
   warpPurpleBright = "#9D4EDD",
   warpPurpleCore = "#7209B7",
-
   antimatterRed = "#FF006E",
   antimatterRedBright = "#FF3388",
   antimatterRedCore = "#FF006E",
-
   nebulaViolet = "#8B5CF6",
   nebulaVioletCore = "#8B5CF6",
-
   currentGray = "#52576E",
   currentGrayLight = "#6B7089",
-
   photonGreen = "#00FF88",
   photonGreenCore = "#00FF88",
   photonGreenBright = "#33FFAA",
-
   absoluteZero = "#000000",
-
   successGreen = "#00FF88",
   errorRed = "#FF006E",
   warningAmber = "#FFD700",
   infoBlue = "#00D9FF",
-
   seaweedGreenCore = "#00FF88",
   anglerYellowCore = "#FFD700",
   anemoneRedCore = "#FF006E",
-
   coralPink = "#00D9FF",
   coralPinkBright = "#33E6FF",
   coralPinkCore = "#00D9FF",
   coralPinkDeep = "#00B3D9",
-
   pressureWhite = "#E8F0FF",
   pressureWhiteCore = "#E8F0FF",
   pressureWhiteBright = "#FFFFFF",
-
   depthBlack = "#000000",
 }
+

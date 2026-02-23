@@ -36,4 +36,8 @@ return {
   softAmber = "#F0D090",
   dawnCoral = "#FFB380",
   sacredTeal = "#5FA8A8",
+
+  bg_darkest = "#0B0A10",
+  fg_lightest = "#E0DCCF",
 }
+

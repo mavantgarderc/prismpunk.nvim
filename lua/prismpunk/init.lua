@@ -102,6 +102,30 @@ local function register_commands()
       return
     end
 
+    -- Show theme info first
+    local loader_ok, loader = pcall(require, "prismpunk.loader")
+    if loader_ok then
+      local info = loader.get_theme_info(theme)
+      if info then
+        local lines = {
+          "=== " .. info.name .. " ===",
+          "Author: " .. info.author,
+          "Universe: " .. (info.universe or "none"),
+          "",
+          info.description,
+          "",
+          "--- Base16 Colors ---",
+        }
+        for i = 0, 15 do
+          local key = i == 0 and "base00" or string.format("base%02X", i)
+          if info.base16[key] then
+            table.insert(lines, string.format("%-8s %s", key, info.base16[key]))
+          end
+        end
+        vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO)
+      end
+    end
+
     local content = M.preview_terminal_config(theme, terminal)
     if content then
       local buf = vim.api.nvim_create_buf(false, true)

@@ -37,4 +37,8 @@ return {
   duskAmber = "#F0C078",
   sereneSlate = "#6B7888",
   deepIndigo = "#4A4F6A",
+
+  bg_darkest = "#4A4F6A",
+  fg_lightest = "#DCD7BA",
 }
+

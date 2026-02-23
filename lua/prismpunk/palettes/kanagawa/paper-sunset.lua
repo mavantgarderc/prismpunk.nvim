@@ -41,4 +41,8 @@ return {
   horizonGlow = "#C0A8D8",
   horizonVivid = "#D0B8E8",
   horizonFlare = "#E0C8F8",
+
+  bg_darkest = "#33333F",
+  fg_lightest = "#E5E0C4",
 }
+

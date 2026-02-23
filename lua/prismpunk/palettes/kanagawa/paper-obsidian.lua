@@ -43,4 +43,8 @@ return {
   obsidianAccent3 = "#412C36",
   obsidianAccent4 = "#4A313D",
   obsidianAccent5 = "#533644",
+
+  bg_darkest = "#224D50",
+  fg_lightest = "#DAD6C7",
 }
+

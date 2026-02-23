@@ -6,23 +6,19 @@ return {
   bg_light = "#4A4A4A",
   bg_lighter = "#5A5A5A",
   bg_lightest = "#6A6A6A",
-
   fg_lightest = "#FFFFFF",
   fg_light = "#F0F0F0",
   fg_mid = "#A0A0A0",
   fg_dark = "#707070",
-
   bg_alt1 = "#151515",
   bg_alt2 = "#050505",
   bg_alt3 = "#252525",
   bg_alt4 = "#0F0F0F",
-
   voidCore = "#DDDDDD",
   voidGlow = "#F0F0F0",
   voidBright = "#FFFFFF",
   voidDeep = "#AAAAAA",
   voidDark = "#777777",
-
   corruptedRage = "#FF5555",
   corruptedAvarice = "#FFAA55",
   corruptedFear = "#FFFF55",
@@ -30,14 +26,12 @@ return {
   corruptedHope = "#5555FF",
   corruptedCompassion = "#AA55FF",
   corruptedLove = "#FF55FF",
-
   lifeLight = "#FFFFFF",
   cosmicBalance = "#BBBBBB",
   spectrumUnity = "#EEEEEE",
   prismaticCore = "#FAFAFA",
   entityGlow = "#FCFCFC",
   torchbearer = "#F8F8F8",
-
   accent_red = "#FF6666",
   accent_orange = "#FFAA66",
   accent_yellow = "#FFFF66",
@@ -48,3 +42,4 @@ return {
   accent_pink = "#FF66FF",
   accent_white = "#FFFFFF",
 }
+

@@ -1,30 +1,28 @@
 return {
-  void_black = "#0a0808",
-  titan_night = "#0d0b0c",
+  void_black = "#0A0808",
+  titan_night = "#0D0B0C",
   prometheus_core = "#121015",
-  armor_glow = "#1f1822",
-
-  stolen_orange = "#ff4400",
-  titan_flame = "#ff6600",
-  burning_core = "#ff8833",
-  ember_glow = "#ffaa55",
-
-  bat_blue = "#0088ff",
-  ghost_circuit = "#44aaff",
-  cold_vengeance = "#66ccff",
-
-  iron_red = "#aa2222",
-  titan_blood = "#cc3333",
-  wound_red = "#ee5555",
-
-  phantom_white = "#e8f0ff",
+  armor_glow = "#1F1822",
+  stolen_orange = "#FF4400",
+  titan_flame = "#FF6600",
+  burning_core = "#FF8833",
+  ember_glow = "#FFAA55",
+  bat_blue = "#0088FF",
+  ghost_circuit = "#44AAFF",
+  cold_vengeance = "#66CCFF",
+  iron_red = "#AA2222",
+  titan_blood = "#CC3333",
+  wound_red = "#EE5555",
+  phantom_white = "#E8F0FF",
   armor_plating = "#334466",
+  term_orange = "#FF6600",
+  term_blue = "#44AAFF",
+  term_red = "#CC3333",
+  term_white = "#E8F0FF",
+  term_orange_bright = "#FF9944",
+  term_blue_bright = "#66DDFF",
 
-  term_orange = "#ff6600",
-  term_blue = "#44aaff",
-  term_red = "#cc3333",
-  term_white = "#e8f0ff",
-
-  term_orange_bright = "#ff9944",
-  term_blue_bright = "#66ddff",
+  bg_darkest = "#0A0808",
+  fg_lightest = "#E8F0FF",
 }
+

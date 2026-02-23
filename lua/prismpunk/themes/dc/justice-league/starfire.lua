@@ -9,7 +9,7 @@ M.get = function(opts, plt)
       normal = plt.tamaran_gold,
       insert = plt.starbolt_green,
       visual = plt.tamaran_purple,
-      replace = plt.radiantheat,
+      replace = plt.radiant_heat,
       command = plt.kori_violet,
     },
 
@@ -45,7 +45,7 @@ M.get = function(opts, plt)
       indent = plt.tamaran_void,
       indent_scope = plt.solar_orange,
       picker = plt.starfire_skin,
-      yank = plt.radiantheat,
+      yank = plt.radiant_heat,
       mark = plt.kori_violet,
       scrollbar = plt.star_core,
 
@@ -84,7 +84,7 @@ M.get = function(opts, plt)
       accent2 = plt.starbolt_green,
       accent3 = plt.tamaran_purple,
       accent4 = plt.kori_violet,
-      accent5 = plt.radiantheat,
+      accent5 = plt.radiant_heat,
       invert = plt.star_core,
     },
 
@@ -100,7 +100,7 @@ M.get = function(opts, plt)
 
     syn = {
       attribute = plt.starfire_skin,
-      boolean = plt.radiantheat,
+      boolean = plt.radiant_heat,
       comment = plt.sunrise_glow,
       constant = plt.solar_orange,
       deprecated = plt.nova_glow,
@@ -111,7 +111,7 @@ M.get = function(opts, plt)
       number = plt.kori_violet,
       operator = plt.tamaran_purple,
       parameter = plt.sunrise_glow,
-      preproc = plt.radiantheat,
+      preproc = plt.radiant_heat,
       punct = plt.sunrise_glow,
       regex = plt.alien_radiance,
       statement = plt.tamaran_gold,
@@ -124,11 +124,11 @@ M.get = function(opts, plt)
       special3 = plt.kori_violet,
     },
 
-    vcs = { added = plt.starbolt_green, removed = plt.radiantheat, changed = plt.tamaran_purple },
-    diff = { add = plt.starbolt_green, change = plt.tamaran_emerald, delete = plt.radiantheat, text = plt.nova_purple },
+    vcs = { added = plt.starbolt_green, removed = plt.radiant_heat, changed = plt.tamaran_purple },
+    diff = { add = plt.starbolt_green, change = plt.tamaran_emerald, delete = plt.radiant_heat, text = plt.nova_purple },
     diag = {
       ok = plt.starbolt_green,
-      error = plt.radiantheat,
+      error = plt.radiant_heat,
       warning = plt.tamaran_gold,
       info = plt.tamaran_purple,
       hint = plt.kori_violet,
@@ -159,7 +159,7 @@ M.get = function(opts, plt)
     treesitter = {
       ["@comment"] = plt.sunrise_glow,
       ["@comment.documentation"] = plt.solar_orange,
-      ["@comment.error"] = plt.radiantheat,
+      ["@comment.error"] = plt.radiant_heat,
       ["@comment.warning"] = plt.tamaran_gold,
       ["@comment.todo"] = plt.tamaran_purple,
       ["@comment.note"] = plt.kori_violet,
@@ -172,7 +172,7 @@ M.get = function(opts, plt)
       ["@string.documentation"] = plt.starbolt_green,
       ["@string.regex"] = plt.alien_radiance,
       ["@string.escape"] = plt.tamaran_emerald,
-      ["@string.special"] = plt.radiantheat,
+      ["@string.special"] = plt.radiant_heat,
       ["@string.special.symbol"] = plt.starfire_skin,
       ["@string.special.url"] = plt.tamaran_purple,
       ["@string.special.path"] = plt.starbolt_green,
@@ -183,7 +183,7 @@ M.get = function(opts, plt)
       ["@number"] = plt.kori_violet,
       ["@number.float"] = plt.kori_violet,
 
-      ["@boolean"] = plt.radiantheat,
+      ["@boolean"] = plt.radiant_heat,
 
       ["@function"] = plt.tamaran_gold,
       ["@function.builtin"] = plt.tamaran_gold,
@@ -198,7 +198,7 @@ M.get = function(opts, plt)
       ["@parameter.builtin"] = plt.starfire_skin,
 
       ["@keyword"] = plt.tamaran_gold,
-      ["@keyword.coroutine"] = plt.radiantheat,
+      ["@keyword.coroutine"] = plt.radiant_heat,
       ["@keyword.function"] = plt.tamaran_gold,
       ["@keyword.operator"] = plt.tamaran_purple,
       ["@keyword.return"] = plt.tamaran_gold,
@@ -207,8 +207,8 @@ M.get = function(opts, plt)
       ["@keyword.repeat"] = plt.tamaran_gold,
       ["@keyword.conditional"] = plt.tamaran_gold,
       ["@keyword.exception"] = plt.nova_purple,
-      ["@keyword.directive"] = plt.radiantheat,
-      ["@keyword.directive.define"] = plt.radiantheat,
+      ["@keyword.directive"] = plt.radiant_heat,
+      ["@keyword.directive.define"] = plt.radiant_heat,
 
       ["@conditional"] = plt.tamaran_gold,
       ["@conditional.ternary"] = plt.tamaran_gold,
@@ -253,7 +253,7 @@ M.get = function(opts, plt)
       ["@markup.strong"] = { fg = plt.tamaran_gold, bold = true },
       ["@markup.italic"] = { fg = plt.starfire_skin, italic = true },
       ["@markup.strikethrough"] = { fg = plt.nova_glow, strikethrough = true },
-      ["@markup.underline"] = { fg = plt.radiantheat, underline = true },
+      ["@markup.underline"] = { fg = plt.radiant_heat, underline = true },
       ["@markup.heading"] = plt.tamaran_gold,
       ["@markup.heading.1"] = plt.tamaran_gold,
       ["@markup.heading.2"] = plt.solar_orange,
@@ -273,7 +273,7 @@ M.get = function(opts, plt)
       ["@markup.list.unchecked"] = plt.sunrise_glow,
 
       ["@diff.plus"] = plt.starbolt_green,
-      ["@diff.minus"] = plt.radiantheat,
+      ["@diff.minus"] = plt.radiant_heat,
       ["@diff.delta"] = plt.tamaran_purple,
 
       ["@none"] = "none",
@@ -324,7 +324,7 @@ M.get = function(opts, plt)
 
       ["@lsp.type.event"] = plt.tamaran_purple,
       ["@lsp.type.regexp"] = plt.alien_radiance,
-      ["@lsp.type.unresolvedReference"] = plt.radiantheat,
+      ["@lsp.type.unresolvedReference"] = plt.radiant_heat,
 
       ["@lsp.mod.deprecated"] = { fg = plt.nova_glow, strikethrough = true },
       ["@lsp.mod.readonly"] = plt.solar_orange,

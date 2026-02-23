@@ -1,29 +1,27 @@
 return {
-
-  void_black = "#0a0808",
-  kingdom_void = "#0c0a0c",
+  void_black = "#0A0808",
+  kingdom_void = "#0C0A0C",
   exile_core = "#121014",
-  judgment_glow = "#18121c",
-
+  judgment_glow = "#18121C",
   kingdom_blue = "#113366",
   elder_blue = "#224477",
   last_hope_blue = "#335599",
-  restored_blue = "#4466aa",
-
+  restored_blue = "#4466AA",
   kingdom_red = "#880011",
-  mourning_red = "#aa1122",
-  gulag_red = "#cc2233",
-  apocalypse_red = "#ee3344",
-
-  silver_hair = "#bbccee",
+  mourning_red = "#AA1122",
+  gulag_red = "#CC2233",
+  apocalypse_red = "#EE3344",
+  silver_hair = "#BBCCEE",
   elder_gold = "#998877",
-  kingdom_gold = "#aa9988",
-  restored_gold = "#bbaa99",
-
-  term_red = "#cc2233",
+  kingdom_gold = "#AA9988",
+  restored_gold = "#BBAA99",
+  term_red = "#CC2233",
   term_blue = "#335599",
-  term_silver = "#bbccee",
+  term_silver = "#BBCCEE",
+  term_red_bright = "#EE3344",
+  term_blue_bright = "#5588CC",
 
-  term_red_bright = "#ee3344",
-  term_blue_bright = "#5588cc",
+  bg_darkest = "#0A0808",
+  fg_lightest = "#5588CC",
 }
+

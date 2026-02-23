@@ -14,7 +14,11 @@ M.defaults = {
   theme = DEFAULT_THEME, -- Theme name (e.g., "phantom-corrupted" or "lantern-corps/phantom-corrupted")
   themes = {}, -- Allowed themes/universes for discovery (whitelist)
   gutter = true, -- Enable gutter background
-  validate_contrast = false, -- Validate color contrast (opt-in)
+  validate_contrast = {
+    enable = false, -- Enable contrast validation on theme load (default: false, on-demand only)
+    level = "aa", -- "aa" or "aaa"
+    report_level = "info", -- "info", "warn", "error"
+  },
 
   styles = {
     comments = { italic = true },
@@ -113,7 +117,7 @@ local schema = {
   theme = { type = { "string", "nil" } },
   themes = { type = "table" }, -- Array of allowed themes/universes
   gutter = { type = "boolean" },
-  validate_contrast = { type = "boolean" },
+  validate_contrast = { type = "table" },
 
   styles = {
     type = "table",
@@ -379,13 +383,18 @@ function M.is_theme_allowed(theme_spec)
   local theme_universe = parsed.universe
 
   for _, allowed in ipairs(allowed_themes) do
+    -- Exact match for individual theme
     if allowed == theme_name then
       return true
     end
-    if theme_universe and allowed == theme_universe then
+
+    -- Check if theme's universe starts with allowed prefix
+    if theme_universe and theme_universe:find("^" .. allowed) then
       return true
     end
-    if allowed == theme_universe:gsub(".*/", "") then
+
+    -- Check allowed item matches the first part of universe
+    if theme_universe and allowed == theme_universe:match("^([^/]+)") then
       return true
     end
   end

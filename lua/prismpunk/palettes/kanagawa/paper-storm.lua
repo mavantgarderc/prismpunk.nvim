@@ -40,4 +40,8 @@ return {
   thunderGlow = "#A090C0",
   thunderVivid = "#B0A0D0",
   thunderFlare = "#C0B0E0",
+
+  bg_darkest = "#282E3E",
+  fg_lightest = "#D9D7CD",
 }
+

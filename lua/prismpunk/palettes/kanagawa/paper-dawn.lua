@@ -38,4 +38,8 @@ return {
   dawnGlow3 = "#F8E0B0",
   dawnGlow4 = "#FFF0C0",
   dawnGlow5 = "#FFFFD0",
+
+  bg_darkest = "#4F4B46",
+  fg_lightest = "#F2EBD9",
 }
+

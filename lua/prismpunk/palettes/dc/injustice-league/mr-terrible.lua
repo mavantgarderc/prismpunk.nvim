@@ -16,7 +16,7 @@ return {
   mind_lock = "#FF6677",
   holt_teal = "#00BBAA",
   cold_logic = "#00CCBB",
-  terrfic_teal = "#00DDCC",
+  terffic_teal = "#00DDCC",
   nanite_cyan = "#33EEFF",
   steel_grey = "#5F6F7F",
   circuit_silver = "#8899AA",
@@ -38,4 +38,3 @@ return {
   bg_darkest = "#07080C",
   fg_lightest = "#FFFF77",
 }
-

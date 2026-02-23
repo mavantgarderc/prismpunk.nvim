@@ -33,4 +33,3 @@ return {
   bg_darkest = "#0C0814",
   fg_lightest = "#88FFAA",
 }
-

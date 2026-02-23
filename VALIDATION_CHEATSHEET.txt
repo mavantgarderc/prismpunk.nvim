@@ -70,12 +70,3 @@ local formats = validate.check_color_formats(theme_colors)
 
 -- Check schema compliance
 local schema = validate.validate_palette_schema(palette)
-
-
-FILES
---------------------------------------------------------------------------------
-
-lua/prismpunk/core/validate.lua     Main validation module
-lua/prismpunk/utils/schema.lua      Schema definitions
-lua/prismpunk/health.lua            Health check integration
-scripts/fix_palettes.lua            Batch fix script

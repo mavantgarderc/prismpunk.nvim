@@ -28,4 +28,6 @@ return {
   quantumField = "#8F66FF",
   containmentBlue = "#61AFEF",
   atomicGlow = "#F2FBFF",
+
+  atomSilver = "#8896A3",
 }

@@ -100,7 +100,7 @@ M.get = function(opts, plt)
       string = plt.grainLighter,
       symbol = plt.veineCore,
       type = plt.grainLightest,
-      variable = plt.veineiveCore,
+      variable = plt.veineCore,
     },
     diag = {
       error = plt.goldBright,

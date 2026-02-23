@@ -54,6 +54,7 @@ return {
   ancientRedBright = "#A57171",
   ancientRedDeep = "#6F4747",
   spiritualBlue = "#6B8CA8",
+  spiritualBlueCore = "#5B7C98",
   spiritualBlueBright = "#85A8C4",
   spiritualBlueDeep = "#577088",
   dojoShadow = "#1A1510",

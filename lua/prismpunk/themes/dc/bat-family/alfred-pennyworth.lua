@@ -1,5 +1,44 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.alfred-pennyworth")
+
+local palette = {
+  bg_darkest = "#060608",
+  bg_darker = "#0B0B0F",
+  bg_dark = "#121218",
+  bg_mid = "#1A1A23",
+  bg_light = "#3A3F4C",
+  bg_lighter = "#565C64",
+  bg_lightest = "#6A7178",
+  fg_lightest = "#E8ECF0",
+  fg_light = "#C8CCD4",
+  fg_mid = "#ABB2BF",
+  fg_dark = "#6A7178",
+  bg_alt1 = "#0F1015",
+  bg_alt2 = "#070809",
+  bg_alt3 = "#14151D",
+  bg_alt4 = "#080A0D",
+  butlerSuit = "#4B4B4B",
+  wayneTie = "#800020",
+  alfredGray = "#708090",
+  classicGray = "#696969",
+  servantBlack = "#2C2C2C",
+  teaTime = "#D4A574",
+  britishTan = "#C19A6B",
+  manorWood = "#8B7355",
+  polishedSilver = "#C0C0C0",
+  vintageBrass = "#B5A642",
+  medicKit = "#E63946",
+  firstAid = "#DC3545",
+  medicalWhite = "#F8F9FA",
+  bandageBeige = "#D4C5B9",
+  royalBlue = "#4169E1",
+  dignityBlue = "#5B7C99",
+  britishBlue = "#6495ED",
+  butlerTeal = "#5F9EA0",
+  wisdomGold = "#DAA520",
+  loyaltyAmber = "#FFBF00",
+  serviceGreen = "#8FBC8F",
+  devotionGray = "#A9A9A9",
+}
 
 local M = {}
 

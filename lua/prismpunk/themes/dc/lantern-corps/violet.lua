@@ -1,5 +1,49 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.lantern-corps.violet")
+
+local palette = {
+  bg_darkest = "#0D001A",
+  bg_darker = "#1A0033",
+  bg_dark = "#27004D",
+  bg_mid = "#340066",
+  bg_light = "#410080",
+  bg_lighter = "#4E0099",
+  bg_lightest = "#5B00B3",
+
+  fg_lightest = "#F0E8FF",
+  fg_light = "#D8C8F0",
+  fg_mid = "#8878A8",
+  fg_dark = "#685880",
+
+  bg_alt1 = "#150025",
+  bg_alt2 = "#0A0012",
+  bg_alt3 = "#1F003D",
+  bg_alt4 = "#10001D",
+
+  voidCore = "#BA55D3",
+  voidGlow = "#DA70D6",
+  voidBright = "#EE82EE",
+  voidDeep = "#9932CC",
+  voidDark = "#8B008B",
+
+  corruptedRage = "#CC66CC",
+  corruptedAvarice = "#C9A0DC",
+  corruptedFear = "#B695C0",
+  corruptedWill = "#9370DB",
+  corruptedHope = "#9F7FBF",
+  corruptedCompassion = "#DDA0DD",
+  corruptedLove = "#FF00FF",
+
+  sapphireHeart = "#8B008B",
+  amethystLove = "#9966CC",
+  orchidPassion = "#DA70D6",
+  lavenderCare = "#E6E6FA",
+  plumDevotion = "#DDA0DD",
+  magentaBond = "#FF00FF",
+  lilacAffection = "#C8A2C8",
+  crystalTenderness = "#E0B0FF",
+  roseQuartz = "#F88DC6",
+  violetEmbrace = "#8A2BE2",
+}
 
 local M = {}
 

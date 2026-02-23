@@ -1,5 +1,36 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.justice-league.martian-manhunter")
+
+local palette = {
+  bg_darkest = "#04120A",
+  bg_darker = "#0B140D",
+  bg_dark = "#111A14",
+  bg_mid = "#18221B",
+  bg_light = "#2F3834",
+  bg_lighter = "#5B6069",
+  bg_lightest = "#A9BFB4",
+
+  fg_lightest = "#E6F7F2",
+  fg_light = "#9FE6D6",
+  fg_mid = "#A9BFB4",
+  fg_dark = "#5B6069",
+
+  bg_alt1 = "#0D1610",
+  bg_alt2 = "#09120B",
+  bg_alt3 = "#141D16",
+  bg_alt4 = "#0F1812",
+
+  martianGreen = "#1AA35A",
+  emeraldDeep = "#178A4A",
+  martianCore = "#0F6B39",
+  crimsonEye = "#D63A3A",
+  etherBlue = "#66C6FF",
+  jadeEmpathy = "#2FB06A",
+  accentGold = "#FFD966",
+  accentViolet = "#B39BFF",
+  dangerRed = "#FF6666",
+  warningOrange = "#FFC870",
+  infoBlue = "#61AFEF",
+}
 
 local M = {}
 

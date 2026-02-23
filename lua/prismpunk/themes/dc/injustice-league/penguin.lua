@@ -1,5 +1,46 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.injustice-league.penguin")
+
+local palette = {
+  void_black = "#08090C",
+  lounge_void = "#0C0E12",
+  cobblepot_core = "#11151C",
+  cigarette_glow = "#161E2A",
+  top_hat_black = "#0D0F14",
+  umbrella_shadow = "#14161E",
+  monocle_glass = "#1E222D",
+  cobblepot_gold = "#FFBB00",
+  dirty_gold = "#FFCC22",
+  monocle_gold = "#FFDD55",
+  emperor_bright = "#FFFF88",
+  ember_orange = "#FF5500",
+  blood_money = "#FF7722",
+  cigar_fire = "#FF9944",
+  regime_orange = "#FFBB66",
+  royal_purple = "#7711BB",
+  cobblepot_purple = "#8822EE",
+  imperial_violet = "#9944EE",
+  underworld_purple = "#AA66DD",
+  iceberg_teal = "#00BBAA",
+  dirty_teal = "#00CCBB",
+  frozen_cash = "#00DDCC",
+  arctic_money = "#33EEFF",
+  term_red = "#FF8833",
+  term_gold = "#FFDD33",
+  term_purple = "#AA55FF",
+  term_teal = "#00DDCC",
+  term_blue = "#4488FF",
+  term_cyan = "#44FFFF",
+  term_green = "#44CC88",
+  term_red_bright = "#FFAA66",
+  term_gold_bright = "#FFEE88",
+  term_purple_bright = "#CC77FF",
+  term_teal_bright = "#00FFEE",
+  term_blue_bright = "#66AAFF",
+  term_cyan_bright = "#88FFFF",
+
+  bg_darkest = "#08090C",
+  fg_lightest = "#FFFF88",
+}
 
 local M = {}
 

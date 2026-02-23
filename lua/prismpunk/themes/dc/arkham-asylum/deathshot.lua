@@ -1,5 +1,30 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.deathshot")
+
+local palette = {
+  void_black = "#06070A",
+  scope_night = "#090C10",
+  lawton_core = "#0E1216",
+  killzone_glow = "#141A1E",
+  gunmetal = "#282E34",
+  barrel_steel = "#343C44",
+  tactical_gray = "#424A54",
+  cold_scope = "#506070",
+  red_dot = "#FF0022",
+  contract_red = "#FF0033",
+  killshot_red = "#FF2244",
+  arterial_red = "#FF4466",
+  contract_white = "#E0E8FF",
+  sterile_white = "#D0D8E8",
+  target_paper = "#C0D0E0",
+  term_red = "#FF3355",
+  term_gray = "#586878",
+  term_white = "#E8F0FF",
+  term_red_bright = "#FF5577",
+  term_gray_bright = "#6888A8",
+
+  bg_darkest = "#06070A",
+  fg_lightest = "#E8F0FF",
+}
 
 local M = {}
 

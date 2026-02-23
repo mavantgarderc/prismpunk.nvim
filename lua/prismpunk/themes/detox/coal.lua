@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.coal")
+
+local palette = {
+  coalVoid = "#000000",
+  coalDark = "#080808",
+  coalDeep = "#101010",
+  coalMid = "#181818",
+  coalLight = "#202020",
+  coalBrighter = "#282828",
+  coalPale = "#303030",
+  charDeep = "#282828",
+  charMid = "#303030",
+  charLine = "#383838",
+  charBright = "#484848",
+  charGlow = "#585858",
+  ashDeep = "#404040",
+  ashDim = "#383838",
+  ashMid = "#505050",
+  ashBright = "#606060",
+  ashLighter = "#707070",
+  ashLightest = "#808080",
+  ashGlow = "#989898",
+  ashShimmer = "#A8A8A8",
+  smokeCore = "#C0C0C0",
+  smokeDim = "#989898",
+  smokeBright = "#E0E0E0",
+  smokePale = "#F0F0F0",
+  dustDeep = "#1A1A1A",
+  dustFaint = "#121212",
+  dustMid = "#242424",
+  dustBright = "#2E2E2E",
+  dustPulse = "#383838",
+  dustGlow = "#424242",
+  dustFlare = "#4E4E4E",
+  sootVoid = "#040404",
+  sootDark = "#0C0C0C",
+  sootDeep = "#141414",
+  sootEcho = "#1C1C1C",
+  emberDeep = "#1C1C1C",
+  emberMid = "#222222",
+  emberLight = "#2A2A2A",
+  coalGhost = "#202020",
+  charShadow = "#2C2C2C",
+  ashFade = "#686868",
+
+  bg_darkest = "#000000",
+  fg_lightest = "#F0F0F0",
+}
 
 local M = {}
 

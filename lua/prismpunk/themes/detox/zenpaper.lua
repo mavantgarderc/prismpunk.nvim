@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.zenpaper")
+
+local palette = {
+  paperVoid = "#0F0A05",
+  paperDark = "#161009",
+  paperDeep = "#1D140B",
+  paperMid = "#241A0F",
+  paperLight = "#2B2013",
+  paperShadow = "#120C06",
+  paperEcho = "#20160C",
+  paperTint = "#281C10",
+  inkDeep = "#332619",
+  inkMid = "#3A2D1E",
+  inkLine = "#453627",
+  inkRidge = "#4B3D2C",
+  inkSoft = "#514432",
+  inkGlow = "#584B38",
+  inkVivid = "#5F5240",
+  scrollDeep = "#504030",
+  scrollMid = "#5C4B3A",
+  scrollBright = "#685643",
+  scrollLighter = "#75614D",
+  scrollLightest = "#82705A",
+  scrollGlow = "#8F7D68",
+  scrollVivid = "#9C8A76",
+  scrollPeak = "#A99784",
+  pensiveCore = "#D8D0C8",
+  pensiveBright = "#E8E0D8",
+  pensivePeak = "#F5EDE5",
+  pensiveDim = "#C0B8B0",
+  pensiveSoft = "#E0D8D0",
+  brushDeep = "#402F25",
+  brushMid = "#4A382B",
+  brushBright = "#554232",
+  brushPulse = "#60493A",
+  brushVivid = "#6B5040",
+  brushGlow = "#765846",
+  brushFlare = "#81604C",
+  zenpaperAccent1 = "#352820",
+  zenpaperAccent2 = "#3D2F26",
+  zenpaperAccent3 = "#45362C",
+  zenpaperAccent4 = "#4D3D32",
+  zenpaperAccent5 = "#554438",
+
+  bg_darkest = "#0F0A05",
+  fg_lightest = "#E8E0D8",
+}
 
 local M = {}
 

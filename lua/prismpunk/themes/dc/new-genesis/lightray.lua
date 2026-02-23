@@ -1,5 +1,43 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.new-genesis.lightray")
+
+local palette = {
+  genesis_void = "#000822",
+  dawn_depth = "#001144",
+  prelight_shadow = "#002266",
+  horizon_core = "#003388",
+  solor_skin = "#3355AA",
+  shining_flesh = "#4477CC",
+  radiant_blue = "#5599FF",
+  lightray_core = "#66BBFF",
+  lightray_white = "#FFFFFF",
+  solar_flare = "#FFFFEE",
+  shining_radiance = "#FFFFDD",
+  hope_brilliance = "#FFFFCC",
+  eternal_sun = "#FFFFBB",
+  photon_cyan = "#00FFFF",
+  lightray_cyan = "#22FFEE",
+  speed_force = "#44FFDD",
+  aurora_glow = "#66FFCC",
+  prism_light = "#88FFBB",
+  sunrise_gold = "#FFDD00",
+  solor_gold = "#FFEE22",
+  joy_dawn = "#FFFF44",
+  radiant_smile = "#FFFF77",
+  victory_sun = "#FFFFAA",
+  term_red = "#FF4466",
+  term_green = "#00FFAA",
+  term_blue = "#00FFFF",
+  term_yellow = "#FFEE00",
+  term_cyan = "#44FFDD",
+  light_trail = "#0088FF",
+  beam_core = "#00AAFF",
+  flash_pulse = "#00CCFF",
+  nova_burst = "#00EEFF",
+  final_shine = "#11FFFF",
+
+  bg_darkest = "#000822",
+  fg_lightest = "#FFFFFF",
+}
 
 local M = {}
 

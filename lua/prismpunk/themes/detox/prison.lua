@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.prison")
+
+local palette = {
+  blockGrey = "#454545",
+  bloodBright = "#774444",
+  bloodDeep = "#552222",
+  bloodDim = "#442020",
+  bloodMid = "#663333",
+  bloodPulse = "#884444",
+  brutalistDark = "#181818",
+  cellWall = "#2E2E2E",
+  chainGrey = "#959595",
+  concreteDeep = "#262626",
+  crimsonMuted = "#995555",
+  focusBright = "#E0E0E0",
+  focusCore = "#C0C0C0",
+  focusDim = "#A8A8A8",
+  focusPale = "#F0F0F0",
+  isolationGrey = "#151515",
+  prisonDark = "#0B0B0B",
+  prisonDeep = "#121212",
+  prisonDim = "#060606",
+  prisonLight = "#222222",
+  prisonMid = "#1A1A1A",
+  prisonVoid = "#000000",
+  redAccent = "#AA5555",
+  restraintMetal = "#6A6A6A",
+  shadowBright = "#707070",
+  shadowDeep = "#404040",
+  shadowLighter = "#808080",
+  shadowLightest = "#909090",
+  shadowLight = "#606060",
+  shadowMid = "#505050",
+  stoneDeep = "#2B2B2B",
+  stoneLine = "#3B3B3B",
+  stoneMid = "#333333",
+  structureGrey = "#5A5A5A",
+  unforgivingGrey = "#4A4A4A",
+  vaultDark = "#1F1F1F",
+  zenithPrison = "#FFFFFF",
+  zoneBrutalist = "#363636",
+  zoneConfinement = "#2A2A2A",
+  zoneIsolation = "#0F0F0F",
+  zymeShadow = "#757575",
+
+  bg_darkest = "#000000",
+  fg_lightest = "#F0F0F0",
+}
 
 local M = {}
 

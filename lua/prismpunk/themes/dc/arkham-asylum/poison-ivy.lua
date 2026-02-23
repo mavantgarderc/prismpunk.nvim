@@ -1,5 +1,31 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.poison-ivy")
+
+local palette = {
+  void_black = "#080C09",
+  greenhouse_night = "#0A110B",
+  isley_core = "#0E1710",
+  vine_glow = "#182D1E",
+  ivy_green = "#00AA44",
+  chlorophyll = "#00CC55",
+  emerald_vine = "#00EE77",
+  spring_leaf = "#44FF99",
+  orchid_magenta = "#FF22AA",
+  venom_pink = "#FF44CC",
+  lethal_petal = "#FF66EE",
+  fertile_soil = "#3A2F22",
+  root_brown = "#554433",
+  bark_brown = "#776644",
+  corpse_pale = "#DDEECC",
+  greenhouse_white = "#EEFFEE",
+  term_green = "#00EE77",
+  term_magenta = "#FF66EE",
+  term_white = "#EEFFEE",
+  term_green_bright = "#66FFAA",
+  term_magenta_bright = "#FF88FF",
+
+  bg_darkest = "#080C09",
+  fg_lightest = "#EEFFEE",
+}
 
 local M = {}
 

@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.petal")
+
+local palette = {
+  blossomFaded = "#604F5E",
+  bloomDeep = "#373235",
+  bloomLine = "#474245",
+  bloomMid = "#3F3A3D",
+  botanicalDust = "#6B657A",
+  driedRose = "#554860",
+  dustBright = "#656070",
+  dustDeep = "#4F4A52",
+  dustLighter = "#707080",
+  dustLightest = "#7B7A90",
+  dustMid = "#5A5560",
+  floralFade = "#756A85",
+  herbariumTone = "#807595",
+  lavenderDust = "#C0B8C8",
+  petalDark = "#171115",
+  petalDeep = "#1F191D",
+  petalDim = "#13100F",
+  petalLight = "#2F292D",
+  petalMid = "#272125",
+  petalVoid = "#0F0A0D",
+  pressBright = "#E8DFE8",
+  pressCore = "#D0C8D0",
+  pressPale = "#F0E8F0",
+  preservedPink = "#B0A8B0",
+  rosebudDry = "#5C5268",
+  stemBright = "#305A42",
+  stemDeep = "#1A3A28",
+  stemDim = "#162F22",
+  stemMid = "#254A35",
+  stemPulse = "#3A6A50",
+  vintageMauve = "#A098A8",
+  witheredPetal = "#4B4550",
+  zenithPetal = "#F8F0F8",
+  zoneHerbarium = "#434046",
+  zonePetal = "#3B3640",
+  zonePollen = "#625868",
+  zonePress = "#332E33",
+  zoneStamen = "#2F5040",
+  zoneVessel = "#52485A",
+  zymeFloral = "#857A8F",
+
+  bg_darkest = "#0F0A0D",
+  fg_lightest = "#F0E8F0",
+}
 
 local M = {}
 

@@ -1,5 +1,30 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.emotional-entities.butcher")
+
+local palette = {
+  goreBlack = "#0C0709",
+  bloodVoid = "#11080C",
+  rageDepth = "#180A10",
+  slaughterCore = "#1F0B14",
+  butcherRed = "#FF0044",
+  arterialFlame = "#FF2255",
+  carnageRed = "#FF3366",
+  rageFire = "#FF5566",
+  hellGlow = "#FF7788",
+  flayedFlesh = "#FF9999",
+  boneSnap = "#FFBBBB",
+  skullWhite = "#FFDDDD",
+  pureBone = "#FFFFFF",
+  demonAsh = "#CC2222",
+  moltenVein = "#FF0000",
+  boilingBlood = "#FF4400",
+  wrathGold = "#FF8800",
+  term_green = "#00FF00",
+  term_blue = "#0088FF",
+  term_cyan = "#00FFFF",
+
+  bg_darkest = "#0C0709",
+  fg_lightest = "#FFDDDD",
+}
 
 local M = {}
 

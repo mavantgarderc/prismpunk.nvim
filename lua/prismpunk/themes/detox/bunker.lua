@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.bunker")
+
+local palette = {
+  bunkerVoid = "#080808",
+  bunkerDark = "#100D0A",
+  bunkerDeep = "#181411",
+  bunkerMid = "#201C17",
+  bunkerLight = "#282420",
+  bunkerBrighter = "#302B26",
+  bunkerPale = "#38342E",
+  earthDeep = "#302C27",
+  earthMid = "#38342F",
+  earthLine = "#403C37",
+  earthBright = "#584F47",
+  earthGlow = "#685E55",
+  dustDeep = "#504945",
+  dustDim = "#45403C",
+  dustMid = "#605854",
+  dustBright = "#706863",
+  dustLighter = "#807873",
+  dustLightest = "#908883",
+  dustGlow = "#A09890",
+  dustShimmer = "#B0A8A0",
+  focusCore = "#C0B8B0",
+  focusDim = "#989088",
+  focusBright = "#D8D0C8",
+  focusPale = "#E8E0D8",
+  clayDeep = "#3A2A1F",
+  clayFaint = "#20150F",
+  clayMid = "#45352A",
+  clayBright = "#504035",
+  clayPulse = "#5A4A40",
+  clayGlow = "#68533E",
+  clayFlare = "#78644D",
+  stoneVoid = "#0C0907",
+  stoneDark = "#14100D",
+  stoneDeep = "#1C1813",
+  stoneEcho = "#241E18",
+  gravelDeep = "#241F1A",
+  gravelMid = "#2C2722",
+  gravelLight = "#34302A",
+  bunkerGhost = "#282320",
+  earthShadow = "#332E28",
+  dustFade = "#706965",
+
+  bg_darkest = "#080808",
+  fg_lightest = "#E8E0D8",
+}
 
 local M = {}
 

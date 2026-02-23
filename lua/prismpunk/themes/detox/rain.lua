@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.rain")
+
+local palette = {
+  asphaltWet = "#505A64",
+  chromeMuted = "#6A7480",
+  cloudburst = "#C0CDD8",
+  dripMetal = "#3E4448",
+  mistCool = "#B0BDC8",
+  petrichorGrey = "#4A5458",
+  puddle = "#364044",
+  raindropClear = "#D8E5F0",
+  reflectBright = "#606A78",
+  reflectDeep = "#4A5054",
+  reflectLighter = "#6B7588",
+  reflectLightest = "#7A8498",
+  reflectMid = "#555F68",
+  rippleSilver = "#758595",
+  sheetMetal = "#858F9F",
+  silverBright = "#333E48",
+  silverDeep = "#1F2A32",
+  silverDim = "#1A252D",
+  silverMid = "#29343D",
+  silverPulse = "#3D4852",
+  slickSurface = "#465058",
+  steelDeep = "#32383C",
+  steelLine = "#42484C",
+  steelMid = "#3A4044",
+  stormDark = "#262E32",
+  streamFlow = "#909FAE",
+  surfaceTension = "#5A646E",
+  waterBright = "#DDE8F5",
+  waterCore = "#C8D5E0",
+  waterPale = "#E8F0F8",
+  wetDark = "#12181C",
+  wetDeep = "#1A2024",
+  wetDim = "#0E1316",
+  wetLight = "#2A3034",
+  wetMid = "#22282C",
+  wetVoid = "#0A0F12",
+  zenithRain = "#F0F8FF",
+  zincCool = "#959FAC",
+  zoneDrizzle = "#2E3438",
+  zoneStorm = "#1E2428",
+  zymeWater = "#808A98",
+
+  bg_darkest = "#0A0F12",
+  fg_lightest = "#E8F0F8",
+}
 
 local M = {}
 

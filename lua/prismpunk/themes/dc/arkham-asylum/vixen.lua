@@ -1,5 +1,33 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.vixen")
+
+local palette = {
+  void_black = "#0A0807",
+  savanna_night = "#0D0B09",
+  mari_core = "#12100C",
+  totem_glow = "#1F1A14",
+  earth_brown = "#8B5E3C",
+  savanna_tan = "#A67C52",
+  tribal_gold = "#C49A6C",
+  sunset_orange = "#FF6B35",
+  totem_green = "#00B366",
+  wild_emerald = "#00CC77",
+  spirit_jade = "#00EE99",
+  primal_lime = "#44FFAA",
+  totem_blue = "#0088FF",
+  spirit_electric = "#44AAFF",
+  animal_surge = "#66CCFF",
+  blood_orange = "#FF4444",
+  claw_red = "#EE5566",
+  term_green = "#00EE99",
+  term_blue = "#44AAFF",
+  term_orange = "#FF6B35",
+  term_white = "#F0E6D2",
+  term_green_bright = "#66FFBB",
+  term_blue_bright = "#66DDFF",
+
+  bg_darkest = "#0A0807",
+  fg_lightest = "#F0E6D2",
+}
 
 local M = {}
 

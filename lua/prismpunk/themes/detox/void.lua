@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.void")
+
+local palette = {
+  voidVoid = "#000000",
+  voidDark = "#080808",
+  voidDeep = "#101010",
+  voidMid = "#181818",
+  voidLight = "#202020",
+  voidShadow = "#040404",
+  voidEcho = "#121212",
+  voidTint = "#1C1C1C",
+  nothingDeep = "#282828",
+  nothingMid = "#303030",
+  nothingLine = "#383838",
+  nothingRidge = "#404040",
+  nothingSoft = "#484848",
+  nothingGlow = "#505050",
+  nothingVivid = "#585858",
+  nullDeep = "#404040",
+  nullMid = "#505050",
+  nullBright = "#606060",
+  nullLighter = "#707070",
+  nullLightest = "#808080",
+  nullGlow = "#909090",
+  nullVivid = "#A0A0A0",
+  nullPeak = "#B0B0B0",
+  singleCore = "#C0C0C0",
+  singleBright = "#E0E0E0",
+  singlePeak = "#F0F0F0",
+  singleDim = "#A8A8A8",
+  singleSoft = "#D0D0D0",
+  focusDeep = "#0F3A3A",
+  focusMid = "#1A4A4A",
+  focusBright = "#2A6060",
+  focusPulse = "#3A7070",
+  focusVivid = "#448080",
+  focusGlow = "#4E9090",
+  focusFlare = "#58A0A0",
+  voidAccent1 = "#143232",
+  voidAccent2 = "#1C3C3C",
+  voidAccent3 = "#244646",
+  voidAccent4 = "#2C5050",
+  voidAccent5 = "#345A5A",
+
+  bg_darkest = "#000000",
+  fg_lightest = "#E0E0E0",
+}
 
 local M = {}
 

@@ -1,5 +1,40 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.injustice-league.killer-frost")
+
+local palette = {
+  void_black = "#0A0E14",
+  cryo_void = "#0C141F",
+  frost_core = "#0F1D2E",
+  ice_glow = "#142840",
+  corpse_pale = "#CCDDFF",
+  frost_skin = "#DDEEFF",
+  glacial_white = "#F0F8FF",
+  dead_ice = "#AACCFF",
+  cryo_blue = "#0088FF",
+  killer_blue = "#0099FF",
+  frostfire_blue = "#00BBFF",
+  absolute_cryo = "#00DDFF",
+  neon_ice = "#00FFFF",
+  frozen_lips = "#BB2255",
+  blood_ice = "#DD3366",
+  murder_red = "#FF4477",
+  frostbite_pink = "#FF6699",
+  lethal_white = "#E0F8FF",
+  crystal_shard = "#CCFFFF",
+  blizzard_white = "#FFFFFF",
+  term_blue = "#00BBFF",
+  term_cyan = "#00FFFF",
+  term_red = "#FF4477",
+  term_white = "#E0F8FF",
+  term_purple = "#AA77FF",
+  term_magenta = "#FF66AA",
+  term_blue_bright = "#00DDFF",
+  term_cyan_bright = "#88FFFF",
+  term_red_bright = "#FF7799",
+  term_white_bright = "#FFFFFF",
+
+  bg_darkest = "#0A0E14",
+  fg_lightest = "#FFFFFF",
+}
 
 local M = {}
 

@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.ink")
+
+local palette = {
+  amberDim = "#4F4428",
+  archiveDust = "#353328",
+  fadeBleak = "#454340",
+  fadeBright = "#606460",
+  fadeDeep = "#4A4842",
+  fadeLighter = "#6B7075",
+  fadeLightest = "#7A7F85",
+  fadeMid = "#555350",
+  fadeMuted = "#5A5855",
+  folioDark = "#2E2C24",
+  goldBright = "#504530",
+  goldDeep = "#3A3018",
+  goldDim = "#352A1A",
+  goldMid = "#453A24",
+  goldPulse = "#5A5038",
+  inkDark = "#12100A",
+  inkDeep = "#1A1810",
+  inkLight = "#2A281F",
+  inkMid = "#221F17",
+  inkVoid = "#0A0805",
+  leatherWorn = "#4A4038",
+  manuscriptFade = "#65605A",
+  ochreSubtle = "#554A38",
+  pageYellow = "#3E3C30",
+  parchDeep = "#32302A",
+  parchLine = "#42403A",
+  parchMid = "#3A3832",
+  quillGrey = "#70756A",
+  scrollBright = "#E8DFD0",
+  scrollCore = "#D0C8C0",
+  scrollPale = "#C0B8B0",
+  sealWax = "#5F4F40",
+  sepiaDeep = "#302820",
+  sepiaMid = "#3F362E",
+  tomeEdge = "#857F75",
+  velvetDark = "#1F1D15",
+  vellumSoft = "#F0E8D8",
+  vintageBeige = "#B0A898",
+  waxSeal = "#655340",
+  weatheredCream = "#A0988A",
+  zeitgeistTan = "#8A8270",
+
+  bg_darkest = "#0A0805",
+  fg_lightest = "#E8DFD0",
+}
 
 local M = {}
 

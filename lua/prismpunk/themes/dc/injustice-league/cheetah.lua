@@ -1,5 +1,46 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.injustice-league.cheetah")
+
+local palette = {
+  void_black = "#0C0A05",
+  savanna_night = "#111006",
+  predator_core = "#181E0A",
+  moonlit_grass = "#1F2B10",
+  golden_fur = "#FFDD77",
+  cheetah_gold = "#FFCC44",
+  sunlit_spots = "#FFBB22",
+  amber_glow = "#FFAA00",
+  predator_gold = "#EE9900",
+  urzkartaga_green = "#228844",
+  jungle_curse = "#33AA55",
+  emerald_eyes = "#44CC66",
+  venom_vines = "#55EE77",
+  fresh_blood = "#CC1122",
+  claw_red = "#FF2233",
+  hunt_rage = "#FF4455",
+  dried_blood = "#880011",
+  cheetah_spots = "#332211",
+  shadow_fur = "#554433",
+  midnight_spots = "#221A00",
+  moon_dust = "#BBCC99",
+  savanna_teal = "#669977",
+  predator_teal = "#448866",
+  term_red = "#FF2233",
+  term_green = "#44CC66",
+  term_yellow = "#FFCC44",
+  term_blue = "#4488CC",
+  term_purple = "#AA44AA",
+  term_cyan = "#55BBAA",
+  term_magenta = "#FF5588",
+  term_red_bright = "#FF6666",
+  term_green_bright = "#66EE88",
+  term_yellow_bright = "#FFDD66",
+  term_blue_bright = "#66AAFF",
+  term_purple_bright = "#CC66CC",
+  term_cyan_bright = "#77DDDD",
+
+  bg_darkest = "#0C0A05",
+  fg_lightest = "#FFDD66",
+}
 
 local M = {}
 

@@ -1,5 +1,36 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.super-family.jonathan-kent")
+
+local palette = {
+  void_black = "#0A0E1A",
+  kent_night = "#0D1322",
+  farm_core = "#121A2E",
+  sunrise_glow = "#182540",
+  superboy_blue = "#0077FF",
+  jon_blue = "#0088FF",
+  hope_sky = "#0099FF",
+  tomorrow_blue = "#44BBFF",
+  kent_red = "#DD2233",
+  superboy_red = "#EE3344",
+  farm_barn_red = "#FF4455",
+  heart_red = "#FF6677",
+  sunrise_gold = "#FFBB00",
+  jon_gold = "#FFCC22",
+  wheat_field = "#FFDD44",
+  tomorrow_gold = "#FFEE66",
+  jon_skin = "#FFEEEE",
+  smallville_cream = "#FFDDDD",
+  morning_light = "#FFEEFF",
+  term_blue = "#0088FF",
+  term_red = "#EE3344",
+  term_gold = "#FFCC22",
+  term_cream = "#FFDDDD",
+  term_blue_bright = "#44BBFF",
+  term_red_bright = "#FF6677",
+  term_gold_bright = "#FFEE66",
+
+  bg_darkest = "#0A0E1A",
+  fg_lightest = "#FFEEFF",
+}
 
 local M = {}
 

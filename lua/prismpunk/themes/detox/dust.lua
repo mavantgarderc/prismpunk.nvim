@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.dust")
+
+local palette = {
+  dustVoid = "#0F0A05",
+  dustDark = "#17120A",
+  dustDeep = "#1F1A0F",
+  dustMid = "#272015",
+  dustLight = "#2F281A",
+  dustBrighter = "#372F20",
+  dustPale = "#3F3728",
+  aridDeep = "#373020",
+  aridMid = "#3F3828",
+  aridLine = "#47402F",
+  aridBright = "#574F3E",
+  aridGlow = "#675F4E",
+  ocherDeepDeep = "#4F4838",
+  ocherDeepDim = "#453F30",
+  ocherDeepMid = "#5A5245",
+  ocherDeepBright = "#656055",
+  ocherDeepLighter = "#707065",
+  ocherDeepLightest = "#7B7B75",
+  ocherDeepGlow = "#8B8B85",
+  ocherDeepShimmer = "#9B9B95",
+  dustyCore = "#D0C8C0",
+  dustyDim = "#A8A098",
+  dustyBright = "#E8DFD5",
+  dustyPale = "#F5EDE0",
+  shadowDeep = "#1A2A32",
+  shadowFaint = "#0F1A20",
+  shadowMid = "#24353E",
+  shadowBright = "#2E4048",
+  shadowPulse = "#385056",
+  shadowGlow = "#486068",
+  shadowFlare = "#587078",
+  sandVoid = "#13100A",
+  sandDark = "#1B1810",
+  sandDeep = "#232016",
+  sandEcho = "#2B281D",
+  siroccoDeep = "#2F2820",
+  siroccoMid = "#373028",
+  siroccoLight = "#3F3830",
+  dustGhost = "#2F2718",
+  aridShadow = "#3B3320",
+  ocherDeepFade = "#605B50",
+
+  bg_darkest = "#0F0A05",
+  fg_lightest = "#F5EDE0",
+}
 
 local M = {}
 

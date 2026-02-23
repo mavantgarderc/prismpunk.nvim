@@ -1,5 +1,47 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.kanagawa.paper-eclipse")
+
+local palette = {
+  sumiInk0 = "#0F0E14",
+  sumiInk1 = "#191622",
+  sumiInk2 = "#242233",
+  sumiInk3 = "#2F2C44",
+  sumiInk4 = "#5A566E",
+  sumiInkShadow = "#0B0A10",
+  sumiInkEcho = "#1C1B28",
+  sumiInkTint = "#28263A",
+  fujiWhite = "#E0DCCF",
+  oldWhite = "#CFC7B7",
+  softGray = "#73716E",
+  autumnRed = "#C74C3C",
+  autumnGreen = "#6B8750",
+  autumnYellow = "#E6B64A",
+  waveBlue1 = "#2A4B6F",
+  waveAqua1 = "#5F9EA0",
+  springViolet1 = "#9B7ECF",
+  springViolet2 = "#A88ED1",
+  divineGold = "#FFD96B",
+  twilightGold = "#C9A55B",
+  emberRed = "#E94E3D",
+  heroicCyan = "#7FB4CA",
+  celestialBlue = "#4A6B9C",
+  moonGlow = "#B8A8D8",
+  eclipsePurple = "#6B5A8E",
+  eclipseGlow = "#D4C4F0",
+  eclipseVivid = "#E0D4FF",
+  eclipseFlare = "#ECE0FF",
+  eclipseAccent1 = "#382E48",
+  eclipseAccent2 = "#403654",
+  eclipseAccent3 = "#483D60",
+  eclipseAccent4 = "#50446C",
+  eclipseAccent5 = "#584B78",
+  winterYellow = "#4F4530",
+  softAmber = "#F0D090",
+  dawnCoral = "#FFB380",
+  sacredTeal = "#5FA8A8",
+
+  bg_darkest = "#0B0A10",
+  fg_lightest = "#E0DCCF",
+}
 
 local M = {}
 

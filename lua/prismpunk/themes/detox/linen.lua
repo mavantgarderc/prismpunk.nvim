@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.linen")
+
+local palette = {
+  beigeWarm = "#A8A098",
+  burlapRough = "#575250",
+  canvasDim = "#4A4540",
+  clothSoft = "#989088",
+  cottonPale = "#C0B8B0",
+  creamNatural = "#B8B0A8",
+  ecruPure = "#D8D0C8",
+  fabricBright = "#E8DFD5",
+  fabricCore = "#D0C8C0",
+  fabricPale = "#C8C0B8",
+  hempRaw = "#605A55",
+  linenDark = "#17120F",
+  linenDeep = "#1F1A15",
+  linenDim = "#130E0C",
+  linenLight = "#2F2A25",
+  linenMid = "#27221D",
+  linenVoid = "#0F0A08",
+  muslinLight = "#E0D8D0",
+  oatmealSoft = "#B0A8A0",
+  shadowBright = "#2E2C2A",
+  shadowDeep = "#1A1818",
+  shadowDim = "#1E1C1A",
+  shadowMid = "#242222",
+  shadowPulse = "#383632",
+  silkSheen = "#F0E8E0",
+  slateDust = "#524D48",
+  textureFine = "#888078",
+  threadBright = "#656060",
+  threadDeep = "#4F4A45",
+  threadDim = "#555048",
+  threadLighter = "#707075",
+  threadLightest = "#7B7A85",
+  threadMid = "#5A5550",
+  twillWarm = "#6A6560",
+  weaveDeep = "#37322D",
+  weaveLine = "#47423D",
+  weaveMid = "#3F3A35",
+  woolFelt = "#908880",
+  wornFabric = "#787068",
+  yarnSpun = "#706A65",
+  zephyrLinen = "#F8F0E8",
+
+  bg_darkest = "#0F0A08",
+  fg_lightest = "#E8DFD5",
+}
 
 local M = {}
 

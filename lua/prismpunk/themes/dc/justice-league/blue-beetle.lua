@@ -1,5 +1,34 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.justice-league.blue-beetle")
+
+local palette = {
+  bg_darkest = "#030814",
+  bg_darker = "#071022",
+  bg_dark = "#101724",
+  bg_mid = "#14202A",
+  bg_light = "#23303A",
+  bg_lighter = "#2D3D4A",
+  bg_lightest = "#384A5A",
+  fg_lightest = "#DFF7F7",
+  fg_light = "#A6DFFF",
+  fg_mid = "#9FB7C9",
+  fg_dark = "#53656F",
+  bg_alt1 = "#0A1420",
+  bg_alt2 = "#050A14",
+  bg_alt3 = "#0F1A28",
+  bg_alt4 = "#040810",
+  scarabCore = "#2B5FBF",
+  scarabGlow = "#33FFFF",
+  armorBlue = "#1866CC",
+  techTeal = "#66E6D9",
+  scarabCyan = "#33FFFF",
+  reachLime = "#99FFCC",
+  alienGold = "#FFD966",
+  cosmicPink = "#FF99CC",
+  techSilver = "#A6DFFF",
+  khajidaRage = "#FF6666",
+  warningOrange = "#FFC870",
+  infoBlue = "#61AFEF",
+}
 
 local M = {}
 

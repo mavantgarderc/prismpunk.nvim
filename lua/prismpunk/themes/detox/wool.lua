@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.wool")
+
+local palette = {
+  woolVoid = "#0A0A08",
+  woolDark = "#121210",
+  woolDeep = "#1A1A18",
+  woolMid = "#222220",
+  woolLight = "#2A2A28",
+  woolShadow = "#0E0E0C",
+  woolEcho = "#1E1E1C",
+  woolTint = "#262624",
+  fiberDeep = "#323230",
+  fiberMid = "#3A3A38",
+  fiberLine = "#424240",
+  fiberRidge = "#484846",
+  fiberSoft = "#50504E",
+  fiberGlow = "#585856",
+  fiberVivid = "#62625F",
+  yarnDeep = "#4A4A48",
+  yarnMid = "#555555",
+  yarnBright = "#606060",
+  yarnLighter = "#707070",
+  yarnLightest = "#808080",
+  yarnGlow = "#909090",
+  yarnVivid = "#A0A0A0",
+  yarnPeak = "#B0B0B0",
+  woolCore = "#D0D0C8",
+  woolBright = "#E8E8E0",
+  woolPeak = "#F5F5F0",
+  woolDim = "#B8B8B0",
+  woolSoft = "#D8D8D0",
+  dyeDeep = "#1A3028",
+  dyeMid = "#253A35",
+  dyeBright = "#304540",
+  dyePulse = "#3A5550",
+  dyeVivid = "#44605A",
+  dyeGlow = "#4E6B65",
+  dyeFlare = "#587670",
+  woolAccent1 = "#243834",
+  woolAccent2 = "#2C403C",
+  woolAccent3 = "#344844",
+  woolAccent4 = "#3C504C",
+  woolAccent5 = "#445854",
+
+  bg_darkest = "#0A0A08",
+  fg_lightest = "#E8E8E0",
+}
 
 local M = {}
 

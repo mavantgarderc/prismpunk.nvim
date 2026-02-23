@@ -1,5 +1,36 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.justice-league.booster-gold")
+
+local palette = {
+  bg_darkest = "#050712",
+  bg_darker = "#0A0D14",
+  bg_dark = "#0E1420",
+  bg_mid = "#162437",
+  bg_light = "#2F3840",
+  bg_lighter = "#3D4A57",
+  bg_lightest = "#4A5A6A",
+  fg_lightest = "#FFF7E6",
+  fg_light = "#EEF7FF",
+  fg_mid = "#B7C5D6",
+  fg_dark = "#5A6169",
+  bg_alt1 = "#0F1521",
+  bg_alt2 = "#070A10",
+  bg_alt3 = "#12192A",
+  bg_alt4 = "#060912",
+  boostNavy = "#0F3A6B",
+  circuitBlue = "#1A4F8C",
+  pulseBlue = "#2F6FBF",
+  ionBlue = "#3B8EFF",
+  neonCyan = "#66FFFF",
+  showGold = "#FFD700",
+  sponsorSilver = "#D9D9E6",
+  gloryWhite = "#FFF7E6",
+  fameAmber = "#FFCC66",
+  egoMagenta = "#FF99CC",
+  timeGreen = "#66FF99",
+  skeetsDanger = "#FF6666",
+  ripHunterWarn = "#FFC870",
+  futureInfo = "#61AFEF",
+}
 
 local M = {}
 

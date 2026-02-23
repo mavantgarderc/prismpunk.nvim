@@ -1,5 +1,37 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.nightwing")
+
+local palette = {
+  bg_darkest = "#050608",
+  bg_darker = "#0A0B0F",
+  bg_dark = "#111217",
+  bg_mid = "#1A1A22",
+  bg_light = "#3A3F4C",
+  bg_lighter = "#565C64",
+  bg_lightest = "#6A7178",
+  fg_lightest = "#E8ECF0",
+  fg_light = "#C8CCD4",
+  fg_mid = "#ABB2BF",
+  fg_dark = "#6A7178",
+  bg_alt1 = "#0F1015",
+  bg_alt2 = "#070809",
+  bg_alt3 = "#14151D",
+  bg_alt4 = "#080A0D",
+  escrimalBlue = "#00AAFF",
+  nightwingBlue = "#1E90FF",
+  bludhavenblue = "#4169E1",
+  acrobatCyan = "#00DDFF",
+  flyingGrayson = "#56B6C2",
+  suitBlack = "#0E0E0E",
+  graysonGray = "#1A1A1A",
+  titanSteel = "#BFA334",
+  wingdingGold = "#D4AF37",
+  robinGreen = "#00DDAA",
+  dickGraysonTeal = "#00C199",
+  haleyCircus = "#98C379",
+  batfamilyRed = "#E06C75",
+  gothamOrange = "#D19A66",
+  bruceWayneBlue = "#61AFEF",
+}
 
 local M = {}
 

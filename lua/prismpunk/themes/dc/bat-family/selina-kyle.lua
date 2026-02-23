@@ -1,5 +1,43 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.selina-kyle")
+
+local palette = {
+  bg_darkest = "#0A0508",
+  bg_darker = "#100A0E",
+  bg_dark = "#1A0F14",
+  bg_mid = "#24181F",
+  bg_light = "#3D2D35",
+  bg_lighter = "#56424D",
+  bg_lightest = "#6F5764",
+  fg_lightest = "#F5E8F1",
+  fg_light = "#E8D0DF",
+  fg_mid = "#C9A8BC",
+  fg_dark = "#9A7588",
+  bg_alt1 = "#150C11",
+  bg_alt2 = "#0D070A",
+  bg_alt3 = "#1D101A",
+  bg_alt4 = "#0E080B",
+  selinaBlack = "#1A0F14",
+  laceDark = "#2D1F26",
+  velvetBlack = "#241A20",
+  midnightSilk = "#1F151A",
+  femmeRed = "#DC143C",
+  lipstickRed = "#E63946",
+  passionRed = "#FF1744",
+  roseRed = "#C41E3A",
+  diamondWhite = "#F8F8FF",
+  pearlSheen = "#FAF0E6",
+  jewelWhite = "#FFFFF0",
+  silverShine = "#E8E8F0",
+  seductionPink = "#FF69B4",
+  blushPink = "#FFB6C1",
+  rougePink = "#FF1493",
+  mysteryMagenta = "#DA70D6",
+  emeraldHeist = "#50C878",
+  sapphireBlue = "#0F52BA",
+  amethystPurple = "#9966CC",
+  champagneGold = "#F7E7CE",
+  luxuryGold = "#FFD700",
+}
 
 local M = {}
 

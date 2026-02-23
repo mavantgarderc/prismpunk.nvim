@@ -1,5 +1,40 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.super-family.composite-superman")
+
+local palette = {
+  void_black = "#0A0C12",
+  composite_void = "#0D1018",
+  split_core = "#12151F",
+  fracture_glow = "#181C28",
+  hope_blue = "#0088FF",
+  composite_blue = "#0099FF",
+  kryptonian_sky = "#00AAFF",
+  solar_blue = "#44BBFF",
+  hope_red = "#DD2233",
+  cape_red = "#EE3344",
+  house_of_el = "#FF4455",
+  shield_gold = "#FFAA00",
+  solar_gold = "#FFBB22",
+  kryptonian_sun = "#FFCC44",
+  gotham_night = "#0A0F1A",
+  bat_purple = "#6600CC",
+  composite_purple = "#7700DD",
+  fear_violet = "#8800EE",
+  dark_knight = "#9933FF",
+  bat_teal = "#00CCAA",
+  utility_teal = "#00DDBB",
+  cape_shadow = "#00EECC",
+  term_blue = "#0099FF",
+  term_red = "#EE3344",
+  term_purple = "#7700DD",
+  term_gold = "#FFBB22",
+  term_teal = "#00DDBB",
+  term_blue_bright = "#44BBFF",
+  term_red_bright = "#FF6677",
+  term_purple_bright = "#AA33FF",
+
+  bg_darkest = "#0A0C12",
+  fg_lightest = "#44BBFF",
+}
 
 local M = {}
 

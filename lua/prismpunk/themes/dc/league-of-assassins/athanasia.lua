@@ -1,5 +1,36 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.league-of-assassins.athanasia")
+
+local palette = {
+  void_black = "#090C0A",
+  lazarus_void = "#0C1110",
+  demon_core = "#10161A",
+  pit_glow = "#162022",
+  obsidian_armor = "#111118",
+  midnight_scales = "#181822",
+  death_mask = "#22222A",
+  lazarus_green = "#00CC44",
+  athanasia_jade = "#00DD55",
+  pit_venom = "#00EE66",
+  immortal_emerald = "#44FF88",
+  alghul_red = "#CC2233",
+  demon_blood = "#DD3344",
+  heir_crimson = "#EE5566",
+  lazarus_rage = "#FF7788",
+  death_mask_white = "#DDFFFF",
+  bone_pale = "#CCEEFF",
+  ghost_mask = "#AADDFF",
+  term_green = "#00DD55",
+  term_red = "#DD3344",
+  term_white = "#DDFFFF",
+  term_crimson = "#EE5566",
+  term_jade = "#00EE66",
+  term_green_bright = "#88FFAA",
+  term_red_bright = "#FF7788",
+  term_white_bright = "#FFFFFF",
+
+  bg_darkest = "#090C0A",
+  fg_lightest = "#FFFFFF",
+}
 
 local M = {}
 

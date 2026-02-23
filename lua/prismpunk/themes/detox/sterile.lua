@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.sterile")
+
+local palette = {
+  sterileVoid = "#050505",
+  sterileDark = "#0D0D0D",
+  sterileDeep = "#141414",
+  sterileMid = "#1C1C1C",
+  sterileLight = "#242424",
+  sterileShadow = "#090909",
+  sterileEcho = "#181818",
+  sterileTint = "#202020",
+  asepticDeep = "#2C2C2C",
+  asepticMid = "#343434",
+  asepticLine = "#444444",
+  asepticRidge = "#4A4A4A",
+  asepticSoft = "#505050",
+  asepticGlow = "#585858",
+  asepticVivid = "#606060",
+  nullDeep = "#555555",
+  nullMid = "#666666",
+  nullBright = "#808080",
+  nullLighter = "#999999",
+  nullLightest = "#AAAAAA",
+  nullGlow = "#B8B8B8",
+  nullVivid = "#C4C4C4",
+  nullPeak = "#D0D0D0",
+  clinicalCore = "#CCCCCC",
+  clinicalBright = "#E8E8E8",
+  clinicalPeak = "#F8F8F8",
+  clinicalDim = "#B0B0B0",
+  clinicalSoft = "#D8D8D8",
+  warningDeep = "#331111",
+  warningMid = "#441111",
+  warningBright = "#551111",
+  warningPulse = "#661111",
+  warningVivid = "#772222",
+  warningGlow = "#883333",
+  warningFlare = "#994444",
+  sterileAccent1 = "#3A1818",
+  sterileAccent2 = "#441E1E",
+  sterileAccent3 = "#4E2424",
+  sterileAccent4 = "#582A2A",
+  sterileAccent5 = "#623030",
+
+  bg_darkest = "#050505",
+  fg_lightest = "#E8E8E8",
+}
 
 local M = {}
 

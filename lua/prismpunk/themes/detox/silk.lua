@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.silk")
+
+local palette = {
+  silkVoid = "#0A0A0F",
+  silkDark = "#121218",
+  silkDeep = "#1A1A22",
+  silkMid = "#22222A",
+  silkLight = "#2A2A32",
+  silkShadow = "#0E0E14",
+  silkEcho = "#1E1E28",
+  silkTint = "#262630",
+  threadDeep = "#32323A",
+  threadMid = "#3A3A42",
+  threadLine = "#42424A",
+  threadRidge = "#484852",
+  threadSoft = "#504E5A",
+  threadGlow = "#5A5868",
+  threadVivid = "#646278",
+  weaveDeep = "#4A4A52",
+  weaveMid = "#555560",
+  weaveBright = "#606070",
+  weaveLighter = "#6B7080",
+  weaveLightest = "#7A8090",
+  weaveGlow = "#8890A0",
+  weaveVivid = "#94A0B0",
+  weavePeak = "#A0B0C0",
+  fabricCore = "#D0C8D8",
+  fabricBright = "#E8DCE8",
+  fabricPeak = "#F5E8F5",
+  fabricDim = "#B8B0C0",
+  fabricSoft = "#C8C0D0",
+  stitchDeep = "#3A3018",
+  stitchMid = "#453A24",
+  stitchBright = "#504530",
+  stitchPulse = "#5A5038",
+  stitchVivid = "#645A40",
+  stitchGlow = "#6E6448",
+  stitchGold = "#786E50",
+  silkAccent1 = "#483C2A",
+  silkAccent2 = "#524432",
+  silkAccent3 = "#5C4C3A",
+  silkAccent4 = "#665442",
+  silkAccent5 = "#705C4A",
+
+  bg_darkest = "#0A0A0F",
+  fg_lightest = "#E8DCE8",
+}
 
 local M = {}
 

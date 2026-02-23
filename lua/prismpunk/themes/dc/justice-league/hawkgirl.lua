@@ -1,5 +1,59 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.justice-league.hawkgirl")
+
+local palette = {
+  bg_darkest = "#070507",
+  bg_darker = "#0E0B0B",
+  bg_dark = "#131216",
+  bg_mid = "#19171B",
+  bg_light = "#1F1D21",
+  bg_lighter = "#252327",
+  bg_lightest = "#2B292D",
+
+  fg_lightest = "#EFE7E6",
+  fg_light = "#C5BBB8",
+  fg_mid = "#B0A39A",
+  fg_dark = "#7A7370",
+
+  bg_alt1 = "#100E10",
+  bg_alt2 = "#050305",
+  bg_alt3 = "#1C1A1E",
+  bg_alt4 = "#0A0809",
+
+  voidCore = "#B06F2D",
+  voidGlow = "#D48842",
+  voidBright = "#E89F58",
+  voidDeep = "#8A5724",
+  voidDark = "#5A3A18",
+
+  corruptedRage = "#D94F4F",
+  corruptedAvarice = "#FFD966",
+  corruptedFear = "#FFC870",
+  corruptedWill = "#2F8A5A",
+  corruptedHope = "#61AFEF",
+  corruptedLove = "#C94A4A",
+  corruptedCompassion = "#66D9CC",
+
+  bronze = "#B06F2D",
+  wingGreen = "#2F8A5A",
+  flameRed = "#C94A4A",
+  leather = "#312A24",
+  feather = "#FFD9B3",
+  accentTeal = "#66D9CC",
+  stoneGray = "#B0A39A",
+  shadowGray = "#332F30",
+  dimGray = "#5A5354",
+  lightGray = "#EFE7E6",
+  accentGold = "#FFD966",
+  dangerRed = "#D94F4F",
+  warningOrange = "#FFC870",
+  infoBlue = "#61AFEF",
+
+  nthMetal = "#D48842",
+  maceStrike = "#E85C5C",
+  wingSpan = "#3FA96F",
+  thanagar = "#B07A3A",
+  warriorSpirit = "#C94A4A",
+}
 
 local M = {}
 

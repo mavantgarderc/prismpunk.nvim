@@ -1,5 +1,40 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.red-robin")
+
+local palette = {
+  bg_darkest = "#060609",
+  bg_darker = "#0B0B0E",
+  bg_dark = "#121218",
+  bg_mid = "#1A1A23",
+  bg_light = "#3A3F4C",
+  bg_lighter = "#565C64",
+  bg_lightest = "#6A7178",
+  fg_lightest = "#E8ECF0",
+  fg_light = "#C8CCD4",
+  fg_mid = "#ABB2BF",
+  fg_dark = "#6A7178",
+  bg_alt1 = "#0F0F14",
+  bg_alt2 = "#080809",
+  bg_alt3 = "#14151D",
+  bg_alt4 = "#080A0D",
+  timRed = "#FF0000",
+  redRobinRed = "#E63946",
+  detectiveRed = "#DC143C",
+  drakeRed = "#C41E3A",
+  titanRed = "#B71C1C",
+  boStaff = "#8B4513",
+  wingSteel = "#D4AF37",
+  capeBlack = "#0E0E0E",
+  drakeGray = "#1A1A1A",
+  youngJustice = "#61AFEF",
+  teenTitans = "#00DDAA",
+  wayneBlue = "#4169E1",
+  gothamTeal = "#56B6C2",
+  detectiveGold = "#FFD700",
+  clueMasterYellow = "#FFEB3B",
+  evidenceAmber = "#FFA726",
+  bruceGray = "#98C379",
+  raAlGhul = "#00FF41",
+}
 
 local M = {}
 

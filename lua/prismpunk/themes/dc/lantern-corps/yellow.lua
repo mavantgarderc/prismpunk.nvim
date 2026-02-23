@@ -1,5 +1,48 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.lantern-corps.yellow")
+
+local palette = {
+  bg_darkest = "#1A1A00",
+  bg_darker = "#2A2A00",
+  bg_dark = "#3A3A00",
+  bg_mid = "#4A4A00",
+  bg_light = "#5A5A00",
+  bg_lighter = "#6A6A00",
+  bg_lightest = "#7A7A00",
+
+  fg_lightest = "#FFFFD8",
+  fg_light = "#E8E8B8",
+  fg_mid = "#B8B888",
+  fg_dark = "#888868",
+
+  bg_alt1 = "#222200",
+  bg_alt2 = "#121200",
+  bg_alt3 = "#323200",
+  bg_alt4 = "#0D0D00",
+
+  voidCore = "#CCCC00",
+  voidGlow = "#E6E600",
+  voidBright = "#FFFF00",
+  voidDeep = "#A3A300",
+  voidDark = "#7A7A00",
+
+  corruptedRage = "#CCAA66",
+  corruptedAvarice = "#FFD700",
+  corruptedFear = "#FFDB58",
+  corruptedWill = "#AAAA66",
+  corruptedHope = "#999966",
+  corruptedLove = "#DDDD88",
+  corruptedCompassion = "#CCCC99",
+
+  amberTerror = "#FFBF00",
+  goldDread = "#FFD700",
+  mustardFear = "#FFDB58",
+  citrinePanic = "#E4D00A",
+  saffronHorror = "#F4C430",
+  bronzeFright = "#CD7F32",
+  ochreAnxiety = "#CC7722",
+  sulfurShock = "#FFFF33",
+  topazDread = "#FFC87C",
+}
 
 local M = {}
 

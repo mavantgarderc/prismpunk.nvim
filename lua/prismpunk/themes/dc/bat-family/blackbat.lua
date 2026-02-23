@@ -1,5 +1,45 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.blackbat")
+
+local palette = {
+  void_black = "#0A0A0F",
+  alley_black = "#0F0F16",
+  orphan_shadow = "#171722",
+  lethal_core = "#21212E",
+  ghost_skin = "#4B4455",
+  bruised_flesh = "#5D5570",
+  silent_purple = "#7A6999",
+  orphan_royal = "#9988CC",
+  arterial_red = "#CC0033",
+  fresh_blood = "#EE1144",
+  dried_blood = "#AA2233",
+  wound_glow = "#FF4466",
+  ghost_white = "#E8E8FF",
+  moonlit_blade = "#CCCCFF",
+  silent_gaze = "#AAAAFF",
+  batcloth_gray = "#2D2D44",
+  midnight_cape = "#1A1A2E",
+  stealth_indigo = "#3A3377",
+  fresh_bruise = "#773399",
+  old_bruise = "#554477",
+  healing_bruise = "#665588",
+  hidden_heart = "#FF6699",
+  david_cain_red = "#880022",
+  term_red = "#CC0033",
+  term_green = "#00AA88",
+  term_blue = "#6666FF",
+  term_yellow = "#FFCC99",
+  term_cyan = "#88CCCC",
+  term_magenta = "#CC66CC",
+  term_red_bright = "#FF3366",
+  term_green_bright = "#55CCAA",
+  term_yellow_bright = "#FFDDAA",
+  term_blue_bright = "#9999FF",
+  term_magenta_bright = "#EE88EE",
+  term_cyan_bright = "#AADDDD",
+
+  bg_darkest = "#0A0A0F",
+  fg_lightest = "#E8E8FF",
+}
 
 local M = {}
 

@@ -1,5 +1,45 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.new-genesis.orion")
+
+local palette = {
+  apokolips_void = "#0C0018",
+  firepit_depth = "#18002A",
+  rage_shadow = "#260044",
+  war_core = "#380066",
+  warrior_skin = "#552B66",
+  dog_of_war = "#773388",
+  astro_violet = "#AA44CC",
+  orion_royal = "#CC66FF",
+  darkseid_red = "#FF0033",
+  rage_fire = "#FF2244",
+  war_crimson = "#FF4455",
+  astro_rage = "#FF6677",
+  new_genesis_gold = "#FFAA00",
+  honor_glow = "#FFCC22",
+  astro_gold = "#FFEE44",
+  victory_sun = "#FFFF66",
+  motherbox_fury = "#00CCFF",
+  astro_cyan = "#22DDFF",
+  rage_pulse = "#44EEFF",
+  term_red = "#FF0033",
+  term_green = "#00FF88",
+  term_blue = "#00CCFF",
+  term_yellow = "#FFAA00",
+  term_cyan = "#44EEFF",
+  term_red_bright = "#FF3366",
+  term_green_bright = "#88FFAA",
+  term_yellow_bright = "#FFDD44",
+  term_blue_bright = "#88EEFF",
+  term_magenta_bright = "#FF88FF",
+  term_cyan_bright = "#88FFFF",
+  blood_trail = "#FF0011",
+  battle_scar = "#CC0022",
+  final_rage = "#FF4488",
+  astro_explosion = "#FFFF00",
+  unbreakable_will = "#FF8800",
+
+  bg_darkest = "#0C0018",
+  fg_lightest = "#88FFFF",
+}
 
 local M = {}
 

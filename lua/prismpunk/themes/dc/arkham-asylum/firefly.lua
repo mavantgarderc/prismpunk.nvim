@@ -1,5 +1,33 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.firefly")
+
+local palette = {
+  void_black = "#0A0808",
+  inferno_night = "#0E0B0B",
+  lynns_core = "#141010",
+  flame_glow = "#221818",
+  ignition_orange = "#FF4400",
+  blaze_orange = "#FF5500",
+  inferno_orange = "#FF7700",
+  molten_yellow = "#FFAA00",
+  jetfuel_green = "#00FF88",
+  phosphorus_green = "#22FFAA",
+  toxic_flame = "#44FFCC",
+  charred_black = "#1C1818",
+  ash_gray = "#333030",
+  ember_gray = "#554444",
+  plasma_white = "#FFFFEE",
+  firestorm_white = "#FFEECC",
+  term_orange = "#FF7700",
+  term_green = "#44FFCC",
+  term_yellow = "#FFAA00",
+  term_white = "#FFFFEE",
+  term_orange_bright = "#FF9933",
+  term_green_bright = "#66FFEE",
+  term_yellow_bright = "#FFCC44",
+
+  bg_darkest = "#0A0808",
+  fg_lightest = "#FFFFEE",
+}
 
 local M = {}
 

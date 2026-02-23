@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.iron")
+
+local palette = {
+  anvilDark = "#2A2A2A",
+  boltGrey = "#585858",
+  copperDull = "#554636",
+  factoryFloor = "#323232",
+  forgeDeep = "#2E2E2E",
+  forgeLine = "#3E3E3E",
+  forgeMid = "#363636",
+  girderCool = "#6A6A6A",
+  ironDark = "#101010",
+  ironDeep = "#161616",
+  ironLight = "#262626",
+  ironMid = "#1E1E1E",
+  ironVoid = "#0A0A0A",
+  machineBright = "#D8D8D8",
+  machineCore = "#BEBEBE",
+  machinePale = "#AEAEAE",
+  metalDim = "#121212",
+  oxideBrown = "#604A3E",
+  patinaDark = "#3F3028",
+  rivetSteel = "#5C5C5C",
+  rustBright = "#503C32",
+  rustDeep = "#3A2820",
+  rustDim = "#342418",
+  rustMid = "#45322A",
+  rustPulse = "#5A463A",
+  slagDeep = "#1A1A1A",
+  smeltGrey = "#4A4A4A",
+  steelBright = "#5A5A5A",
+  steelDeep = "#464646",
+  steelDim = "#424242",
+  steelLighter = "#646464",
+  steelLightest = "#6E6E6E",
+  steelMid = "#505050",
+  tarnishWarm = "#4F4230",
+  weldFlash = "#E8E8E8",
+  workshopDust = "#525252",
+  wroughtIron = "#3A3A3A",
+  zincCool = "#767676",
+  zincMuted = "#6C6C6C",
+  zoneIndustrial = "#222222",
+  zoneManufacture = "#181818",
+
+  bg_darkest = "#0A0A0A",
+  fg_lightest = "#D8D8D8",
+}
 
 local M = {}
 

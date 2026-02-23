@@ -1,5 +1,35 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.super-family.superman-classic")
+
+local palette = {
+  void_black = "#0A0E1A",
+  classic_void = "#0D1224",
+  dailyplanet_core = "#121A30",
+  metropolis_glow = "#182540",
+  classic_blue = "#0066FF",
+  superman_blue = "#0077FF",
+  sky_blue = "#0088FF",
+  hero_blue = "#4499FF",
+  classic_red = "#FF1111",
+  cape_red = "#FF2222",
+  shield_red = "#FF3333",
+  metropolis_red = "#FF5555",
+  shield_yellow = "#FFDD00",
+  solar_yellow = "#FFEE00",
+  hope_yellow = "#FFFF22",
+  kryptonian_sun = "#FFFF66",
+  newsprint_white = "#F0F4FF",
+  dailyplanet_cream = "#E0E8FF",
+  term_blue = "#0077FF",
+  term_red = "#FF2222",
+  term_yellow = "#FFEE00",
+  term_cream = "#E0E8FF",
+  term_blue_bright = "#4499FF",
+  term_red_bright = "#FF6666",
+  term_yellow_bright = "#FFFF88",
+
+  bg_darkest = "#0A0E1A",
+  fg_lightest = "#FFFF88",
+}
 
 local M = {}
 

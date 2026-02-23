@@ -1,5 +1,123 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.justice-league.constantine")
+
+local palette = {
+
+  bg_darkest = "#0A0806",
+  bg_darker = "#12100E",
+  bg_dark = "#1A1816",
+  bg_mid = "#22201E",
+  bg_light = "#2A2826",
+  bg_lighter = "#32302E",
+  bg_lightest = "#3A3836",
+
+  fg_lightest = "#F0E8D8",
+  fg_light = "#E0D0B8",
+  fg_mid = "#C0A888",
+  fg_dark = "#A08868",
+
+  bg_alt1 = "#161412",
+  bg_alt2 = "#0D0B09",
+  bg_alt3 = "#1E1C1A",
+  bg_alt4 = "#100E0C",
+
+  cigaretteAmber = "#D8A858",
+  smokeAmber = "#E8B868",
+  nicotineYellow = "#F8C878",
+  ashAmber = "#C89848",
+  tobaccoGold = "#B88838",
+
+  trenchTan = "#B89868",
+  coatBeige = "#C8A878",
+  wornTan = "#D8B888",
+  dirtBeige = "#A88858",
+  stainedTan = "#987848",
+
+  hellfireOrange = "#D87848",
+  brimstoneOrange = "#E88858",
+  demonicOrange = "#F89868",
+  infernalOrange = "#C86838",
+  sulfurOrange = "#B85828",
+
+  bloodRed = "#C85858",
+  ritualRed = "#D86868",
+  darkRed = "#E87878",
+  crimsonBlood = "#B84848",
+  sacrificeRed = "#A83838",
+
+  smokeGray = "#989088",
+  hazeGray = "#A8A098",
+  fogGray = "#B8B0A8",
+  ashGray = "#888078",
+  urbanGray = "#787068",
+
+  damnedPurple = "#887888",
+  soulPurple = "#988898",
+  corruptPurple = "#A898A8",
+  hellPurple = "#786878",
+  devilViolet = "#685868",
+
+  punkGreen = "#788868",
+  streetGreen = "#889878",
+  grimyGreen = "#98A888",
+  urbanGreen = "#687858",
+  workingGreen = "#586848",
+
+  whiskeyAmber = "#C89848",
+  boozeGold = "#D8A858",
+  viceAmber = "#E8B868",
+  drinkGold = "#B88838",
+  alcoholAmber = "#A87828",
+
+  sulfurYellow = "#D8C858",
+  hellYellow = "#E8D868",
+  demonicYellow = "#F8E878",
+  brimstoneYellow = "#C8B848",
+  infernalYellow = "#B8A838",
+
+  londonFog = "#A8A898",
+  britishGray = "#B8B8A8",
+  rainyGray = "#C8C8B8",
+  gloomGray = "#989888",
+  streetFog = "#888878",
+
+  occultBrown = "#988868",
+  earthBrown = "#A89878",
+  ritualBrown = "#B8A888",
+  dirtBrown = "#887858",
+  grimeBrown = "#786848",
+
+  conmanGold = "#C8A848",
+  tricksterGold = "#D8B858",
+  liarGold = "#E8C868",
+  hustleGold = "#B89838",
+  schemeGold = "#A88828",
+
+  demonicRed = "#B85848",
+  devilRed = "#C86858",
+  hellishRed = "#D87868",
+  fiendRed = "#A84838",
+  luciferRed = "#983828",
+
+  nicotineStain = "#C8B878",
+  tobaccoStain = "#D8C888",
+  stainYellow = "#E8D898",
+  smokerStain = "#B8A868",
+  cigaretteBrown = "#A89858",
+
+  hellblazerYellow = "#D8B858",
+  comicYellow = "#E8C868",
+  iconicAmber = "#F8D878",
+  classicGold = "#C8A848",
+  verticalYellow = "#B89838",
+
+  hellBacklash = "#C85858",
+  demonicThreat = "#B84848",
+  soulDanger = "#A83838",
+
+  conSuccess = "#98A888",
+  trickComplete = "#A8B898",
+  hustleWin = "#B8C8A8",
+}
 
 local M = {}
 

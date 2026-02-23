@@ -1,5 +1,48 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.injustice-league.killercroc")
+
+local palette = {
+  sewer_black = "#0A0C0B",
+  wet_stone = "#0F1412",
+  slime_depth = "#121918",
+  swamp_core = "#16201D",
+  croc_green = "#1A3322",
+  reptilian = "#2D4A33",
+  toxic_scale = "#3D6644",
+  swamp_olive = "#558866",
+  toxic_sludge = "#44AA22",
+  bile_green = "#66CC33",
+  venom_lime = "#88FF55",
+  acid_glow = "#AAFF77",
+  fresh_blood = "#AA2211",
+  dried_blood = "#771100",
+  meat_red = "#CC3322",
+  gore_red = "#FF4433",
+  rust_dark = "#663322",
+  rust = "#884433",
+  chain_iron = "#AA6655",
+  sewer_rust = "#CC8866",
+  croc_yellow = "#FFDD66",
+  tooth_bone = "#FFEEAA",
+  predator_eye = "#FFFF88",
+  sewer_teal = "#226655",
+  mold_cyan = "#33AA99",
+  stagnant_water = "#448877",
+  term_red = "#FF4433",
+  term_green = "#66CC33",
+  term_blue = "#448877",
+  term_yellow = "#FFDD66",
+  term_cyan = "#33AA99",
+  term_magenta = "#CC6677",
+  term_red_bright = "#FF7766",
+  term_green_bright = "#88EE55",
+  term_yellow_bright = "#FFEE99",
+  term_blue_bright = "#66CCBB",
+  term_magenta_bright = "#EE88AA",
+  term_cyan_bright = "#55CCCC",
+
+  bg_darkest = "#0A0C0B",
+  fg_lightest = "#FFEE99",
+}
 
 local M = {}
 

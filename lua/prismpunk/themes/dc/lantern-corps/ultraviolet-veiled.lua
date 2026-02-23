@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.lantern-corps.ultraviolet-veiled")
+
+local palette = {
+  bg_darkest = "#0A0710",
+  bg_darker = "#140E20",
+  bg_dark = "#1E1530",
+  bg_mid = "#281C40",
+  bg_light = "#322350",
+  bg_lighter = "#3C2A60",
+  bg_lightest = "#463170",
+
+  fg_lightest = "#D8D0E8",
+  fg_light = "#B8B0C8",
+  fg_mid = "#787088",
+  fg_dark = "#585068",
+
+  bg_alt1 = "#120C1C",
+  bg_alt2 = "#080510",
+  bg_alt3 = "#1A1228",
+  bg_alt4 = "#0E0918",
+
+  veiledBright = "#6A5ACD",
+  veiledGlow = "#7B68EE",
+  veiledCore = "#483D8B",
+  veiledDeep = "#2F2558",
+  veiledDark = "#1C1636",
+
+  shroudedViolet = "#9370DB",
+  mutedIndigo = "#4B0082",
+  shadowPurple = "#8B008B",
+  hiddenMagenta = "#8B4789",
+  concealedPink = "#C71585",
+  obscuredBlue = "#4169E1",
+  foggyCyan = "#4682B4",
+
+  mistyLight = "#D8BFD8",
+  shroudedGlow = "#E6E6FA",
+  hiddenEnergy = "#DDA0DD",
+
+  accent_red = "#B03060",
+  accent_pink = "#DB7093",
+  accent_yellow = "#DAA520",
+  accent_orange = "#CD853F",
+  accent_green = "#2E8B57",
+  accent_blue = "#4682B4",
+  accent_violet = "#9370DB",
+  accent_aqua = "#5F9EA0",
+}
 
 local M = {}
 

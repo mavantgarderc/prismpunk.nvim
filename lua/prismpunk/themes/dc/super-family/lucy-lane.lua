@@ -1,5 +1,29 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.super-family.lucy-lane")
+
+local palette = {
+  void_black = "#0A080C",
+  reactor_void = "#0C0910",
+  superwoman_core = "#120D18",
+  redfield_glow = "#180E20",
+  lane_red = "#CC1122",
+  superwoman_red = "#DD2233",
+  reactor_red = "#EE3344",
+  kryptonian_red = "#FF5566",
+  shield_black = "#111111",
+  tactical_gray = "#333344",
+  lane_gray = "#445566",
+  command_blue = "#557799",
+  energy_white = "#FFDDDD",
+  reactor_white = "#FFEEEE",
+  term_red = "#DD2233",
+  term_blue = "#557799",
+  term_white = "#FFEEEE",
+  term_red_bright = "#FF5566",
+  term_blue_bright = "#88AADD",
+
+  bg_darkest = "#0A080C",
+  fg_lightest = "#FFEEEE",
+}
 
 local M = {}
 

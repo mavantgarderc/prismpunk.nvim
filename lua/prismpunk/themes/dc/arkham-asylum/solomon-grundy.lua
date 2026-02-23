@@ -1,5 +1,34 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.solomon-grundy")
+
+local palette = {
+  void_black = "#080A08",
+  swamp_night = "#0A0D0B",
+  grundy_core = "#0E1210",
+  grave_glow = "#18221C",
+  rot_green = "#226644",
+  undead_flesh = "#338855",
+  swamp_moss = "#44AA77",
+  resurrection_green = "#55CC99",
+  tombstone_gray = "#445555",
+  corpse_gray = "#667777",
+  moon_bone = "#99AAAA",
+  death_blue = "#223366",
+  rigor_blue = "#334488",
+  cold_vein = "#4455AA",
+  grundy_blood = "#882222",
+  rust_red = "#AA3333",
+  moon_sick = "#DDDDBB",
+  grave_white = "#EEEECC",
+  term_green = "#44AA77",
+  term_blue = "#4455AA",
+  term_red = "#AA3333",
+  term_white = "#EEEECC",
+  term_green_bright = "#66CC99",
+  term_blue_bright = "#6677CC",
+
+  bg_darkest = "#080A08",
+  fg_lightest = "#EEEECC",
+}
 
 local M = {}
 

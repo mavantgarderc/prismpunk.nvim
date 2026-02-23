@@ -1,5 +1,42 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.calendarman")
+
+local palette = {
+  void_black = "#0C0910",
+  calendar_void = "#100B18",
+  day_core = "#181122",
+  confetti_glow = "#201130",
+  valentines_day = "#FF1493",
+  love_red = "#FF2A9F",
+  heart_attack = "#FF44B0",
+  bleeding_heart = "#FF66CC",
+  shamrock_lime = "#00FF7F",
+  leprechaun_green = "#00FF99",
+  irish_poison = "#00FFBB",
+  jackolantern = "#FF6A00",
+  pumpkin_spice = "#FF7F00",
+  trick_or_treat = "#FF9400",
+  countdown_yellow = "#FFFF33",
+  champagne_pop = "#FFFF66",
+  midnight_kiss = "#FFFF88",
+  easter_cyan = "#66FFFF",
+  spring_fever = "#88FFFF",
+  calendar_paper = "#F8F8FF",
+  glitter_white = "#EEEEEE",
+  party_confetti = "#DDDAFF",
+  term_pink = "#FF44B0",
+  term_lime = "#00FF99",
+  term_orange = "#FF7F00",
+  term_yellow = "#FFFF66",
+  term_cyan = "#88FFFF",
+  term_white = "#F8F8FF",
+  term_pink_bright = "#FF66CC",
+  term_lime_bright = "#00FFBB",
+  term_orange_bright = "#FF9400",
+  term_yellow_bright = "#FFFF88",
+
+  bg_darkest = "#0C0910",
+  fg_lightest = "#FFFF88",
+}
 
 local M = {}
 

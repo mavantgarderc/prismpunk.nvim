@@ -1,5 +1,41 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.lucius-fox")
+
+local palette = {
+  bg_darkest = "#080808",
+  bg_darker = "#0F0F0F",
+  bg_dark = "#1A1A1A",
+  bg_mid = "#242424",
+  bg_light = "#3D3D3D",
+  bg_lighter = "#565656",
+  bg_lightest = "#6F6F6F",
+  fg_lightest = "#F0F0F0",
+  fg_light = "#D8D8D8",
+  fg_mid = "#B0B0B0",
+  fg_dark = "#808080",
+  bg_alt1 = "#151515",
+  bg_alt2 = "#0A0A0A",
+  bg_alt3 = "#1D1D1D",
+  bg_alt4 = "#0C0C0C",
+  executiveSuit = "#2D2D2D",
+  charcoalGray = "#36454F",
+  businessGray = "#708090",
+  professionalGray = "#778899",
+  slateGray = "#6C7A89",
+  wayneTechGold = "#FFD700",
+  innovationGold = "#FFB300",
+  patentGold = "#DAA520",
+  prototypeAmber = "#FFBF00",
+  blueprintBlue = "#4682B4",
+  engineeringBlue = "#5B8DB8",
+  designBlue = "#6495ED",
+  schematicCyan = "#5F9EA0",
+  ledGreen = "#32CD32",
+  circuitGreen = "#00FF7F",
+  powerGreen = "#00FA9A",
+  warningOrange = "#FF8C00",
+  alertRed = "#DC143C",
+  statusViolet = "#9370DB",
+}
 
 local M = {}
 

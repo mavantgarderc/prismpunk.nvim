@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.ash")
+
+local palette = {
+  ashVoid = "#0A0A0A",
+  ashDark = "#121212",
+  ashDeep = "#191919",
+  ashMid = "#222222",
+  ashLight = "#2A2A2A",
+  ashBrighter = "#363636",
+  ashPale = "#424242",
+  cinerDeep = "#323035",
+  cinerMid = "#3A383D",
+  cinerLine = "#444248",
+  cinerBright = "#514E55",
+  cinerGlow = "#5C595E",
+  slagDeep = "#505050",
+  slagDim = "#404040",
+  slagMid = "#5D5D5D",
+  slagBright = "#6A6A6A",
+  slagLighter = "#787878",
+  slagLightest = "#858585",
+  slagGlow = "#9F9F9F",
+  slagShimmer = "#B2B2B2",
+  smokeCore = "#C5C5C5",
+  smokeDim = "#9D9D9D",
+  smokeBright = "#DCDCDC",
+  smokePale = "#E8E8E8",
+  emberDeep = "#3A2825",
+  emberFaint = "#221816",
+  emberMid = "#453228",
+  emberBright = "#50382A",
+  emberPulse = "#5A4032",
+  emberGlow = "#684836",
+  emberFlare = "#7A5540",
+  sootDeep = "#141414",
+  sootMid = "#1E1E1E",
+  sootLight = "#252525",
+  sootEcho = "#2D2D2D",
+  charVoid = "#151210",
+  charDark = "#1B1715",
+  charFade = "#261F1A",
+  ashGhost = "#333333",
+  cinerShadow = "#292729",
+
+  bg_darkest = "#0A0A0A",
+  fg_lightest = "#E8E8E8",
+}
 
 local M = {}
 

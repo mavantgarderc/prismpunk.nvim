@@ -1,5 +1,33 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.super-family.eradicator")
+
+local palette = {
+  void_black = "#0A080C",
+  eradicator_void = "#0C0A10",
+  judgment_core = "#12101A",
+  purge_glow = "#181222",
+  eradicator_metal = "#14141A",
+  kryptonian_steel = "#1A1A24",
+  obsidian_armor = "#22222E",
+  eradicator_red = "#FF1122",
+  purge_red = "#FF2233",
+  judgment_red = "#FF3344",
+  apocalypse_red = "#FF5566",
+  eradicator_gold = "#FF8800",
+  solar_forge = "#FF9900",
+  kryptonian_flame = "#FFAA22",
+  purge_gold = "#FFBB44",
+  star_core_white = "#FFFFFF",
+  eradicator_white = "#EEFFFF",
+  cold_judgment = "#DDFFEE",
+  term_red = "#FF2233",
+  term_gold = "#FF9900",
+  term_white = "#EEFFFF",
+  term_red_bright = "#FF5566",
+  term_gold_bright = "#FFBB44",
+
+  bg_darkest = "#0A080C",
+  fg_lightest = "#FFFFFF",
+}
 
 local M = {}
 

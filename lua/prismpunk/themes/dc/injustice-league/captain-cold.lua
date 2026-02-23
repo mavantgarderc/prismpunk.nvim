@@ -1,5 +1,44 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.injustice-league.captain-cold")
+
+local palette = {
+  void_black = "#0A0E14",
+  arctic_void = "#0D131C",
+  cold_core = "#111D2B",
+  frost_glow = "#162538",
+  parka_blue = "#0088FF",
+  regime_blue = "#0099FF",
+  absolute_zero = "#00AAFF",
+  cryo_bright = "#33BBFF",
+  frost_white = "#CCFFFF",
+  goggles_white = "#E0FFFF",
+  arctic_ice = "#F0FFFF",
+  frozen_core = "#AADDFF",
+  cryo_teal = "#00CCDD",
+  freeze_pulse = "#00DDFF",
+  subzero_teal = "#00EEFF",
+  liquid_nitrogen = "#44FFFF",
+  frozen_blood = "#AA1133",
+  cryo_red = "#CC2255",
+  execution_red = "#FF3366",
+  frostbite_red = "#FF5588",
+  cold_steel = "#445566",
+  gunmetal = "#667788",
+  cryo_chamber = "#223344",
+  term_blue = "#0099FF",
+  term_teal = "#00DDFF",
+  term_red = "#FF3366",
+  term_cyan = "#44FFFF",
+  term_white = "#CCFFFF",
+  term_grey = "#667788",
+  term_blue_bright = "#33BBFF",
+  term_teal_bright = "#00FFEE",
+  term_red_bright = "#FF6688",
+  term_cyan_bright = "#88FFFF",
+  term_white_bright = "#FFFFFF",
+
+  bg_darkest = "#0A0E14",
+  fg_lightest = "#FFFFFF",
+}
 
 local M = {}
 

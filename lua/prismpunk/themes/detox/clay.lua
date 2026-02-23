@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.clay")
+
+local palette = {
+  clayVoid = "#0A0805",
+  clayDark = "#12100A",
+  clayDeep = "#1A1810",
+  clayMid = "#221F17",
+  clayLight = "#2A271F",
+  clayBrighter = "#322E28",
+  clayPale = "#3A3630",
+  kilnDeep = "#322D27",
+  kilnMid = "#3A3530",
+  kilnLine = "#423D38",
+  kilnBright = "#5A534C",
+  kilnGlow = "#6A635B",
+  earthDeep = "#4A4540",
+  earthDim = "#3F3A35",
+  earthMid = "#555050",
+  earthBright = "#606060",
+  earthLighter = "#6B7070",
+  earthLightest = "#7A8080",
+  earthGlow = "#908888",
+  earthShimmer = "#A09898",
+  clayCore = "#D0C8C0",
+  clayDim = "#A8A098",
+  clayBright = "#E8DFD0",
+  clayPearlescent = "#F5EDE0",
+  glazeDeep = "#2A1820",
+  glazeFaint = "#1A1015",
+  glazeMid = "#35222A",
+  glazeBright = "#402C35",
+  glazePulse = "#4A3640",
+  glazeGlow = "#58444F",
+  glazeFlare = "#68545F",
+  potteryVoid = "#0E0B08",
+  potteryDark = "#16130F",
+  potteryDeep = "#1E1B16",
+  potteryEcho = "#26211B",
+  terracottaDeep = "#26221D",
+  terracottaMid = "#2E2A24",
+  terracottaLight = "#36322B",
+  clayGhost = "#2A261E",
+  kilnShadow = "#352F28",
+  earthFade = "#756D68",
+
+  bg_darkest = "#0A0805",
+  fg_lightest = "#E8DFD0",
+}
 
 local M = {}
 

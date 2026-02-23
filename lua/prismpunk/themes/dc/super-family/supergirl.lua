@@ -1,5 +1,35 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.super-family.supergirl")
+
+local palette = {
+  void_black = "#0C1020",
+  argo_night = "#0F152C",
+  kara_core = "#142040",
+  sky_glow = "#1A2A55",
+  kara_blue = "#00AAFF",
+  supergirl_blue = "#00BBFF",
+  sky_blue = "#00CCFF",
+  hope_blue = "#66DDFF",
+  kara_red = "#FF3366",
+  cape_red = "#FF4477",
+  shield_red = "#FF5588",
+  heart_red = "#FF77AA",
+  shield_gold = "#FFEA00",
+  solar_gold = "#FFEE44",
+  hope_gold = "#FFFF88",
+  crystal_white = "#F8FCFF",
+  argo_white = "#E6F5FF",
+  kara_white = "#CCEDFF",
+  term_blue = "#00BBFF",
+  term_red = "#FF4477",
+  term_gold = "#FFEE44",
+  term_white = "#CCEDFF",
+  term_blue_bright = "#66DDFF",
+  term_red_bright = "#FF77AA",
+  term_gold_bright = "#FFFF99",
+
+  bg_darkest = "#0C1020",
+  fg_lightest = "#F8FCFF",
+}
 
 local M = {}
 

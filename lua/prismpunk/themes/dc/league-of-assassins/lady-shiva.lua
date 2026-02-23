@@ -1,5 +1,36 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.league-of-assassins.lady-shiva")
+
+local palette = {
+  void_black = "#0A0A0A",
+  shiva_void = "#0E0E11",
+  death_core = "#121218",
+  silent_glow = "#1A1822",
+  obsidian_black = "#0F0F14",
+  midnight_gi = "#181820",
+  shadow_silk = "#22222A",
+  shiva_red = "#CC1122",
+  arterial_crimson = "#DD1133",
+  death_strike = "#EE3344",
+  fatal_pulse = "#FF5566",
+  jade_dragon = "#00CC77",
+  venom_jade = "#00DD88",
+  lethal_emerald = "#00EE99",
+  assassin_teal = "#44FFAA",
+  blade_steel = "#99AABB",
+  katana_silver = "#BBCCDD",
+  cold_moon = "#DDEEFF",
+  term_red = "#DD1133",
+  term_jade = "#00DD88",
+  term_steel = "#BBCCDD",
+  term_crimson = "#EE3344",
+  term_black = "#181820",
+  term_red_bright = "#FF5566",
+  term_jade_bright = "#88FFAA",
+  term_steel_bright = "#FFFFFF",
+
+  bg_darkest = "#0A0A0A",
+  fg_lightest = "#FFFFFF",
+}
 
 local M = {}
 

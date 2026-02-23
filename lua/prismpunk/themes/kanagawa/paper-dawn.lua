@@ -1,5 +1,49 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.kanagawa.paper-dawn")
+
+local palette = {
+  paperWhite = "#F2EBD9",
+  lightBeige = "#EAE3D2",
+  warmIvory = "#E2DAC7",
+  shadowBeige = "#D8D0BC",
+  paperVoid = "#E8E1CF",
+  paperGlow = "#F6F0E5",
+  paperTint = "#EDE6D8",
+  paperEcho = "#E5DDC8",
+  inkGray = "#8A8680",
+  graphiteGray = "#5A5653",
+  sumiInkSoft = "#3D3A37",
+  earlyMist = "#9D968E",
+  ashDrift = "#7F7B76",
+  duskInk = "#6B6762",
+  deepInk = "#4F4B46",
+  autumnRed = "#B13A4E",
+  autumnGreen = "#5F7A30",
+  waveBlue1 = "#335A7A",
+  waveAqua1 = "#3F8A84",
+  springViolet1 = "#745FA5",
+  springViolet2 = "#8A75BA",
+  roseDust = "#C26F85",
+  blushPink = "#D88A95",
+  mellowGold = "#D6A34C",
+  amberDawn = "#E6B86A",
+  paleCoral = "#D98A72",
+  sandTan = "#BFA67A",
+  morningSky = "#7AA3D4",
+  softAmber = "#F0C878",
+  dawnAccent1 = "#4A2F38",
+  dawnAccent2 = "#54353F",
+  dawnAccent3 = "#5E3B46",
+  dawnAccent4 = "#68414D",
+  dawnAccent5 = "#724754",
+  dawnGlow1 = "#E8C090",
+  dawnGlow2 = "#F0D0A0",
+  dawnGlow3 = "#F8E0B0",
+  dawnGlow4 = "#FFF0C0",
+  dawnGlow5 = "#FFFFD0",
+
+  bg_darkest = "#4F4B46",
+  fg_lightest = "#F2EBD9",
+}
 
 local M = {}
 

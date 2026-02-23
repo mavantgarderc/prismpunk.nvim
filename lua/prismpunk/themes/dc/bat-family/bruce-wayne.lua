@@ -1,5 +1,40 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.bruce-wayne")
+
+local palette = {
+  bg_darkest = "#0A0805",
+  bg_darker = "#100D08",
+  bg_dark = "#1A150F",
+  bg_mid = "#241F18",
+  bg_light = "#3D362B",
+  bg_lighter = "#564D3F",
+  bg_lightest = "#6F6452",
+  fg_lightest = "#F5F1E8",
+  fg_light = "#E8DFD0",
+  fg_mid = "#C9BCA8",
+  fg_dark = "#9A8B75",
+  bg_alt1 = "#15110C",
+  bg_alt2 = "#0D0A07",
+  bg_alt3 = "#1D1810",
+  bg_alt4 = "#0E0B08",
+  wayneLibrary = "#8B7355",
+  oldLeather = "#6D5C4D",
+  manorWood = "#5D4E3F",
+  oakDesk = "#4A3F2F",
+  scholarGold = "#D4AF37",
+  ancientGold = "#B8941F",
+  gilded = "#DAA520",
+  antiqueBrass = "#C9A961",
+  philosophyBlue = "#4682B4",
+  intellectBlue = "#5B8DB8",
+  wisdomBlue = "#6495ED",
+  studyBlue = "#7BA3C4",
+  richBurgundy = "#800020",
+  wineRed = "#722F37",
+  mahoganRed = "#C04000",
+  archiveGray = "#918C7E",
+  parchmentTan = "#D9CDB5",
+  inkBlack = "#1C1810",
+}
 
 local M = {}
 

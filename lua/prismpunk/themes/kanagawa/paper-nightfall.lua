@@ -1,5 +1,48 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.kanagawa.paper-nightfall")
+
+local palette = {
+  sumiInk0 = "#0B0A10",
+  sumiInk1 = "#16151E",
+  sumiInk2 = "#1F1D27",
+  sumiInk3 = "#2A2834",
+  sumiInk4 = "#34323E",
+  sumiInk5 = "#3F3D4B",
+  sumiInk6 = "#4B4858",
+  sumiInkShadow = "#070609",
+  sumiInkEcho = "#131218",
+  sumiInkTint = "#1B1922",
+  fujiWhite = "#DCD7BA",
+  oldWhite = "#C8C093",
+  softGray = "#727169",
+  dragonGray = "#727169",
+  dragonGray2 = "#9C9A91",
+  autumnRed = "#C84053",
+  autumnGreen = "#76946A",
+  autumnYellow = "#C0A36E",
+  waveBlue1 = "#7E9CD8",
+  waveBlue2 = "#658594",
+  waveAqua1 = "#6A9589",
+  springViolet1 = "#957FB8",
+  springViolet2 = "#A88ED1",
+  subtleGold = "#C9A55B",
+  gentlePink = "#D16D9E",
+  calmTeal = "#5FA8A0",
+  nightfallGlow = "#E6D4A0",
+  nightfallVivid = "#F0E0B0",
+  nightfallFlare = "#F8ECC0",
+  nightfallAccent1 = "#2A2428",
+  nightfallAccent2 = "#33292F",
+  nightfallAccent3 = "#3C2E36",
+  nightfallAccent4 = "#45333D",
+  nightfallAccent5 = "#4E3844",
+  twilightCoral = "#E68A80",
+  duskAmber = "#F0C078",
+  sereneSlate = "#6B7888",
+  deepIndigo = "#4A4F6A",
+
+  bg_darkest = "#4A4F6A",
+  fg_lightest = "#DCD7BA",
+}
 
 local M = {}
 

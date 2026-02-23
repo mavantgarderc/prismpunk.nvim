@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.lantern-corps.phantom-corrupted")
+
+local palette = {
+  bg_darkest = "#0A0A0A",
+  bg_darker = "#1A1A1A",
+  bg_dark = "#2A2A2A",
+  bg_mid = "#3A3A3A",
+  bg_light = "#4A4A4A",
+  bg_lighter = "#5A5A5A",
+  bg_lightest = "#6A6A6A",
+
+  fg_lightest = "#D8D8D8",
+  fg_light = "#B8B8B8",
+  fg_mid = "#787878",
+  fg_dark = "#585858",
+
+  bg_alt1 = "#151515",
+  bg_alt2 = "#050505",
+  bg_alt3 = "#252525",
+  bg_alt4 = "#0F0F0F",
+
+  voidCore = "#8C8C8C",
+  voidGlow = "#6C6C6C",
+  voidBright = "#ACACAC",
+  voidDeep = "#4C4C4C",
+  voidDark = "#2C2C2C",
+
+  corruptedWill = "#8CAC8C",
+  corruptedHope = "#8C8CAC",
+  corruptedRage = "#AC8C8C",
+  corruptedFear = "#ACAC8C",
+  corruptedLove = "#AC8CAC",
+  corruptedAvarice = "#AC9C8C",
+  corruptedCompassion = "#9C8CAC",
+
+  entropyEffect = "#7C7C7C",
+  nullField = "#6C8C8C",
+  decayPattern = "#8C7C7C",
+
+  accent_red = "#AC8C8C",
+  accent_pink = "#AC8C9C",
+  accent_yellow = "#ACAC8C",
+  accent_orange = "#AC9C8C",
+  accent_green = "#8CAC8C",
+  accent_blue = "#8C8CAC",
+  accent_violet = "#9C8CAC",
+  accent_aqua = "#8CACAC",
+}
 
 local M = {}
 

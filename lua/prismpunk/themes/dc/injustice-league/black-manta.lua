@@ -1,5 +1,111 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.injustice-league.black-manta")
+
+local palette = {
+
+  bg_darkest = "#020406",
+  bg_darker = "#050A0E",
+  bg_dark = "#0A1016",
+  bg_mid = "#0F161E",
+  bg_light = "#141C26",
+  bg_lighter = "#19222E",
+  bg_lightest = "#1E2836",
+
+  fg_lightest = "#D8E8F8",
+  fg_light = "#C0D8E8",
+  fg_mid = "#A0B8C8",
+  fg_dark = "#7888A0",
+
+  bg_alt1 = "#080E14",
+  bg_alt2 = "#03060A",
+  bg_alt3 = "#0D141C",
+  bg_alt4 = "#060C12",
+
+  mantaBlack = "#0A0A0F",
+  armorBlack = "#121218",
+  terrorBlack = "#1A1A22",
+  suitBlack = "#0F0F16",
+  deepBlack = "#050508",
+
+  laserRed = "#FF3344",
+  eyesRed = "#FF4455",
+  visorRed = "#FF5566",
+  weaponRed = "#EE2233",
+  beamRed = "#DD1122",
+
+  bloodHatred = "#CC2233",
+  vendettaRed = "#DD3344",
+  rageRed = "#EE4455",
+  violenceRed = "#BB1122",
+  wrathRed = "#AA0011",
+
+  sonarCyan = "#44D8E8",
+  detectionCyan = "#55E0F0",
+  waveCyan = "#66E8F8",
+  techCyan = "#33C8D8",
+  systemCyan = "#22B8C8",
+
+  oceanBlue = "#3388B8",
+  deepBlue = "#4498C8",
+  seaBlue = "#55A8D8",
+  waterBlue = "#2278A8",
+  abyssBlue = "#116898",
+
+  pressurePurple = "#5555AA",
+  depthPurple = "#6666BB",
+  crushPurple = "#7777CC",
+  abyssPurple = "#4444AA",
+  trenchPurple = "#333399",
+
+  armorSilver = "#9099AA",
+  metalSilver = "#A0A9BA",
+  platingSilver = "#B0B9CA",
+  suitGray = "#8089AA",
+  techSilver = "#707999",
+
+  atlanteanTeal = "#3398A8",
+  enemyTeal = "#44A8B8",
+  aquaTeal = "#55B8C8",
+  domainTeal = "#2288A8",
+  rivalTeal = "#117898",
+
+  torpedoOrange = "#DD6633",
+  explosiveOrange = "#EE7744",
+  weaponOrange = "#FF8855",
+  blastOrange = "#CC5522",
+  detonateOrange = "#BB4411",
+
+  darkTech = "#445566",
+  systemDark = "#556677",
+  advancedGray = "#667788",
+  underwaterTech = "#334455",
+  depthTech = "#223344",
+
+  bioGlow = "#88DDFF",
+  deepGlow = "#99EEFF",
+  abyssGlow = "#AAFFFF",
+  seaGlow = "#77CCEE",
+  trenchGlow = "#66BBDD",
+
+  mantaRay = "#223344",
+  predatorGray = "#334455",
+  hunterBlack = "#1A2233",
+  stingRay = "#2A3B4C",
+  glideBlack = "#0F1A22",
+
+  helmetGlow = "#FF6677",
+  menaceRed = "#FF7788",
+  glowRed = "#FF8899",
+  illuminateRed = "#EE5566",
+  radiateRed = "#DD4455",
+
+  torpedoLock = "#FF3344",
+  enemyDetected = "#EE2233",
+  targetLocked = "#DD1122",
+
+  aquamanDefeated = "#44D8E8",
+  missionComplete = "#55E0F0",
+  targetDestroyed = "#66E8F8",
+}
 
 local M = {}
 

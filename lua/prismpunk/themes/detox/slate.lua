@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.slate")
+
+local palette = {
+  stoneVoid = "#0A0D10",
+  stoneDark = "#121820",
+  stoneDeep = "#1A2028",
+  stoneMid = "#222830",
+  stoneLight = "#2A3038",
+  stoneShadow = "#0E1116",
+  stoneEcho = "#1E242C",
+  stoneTint = "#262E38",
+  minerDeep = "#323A42",
+  minerMid = "#3A424A",
+  minerLine = "#424A52",
+  minerRidge = "#48525A",
+  minerSoft = "#505A64",
+  minerGlow = "#586270",
+  minerVivid = "#626A7A",
+  grainDeep = "#4A5260",
+  grainMid = "#555D70",
+  grainBright = "#606880",
+  grainLighter = "#6B7590",
+  grainLightest = "#7A84A0",
+  grainGlow = "#8892B0",
+  grainVivid = "#94A0C0",
+  grainPeak = "#A0AED0",
+  veineCore = "#C8D0E0",
+  veineBright = "#DDE5F5",
+  veinePeak = "#EEF0FF",
+  veineDim = "#B0B8C8",
+  veineSoft = "#C0C8D8",
+  goldDeep = "#3A3020",
+  goldMid = "#45382A",
+  goldBright = "#504030",
+  goldPulse = "#5A4838",
+  goldVivid = "#645040",
+  goldGlow = "#6E5848",
+  goldFlare = "#786050",
+  slateAccent1 = "#483C2C",
+  slateAccent2 = "#524432",
+  slateAccent3 = "#5C4C38",
+  slateAccent4 = "#66543E",
+  slateAccent5 = "#705C44",
+
+  bg_darkest = "#0A0D10",
+  fg_lightest = "#DDE5F5",
+}
 
 local M = {}
 

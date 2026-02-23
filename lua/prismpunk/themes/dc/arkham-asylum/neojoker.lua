@@ -1,5 +1,29 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.neojoker")
+
+local palette = {
+  void_black = "#0B080F",
+  ultraviolet_night = "#0F0C14",
+  neo_core = "#131018",
+  circuit_glow = "#21182E",
+  neo_purple = "#BB00FF",
+  ultraviolet = "#DD22FF",
+  royal_circuit = "#EE44FF",
+  crown_purple = "#FF66FF",
+  venom_green = "#00FF99",
+  joker_lime = "#44FFAA",
+  acid_laugh = "#66FFCC",
+  restraint_white = "#E8E8FF",
+  chrome_silver = "#AABBEE",
+  neon_blacklight = "#2A1A3A",
+  term_purple = "#EE44FF",
+  term_green = "#44FFAA",
+  term_white = "#E8E8FF",
+  term_purple_bright = "#FF66FF",
+  term_green_bright = "#88FFDD",
+
+  bg_darkest = "#0B080F",
+  fg_lightest = "#E8E8FF",
+}
 
 local M = {}
 

@@ -1,4 +1,27 @@
-local palette = require("prismpunk.palettes.dc.league-of-assassins.bane")
+local palette = {
+  cosmicBlack = "#050608",
+  voidBlack = "#0A0A0E",
+  abyssBlack = "#0E0E12",
+  deepShadow = "#111217",
+  venomNight = "#1A1A22",
+  suitSteel = "#1C2026",
+  maskMetal = "#3A3F4C",
+  venomTubes = "#00FF88",
+  venomGlow = "#00DD99",
+  venomAccent = "#00FF99",
+  bloodRed = "#FF0033",
+  venomRed = "#FF1A44",
+  rageRed = "#FF3355",
+  coldGray = "#565C64",
+  stoneGray = "#ABB2BF",
+  lightGray = "#C8CCD4",
+  ghostWhite = "#E6E8EF",
+  infoBlue = "#61AFEF",
+  warningOrange = "#FF8800",
+
+  bg_darkest = "#050608",
+  fg_lightest = "#E6E8EF",
+}
 
 local M = {}
 

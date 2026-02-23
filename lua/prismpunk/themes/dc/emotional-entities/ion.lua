@@ -1,4 +1,28 @@
-local palette = require("prismpunk.palettes.dc.emotional-entities.ion")
+local palette = {
+  voidGreen = "#0A1A0F",
+  abyssWill = "#0E2212",
+  emeraldCore = "#112F17",
+  deepResolve = "#00331A",
+  ionEmerald = "#00FF88",
+  willpowerGlow = "#00FF99",
+  absoluteGreen = "#00FFAA",
+  divineVerdant = "#00FFBB",
+  cosmicJade = "#00FFCC",
+  emeraldVein = "#00FF55",
+  unbreakable = "#00CC77",
+  victoryGold = "#AAFF00",
+  sovereignFlame = "#88FF00",
+  radiantWill = "#88FFDD",
+  pureResolve = "#AAFFDD",
+  godlightGreen = "#CCFFEE",
+  whiteWill = "#FFFFFF",
+  term_red = "#FF3366",
+  term_blue = "#0088FF",
+  term_magenta = "#FF00FF",
+
+  bg_darkest = "#0A1A0F",
+  fg_lightest = "#FFFFFF",
+}
 
 local M = {}
 

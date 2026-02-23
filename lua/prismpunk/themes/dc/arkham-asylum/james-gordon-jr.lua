@@ -1,5 +1,33 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.james-gordon-jr")
+
+local palette = {
+  void_black = "#0A0B0E",
+  gcpd_night = "#0D1117",
+  junior_core = "#13171F",
+  scalpel_glow = "#1F2633",
+  hospital_white = "#F0F6FF",
+  sterile_white = "#E0E8F5",
+  autopsy_white = "#C8D5E8",
+  pale_corpse = "#A0B0C8",
+  broken_badge = "#0088FF",
+  sociopath_teal = "#00AAFF",
+  operating_teal = "#00CCFF",
+  frozen_vein = "#44DDFF",
+  incision_red = "#FF3366",
+  coagulated_red = "#FF5577",
+  dried_blood = "#CC2244",
+  dead_soul = "#667788",
+  autopsy_gray = "#8899AA",
+  term_teal = "#00CCFF",
+  term_red = "#FF5577",
+  term_gray = "#8899AA",
+  term_white = "#F0F6FF",
+  term_teal_bright = "#66EEFF",
+  term_red_bright = "#FF7799",
+
+  bg_darkest = "#0A0B0E",
+  fg_lightest = "#F0F6FF",
+}
 
 local M = {}
 

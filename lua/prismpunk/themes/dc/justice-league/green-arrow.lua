@@ -1,5 +1,56 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.justice-league.green-arrow")
+
+local palette = {
+  bg_darkest = "#07110B",
+  bg_darker = "#0C120B",
+  bg_dark = "#121617",
+  bg_mid = "#182220",
+  bg_light = "#1E2824",
+  bg_lighter = "#242E28",
+  bg_lightest = "#2A342E",
+
+  fg_lightest = "#E8F4EE",
+  fg_light = "#C5D3CB",
+  fg_mid = "#90A096",
+  fg_dark = "#6A7470",
+
+  bg_alt1 = "#0E1812",
+  bg_alt2 = "#050A07",
+  bg_alt3 = "#0B2F1C",
+  bg_alt4 = "#091309",
+
+  voidCore = "#2B9A56",
+  voidGlow = "#3FA963",
+  voidBright = "#28C268",
+  voidDeep = "#0F3F25",
+  voidDark = "#0A2818",
+
+  corruptedRage = "#F06C6C",
+  corruptedAvarice = "#FFE080",
+  corruptedFear = "#F0D090",
+  corruptedWill = "#28C268",
+  corruptedHope = "#70BFFF",
+  corruptedLove = "#F06C6C",
+  corruptedCompassion = "#80ECFF",
+
+  emerald = "#28C268",
+  forest = "#2B9A56",
+  quiverBrown = "#8A5F38",
+  arrowFeather = "#A8D8C8",
+  hoodDark = "#16543A",
+  moss = "#3FA963",
+  stoneGray = "#C5D3CB",
+  shadowGray = "#4A5450",
+  dimGray = "#6A7470",
+  accentGold = "#FFE080",
+  accentCyan = "#80ECFF",
+  lightGray = "#E8F4EE",
+  dangerRed = "#F06C6C",
+  warningOrange = "#F0D090",
+  infoBlue = "#70BFFF",
+  urbanGrit = "#4A5450",
+  leatherBrown = "#6A4A2E",
+}
 
 local M = {}
 

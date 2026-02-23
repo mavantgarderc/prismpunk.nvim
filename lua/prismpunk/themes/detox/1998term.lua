@@ -1,5 +1,51 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.1998term")
+
+local palette = {
+  hushVoid = "#000000",
+  hushDark = "#0A0A0A",
+  hushDeep = "#111111",
+  hushMid = "#1A1A1A",
+  hushLight = "#222222",
+  hushShadow = "#151515",
+  calmDeep = "#2B2B2B",
+  calmMid = "#333333",
+  calmLine = "#383838",
+  calmRidge = "#3D3D3D",
+  silenceDeep = "#404040",
+  silenceMid = "#505050",
+  silenceLight = "#606060",
+  silenceBright = "#707070",
+  silenceLighter = "#808080",
+  silenceLightest = "#909090",
+  silenceGlow = "#989898",
+  clarityDim = "#A8A8A8",
+  clarityCore = "#C0C0C0",
+  clarityBright = "#E0E0E0",
+  clarityPeak = "#F0F0F0",
+  restoreDeep = "#113311",
+  restoreMid = "#224422",
+  restoreBright = "#335533",
+  restorePulse = "#446644",
+  restoreVivid = "#558855",
+  mossDark = "#1A4A1A",
+  mossLight = "#2A6A2A",
+  mossSoft = "#356A35",
+  phosphorMid = "#44CC44",
+  phosphorGlow = "#66FF66",
+  phosphorFlare = "#55EE55",
+  glitchGreen = "#99FF99",
+  glitchPale = "#AAFFAA",
+  slateDark = "#1F1F1F",
+  slateMid = "#282828",
+  slateEcho = "#303030",
+  staticWhite = "#BBBBBB",
+  staticGray = "#CCCCCC",
+  terminalFade = "#4A4A4A",
+  scanlineGhost = "#1C1C1C",
+
+  bg_darkest = "#000000",
+  fg_lightest = "#AAFFAA",
+}
 
 local M = {}
 

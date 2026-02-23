@@ -1,5 +1,45 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.robin")
+
+local palette = {
+  bg_darkest = "#050608",
+  bg_darker = "#0A0B0F",
+  bg_dark = "#111217",
+  bg_mid = "#1A1A22",
+  bg_light = "#3A3F4C",
+  bg_lighter = "#565C64",
+  bg_lightest = "#6A7178",
+  fg_lightest = "#E8ECF0",
+  fg_light = "#C8CCD4",
+  fg_mid = "#ABB2BF",
+  fg_dark = "#6A7178",
+  bg_alt1 = "#0F1015",
+  bg_alt2 = "#070809",
+  bg_alt3 = "#14151D",
+  bg_alt4 = "#080A0D",
+  robinRed = "#FF0000",
+  damianRed = "#DC143C",
+  capeRed = "#C41E3A",
+  assassinRed = "#B71C1C",
+  bloodRed = "#8B0000",
+  tunicGreen = "#00FF00",
+  leagueGreen = "#32CD32",
+  robinGreen = "#228B22",
+  assassinGreen = "#006400",
+  katanaSilver = "#C0C0C0",
+  swordSteel = "#A9A9A9",
+  bladeGray = "#808080",
+  armorGold = "#FFD700",
+  alGhulGold = "#DAA520",
+  leagueOfShadows = "#2F4F4F",
+  raAlGhul = "#556B2F",
+  taliaGreen = "#6B8E23",
+  sonOfBatman = "#1E90FF",
+  bruceBlue = "#4169E1",
+  wayneBlue = "#4682B4",
+  superiorityPurple = "#9370DB",
+  arroganceViolet = "#8B008B",
+  heirOrange = "#FF8C00",
+}
 
 local M = {}
 

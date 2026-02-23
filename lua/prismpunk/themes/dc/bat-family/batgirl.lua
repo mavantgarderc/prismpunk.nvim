@@ -1,5 +1,37 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.bat-family.batgirl")
+
+local palette = {
+  bg_darkest = "#060609",
+  bg_darker = "#0B0B0F",
+  bg_dark = "#121218",
+  bg_mid = "#1A1A23",
+  bg_light = "#3A3F4C",
+  bg_lighter = "#565C64",
+  bg_lightest = "#6A7178",
+  fg_lightest = "#E8ECF0",
+  fg_light = "#C8CCD4",
+  fg_mid = "#ABB2BF",
+  fg_dark = "#6A7178",
+  bg_alt1 = "#0F0F14",
+  bg_alt2 = "#080809",
+  bg_alt3 = "#16161F",
+  bg_alt4 = "#0A0A0D",
+  capeViolet = "#5B2C6F",
+  suitPurple = "#7B3F8F",
+  batgirlPurple = "#9966CC",
+  oraclePurple = "#B794F4",
+  gordonsLight = "#D4AF37",
+  utilityGold = "#D4AF37",
+  batarangGold = "#FFD966",
+  gothamYellow = "#E5C07B",
+  clocktowerBlue = "#61AFEF",
+  barbaraBlue = "#57A7E0",
+  nightGreen = "#00DDAA",
+  gothamTeal = "#56B6C2",
+  jokersRed = "#E06C75",
+  felonyPink = "#C678DD",
+  vigilanteOrange = "#D19A66",
+}
 
 local M = {}
 

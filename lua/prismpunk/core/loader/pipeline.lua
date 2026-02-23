@@ -207,13 +207,16 @@ function M.execute(theme_spec, opts)
     vim.notify("[prismpunk] Theme not in configured themes list: " .. tostring(theme_spec), vim.log.levels.WARN)
   end
 
-  local palette_universe = parsed.universe or (theme_module.palette and theme_module.palette.universe)
-  local palette_name = (theme_module.palette and theme_module.palette.name) or parsed.name
-
-  if opts.force_reload then palette.clear_cache() end
-
   local palette_table
-  do
+  if theme_module.palette and type(theme_module.palette) == "table" and theme_module.palette.bg_darkest then
+    palette_table = theme_module.palette
+    if opts.force_reload then palette.clear_cache() end
+  else
+    local palette_universe = parsed.universe or (theme_module.palette and theme_module.palette.universe)
+    local palette_name = (theme_module.palette and theme_module.palette.name) or parsed.name
+
+    if opts.force_reload then palette.clear_cache() end
+
     local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
     local ok, result = pcall(
       palette.create_palette,

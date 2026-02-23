@@ -1,5 +1,46 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.injustice-league.gorilla-grod")
+
+local palette = {
+  void_black = "#0A0C08",
+  jungle_void = "#0E120B",
+  grodd_throne = "#131A10",
+  psychic_glow = "#1A2418",
+  gorilla_fur = "#1E2B18",
+  jungle_green = "#2D4422",
+  grodd_green = "#3B6633",
+  ape_dominator = "#558844",
+  psychic_red = "#FF1122",
+  mind_fire = "#FF3333",
+  telepath_rage = "#FF5555",
+  brain_burn = "#FF7766",
+  grodd_eyes = "#FF0000",
+  royal_gold = "#FFDD00",
+  crown_bright = "#FFEA33",
+  empire_gold = "#CCAA00",
+  throne_gold = "#AA8800",
+  fresh_blood = "#AA0011",
+  gorilla_rage = "#CC1122",
+  conquest_red = "#EE2233",
+  vine_shadow = "#223322",
+  deep_jungle = "#112211",
+  moss_teal = "#448866",
+  term_red = "#FF3333",
+  term_green = "#558844",
+  term_yellow = "#FFEA33",
+  term_blue = "#4488CC",
+  term_purple = "#AA44FF",
+  term_cyan = "#44AA99",
+  term_magenta = "#FF4488",
+  term_red_bright = "#FF6666",
+  term_green_bright = "#77AA66",
+  term_yellow_bright = "#FFFF66",
+  term_blue_bright = "#66AAFF",
+  term_purple_bright = "#CC66FF",
+  term_cyan_bright = "#66CCCC",
+
+  bg_darkest = "#0A0C08",
+  fg_lightest = "#FFFF66",
+}
 
 local M = {}
 

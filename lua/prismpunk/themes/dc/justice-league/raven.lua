@@ -1,5 +1,40 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.justice-league.raven")
+
+local palette = {
+  void_black = "#0C0914",
+  azarath_void = "#100D1C",
+  trigon_core = "#151126",
+  soul_glow = "#1C1733",
+  midnight_indigo = "#332255",
+  raven_cloak = "#443377",
+  shadow_violet = "#554499",
+  azarath_night = "#6655BB",
+  trigon_red = "#CC1122",
+  blood_gem = "#DD2233",
+  demonic_crimson = "#EE4455",
+  rage_pulse = "#FF6677",
+  raven_pale = "#BBCCFF",
+  ghost_skin = "#CCE0FF",
+  moonlit_white = "#E0E8FF",
+  azarath_white = "#99AAFF",
+  soul_violet = "#8822FF",
+  raven_violet = "#9933FF",
+  mystic_purple = "#AA55FF",
+  trigons_purple = "#BB77FF",
+  term_red = "#DD2233",
+  term_purple = "#AA55FF",
+  term_indigo = "#554499",
+  term_violet = "#9933FF",
+  term_cyan = "#88CCFF",
+  term_blue = "#6677FF",
+  term_red_bright = "#FF6677",
+  term_purple_bright = "#CC77FF",
+  term_indigo_bright = "#7766CC",
+  term_violet_bright = "#BB88FF",
+
+  bg_darkest = "#0C0914",
+  fg_lightest = "#E0E8FF",
+}
 
 local M = {}
 

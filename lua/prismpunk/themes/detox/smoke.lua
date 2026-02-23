@@ -1,5 +1,50 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.detox.smoke")
+
+local palette = {
+  smokeVoid = "#0A0A0C",
+  smokeDark = "#121216",
+  smokeDeep = "#1A1A20",
+  smokeMid = "#222228",
+  smokeLight = "#2A2A30",
+  smokeShadow = "#0E0E10",
+  smokeEcho = "#1E1E24",
+  smokeTint = "#26262C",
+  hazeDeep = "#323238",
+  hazeMid = "#3A3A40",
+  hazeLine = "#424248",
+  hazeRidge = "#484850",
+  hazeSoft = "#505058",
+  hazeGlow = "#585860",
+  hazeVivid = "#626270",
+  vaporDeep = "#4A4A50",
+  vaporMid = "#555560",
+  vaporBright = "#606070",
+  vaporLighter = "#6B7080",
+  vaporLightest = "#7A8090",
+  vaporGlow = "#8890A0",
+  vaporVivid = "#94A0B0",
+  vaporPeak = "#A0B0C0",
+  cloudCore = "#D0D0D8",
+  cloudBright = "#E8E8F0",
+  cloudPeak = "#F5F5FF",
+  cloudDim = "#B8B8C0",
+  cloudSoft = "#C8C8D0",
+  duskDeep = "#2A1F32",
+  duskMid = "#35293D",
+  duskBright = "#403348",
+  duskPulse = "#4A3D52",
+  duskVivid = "#54465C",
+  duskGlow = "#5E5066",
+  duskFlare = "#685A70",
+  smokeAccent1 = "#382C40",
+  smokeAccent2 = "#42324A",
+  smokeAccent3 = "#4C3854",
+  smokeAccent4 = "#563E5E",
+  smokeAccent5 = "#604468",
+
+  bg_darkest = "#0A0A0C",
+  fg_lightest = "#E8E8F0",
+}
 
 local M = {}
 

@@ -1,5 +1,31 @@
 local color = require("prismpunk.utils.color")
-local palette = require("prismpunk.palettes.dc.arkham-asylum.manbat")
+
+local palette = {
+  void_black = "#08090A",
+  cave_night = "#0B0D10",
+  langstrom_core = "#10131A",
+  wing_glow = "#1A1E28",
+  matted_brown = "#443322",
+  beast_brown = "#665544",
+  serum_yellow = "#AA8833",
+  feral_yellow = "#CCAA55",
+  bat_red = "#CC1122",
+  rage_red = "#EE3344",
+  blood_moon = "#FF5566",
+  sonar_white = "#CCEEFF",
+  cave_stone = "#446688",
+  ultrasonic_blue = "#66AAFF",
+  term_red = "#EE3344",
+  term_yellow = "#CCAA55",
+  term_blue = "#66AAFF",
+  term_white = "#CCEEFF",
+  term_red_bright = "#FF7799",
+  term_yellow_bright = "#FFDD88",
+  term_blue_bright = "#88CCFF",
+
+  bg_darkest = "#08090A",
+  fg_lightest = "#CCEEFF",
+}
 
 local M = {}
 

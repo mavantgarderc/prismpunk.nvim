@@ -2,7 +2,7 @@
 --- Handles validation, merging, and theme spec parsing
 local M = {}
 
-local DEFAULT_THEME = "kanagawa/paper-edo"
+local DEFAULT_SCHEME = "kanagawa/paper-edo"
 
 --- Default configuration schema
 M.defaults = {
@@ -11,13 +11,15 @@ M.defaults = {
     profile_startup = false,
   },
 
-  theme = DEFAULT_THEME, -- Theme name (e.g., "phantom-corrupted" or "lantern-corps/phantom-corrupted")
-  themes = {}, -- Allowed themes/universes for discovery (whitelist)
-  gutter = true, -- Enable gutter background
+  scheme = DEFAULT_SCHEME,
+  schemes = {},
+  theme = nil,
+  themes = {},
+  gutter = true,
   validate_contrast = {
-    enable = false, -- Enable contrast validation on theme load (default: false, on-demand only)
-    level = "aa", -- "aa" or "aaa"
-    report_level = "info", -- "info", "warn", "error"
+    enable = false,
+    level = "aa",
+    report_level = "info",
   },
 
   styles = {
@@ -371,30 +373,27 @@ function M.parse_theme(theme_spec)
   end
 end
 
---- Check if a theme is allowed based on config.themes
---- @param theme_spec string Theme to check (e.g., "dc/superman" or "kanagawa")
+--- Check if a scheme is allowed based on config.schemes
+--- @param scheme_spec string Scheme to check (e.g., "dc/superman" or "kanagawa")
 --- @return boolean allowed
-function M.is_theme_allowed(theme_spec)
-  local allowed_themes = M.options.themes or {}
-  if #allowed_themes == 0 then return true end
+function M.is_scheme_allowed(scheme_spec)
+  local allowed_schemes = M.options.schemes or M.options.themes or {}
+  if #allowed_schemes == 0 then return true end
 
-  local parsed = M.parse_theme(theme_spec)
-  local theme_name = parsed.name
-  local theme_universe = parsed.universe
+  local parsed = M.parse_scheme(scheme_spec)
+  local scheme_name = parsed.name
+  local scheme_universe = parsed.universe
 
-  for _, allowed in ipairs(allowed_themes) do
-    -- Exact match for individual theme
-    if allowed == theme_name then
+  for _, allowed in ipairs(allowed_schemes) do
+    if allowed == scheme_name then
       return true
     end
 
-    -- Check if theme's universe starts with allowed prefix
-    if theme_universe and theme_universe:find("^" .. allowed) then
+    if scheme_universe and scheme_universe:find("^" .. allowed) then
       return true
     end
 
-    -- Check allowed item matches the first part of universe
-    if theme_universe and allowed == theme_universe:match("^([^/]+)") then
+    if scheme_universe and allowed == scheme_universe:match("^([^/]+)") then
       return true
     end
   end
@@ -402,12 +401,24 @@ function M.is_theme_allowed(theme_spec)
   return false
 end
 
---- Get list of allowed themes based on config
---- @return table array of theme strings
-function M.get_allowed_themes()
-  return M.options.themes or {}
+M.is_theme_allowed = M.is_scheme_allowed
+
+--- Parse scheme specification into normalized form
+--- @param scheme_spec string|table|nil
+--- @return table Normalized spec { universe = string|nil, name = string, variants = table }
+function M.parse_scheme(scheme_spec)
+  return M.parse_theme(scheme_spec)
 end
 
-M.DEFAULT_THEME = DEFAULT_THEME
+--- Get list of allowed schemes based on config
+--- @return table array of scheme strings
+function M.get_allowed_schemes()
+  return M.options.schemes or M.options.themes or {}
+end
+
+M.get_allowed_themes = M.get_allowed_schemes
+
+M.DEFAULT_SCHEME = DEFAULT_SCHEME
+M.DEFAULT_THEME = DEFAULT_SCHEME
 
 return M

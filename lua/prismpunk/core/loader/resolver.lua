@@ -1,5 +1,5 @@
---- PrismPunk Theme Resolver
---- Handles theme module resolution and discovery
+--- PrismPunk Scheme Resolver
+--- Handles scheme module resolution and discovery
 local M = {}
 
 local config = require("prismpunk.config")
@@ -24,7 +24,7 @@ local KNOWN_PARENTS = {
 
 local DISCOVERY_PARENTS = { "dc", "marvel" }
 
-local function parse_two_part_theme(category, name)
+local function parse_two_part_scheme(category, name)
   local variants = {}
 
   local parent = KNOWN_PARENTS[category]
@@ -43,34 +43,36 @@ local function parse_two_part_theme(category, name)
   return { universe = category, name = name, variants = variants }
 end
 
-function M.parse_theme_spec(theme_spec)
-  if not theme_spec or theme_spec == "" then return { universe = nil, name = nil, variants = {} } end
+function M.parse_scheme_spec(scheme_spec)
+  if not scheme_spec or scheme_spec == "" then return { universe = nil, name = nil, variants = {} } end
 
-  if type(theme_spec) == "string" then
-    local parts = vim.split(theme_spec, "/")
+  if type(scheme_spec) == "string" then
+    local parts = vim.split(scheme_spec, "/")
 
     if #parts == 3 then
       local universe = parts[1] .. "/" .. parts[2]
       local name = parts[3]
       return { universe = universe, name = name, variants = { { universe = universe, name = name } } }
     elseif #parts == 2 then
-      return parse_two_part_theme(parts[1], parts[2])
+      return parse_two_part_scheme(parts[1], parts[2])
     else
-      return { universe = nil, name = theme_spec, variants = {} }
+      return { universe = nil, name = scheme_spec, variants = {} }
     end
-  elseif type(theme_spec) == "table" then
+  elseif type(scheme_spec) == "table" then
     return {
-      universe = theme_spec.universe,
-      name = theme_spec.name or theme_spec[1],
-      opts = theme_spec.opts or {},
+      universe = scheme_spec.universe,
+      name = scheme_spec.name or scheme_spec[1],
+      opts = scheme_spec.opts or {},
       variants = {},
     }
   else
-    error(string.format("[prismpunk] Invalid theme_spec type: %s (expected string or table)", type(theme_spec)))
+    error(string.format("[prismpunk] Invalid scheme_spec type: %s (expected string or table)", type(scheme_spec)))
   end
 end
 
-function M.resolve_theme_file(module_path)
+M.parse_theme_spec = M.parse_scheme_spec
+
+function M.resolve_scheme_file(module_path)
   local file_path = module_path:gsub("%.", "/") .. ".lua"
 
   local searchpath = package.searchpath(module_path, package.path)
@@ -90,13 +92,30 @@ function M.resolve_theme_file(module_path)
   return nil
 end
 
-function M.resolve_theme_module(spec)
+M.resolve_theme_file = M.resolve_scheme_file
+
+function M.resolve_scheme_module(spec)
   local cache_key = (spec.universe or "") .. "/" .. spec.name
   if module_cache[cache_key] then
     return module_cache[cache_key].path, module_cache[cache_key].module
   end
 
   local tries = {}
+
+  if spec.variants and #spec.variants > 0 then
+    for _, variant in ipairs(spec.variants) do
+      if variant.universe and variant.universe ~= "" then
+        local universe_dotted = variant.universe:gsub("/", ".")
+        table.insert(tries, string.format("prismpunk.schemes.%s.%s", universe_dotted, variant.name))
+      end
+    end
+  end
+
+  if spec.universe and spec.universe ~= "" then
+    local universe_dotted = spec.universe:gsub("/", ".")
+    table.insert(tries, string.format("prismpunk.schemes.%s.%s", universe_dotted, spec.name))
+  end
+  table.insert(tries, string.format("prismpunk.schemes.%s", spec.name))
 
   if spec.variants and #spec.variants > 0 then
     for _, variant in ipairs(spec.variants) do
@@ -126,24 +145,30 @@ function M.resolve_theme_module(spec)
 
   local tried_paths = table.concat(tries, "\n  - ")
   return nil, nil, string.format(
-    "[prismpunk] Could not resolve theme: %s\nTried:\n  - %s",
+    "[prismpunk] Could not resolve scheme: %s\nTried:\n  - %s",
     spec.universe and (spec.universe .. "/" .. spec.name) or spec.name,
     tried_paths
   )
 end
 
+M.resolve_theme_module = M.resolve_scheme_module
+
 function M.clear_module_cache()
   module_cache = {}
 end
 
-local themes_cache = nil
-local themes_cache_time = 0
+local schemes_cache = nil
+local schemes_cache_time = 0
 local CACHE_TTL = 30
 
-local function find_themes_dir()
+local function find_schemes_dir()
   local searchpath = package.searchpath("prismpunk.loader", package.path)
   if searchpath then
     local loader_path = searchpath:gsub("/loader%.lua$", "")
+    local schemes_path = loader_path .. "/schemes"
+    if vim.fn.isdirectory(schemes_path) == 1 then
+      return schemes_path
+    end
     local themes_path = loader_path .. "/themes"
     if vim.fn.isdirectory(themes_path) == 1 then
       return themes_path
@@ -152,13 +177,15 @@ local function find_themes_dir()
 
   local rtp = vim.opt.rtp:get()
   for _, path in ipairs(rtp) do
-    local themes_paths = {
+    local schemes_paths = {
+      path .. "/prismpunk/schemes",
+      path .. "/lua/prismpunk/schemes",
       path .. "/prismpunk/themes",
       path .. "/lua/prismpunk/themes",
     }
-    for _, themes_path in ipairs(themes_paths) do
-      if vim.fn.isdirectory(themes_path) == 1 then
-        return themes_path
+    for _, schemes_path in ipairs(schemes_paths) do
+      if vim.fn.isdirectory(schemes_path) == 1 then
+        return schemes_path
       end
     end
   end
@@ -170,13 +197,15 @@ local function find_themes_dir()
     local subdirs = vim.fn.glob(lazy_base .. "/*", false, true) or {}
     for _, subdir in ipairs(subdirs) do
       if vim.fn.isdirectory(subdir) == 1 then
-        local themes_paths = {
+        local schemes_paths = {
+          subdir .. "/lua/prismpunk/schemes",
+          subdir .. "/schemes",
           subdir .. "/lua/prismpunk/themes",
           subdir .. "/themes",
         }
-        for _, themes_path in ipairs(themes_paths) do
-          if vim.fn.isdirectory(themes_path) == 1 then
-            return themes_path
+        for _, schemes_path in ipairs(schemes_paths) do
+          if vim.fn.isdirectory(schemes_path) == 1 then
+            return schemes_path
           end
         end
       end
@@ -184,6 +213,9 @@ local function find_themes_dir()
   end
 
   local search_dirs = {
+    data_path .. "/site/pack/*/start/*/lua/prismpunk/schemes",
+    data_path .. "/site/pack/*/opt/*/lua/prismpunk/schemes",
+    data_path .. "/site/lua/prismpunk/schemes",
     data_path .. "/site/pack/*/start/*/lua/prismpunk/themes",
     data_path .. "/site/pack/*/opt/*/lua/prismpunk/themes",
     data_path .. "/site/lua/prismpunk/themes",
@@ -199,9 +231,12 @@ local function find_themes_dir()
   end
 
   local paths = { 
-    "./lua/prismpunk/themes", 
+    "./lua/prismpunk/schemes",
+    "../lua/prismpunk/schemes",
+    vim.fn.getcwd() .. "/lua/prismpunk/schemes",
+    "./lua/prismpunk/themes",
     "../lua/prismpunk/themes",
-    vim.fn.getcwd() .. "/lua/prismpunk/themes"
+    vim.fn.getcwd() .. "/lua/prismpunk/themes",
   }
   for _, dir in ipairs(paths) do
     if vim.fn.isdirectory(dir) == 1 then
@@ -212,7 +247,7 @@ local function find_themes_dir()
   return nil
 end
 
-local function get_fallback_themes()
+local function get_fallback_schemes()
   return {
     "kanagawa/paper-edo",
     "kanagawa/paper-dawn",
@@ -232,34 +267,34 @@ local function get_fallback_themes()
   }
 end
 
-function M.list_themes()
+function M.list_schemes()
   local current_time = os.time(os.date("*t"))
-  if themes_cache and (current_time - themes_cache_time) < CACHE_TTL then return themes_cache end
+  if schemes_cache and (current_time - schemes_cache_time) < CACHE_TTL then return schemes_cache end
 
-  local themes = {}
-  local themes_dir = find_themes_dir()
+  local schemes = {}
+  local schemes_dir = find_schemes_dir()
 
-  if not themes_dir then
+  if not schemes_dir then
     vim.schedule(function()
-      vim.notify("[prismpunk] Using fallback theme list - themes_dir not found", vim.log.levels.WARN)
+      vim.notify("[prismpunk] Using fallback scheme list - schemes_dir not found", vim.log.levels.WARN)
     end)
 
-    for _, theme in ipairs(get_fallback_themes()) do
-      local parsed = M.parse_theme_spec(theme)
-      local theme_path
+    for _, scheme in ipairs(get_fallback_schemes()) do
+      local parsed = M.parse_scheme_spec(scheme)
+      local scheme_path
       if parsed.universe then
-        theme_path = "prismpunk.themes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
+        scheme_path = "prismpunk.schemes." .. parsed.universe:gsub("/", ".") .. "." .. parsed.name
       else
-        theme_path = "prismpunk.themes." .. parsed.name
+        scheme_path = "prismpunk.schemes." .. parsed.name
       end
 
-      local ok, _ = pcall(require, theme_path)
-      if ok then table.insert(themes, theme) end
+      local ok, _ = pcall(require, scheme_path)
+      if ok then table.insert(schemes, scheme) end
     end
 
-    themes_cache = themes
-    themes_cache_time = current_time
-    return themes
+    schemes_cache = schemes
+    schemes_cache_time = current_time
+    return schemes
   end
 
   local function scan_dir(dir, prefix)
@@ -271,65 +306,73 @@ function M.list_themes()
       if vim.fn.isdirectory(full_path) == 1 then
         scan_dir(full_path, prefix .. name .. "/")
       elseif name:match("%.lua$") then
-        local theme_name = name:gsub("%.lua$", "")
-        table.insert(themes, prefix .. theme_name)
+        if name ~= "init.lua" then
+          local scheme_name = name:gsub("%.lua$", "")
+          table.insert(schemes, prefix .. scheme_name)
+        end
       end
     end
   end
 
-  scan_dir(themes_dir)
+  scan_dir(schemes_dir)
 
-  themes_cache = themes
-  themes_cache_time = current_time
-  return themes
+  schemes_cache = schemes
+  schemes_cache_time = current_time
+  return schemes
 end
 
-function M.clear_themes_cache()
-  themes_cache = nil
-  themes_cache_time = 0
+M.list_themes = M.list_schemes
+
+function M.clear_schemes_cache()
+  schemes_cache = nil
+  schemes_cache_time = 0
 end
 
-function M.get_theme_info(theme_name)
-  local parsed = M.parse_theme_spec(theme_name)
+M.clear_themes_cache = M.clear_schemes_cache
+
+function M.get_scheme_info(scheme_name)
+  local parsed = M.parse_scheme_spec(scheme_name)
   if not parsed.name then return nil end
 
-  local theme
+  local scheme
   local tries = {}
 
   if parsed.variants and #parsed.variants > 0 then
     for _, variant in ipairs(parsed.variants) do
       if variant.universe and variant.universe ~= "" then
         local uni = variant.universe:gsub("/", ".")
-        table.insert(tries, "prismpunk.themes." .. uni .. "." .. variant.name)
+        table.insert(tries, "prismpunk.schemes." .. uni .. "." .. variant.name)
       end
     end
   end
 
   if parsed.universe and parsed.universe ~= "" then
     local uni = parsed.universe:gsub("/", ".")
-    table.insert(tries, "prismpunk.themes." .. uni .. "." .. parsed.name)
+    table.insert(tries, "prismpunk.schemes." .. uni .. "." .. parsed.name)
   end
-  table.insert(tries, "prismpunk.themes." .. parsed.name)
+  table.insert(tries, "prismpunk.schemes." .. parsed.name)
 
   for _, path in ipairs(tries) do
     local ok, mod = pcall(require, path)
     if ok and type(mod) == "table" then
-      theme = mod
+      scheme = mod
       break
     end
   end
 
-  if not theme then return nil end
+  if not scheme then return nil end
 
   return {
-    name = theme.name or parsed.name,
-    author = theme.author or "Unknown",
-    description = theme.description or "No description",
+    name = scheme.name or parsed.name,
+    author = scheme.author or "Unknown",
+    description = scheme.description or "No description",
     universe = parsed.universe,
-    base16 = theme.base16 or {},
-    palette = theme.palette or {},
-    module = theme,
+    base16 = scheme.base16 or {},
+    palette = scheme.palette or {},
+    module = scheme,
   }
 end
+
+M.get_theme_info = M.get_scheme_info
 
 return M

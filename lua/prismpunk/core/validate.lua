@@ -1,5 +1,5 @@
---- PrismPunk Theme Validation Module
---- Validates themes against WCAG, Base16, color format, and schema standards
+--- PrismPunk Scheme Validation Module
+--- Validates schemes against WCAG, Base16, color format, and schema standards
 local M = {}
 
 local color = require("prismpunk.utils.color")
@@ -35,12 +35,12 @@ local REQUIRED_SECTIONS = { "ui", "syn", "diag", "term" }
 -- UNIFIED VALIDATION ENTRY POINT
 -- ============================================================================
 
---- Unified validation for theme loading
---- Single entry point that runs all validation checks on a theme
---- @param theme table Theme colors from theme.get()
+--- Unified validation for scheme loading
+--- Single entry point that runs all validation checks on a scheme
+--- @param scheme table Scheme colors from scheme.get()
 --- @param opts table|nil Options { validate_colors: boolean, validate_schema: boolean, validate_contrast: boolean, contrast_level: "aa"|"aaa" }
 --- @return table results { valid, errors, warnings, checks }
-function M.validate(theme, opts)
+function M.validate(scheme, opts)
   opts = opts or {}
   local results = {
     valid = true,
@@ -49,14 +49,14 @@ function M.validate(theme, opts)
     checks = {},
   }
 
-  if not theme or type(theme) ~= "table" then
-    table.insert(results.errors, "theme must be a table")
+  if not scheme or type(scheme) ~= "table" then
+    table.insert(results.errors, "scheme must be a table")
     results.valid = false
     return results
   end
 
   if opts.validate_colors ~= false then
-    local color_result = M.check_color_formats(theme)
+    local color_result = M.check_color_formats(scheme)
     results.checks.color_formats = color_result
     if not color_result.valid then
       for _, err in ipairs(color_result.errors) do
@@ -67,7 +67,7 @@ function M.validate(theme, opts)
   end
 
   if opts.validate_schema ~= false then
-    local schema_result = M.check_theme_color_schema(theme)
+    local schema_result = M.check_scheme_color_schema(scheme)
     results.checks.schema = schema_result
     if not schema_result.valid then
       for _, err in ipairs(schema_result.errors) do
@@ -82,7 +82,7 @@ function M.validate(theme, opts)
 
   if opts.validate_contrast then
     local level = opts.contrast_level or "aa"
-    local contrast_result = M.check_wcag_contrast(theme, { level = level })
+    local contrast_result = M.check_wcag_contrast(scheme, { level = level })
     results.checks.contrast = contrast_result
     if not contrast_result.passed then
       for _, err in ipairs(contrast_result.errors) do
@@ -94,7 +94,7 @@ function M.validate(theme, opts)
     end
   end
 
-  local structure_result = M.check_theme_structure(theme)
+  local structure_result = M.check_scheme_structure(scheme)
   results.checks.structure = structure_result
   if not structure_result.valid then
     for _, err in ipairs(structure_result.errors) do
@@ -106,26 +106,26 @@ function M.validate(theme, opts)
   return results
 end
 
---- Quick validation for theme loading (minimal checks)
---- @param theme table Theme colors from theme.get()
+--- Quick validation for scheme loading (minimal checks)
+--- @param scheme table Scheme colors from scheme.get()
 --- @return boolean valid, string[] errors
-function M.quick_validate(theme)
-  if not theme or type(theme) ~= "table" then
-    return false, { "theme must be a table" }
+function M.quick_validate(scheme)
+  if not scheme or type(scheme) ~= "table" then
+    return false, { "scheme must be a table" }
   end
 
   local errors = {}
 
-  if not theme.ui or not theme.ui.fg or not theme.ui.bg then
-    table.insert(errors, "theme missing required ui.fg or ui.bg")
+  if not scheme.ui or not scheme.ui.fg or not scheme.ui.bg then
+    table.insert(errors, "scheme missing required ui.fg or ui.bg")
   end
 
-  if not theme.syn then
-    table.insert(errors, "theme missing required syn section")
+  if not scheme.syn then
+    table.insert(errors, "scheme missing required syn section")
   end
 
-  if not theme.diag then
-    table.insert(errors, "theme missing required diag section")
+  if not scheme.diag then
+    table.insert(errors, "scheme missing required diag section")
   end
 
   return #errors == 0, errors
@@ -1412,5 +1412,11 @@ function M.format_report(report)
 
   return table.concat(lines, "\n")
 end
+
+M.check_scheme_color_schema = M.check_theme_color_schema
+M.check_scheme_structure = M.check_theme_structure
+M.validate_scheme = M.validate_theme
+M.validate_all_schemes = M.validate_all_themes
+M.check_cross_scheme_duplicates = M.check_cross_theme_duplicates
 
 return M

@@ -1,5 +1,5 @@
---- PrismPunk Theme Loading Pipeline
---- Orchestrates palette creation, theme generation, and highlight application
+--- PrismPunk Scheme Loading Pipeline
+--- Orchestrates palette creation, scheme generation, and highlight application
 local M = {}
 
 local config = require("prismpunk.config")
@@ -15,7 +15,7 @@ local highlight_cache = cache.new({
   enable_disk = true,
 })
 
-local loaded_theme = nil
+local loaded_scheme = nil
 
 local cache_stats = {
   hits = 0,
@@ -108,7 +108,7 @@ function M.clear_cache()
   highlight_cache:clear()
   cache_stats.hits = 0
   cache_stats.misses = 0
-  loaded_theme = nil
+  loaded_scheme = nil
   palette.clear_cache()
   resolver.clear_module_cache()
 end
@@ -129,12 +129,12 @@ local function try_load_from_cache(cache_key, scheme_module, palette_table, sche
 
   local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil
 
-  highlights.apply(cached.theme, config.options)
+  highlights.apply(cached.scheme, config.options)
   apply_terminals(scheme_module, palette_table)
 
   debug_profile("Apply from " .. source .. " cache", start_ns)
 
-  return cached.theme
+  return cached.scheme
 end
 
 function M.execute(scheme_spec, opts)
@@ -151,7 +151,7 @@ function M.execute(scheme_spec, opts)
   end
 
   local scheme_key = (parsed.universe or "") .. "/" .. parsed.name
-  if opts.skip_if_loaded and loaded_theme == scheme_key then 
+  if opts.skip_if_loaded and loaded_scheme == scheme_key then 
     return true, { _cached = true } 
   end
 
@@ -198,7 +198,7 @@ function M.execute(scheme_spec, opts)
   if config.options.cache.enable and not opts.force_reload then
     local cached_scheme = try_load_from_cache(cache_key, scheme_module, palette_table, scheme_path)
     if cached_scheme then
-      loaded_theme = scheme_key
+      loaded_scheme = scheme_key
       return true, cached_scheme
     end
   end
@@ -233,9 +233,9 @@ function M.execute(scheme_spec, opts)
 
   if config.options.cache.enable then
     highlight_cache:set(cache_key, {
-      theme = scheme_result,
+      scheme = scheme_result,
       normalized = normalized,
-      theme_path = scheme_path,
+      scheme_path = scheme_path,
     })
   end
 
@@ -247,7 +247,7 @@ function M.execute(scheme_spec, opts)
   apply_terminals(scheme_module, palette_table)
 
   debug_profile("Cold load (scheme.get + normalize + highlights + terminals)", start_ns_full)
-  loaded_theme = scheme_key
+  loaded_scheme = scheme_key
 
   return true, scheme_result
 end

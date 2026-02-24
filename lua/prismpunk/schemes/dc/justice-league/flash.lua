@@ -1,8 +1,6 @@
--- prismpunk/themes/dc/justice-league/flash.lua
 local color = require("prismpunk.utils.color")
 
-local palette = -- prismpunk/palettes/dc/justice-league/flash.lua
-return {
+local palette = {
   bg_darkest = "#040308", -- cosmicBlack
   bg_darker = "#0A0610", -- voidBlack
   bg_dark = "#14121A", -- starlightGray

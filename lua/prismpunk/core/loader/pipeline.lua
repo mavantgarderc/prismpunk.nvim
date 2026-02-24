@@ -124,7 +124,7 @@ local function try_load_from_cache(cache_key, scheme_module, palette_table, sche
     local scheme_mtime = file_path and cache.get_mtime(file_path) or nil
     if scheme_mtime and not highlight_cache:validate_disk_cache(cache_key, scheme_mtime) then
       return nil
-  end
+    end
   end
 
   local start_ns = (config.options.debug and config.options.debug.profile_startup) and vim.loop.hrtime() or nil

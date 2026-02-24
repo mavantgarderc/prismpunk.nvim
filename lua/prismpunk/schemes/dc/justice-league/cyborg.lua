@@ -1,7 +1,6 @@
 local color = require("prismpunk.utils.color")
 
-local palette = -- prismpunk/palettes/dc/justice-league/cyborg.lua
-return {
+local palette = {
   bg_darkest = "#0C0F17",
   bg_darker = "#12151E",
   bg_dark = "#181C28",
@@ -365,8 +364,7 @@ end
 return {
   name = "Justice League – Cyborg",
   author = "PrismPunk.nvim",
-  description = "Half man. Half machine. Full hero. Titanium, Mother Box violet, "
-    .. "and a heart that refuses to be silenced.",
+  description = "Half man. Half machine. Full hero. Titanium, Mother Box violet, and a heart that refuses to be silenced.",
 
   base16 = {
     base00 = palette.bg_darkest,

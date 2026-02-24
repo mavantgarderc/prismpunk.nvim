@@ -1,0 +1,417 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  bg_darkest = "#1A1200",
+  bg_darker = "#2A1F00",
+  bg_dark = "#3A2C00",
+  bg_mid = "#4A3900",
+  bg_light = "#5A4600",
+  bg_lighter = "#6A5300",
+  bg_lightest = "#7A6000",
+
+  fg_lightest = "#FFEBB7",
+  fg_light = "#E8D4A6",
+  fg_mid = "#B8A885",
+  fg_dark = "#887C64",
+
+  bg_alt1 = "#221900",
+  bg_alt2 = "#120D00",
+  bg_alt3 = "#322500",
+  bg_alt4 = "#0A0800",
+
+  divineCore = "#FFB300",
+  divineGlow = "#FFC400",
+  divineBright = "#FFD700",
+  divineDeep = "#CC8F00",
+  divineDark = "#996B00",
+
+  godlyAmber = "#FFA500",
+  celestialRay = "#FFDB58",
+  sacredGold = "#D4AF37",
+  radiantYellow = "#FFDF00",
+  bronzeShine = "#CD7F32",
+
+  wrathFlame = "#B34700",
+  immortalViolet = "#6B3D8C",
+  holyYellow = "#CCAA00",
+  godlyOrange = "#E69500",
+  eternityGreen = "#8C8C00",
+  powerBlue = "#004A8C",
+  transcendentCyan = "#008C8C",
+}
+
+local M = {}
+
+---@param opts table
+---@param plt table
+---@return table
+M.get = function(opts, plt)
+  return {
+    modes = {
+      normal = plt.divineCore,
+      insert = plt.celestialRay,
+      visual = plt.divineGlow,
+      replace = plt.wrathFlame,
+      command = plt.divineBright,
+    },
+
+    ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_dark,
+      fg_dark = plt.bg_lightest,
+      fg_reverse = plt.bg_alt1,
+      bg_m4 = plt.bg_alt4,
+      bg_m3 = plt.bg_alt3,
+      bg_m2 = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_dim = plt.bg_darker,
+      bg = plt.bg_darkest,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_cursorline = plt.bg_mid,
+      bg_cursorline_alt = plt.bg_light,
+      bg_search = plt.divineDeep,
+      bg_visual = plt.divineDark,
+      bg_statusline = plt.bg_light,
+      border = plt.bg_alt4,
+      header1 = plt.divineCore,
+      header2 = plt.celestialRay,
+      special = plt.sacredGold,
+      nontext = plt.bg_lighter,
+      whitespace = plt.bg_lightest,
+      win_separator = plt.divineCore,
+      indent = plt.bg_lighter,
+      indent_scope = plt.divineGlow,
+      picker = plt.wrathFlame,
+      yank = plt.radiantYellow,
+      mark = plt.celestialRay,
+      scrollbar = plt.bg_lighter,
+      tabline = {
+        bg = plt.bg_darkest,
+        fg_selected = plt.fg_lightest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_mid,
+        bg_inactive = plt.bg_darkest,
+        fg_alternate = plt.divineBright,
+        bg_alternate = plt.bg_darkest,
+        indicator = plt.sacredGold,
+      },
+      pmenu = {
+        fg = plt.fg_lightest,
+        fg_sel = "none",
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.bg_lightest,
+      },
+      float = {
+        fg = plt.fg_light,
+        bg = plt.bg_mid,
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_mid,
+      },
+    },
+
+    accent = {
+      accent1 = plt.divineCore,
+      accent2 = plt.divineBright,
+      accent3 = plt.celestialRay,
+      accent4 = plt.sacredGold,
+      accent5 = plt.wrathFlame,
+      invert = plt.bg_light,
+    },
+
+    rainbow = {
+      rainbow1 = plt.divineCore,
+      rainbow2 = plt.divineBright,
+      rainbow3 = plt.celestialRay,
+      rainbow4 = plt.divineGlow,
+      rainbow5 = plt.sacredGold,
+      rainbow6 = plt.radiantYellow,
+      rainbow7 = plt.godlyAmber,
+    },
+
+    syn = {
+      attribute = plt.holyYellow,
+      boolean = plt.transcendentCyan,
+      comment = plt.fg_dark,
+      constant = plt.divineBright,
+      deprecated = plt.fg_mid,
+      func = plt.celestialRay,
+      identifier = plt.fg_lightest,
+      keyword = plt.divineCore,
+      method = plt.sacredGold,
+      number = plt.divineGlow,
+      operator = plt.wrathFlame,
+      parameter = plt.fg_mid,
+      preproc = plt.divineDeep,
+      punct = plt.fg_mid,
+      regex = plt.holyYellow,
+      statement = plt.divineCore,
+      string = plt.eternityGreen,
+      symbol = plt.wrathFlame,
+      type = plt.celestialRay,
+      variable = plt.fg_lightest,
+      special = plt.holyYellow,
+      special2 = plt.wrathFlame,
+      special3 = plt.divineDeep,
+    },
+
+    vcs = {
+      added = plt.eternityGreen,
+      removed = plt.wrathFlame,
+      changed = plt.holyYellow,
+    },
+
+    diff = {
+      add = plt.eternityGreen,
+      change = plt.holyYellow,
+      delete = plt.wrathFlame,
+      text = plt.divineCore,
+    },
+
+    diag = {
+      ok = plt.eternityGreen,
+      error = plt.wrathFlame,
+      warning = plt.holyYellow,
+      info = plt.divineCore,
+      hint = plt.celestialRay,
+    },
+
+    term = {
+      black = plt.bg_alt3,
+      red = plt.wrathFlame,
+      green = plt.eternityGreen,
+      yellow = plt.holyYellow,
+      blue = plt.divineCore,
+      magenta = plt.immortalViolet,
+      cyan = plt.celestialRay,
+      white = plt.fg_light,
+      black_bright = color(plt.bg_alt3):brighten(0.6):to_hex(),
+      red_bright = color(plt.wrathFlame):brighten(0.2):to_hex(),
+      green_bright = color(plt.eternityGreen):brighten(0.1):to_hex(),
+      yellow_bright = color(plt.holyYellow):brighten(0.2):to_hex(),
+      blue_bright = color(plt.divineCore):brighten(0.3):to_hex(),
+      magenta_bright = color(plt.immortalViolet):brighten(0.2):to_hex(),
+      cyan_bright = color(plt.celestialRay):brighten(0.1):to_hex(),
+      white_bright = color(plt.fg_light):brighten(0.2):to_hex(),
+      indexed1 = plt.divineBright,
+      indexed2 = plt.wrathFlame,
+    },
+
+    treesitter = {
+      ["@comment"] = plt.fg_dark,
+      ["@comment.documentation"] = plt.fg_mid,
+      ["@comment.error"] = plt.wrathFlame,
+      ["@comment.warning"] = plt.holyYellow,
+      ["@comment.todo"] = plt.divineCore,
+      ["@comment.note"] = plt.celestialRay,
+
+      ["@constant"] = plt.divineBright,
+      ["@constant.builtin"] = plt.divineBright,
+      ["@constant.macro"] = plt.holyYellow,
+
+      ["@string"] = plt.eternityGreen,
+      ["@string.documentation"] = plt.eternityGreen,
+      ["@string.regex"] = plt.holyYellow,
+      ["@string.escape"] = plt.immortalViolet,
+      ["@string.special"] = plt.celestialRay,
+      ["@string.special.symbol"] = plt.wrathFlame,
+      ["@string.special.url"] = plt.sacredGold,
+      ["@string.special.path"] = plt.celestialRay,
+
+      ["@character"] = plt.eternityGreen,
+      ["@character.special"] = plt.immortalViolet,
+
+      ["@number"] = plt.divineGlow,
+      ["@number.float"] = plt.divineGlow,
+
+      ["@boolean"] = plt.transcendentCyan,
+
+      ["@function"] = plt.celestialRay,
+      ["@function.builtin"] = plt.celestialRay,
+      ["@function.call"] = plt.celestialRay,
+      ["@function.macro"] = plt.divineDeep,
+      ["@function.method"] = plt.sacredGold,
+      ["@function.method.call"] = plt.sacredGold,
+
+      ["@constructor"] = plt.celestialRay,
+
+      ["@parameter"] = plt.fg_mid,
+      ["@parameter.builtin"] = plt.fg_light,
+
+      ["@keyword"] = plt.divineCore,
+      ["@keyword.coroutine"] = plt.divineGlow,
+      ["@keyword.function"] = plt.divineCore,
+      ["@keyword.operator"] = plt.wrathFlame,
+      ["@keyword.return"] = plt.divineCore,
+      ["@keyword.import"] = plt.divineDeep,
+      ["@keyword.storage"] = plt.divineCore,
+      ["@keyword.repeat"] = plt.divineCore,
+      ["@keyword.conditional"] = plt.divineCore,
+      ["@keyword.exception"] = plt.wrathFlame,
+      ["@keyword.directive"] = plt.divineDeep,
+      ["@keyword.directive.define"] = plt.divineDeep,
+
+      ["@conditional"] = plt.divineCore,
+      ["@conditional.ternary"] = plt.divineCore,
+
+      ["@repeat"] = plt.divineCore,
+
+      ["@label"] = plt.divineGlow,
+
+      ["@operator"] = plt.wrathFlame,
+
+      ["@exception"] = plt.wrathFlame,
+
+      ["@variable"] = plt.fg_lightest,
+      ["@variable.builtin"] = plt.divineGlow,
+      ["@variable.parameter"] = plt.fg_mid,
+      ["@variable.member"] = plt.fg_light,
+
+      ["@type"] = plt.celestialRay,
+      ["@type.builtin"] = plt.celestialRay,
+      ["@type.definition"] = plt.celestialRay,
+      ["@type.qualifier"] = plt.divineCore,
+
+      ["@attribute"] = plt.holyYellow,
+      ["@attribute.builtin"] = plt.holyYellow,
+
+      ["@property"] = plt.fg_light,
+
+      ["@field"] = plt.fg_light,
+
+      ["@module"] = plt.celestialRay,
+      ["@module.builtin"] = plt.celestialRay,
+
+      ["@namespace"] = plt.celestialRay,
+      ["@namespace.builtin"] = plt.celestialRay,
+
+      ["@punctuation.delimiter"] = plt.fg_mid,
+      ["@punctuation.bracket"] = plt.fg_mid,
+      ["@punctuation.special"] = plt.wrathFlame,
+
+      ["@tag"] = plt.wrathFlame,
+      ["@tag.attribute"] = plt.holyYellow,
+      ["@tag.delimiter"] = plt.fg_mid,
+      ["@tag.builtin"] = plt.wrathFlame,
+
+      ["@markup.strong"] = { fg = plt.divineBright, bold = true },
+      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
+      ["@markup.strikethrough"] = { fg = plt.fg_dark, strikethrough = true },
+      ["@markup.underline"] = { fg = plt.fg_light, underline = true },
+      ["@markup.heading"] = plt.divineCore,
+      ["@markup.heading.1"] = plt.divineCore,
+      ["@markup.heading.2"] = plt.divineBright,
+      ["@markup.heading.3"] = plt.celestialRay,
+      ["@markup.heading.4"] = plt.sacredGold,
+      ["@markup.heading.5"] = plt.divineGlow,
+      ["@markup.heading.6"] = plt.radiantYellow,
+      ["@markup.quote"] = plt.fg_mid,
+      ["@markup.math"] = plt.celestialRay,
+      ["@markup.link"] = plt.sacredGold,
+      ["@markup.link.label"] = plt.celestialRay,
+      ["@markup.link.url"] = plt.sacredGold,
+      ["@markup.raw"] = plt.eternityGreen,
+      ["@markup.raw.block"] = plt.eternityGreen,
+      ["@markup.list"] = plt.wrathFlame,
+      ["@markup.list.checked"] = plt.eternityGreen,
+      ["@markup.list.unchecked"] = plt.fg_mid,
+
+      ["@diff.plus"] = plt.eternityGreen,
+      ["@diff.minus"] = plt.wrathFlame,
+      ["@diff.delta"] = plt.holyYellow,
+
+      ["@none"] = "none",
+      ["@conceal"] = plt.divineDeep,
+      ["@spell"] = plt.fg_lightest,
+      ["@nospell"] = "none",
+
+      ["@lsp.type.property.lua"] = plt.fg_light,
+      ["@constructor.python"] = plt.celestialRay,
+      ["@constructor.javascript"] = plt.celestialRay,
+      ["@constructor.typescript"] = plt.celestialRay,
+      ["@namespace.rust"] = plt.celestialRay,
+      ["@type.qualifier.rust"] = plt.divineCore,
+      ["@constant.macro.c"] = plt.holyYellow,
+      ["@constant.macro.cpp"] = plt.holyYellow,
+      ["@namespace.go"] = plt.celestialRay,
+      ["@property.css"] = plt.celestialRay,
+      ["@type.css"] = plt.wrathFlame,
+      ["@label.json"] = plt.celestialRay,
+      ["@field.yaml"] = plt.celestialRay,
+      ["@property.toml"] = plt.celestialRay,
+      ["@function.builtin.bash"] = plt.celestialRay,
+      ["@string.regexp"] = plt.holyYellow,
+      ["@character.special.regex"] = plt.immortalViolet,
+    },
+
+    lsp = {
+      ["@lsp.type.class"] = plt.celestialRay,
+      ["@lsp.type.interface"] = plt.celestialRay,
+      ["@lsp.type.struct"] = plt.celestialRay,
+      ["@lsp.type.enum"] = plt.celestialRay,
+      ["@lsp.type.enumMember"] = plt.divineBright,
+      ["@lsp.type.property"] = plt.fg_light,
+      ["@lsp.type.namespace"] = plt.celestialRay,
+
+      ["@lsp.type.macro"] = plt.holyYellow,
+      ["@lsp.type.decorator"] = plt.celestialRay,
+
+      ["@lsp.type.builtinType"] = plt.celestialRay,
+      ["@lsp.type.selfParameter"] = plt.divineGlow,
+      ["@lsp.type.typeParameter"] = plt.celestialRay,
+
+      ["@lsp.type.array"] = plt.celestialRay,
+      ["@lsp.type.object"] = plt.celestialRay,
+      ["@lsp.type.key"] = plt.fg_light,
+      ["@lsp.type.null"] = plt.divineBright,
+      ["@lsp.type.enumConstant"] = plt.divineBright,
+
+      ["@lsp.type.event"] = plt.celestialRay,
+      ["@lsp.type.regexp"] = plt.holyYellow,
+      ["@lsp.type.unresolvedReference"] = plt.holyYellow,
+
+      ["@lsp.mod.deprecated"] = { fg = plt.fg_mid, strikethrough = true },
+      ["@lsp.mod.readonly"] = plt.divineBright,
+      ["@lsp.mod.async"] = plt.divineCore,
+      ["@lsp.mod.static"] = plt.divineGlow,
+      ["@lsp.mod.abstract"] = plt.celestialRay,
+      ["@lsp.mod.defaultLibrary"] = plt.celestialRay,
+      ["@lsp.mod.documentation"] = plt.fg_mid,
+    },
+  }
+end
+
+return {
+  name = "Lantern Corps – Gold (Godlike)",
+  author = "PrismPunk.nvim",
+  description = "I serve the fallen, broken light, that glows yet dimmer with the night. "
+    .. "The flame burns low that's bright in Hell... Beware my fate.",
+
+  base16 = {
+    base00 = palette.bg_darkest,
+    base01 = palette.bg_darker,
+    base02 = palette.bg_dark,
+    base03 = palette.bg_mid,
+    base04 = palette.bg_light,
+    base05 = palette.fg_mid,
+    base06 = palette.fg_lightest,
+    base07 = palette.fg_light,
+    base08 = palette.wrathFlame,
+    base09 = palette.godlyAmber,
+    base0A = palette.holyYellow,
+    base0B = palette.eternityGreen,
+    base0C = palette.celestialRay,
+    base0D = palette.divineCore,
+    base0E = palette.divineDeep,
+    base0F = palette.divineBright,
+  },
+
+  palette = palette,
+  get = M.get,
+}

@@ -1,0 +1,415 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  bg_darkest = "#000D00",
+  bg_darker = "#001700",
+  bg_dark = "#002200",
+  bg_mid = "#002D00",
+  bg_light = "#003800",
+  bg_lighter = "#004300",
+  bg_lightest = "#004E00",
+
+  fg_lightest = "#D8FFD8",
+  fg_light = "#B8E8B8",
+  fg_mid = "#688868",
+  fg_dark = "#486048",
+
+  bg_alt1 = "#001200",
+  bg_alt2 = "#000800",
+  bg_alt3 = "#001C00",
+  bg_alt4 = "#000A00",
+
+  willCore = "#00DD99",
+  willGlow = "#1EE06B",
+  willBright = "#00FF88",
+  willDeep = "#1EA876",
+  willDark = "#0D6B4D",
+
+  constructBeam = "#3EF785",
+  emeraldFlash = "#28FF94",
+  guardianGreen = "#20C070",
+  oaGlow = "#00DDAA",
+  resolveGreen = "#3A5A3A",
+
+  fearShadow = "#3A5A4A",
+  guardianViolet = "#4A3A5A",
+  amberWarning = "#5A5A3A",
+  guardianOrange = "#5A4A3A",
+  constructCyan = "#3A5A5A",
+}
+
+local M = {}
+
+---@param opts table
+---@param plt table
+---@return table
+M.get = function(opts, plt)
+  return {
+    modes = {
+      normal = plt.willCore,
+      insert = plt.emeraldFlash,
+      visual = plt.willGlow,
+      replace = plt.fearShadow,
+      command = plt.willBright,
+    },
+
+    ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_dark,
+      fg_dark = plt.bg_lightest,
+      fg_reverse = plt.bg_alt1,
+      bg_m4 = plt.bg_alt4,
+      bg_m3 = plt.bg_alt3,
+      bg_m2 = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_dim = plt.bg_darker,
+      bg = plt.bg_darkest,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_cursorline = plt.bg_mid,
+      bg_cursorline_alt = plt.bg_light,
+      bg_search = plt.willDeep,
+      bg_visual = plt.willDark,
+      bg_statusline = plt.bg_light,
+      border = plt.bg_alt4,
+      header1 = plt.willCore,
+      header2 = plt.emeraldFlash,
+      special = plt.constructBeam,
+      nontext = plt.bg_lighter,
+      whitespace = plt.bg_lightest,
+      win_separator = plt.willCore,
+      indent = plt.bg_lighter,
+      indent_scope = plt.willGlow,
+      picker = plt.fearShadow,
+      yank = plt.oaGlow,
+      mark = plt.emeraldFlash,
+      scrollbar = plt.bg_lighter,
+      tabline = {
+        bg = plt.bg_darkest,
+        fg_selected = plt.fg_lightest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_mid,
+        bg_inactive = plt.bg_darkest,
+        fg_alternate = plt.willBright,
+        bg_alternate = plt.bg_darkest,
+        indicator = plt.constructBeam,
+      },
+      pmenu = {
+        fg = plt.fg_lightest,
+        fg_sel = "none",
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.bg_lightest,
+      },
+      float = {
+        fg = plt.fg_light,
+        bg = plt.bg_mid,
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_mid,
+      },
+    },
+
+    accent = {
+      accent1 = plt.willCore,
+      accent2 = plt.willBright,
+      accent3 = plt.emeraldFlash,
+      accent4 = plt.constructBeam,
+      accent5 = plt.fearShadow,
+      invert = plt.bg_light,
+    },
+
+    rainbow = {
+      rainbow1 = plt.willCore,
+      rainbow2 = plt.willBright,
+      rainbow3 = plt.emeraldFlash,
+      rainbow4 = plt.willGlow,
+      rainbow5 = plt.constructBeam,
+      rainbow6 = plt.oaGlow,
+      rainbow7 = plt.guardianGreen,
+    },
+
+    syn = {
+      attribute = plt.amberWarning,
+      boolean = plt.constructCyan,
+      comment = plt.fg_dark,
+      constant = plt.willBright,
+      deprecated = plt.fg_mid,
+      func = plt.emeraldFlash,
+      identifier = plt.fg_lightest,
+      keyword = plt.willCore,
+      method = plt.constructBeam,
+      number = plt.willGlow,
+      operator = plt.fearShadow,
+      parameter = plt.fg_mid,
+      preproc = plt.willDeep,
+      punct = plt.fg_mid,
+      regex = plt.amberWarning,
+      statement = plt.willCore,
+      string = plt.resolveGreen,
+      symbol = plt.fearShadow,
+      type = plt.emeraldFlash,
+      variable = plt.fg_lightest,
+      special = plt.amberWarning,
+      special2 = plt.fearShadow,
+      special3 = plt.willDeep,
+    },
+
+    vcs = {
+      added = plt.resolveGreen,
+      removed = plt.fearShadow,
+      changed = plt.amberWarning,
+    },
+
+    diff = {
+      add = plt.resolveGreen,
+      change = plt.amberWarning,
+      delete = plt.fearShadow,
+      text = plt.willCore,
+    },
+
+    diag = {
+      ok = plt.resolveGreen,
+      error = plt.fearShadow,
+      warning = plt.amberWarning,
+      info = plt.willCore,
+      hint = plt.emeraldFlash,
+    },
+
+    term = {
+      black = plt.bg_alt3,
+      red = plt.fearShadow,
+      green = plt.resolveGreen,
+      yellow = plt.amberWarning,
+      blue = plt.willCore,
+      magenta = plt.guardianViolet,
+      cyan = plt.emeraldFlash,
+      white = plt.fg_light,
+      black_bright = color(plt.bg_alt3):brighten(0.6):to_hex(),
+      red_bright = color(plt.fearShadow):brighten(0.2):to_hex(),
+      green_bright = color(plt.resolveGreen):brighten(0.1):to_hex(),
+      yellow_bright = color(plt.amberWarning):brighten(0.2):to_hex(),
+      blue_bright = color(plt.willCore):brighten(0.3):to_hex(),
+      magenta_bright = color(plt.guardianViolet):brighten(0.2):to_hex(),
+      cyan_bright = color(plt.emeraldFlash):brighten(0.1):to_hex(),
+      white_bright = color(plt.fg_light):brighten(0.2):to_hex(),
+      indexed1 = plt.willBright,
+      indexed2 = plt.fearShadow,
+    },
+
+    treesitter = {
+      ["@comment"] = plt.fg_dark,
+      ["@comment.documentation"] = plt.fg_mid,
+      ["@comment.error"] = plt.fearShadow,
+      ["@comment.warning"] = plt.amberWarning,
+      ["@comment.todo"] = plt.willCore,
+      ["@comment.note"] = plt.emeraldFlash,
+
+      ["@constant"] = plt.willBright,
+      ["@constant.builtin"] = plt.willBright,
+      ["@constant.macro"] = plt.amberWarning,
+
+      ["@string"] = plt.resolveGreen,
+      ["@string.documentation"] = plt.resolveGreen,
+      ["@string.regex"] = plt.amberWarning,
+      ["@string.escape"] = plt.guardianViolet,
+      ["@string.special"] = plt.emeraldFlash,
+      ["@string.special.symbol"] = plt.fearShadow,
+      ["@string.special.url"] = plt.constructBeam,
+      ["@string.special.path"] = plt.emeraldFlash,
+
+      ["@character"] = plt.resolveGreen,
+      ["@character.special"] = plt.guardianViolet,
+
+      ["@number"] = plt.willGlow,
+      ["@number.float"] = plt.willGlow,
+
+      ["@boolean"] = plt.constructCyan,
+
+      ["@function"] = plt.emeraldFlash,
+      ["@function.builtin"] = plt.emeraldFlash,
+      ["@function.call"] = plt.emeraldFlash,
+      ["@function.macro"] = plt.willDeep,
+      ["@function.method"] = plt.constructBeam,
+      ["@function.method.call"] = plt.constructBeam,
+
+      ["@constructor"] = plt.emeraldFlash,
+
+      ["@parameter"] = plt.fg_mid,
+      ["@parameter.builtin"] = plt.fg_light,
+
+      ["@keyword"] = plt.willCore,
+      ["@keyword.coroutine"] = plt.willGlow,
+      ["@keyword.function"] = plt.willCore,
+      ["@keyword.operator"] = plt.fearShadow,
+      ["@keyword.return"] = plt.willCore,
+      ["@keyword.import"] = plt.willDeep,
+      ["@keyword.storage"] = plt.willCore,
+      ["@keyword.repeat"] = plt.willCore,
+      ["@keyword.conditional"] = plt.willCore,
+      ["@keyword.exception"] = plt.fearShadow,
+      ["@keyword.directive"] = plt.willDeep,
+      ["@keyword.directive.define"] = plt.willDeep,
+
+      ["@conditional"] = plt.willCore,
+      ["@conditional.ternary"] = plt.willCore,
+
+      ["@repeat"] = plt.willCore,
+
+      ["@label"] = plt.willGlow,
+
+      ["@operator"] = plt.fearShadow,
+
+      ["@exception"] = plt.fearShadow,
+
+      ["@variable"] = plt.fg_lightest,
+      ["@variable.builtin"] = plt.willGlow,
+      ["@variable.parameter"] = plt.fg_mid,
+      ["@variable.member"] = plt.fg_light,
+
+      ["@type"] = plt.emeraldFlash,
+      ["@type.builtin"] = plt.emeraldFlash,
+      ["@type.definition"] = plt.emeraldFlash,
+      ["@type.qualifier"] = plt.willCore,
+
+      ["@attribute"] = plt.amberWarning,
+      ["@attribute.builtin"] = plt.amberWarning,
+
+      ["@property"] = plt.fg_light,
+
+      ["@field"] = plt.fg_light,
+
+      ["@module"] = plt.emeraldFlash,
+      ["@module.builtin"] = plt.emeraldFlash,
+
+      ["@namespace"] = plt.emeraldFlash,
+      ["@namespace.builtin"] = plt.emeraldFlash,
+
+      ["@punctuation.delimiter"] = plt.fg_mid,
+      ["@punctuation.bracket"] = plt.fg_mid,
+      ["@punctuation.special"] = plt.fearShadow,
+
+      ["@tag"] = plt.fearShadow,
+      ["@tag.attribute"] = plt.amberWarning,
+      ["@tag.delimiter"] = plt.fg_mid,
+      ["@tag.builtin"] = plt.fearShadow,
+
+      ["@markup.strong"] = { fg = plt.willBright, bold = true },
+      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
+      ["@markup.strikethrough"] = { fg = plt.fg_dark, strikethrough = true },
+      ["@markup.underline"] = { fg = plt.fg_light, underline = true },
+      ["@markup.heading"] = plt.willCore,
+      ["@markup.heading.1"] = plt.willCore,
+      ["@markup.heading.2"] = plt.willBright,
+      ["@markup.heading.3"] = plt.emeraldFlash,
+      ["@markup.heading.4"] = plt.constructBeam,
+      ["@markup.heading.5"] = plt.willGlow,
+      ["@markup.heading.6"] = plt.oaGlow,
+      ["@markup.quote"] = plt.fg_mid,
+      ["@markup.math"] = plt.emeraldFlash,
+      ["@markup.link"] = plt.constructBeam,
+      ["@markup.link.label"] = plt.emeraldFlash,
+      ["@markup.link.url"] = plt.constructBeam,
+      ["@markup.raw"] = plt.resolveGreen,
+      ["@markup.raw.block"] = plt.resolveGreen,
+      ["@markup.list"] = plt.fearShadow,
+      ["@markup.list.checked"] = plt.resolveGreen,
+      ["@markup.list.unchecked"] = plt.fg_mid,
+
+      ["@diff.plus"] = plt.resolveGreen,
+      ["@diff.minus"] = plt.fearShadow,
+      ["@diff.delta"] = plt.amberWarning,
+
+      ["@none"] = "none",
+      ["@conceal"] = plt.willDeep,
+      ["@spell"] = plt.fg_lightest,
+      ["@nospell"] = "none",
+
+      ["@lsp.type.property.lua"] = plt.fg_light,
+      ["@constructor.python"] = plt.emeraldFlash,
+      ["@constructor.javascript"] = plt.emeraldFlash,
+      ["@constructor.typescript"] = plt.emeraldFlash,
+      ["@namespace.rust"] = plt.emeraldFlash,
+      ["@type.qualifier.rust"] = plt.willCore,
+      ["@constant.macro.c"] = plt.amberWarning,
+      ["@constant.macro.cpp"] = plt.amberWarning,
+      ["@namespace.go"] = plt.emeraldFlash,
+      ["@property.css"] = plt.emeraldFlash,
+      ["@type.css"] = plt.fearShadow,
+      ["@label.json"] = plt.emeraldFlash,
+      ["@field.yaml"] = plt.emeraldFlash,
+      ["@property.toml"] = plt.emeraldFlash,
+      ["@function.builtin.bash"] = plt.emeraldFlash,
+      ["@string.regexp"] = plt.amberWarning,
+      ["@character.special.regex"] = plt.guardianViolet,
+    },
+
+    lsp = {
+      ["@lsp.type.class"] = plt.emeraldFlash,
+      ["@lsp.type.interface"] = plt.emeraldFlash,
+      ["@lsp.type.struct"] = plt.emeraldFlash,
+      ["@lsp.type.enum"] = plt.emeraldFlash,
+      ["@lsp.type.enumMember"] = plt.willBright,
+      ["@lsp.type.property"] = plt.fg_light,
+      ["@lsp.type.namespace"] = plt.emeraldFlash,
+
+      ["@lsp.type.macro"] = plt.amberWarning,
+      ["@lsp.type.decorator"] = plt.emeraldFlash,
+
+      ["@lsp.type.builtinType"] = plt.emeraldFlash,
+      ["@lsp.type.selfParameter"] = plt.willGlow,
+      ["@lsp.type.typeParameter"] = plt.emeraldFlash,
+
+      ["@lsp.type.array"] = plt.emeraldFlash,
+      ["@lsp.type.object"] = plt.emeraldFlash,
+      ["@lsp.type.key"] = plt.fg_light,
+      ["@lsp.type.null"] = plt.willBright,
+      ["@lsp.type.enumConstant"] = plt.willBright,
+
+      ["@lsp.type.event"] = plt.emeraldFlash,
+      ["@lsp.type.regexp"] = plt.amberWarning,
+      ["@lsp.type.unresolvedReference"] = plt.amberWarning,
+
+      ["@lsp.mod.deprecated"] = { fg = plt.fg_mid, strikethrough = true },
+      ["@lsp.mod.readonly"] = plt.willBright,
+      ["@lsp.mod.async"] = plt.willCore,
+      ["@lsp.mod.static"] = plt.willGlow,
+      ["@lsp.mod.abstract"] = plt.emeraldFlash,
+      ["@lsp.mod.defaultLibrary"] = plt.emeraldFlash,
+      ["@lsp.mod.documentation"] = plt.fg_mid,
+    },
+  }
+end
+
+return {
+  name = "Lantern Corps – Green (Willpower)",
+  author = "PrismPunk.nvim",
+  description = "In brightest day, in blackest night, no evil shall escape my sight. "
+    .. "Let those who worship evil's might, beware my power, Green Lantern's light!",
+
+  base16 = {
+    base00 = palette.bg_darkest,
+    base01 = palette.bg_darker,
+    base02 = palette.bg_dark,
+    base03 = palette.bg_mid,
+    base04 = palette.bg_light,
+    base05 = palette.fg_mid,
+    base06 = palette.fg_lightest,
+    base07 = palette.fg_light,
+    base08 = palette.fearShadow,
+    base09 = palette.guardianOrange,
+    base0A = palette.amberWarning,
+    base0B = palette.resolveGreen,
+    base0C = palette.emeraldFlash,
+    base0D = palette.willCore,
+    base0E = palette.willDeep,
+    base0F = palette.willBright,
+  },
+
+  palette = palette,
+  get = M.get,
+}

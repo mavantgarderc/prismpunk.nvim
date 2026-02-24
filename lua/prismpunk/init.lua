@@ -1,5 +1,5 @@
 --- PrismPunk.nvim - Main entry point
---- Public API for theme management
+--- Public API for scheme management
 local M = {}
 
 local config = require("prismpunk.config")
@@ -8,46 +8,47 @@ local loader = require("prismpunk.loader")
 --- Setup the plugin with user configuration
 --- @param user_config table|nil User configuration overrides
 --- @return table Merged configuration
---- @usage require("prismpunk").setup({ theme = "phantom-corrupted" })
+--- @usage require("prismpunk").setup({ scheme = "phantom-corrupted" })
 function M.setup(user_config)
   local opts = config.setup(user_config)
 
-  -- Auto-load theme if specified (skip if already loaded by colorscheme command)
-  if opts and opts.theme then
-    vim.g.colors_name = "prismpunk" -- luacheck: ignore
+  local scheme_to_load = opts.scheme or opts.theme
+  if opts and scheme_to_load then
+    vim.g.colors_name = "prismpunk"
     vim.schedule(function()
-      local success, err = loader.load(opts.theme, {
+      local success, err = loader.load(scheme_to_load, {
         force_reload = false,
         skip_if_loaded = false,
       })
-      if not success then vim.notify("[prismpunk] Failed to load theme: " .. tostring(err), vim.log.levels.ERROR) end
+      if not success then vim.notify("[prismpunk] Failed to load scheme: " .. tostring(err), vim.log.levels.ERROR) end
     end)
   end
 
   return opts
 end
 
---- Apply theme programmatically (for Raphael integration)
---- @param theme_name string
-function M.apply_theme(theme_name) return M.load(theme_name, { force_reload = false }) end
+--- Apply scheme programmatically (for Raphael integration)
+--- @param scheme_name string
+function M.apply_scheme(scheme_name) return M.load(scheme_name, { force_reload = false }) end
+M.apply_theme = M.apply_scheme
 
---- Load theme from colorscheme command (skip if already loaded by setup)
---- @param theme_spec string|table
+--- Load scheme from colorscheme command (skip if already loaded by setup)
+--- @param scheme_spec string|table
 --- @return boolean success
-function M.load_colorscheme(theme_spec)
-  return loader.load(theme_spec, {
+function M.load_colorscheme(scheme_spec)
+  return loader.load(scheme_spec, {
     force_reload = false,
     skip_if_loaded = false,
   })
 end
 
---- Load a theme programmatically
---- @param theme_spec string|table Theme name or specification
+--- Load a scheme programmatically
+--- @param scheme_spec string|table Scheme name or specification
 --- @param opts table|nil Options { force_reload = boolean }
 --- @return boolean success
---- @return table|string theme_or_error
+--- @return table|string scheme_or_error
 --- @usage require("prismpunk").load("phantom-corrupted", { force_reload = true })
-function M.load(theme_spec, opts) return loader.load(theme_spec, opts or {}) end
+function M.load(scheme_spec, opts) return loader.load(scheme_spec, opts or {}) end
 
 --- Clear all plugin caches (palette + highlights)
 --- @usage require("prismpunk").clear_cache()
@@ -61,22 +62,20 @@ end
 function M.cache_stats() return loader.get_cache_stats() end
 
 --- Preview terminal config without writing
---- @param theme_name string Theme to preview
+--- @param scheme_name string Scheme to preview
 --- @param terminal_name string Terminal emulator name (alacritty, kitty, ghostty)
 --- @return string|nil config_content
-function M.preview_terminal_config(theme_name, terminal_name)
+function M.preview_terminal_config(scheme_name, terminal_name)
   local terminals = require("prismpunk.core.terminals")
-  return terminals.preview(theme_name, terminal_name)
+  return terminals.preview(scheme_name, terminal_name)
 end
 
 --- Register user commands
 local function register_commands()
-  -- Clear cache command
   vim.api.nvim_create_user_command("PrismCacheClear", function() M.clear_cache() end, {
     desc = "Clear PrismPunk cache (palette + highlights)",
   })
 
-  -- Cache stats command
   vim.api.nvim_create_user_command("PrismCacheStats", function()
     local stats = M.cache_stats()
     local msg = string.format(
@@ -91,21 +90,19 @@ local function register_commands()
     desc = "Show PrismPunk cache statistics",
   })
 
-  --- Preview terminal config without writing
   vim.api.nvim_create_user_command("PrismPreview", function(args)
     local parts = vim.split(args.args, "%s+")
-    local theme = parts[1]
+    local scheme = parts[1]
     local terminal = parts[2] or "kitty"
 
-    if not theme then
-      vim.notify("[prismpunk] Usage: :PrismPreview <theme> [terminal]", vim.log.levels.WARN)
+    if not scheme then
+      vim.notify("[prismpunk] Usage: :PrismPreview <scheme> [terminal]", vim.log.levels.WARN)
       return
     end
 
-    -- Show theme info first
-    local loader_ok, loader = pcall(require, "prismpunk.loader")
+    local loader_ok, ldr = pcall(require, "prismpunk.loader")
     if loader_ok then
-      local info = loader.get_theme_info(theme)
+      local info = ldr.get_scheme_info(scheme)
       if info then
         local lines = {
           "=== " .. info.name .. " ===",
@@ -126,14 +123,13 @@ local function register_commands()
       end
     end
 
-    local content = M.preview_terminal_config(theme, terminal)
+    local content = M.preview_terminal_config(scheme, terminal)
     if content then
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(content, "\n"))
       vim.api.nvim_buf_set_option_value(buf, "filetype", terminal)
       vim.api.nvim_buf_set_option_value(buf, "bufhidden", "wipe")
 
-      -- FIX: Create new split instead of replacing current buffer
       vim.cmd("new")
       local win = vim.api.nvim_get_current_win()
       vim.api.nvim_win_set_buf(win, buf)
@@ -142,21 +138,19 @@ local function register_commands()
     end
   end, {
     nargs = "+",
-    desc = "Preview terminal config for theme",
+    desc = "Preview terminal config for scheme",
     complete = function() return { "alacritty", "kitty", "ghostty" } end,
   })
 
-  -- Load theme command
   vim.api.nvim_create_user_command("PrismLoad", function(args)
     local success, err = M.load(args.args, { force_reload = true })
     if not success then vim.notify("[prismpunk] " .. tostring(err), vim.log.levels.ERROR) end
   end, {
     nargs = 1,
-    desc = "Load a PrismPunk theme",
+    desc = "Load a PrismPunk scheme",
   })
 end
 
--- Auto-register commands on module load
 register_commands()
 
 return M

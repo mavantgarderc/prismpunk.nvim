@@ -1,0 +1,467 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  bg_darkest = "#0A0305",
+  bg_darker = "#140A0D",
+  bg_dark = "#1E1115",
+  bg_mid = "#28181D",
+  bg_light = "#321F25",
+  bg_lighter = "#3C262D",
+  bg_lightest = "#462D35",
+
+  fg_lightest = "#FFF8F0",
+  fg_light = "#F0E0D0",
+  fg_mid = "#C8B0A0",
+  fg_dark = "#A08878",
+
+  bg_alt1 = "#18100F",
+  bg_alt2 = "#0D0608",
+  bg_alt3 = "#221A18",
+  bg_alt4 = "#100C0A",
+
+  championRed = "#E63946",
+  heroicCrimson = "#DC2F38",
+  powerRed = "#F25C54",
+  courageRed = "#D32734",
+  strengthRed = "#C21E2A",
+
+  thunderGold = "#FFB800",
+  wisdomGold = "#FFC926",
+  lightningGold = "#FFDA4D",
+  divineGold = "#FFA700",
+  ancientGold = "#FF9500",
+
+  magicLightning = "#E0F7FF",
+  boltWhite = "#F5FBFF",
+  strikeBlue = "#B3E5FC",
+  electricBlue = "#81D4FA",
+  thunderBlue = "#4FC3F7",
+  zeusBlue = "#29B6F6",
+
+  capePure = "#FAFAFA",
+  heroWhite = "#F5F5F5",
+  championWhite = "#EFEFEF",
+  divineWhite = "#E8E8E8",
+  atlasWhite = "#DEDEDE",
+
+  mercurySilver = "#CFD8DC",
+  speedSilver = "#B0BEC5",
+  swiftSilver = "#90A4AE",
+  quicksilver = "#78909C",
+  flashSilver = "#607D8B",
+
+  eternityPurple = "#9C27B0",
+  mysticViolet = "#AB47BC",
+  ancientMagic = "#BA68C8",
+  rockPurple = "#8E24AA",
+  templeViolet = "#7B1FA2",
+
+  transformGold = "#FFD54F",
+  powerSurge = "#FFECB3",
+  magicFlash = "#FFF9C4",
+  chargeGold = "#FFCA28",
+  burstAmber = "#FFB300",
+
+  hopeOrange = "#FF9800",
+  youthfulGlow = "#FFB74D",
+  optimismAmber = "#FFCC80",
+  dreamOrange = "#FF8A65",
+  wonderOrange = "#FF7043",
+
+  courageFire = "#FF6B6B",
+  braveryFlame = "#FF5252",
+  heroicFire = "#FF8A80",
+  valorRed = "#FF5370",
+  fearlessRed = "#FF4458",
+
+  divinePower = "#FFC107",
+  godForce = "#FFD54F",
+  olympianGold = "#FFE082",
+  immortalGlow = "#FFAB00",
+  titanGold = "#FF9100",
+
+  adamBlack = "#E53935",
+  dangerRed = "#D32F2F",
+  threatCrimson = "#C62828",
+
+  victoryGold = "#FFD700",
+  triumphYellow = "#FFEA00",
+  winBright = "#FFE57F",
+}
+
+local M = {}
+
+---@param opts table
+---@param plt table
+---@return table
+M.get = function(opts, plt)
+  return {
+    modes = {
+      normal = plt.championRed,
+      insert = plt.thunderGold,
+      visual = plt.zeusBlue,
+      replace = plt.adamBlack,
+      command = plt.eternityPurple,
+    },
+
+    ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_mid,
+      fg_dark = plt.fg_dark,
+      fg_reverse = plt.bg_alt1,
+      bg_m4 = plt.bg_alt4,
+      bg_m3 = plt.bg_alt3,
+      bg_m2 = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_dim = plt.bg_darker,
+      bg = plt.bg_darkest,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_cursorline = plt.bg_dark,
+      bg_cursorline_alt = plt.bg_mid,
+      bg_search = plt.thunderGold,
+      bg_visual = plt.zeusBlue,
+      bg_statusline = plt.bg_light,
+      border = plt.bg_alt4,
+      header1 = plt.championRed,
+      header2 = plt.thunderGold,
+      special = plt.magicLightning,
+      nontext = plt.bg_lighter,
+      whitespace = plt.bg_lightest,
+      win_separator = plt.championRed,
+      indent = plt.bg_lighter,
+      indent_scope = plt.thunderGold,
+      picker = plt.eternityPurple,
+      yank = plt.transformGold,
+      mark = plt.zeusBlue,
+      scrollbar = plt.bg_lighter,
+      tabline = {
+        bg = plt.bg_darkest,
+        fg_selected = plt.fg_lightest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_mid,
+        bg_inactive = plt.bg_darkest,
+        fg_alternate = plt.championRed,
+        bg_alternate = plt.bg_darkest,
+        indicator = plt.thunderGold,
+      },
+      pmenu = {
+        fg = plt.fg_lightest,
+        fg_sel = "none",
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.bg_lightest,
+      },
+      float = {
+        fg = plt.fg_light,
+        bg = plt.bg_darker,
+        fg_border = plt.strengthRed,
+        bg_border = plt.bg_darker,
+      },
+    },
+
+    accent = {
+      accent1 = plt.championRed,
+      accent2 = plt.thunderGold,
+      accent3 = plt.zeusBlue,
+      accent4 = plt.capePure,
+      accent5 = plt.eternityPurple,
+      invert = plt.bg_light,
+    },
+
+    rainbow = {
+      rainbow1 = plt.championRed,
+      rainbow2 = plt.thunderGold,
+      rainbow3 = plt.hopeOrange,
+      rainbow4 = plt.zeusBlue,
+      rainbow5 = plt.magicLightning,
+      rainbow6 = plt.eternityPurple,
+      rainbow7 = plt.capePure,
+    },
+
+    syn = {
+      attribute = plt.thunderGold,
+      boolean = plt.championRed,
+      comment = plt.fg_dark,
+      constant = plt.capePure,
+      deprecated = plt.fg_mid,
+      func = plt.zeusBlue,
+      identifier = plt.fg_lightest,
+      keyword = plt.championRed,
+      method = plt.thunderBlue,
+      number = plt.wisdomGold,
+      operator = plt.magicLightning,
+      parameter = plt.fg_mid,
+      preproc = plt.eternityPurple,
+      punct = plt.fg_mid,
+      regex = plt.lightningGold,
+      statement = plt.championRed,
+      string = plt.thunderGold,
+      symbol = plt.divinePower,
+      type = plt.transformGold,
+      variable = plt.fg_lightest,
+      special = plt.mysticViolet,
+      special2 = plt.courageFire,
+      special3 = plt.mercurySilver,
+    },
+
+    vcs = {
+      added = plt.thunderGold,
+      removed = plt.adamBlack,
+      changed = plt.hopeOrange,
+    },
+
+    diff = {
+      add = plt.thunderGold,
+      change = plt.hopeOrange,
+      delete = plt.adamBlack,
+      text = plt.zeusBlue,
+    },
+
+    diag = {
+      ok = plt.victoryGold,
+      error = plt.adamBlack,
+      warning = plt.hopeOrange,
+      info = plt.electricBlue,
+      hint = plt.eternityPurple,
+    },
+
+    term = {
+      black = plt.bg_alt3,
+      red = plt.championRed,
+      green = plt.thunderGold,
+      yellow = plt.transformGold,
+      blue = plt.zeusBlue,
+      magenta = plt.eternityPurple,
+      cyan = plt.magicLightning,
+      white = plt.fg_light,
+      black_bright = color(plt.bg_alt3):brighten(0.6):to_hex(),
+      red_bright = color(plt.championRed):brighten(0.2):to_hex(),
+      green_bright = color(plt.thunderGold):brighten(0.1):to_hex(),
+      yellow_bright = color(plt.transformGold):brighten(0.2):to_hex(),
+      blue_bright = color(plt.zeusBlue):brighten(0.3):to_hex(),
+      magenta_bright = color(plt.eternityPurple):brighten(0.2):to_hex(),
+      cyan_bright = color(plt.magicLightning):brighten(0.1):to_hex(),
+      white_bright = color(plt.fg_light):brighten(0.2):to_hex(),
+      indexed1 = plt.thunderGold,
+      indexed2 = plt.championRed,
+    },
+
+    treesitter = {
+      ["@comment"] = plt.fg_dark,
+      ["@comment.documentation"] = plt.fg_mid,
+      ["@comment.error"] = plt.adamBlack,
+      ["@comment.warning"] = plt.hopeOrange,
+      ["@comment.todo"] = plt.thunderGold,
+      ["@comment.note"] = plt.zeusBlue,
+
+      ["@constant"] = plt.capePure,
+      ["@constant.builtin"] = plt.capePure,
+      ["@constant.macro"] = plt.transformGold,
+
+      ["@string"] = plt.thunderGold,
+      ["@string.documentation"] = plt.thunderGold,
+      ["@string.regex"] = plt.lightningGold,
+      ["@string.escape"] = plt.divinePower,
+      ["@string.special"] = plt.wisdomGold,
+      ["@string.special.symbol"] = plt.olympianGold,
+      ["@string.special.url"] = plt.electricBlue,
+      ["@string.special.path"] = plt.thunderGold,
+
+      ["@character"] = plt.thunderGold,
+      ["@character.special"] = plt.divinePower,
+
+      ["@number"] = plt.wisdomGold,
+      ["@number.float"] = plt.wisdomGold,
+
+      ["@boolean"] = plt.championRed,
+
+      ["@function"] = plt.zeusBlue,
+      ["@function.builtin"] = plt.zeusBlue,
+      ["@function.call"] = plt.zeusBlue,
+      ["@function.macro"] = plt.eternityPurple,
+      ["@function.method"] = plt.thunderBlue,
+      ["@function.method.call"] = plt.thunderBlue,
+
+      ["@constructor"] = plt.transformGold,
+
+      ["@parameter"] = plt.fg_mid,
+      ["@parameter.builtin"] = plt.fg_light,
+
+      ["@keyword"] = plt.championRed,
+      ["@keyword.coroutine"] = plt.powerRed,
+      ["@keyword.function"] = plt.championRed,
+      ["@keyword.operator"] = plt.magicLightning,
+      ["@keyword.return"] = plt.championRed,
+      ["@keyword.import"] = plt.eternityPurple,
+      ["@keyword.storage"] = plt.championRed,
+      ["@keyword.repeat"] = plt.championRed,
+      ["@keyword.conditional"] = plt.championRed,
+      ["@keyword.exception"] = plt.adamBlack,
+      ["@keyword.directive"] = plt.eternityPurple,
+      ["@keyword.directive.define"] = plt.eternityPurple,
+
+      ["@conditional"] = plt.championRed,
+      ["@conditional.ternary"] = plt.championRed,
+
+      ["@repeat"] = plt.championRed,
+
+      ["@label"] = plt.powerRed,
+
+      ["@operator"] = plt.magicLightning,
+
+      ["@exception"] = plt.adamBlack,
+
+      ["@variable"] = plt.fg_lightest,
+      ["@variable.builtin"] = plt.heroicCrimson,
+      ["@variable.parameter"] = plt.fg_mid,
+      ["@variable.member"] = plt.fg_light,
+
+      ["@type"] = plt.transformGold,
+      ["@type.builtin"] = plt.transformGold,
+      ["@type.definition"] = plt.transformGold,
+      ["@type.qualifier"] = plt.championRed,
+
+      ["@attribute"] = plt.thunderGold,
+      ["@attribute.builtin"] = plt.thunderGold,
+
+      ["@property"] = plt.fg_light,
+
+      ["@field"] = plt.fg_light,
+
+      ["@module"] = plt.transformGold,
+      ["@module.builtin"] = plt.transformGold,
+
+      ["@namespace"] = plt.transformGold,
+      ["@namespace.builtin"] = plt.transformGold,
+
+      ["@punctuation.delimiter"] = plt.fg_mid,
+      ["@punctuation.bracket"] = plt.fg_mid,
+      ["@punctuation.special"] = plt.magicLightning,
+
+      ["@tag"] = plt.championRed,
+      ["@tag.attribute"] = plt.thunderGold,
+      ["@tag.delimiter"] = plt.fg_mid,
+      ["@tag.builtin"] = plt.championRed,
+
+      ["@markup.strong"] = { fg = plt.championRed, bold = true },
+      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
+      ["@markup.strikethrough"] = { fg = plt.fg_dark, strikethrough = true },
+      ["@markup.underline"] = { fg = plt.magicLightning, underline = true },
+      ["@markup.heading"] = plt.championRed,
+      ["@markup.heading.1"] = plt.championRed,
+      ["@markup.heading.2"] = plt.thunderGold,
+      ["@markup.heading.3"] = plt.zeusBlue,
+      ["@markup.heading.4"] = plt.eternityPurple,
+      ["@markup.heading.5"] = plt.hopeOrange,
+      ["@markup.heading.6"] = plt.magicLightning,
+      ["@markup.quote"] = plt.fg_mid,
+      ["@markup.math"] = plt.transformGold,
+      ["@markup.link"] = plt.zeusBlue,
+      ["@markup.link.label"] = plt.thunderBlue,
+      ["@markup.link.url"] = plt.electricBlue,
+      ["@markup.raw"] = plt.thunderGold,
+      ["@markup.raw.block"] = plt.thunderGold,
+      ["@markup.list"] = plt.championRed,
+      ["@markup.list.checked"] = plt.victoryGold,
+      ["@markup.list.unchecked"] = plt.fg_mid,
+
+      ["@diff.plus"] = plt.thunderGold,
+      ["@diff.minus"] = plt.adamBlack,
+      ["@diff.delta"] = plt.hopeOrange,
+
+      ["@none"] = "none",
+      ["@conceal"] = plt.eternityPurple,
+      ["@spell"] = plt.fg_lightest,
+      ["@nospell"] = "none",
+
+      ["@lsp.type.property.lua"] = plt.fg_light,
+      ["@constructor.python"] = plt.transformGold,
+      ["@constructor.javascript"] = plt.transformGold,
+      ["@constructor.typescript"] = plt.transformGold,
+      ["@namespace.rust"] = plt.transformGold,
+      ["@type.qualifier.rust"] = plt.championRed,
+      ["@constant.macro.c"] = plt.capePure,
+      ["@constant.macro.cpp"] = plt.capePure,
+      ["@namespace.go"] = plt.transformGold,
+      ["@property.css"] = plt.thunderBlue,
+      ["@type.css"] = plt.championRed,
+      ["@label.json"] = plt.transformGold,
+      ["@field.yaml"] = plt.thunderBlue,
+      ["@property.toml"] = plt.thunderBlue,
+      ["@function.builtin.bash"] = plt.zeusBlue,
+      ["@string.regexp"] = plt.lightningGold,
+      ["@character.special.regex"] = plt.divinePower,
+    },
+
+    lsp = {
+      ["@lsp.type.class"] = plt.transformGold,
+      ["@lsp.type.interface"] = plt.transformGold,
+      ["@lsp.type.struct"] = plt.transformGold,
+      ["@lsp.type.enum"] = plt.transformGold,
+      ["@lsp.type.enumMember"] = plt.capePure,
+      ["@lsp.type.property"] = plt.fg_light,
+      ["@lsp.type.namespace"] = plt.transformGold,
+
+      ["@lsp.type.macro"] = plt.transformGold,
+      ["@lsp.type.decorator"] = plt.thunderGold,
+
+      ["@lsp.type.builtinType"] = plt.transformGold,
+      ["@lsp.type.selfParameter"] = plt.heroicCrimson,
+      ["@lsp.type.typeParameter"] = plt.transformGold,
+
+      ["@lsp.type.array"] = plt.transformGold,
+      ["@lsp.type.object"] = plt.transformGold,
+      ["@lsp.type.key"] = plt.fg_light,
+      ["@lsp.type.null"] = plt.capePure,
+      ["@lsp.type.enumConstant"] = plt.capePure,
+
+      ["@lsp.type.event"] = plt.transformGold,
+      ["@lsp.type.regexp"] = plt.lightningGold,
+      ["@lsp.type.unresolvedReference"] = plt.transformGold,
+
+      ["@lsp.mod.deprecated"] = { fg = plt.fg_mid, strikethrough = true },
+      ["@lsp.mod.readonly"] = plt.capePure,
+      ["@lsp.mod.async"] = plt.championRed,
+      ["@lsp.mod.static"] = plt.powerRed,
+      ["@lsp.mod.abstract"] = plt.transformGold,
+      ["@lsp.mod.defaultLibrary"] = plt.transformGold,
+      ["@lsp.mod.documentation"] = plt.fg_mid,
+    },
+  }
+end
+
+return {
+  name = "Justice League – Shazam",
+  author = "PrismPunk.nvim",
+  description = "The World's Mightiest Mortal. Champion red suit, thunder gold lightning, Zeus blue power, "
+    .. "white cape purity. SHAZAM! Solomon's wisdom, Hercules' strength, Atlas' stamina, Zeus' power, "
+    .. "Achilles' courage, Mercury's speed. Magic word, transformation, kid hero with god-tier might.",
+
+  base16 = {
+    base00 = palette.bg_darkest,
+    base01 = palette.bg_darker,
+    base02 = palette.bg_dark,
+    base03 = palette.bg_mid,
+    base04 = palette.bg_light,
+    base05 = palette.fg_mid,
+    base06 = palette.fg_lightest,
+    base07 = palette.fg_light,
+    base08 = palette.adamBlack,
+    base09 = palette.hopeOrange,
+    base0A = palette.thunderGold,
+    base0B = palette.victoryGold,
+    base0C = palette.magicLightning,
+    base0D = palette.zeusBlue,
+    base0E = palette.eternityPurple,
+    base0F = palette.championRed,
+  },
+
+  palette = palette,
+  get = M.get,
+}

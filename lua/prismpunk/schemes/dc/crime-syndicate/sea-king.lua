@@ -1,0 +1,275 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  bg_darkest = "#08141A",
+  bg_darker = "#0C1E26",
+  bg_dark = "#102832",
+  bg_mid = "#183C48",
+  bg_light = "#2C5866",
+  bg_lighter = "#42788A",
+  bg_lightest = "#66A8C2",
+
+  fg_lightest = "#E0F8FF",
+  fg_light = "#C0E8F8",
+  fg_mid = "#A0D8F0",
+  fg_dark = "#74B8D4",
+
+  bg_alt1 = "#0D2028",
+  bg_alt2 = "#09181E",
+  bg_alt3 = "#132F38",
+  bg_alt4 = "#11252E",
+
+  abyssalTeal = "#00D8E6",
+  drownedBlue = "#0088CC",
+  krakenRed = "#FF1A4D",
+  leviathanGold = "#FFB366",
+  brineCyan = "#66FFF0",
+  bloodTide = "#E6194B",
+  trenchPurple = "#7733CC",
+  coralVenom = "#00FFAA",
+  deadSeaWhite = "#E0F8FF",
+}
+
+local M = {}
+
+M.get = function(opts, plt)
+  return {
+    modes = {
+      normal = plt.abyssalTeal,
+      insert = plt.brineCyan,
+      visual = plt.krakenRed,
+      replace = plt.bloodTide,
+      command = plt.leviathanGold,
+    },
+
+    ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_dark,
+      fg_dark = plt.bg_lightest,
+      fg_reverse = plt.bg_alt1,
+      bg_m4 = plt.bg_alt4,
+      bg_m3 = plt.bg_alt3,
+      bg_m2 = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_dim = plt.bg_darker,
+      bg = plt.bg_darkest,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_cursorline = plt.bg_mid,
+      bg_cursorline_alt = plt.bg_light,
+      bg_search = plt.coralVenom,
+      bg_visual = plt.trenchPurple,
+      bg_statusline = plt.bg_light,
+      border = plt.bg_alt4,
+      header1 = plt.leviathanGold,
+      header2 = plt.krakenRed,
+      special = plt.brineCyan,
+      nontext = plt.bg_lighter,
+      whitespace = plt.bg_lightest,
+      win_separator = plt.drownedBlue,
+      indent = plt.bg_lighter,
+      indent_scope = plt.abyssalTeal,
+      picker = plt.bloodTide,
+      yank = plt.coralVenom,
+      mark = plt.brineCyan,
+      scrollbar = plt.bg_lighter,
+      tabline = {
+        bg = plt.bg_darkest,
+        fg_selected = plt.fg_lightest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_mid,
+        bg_inactive = plt.bg_darkest,
+        fg_alternate = plt.leviathanGold,
+        bg_alternate = plt.bg_darkest,
+        indicator = plt.krakenRed,
+      },
+      pmenu = {
+        fg = plt.fg_lightest,
+        fg_sel = "none",
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.bg_lightest,
+      },
+      float = {
+        fg = plt.fg_light,
+        bg = plt.bg_mid,
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_mid,
+      },
+    },
+
+    accent = {
+      accent1 = plt.leviathanGold,
+      accent2 = plt.abyssalTeal,
+      accent3 = plt.brineCyan,
+      accent4 = plt.krakenRed,
+      accent5 = plt.trenchPurple,
+      invert = plt.bg_light,
+    },
+
+    rainbow = {
+      rainbow1 = plt.leviathanGold,
+      rainbow2 = plt.abyssalTeal,
+      rainbow3 = plt.krakenRed,
+      rainbow4 = plt.brineCyan,
+      rainbow5 = plt.trenchPurple,
+      rainbow6 = plt.coralVenom,
+      rainbow7 = plt.bloodTide,
+    },
+
+    syn = {
+      attribute = plt.coralVenom,
+      boolean = plt.brineCyan,
+      comment = plt.fg_dark,
+      constant = plt.leviathanGold,
+      deprecated = plt.fg_mid,
+      func = plt.abyssalTeal,
+      identifier = plt.fg_lightest,
+      keyword = plt.krakenRed,
+      method = plt.drownedBlue,
+      number = plt.coralVenom,
+      operator = plt.brineCyan,
+      parameter = plt.fg_mid,
+      preproc = plt.abyssalTeal,
+      punct = plt.fg_mid,
+      regex = plt.bloodTide,
+      statement = plt.krakenRed,
+      string = plt.leviathanGold,
+      symbol = plt.brineCyan,
+      type = plt.deadSeaWhite,
+      variable = plt.fg_lightest,
+      special = plt.coralVenom,
+      special2 = plt.krakenRed,
+      special3 = plt.abyssalTeal,
+    },
+
+    vcs = { added = plt.brineCyan, removed = plt.krakenRed, changed = plt.leviathanGold },
+    diff = { add = plt.brineCyan, change = plt.leviathanGold, delete = plt.bloodTide, text = plt.trenchPurple },
+    diag = {
+      ok = plt.brineCyan,
+      error = plt.bloodTide,
+      warning = plt.coralVenom,
+      info = plt.abyssalTeal,
+      hint = plt.drownedBlue,
+    },
+
+    term = {
+      black = plt.bg_alt3,
+      red = plt.krakenRed,
+      green = plt.coralVenom,
+      yellow = plt.leviathanGold,
+      blue = plt.abyssalTeal,
+      magenta = plt.trenchPurple,
+      cyan = plt.brineCyan,
+      white = plt.fg_light,
+      black_bright = color(plt.bg_alt3):brighten(0.6):to_hex(),
+      red_bright = color(plt.krakenRed):brighten(0.2):to_hex(),
+      green_bright = color(plt.coralVenom):brighten(0.1):to_hex(),
+      yellow_bright = color(plt.leviathanGold):brighten(0.2):to_hex(),
+      blue_bright = color(plt.abyssalTeal):brighten(0.3):to_hex(),
+      magenta_bright = color(plt.trenchPurple):brighten(0.2):to_hex(),
+      cyan_bright = color(plt.brineCyan):brighten(0.1):to_hex(),
+      white_bright = color(plt.fg_light):brighten(0.2):to_hex(),
+      indexed1 = plt.leviathanGold,
+      indexed2 = plt.krakenRed,
+    },
+
+    treesitter = {
+      ["@comment"] = plt.fg_dark,
+      ["@comment.documentation"] = plt.fg_mid,
+      ["@comment.error"] = plt.bloodTide,
+      ["@comment.warning"] = plt.coralVenom,
+      ["@comment.todo"] = plt.leviathanGold,
+      ["@comment.note"] = plt.brineCyan,
+
+      ["@constant"] = plt.leviathanGold,
+      ["@constant.builtin"] = plt.leviathanGold,
+      ["@constant.macro"] = plt.coralVenom,
+
+      ["@string"] = plt.leviathanGold,
+      ["@string.regex"] = plt.bloodTide,
+      ["@string.escape"] = plt.krakenRed,
+      ["@string.special"] = plt.brineCyan,
+
+      ["@number"] = plt.coralVenom,
+      ["@boolean"] = plt.brineCyan,
+
+      ["@function"] = plt.abyssalTeal,
+      ["@function.builtin"] = plt.abyssalTeal,
+      ["@function.macro"] = plt.trenchPurple,
+      ["@function.method"] = plt.drownedBlue,
+
+      ["@constructor"] = plt.deadSeaWhite,
+
+      ["@parameter"] = plt.fg_mid,
+
+      ["@keyword"] = plt.krakenRed,
+      ["@keyword.operator"] = plt.brineCyan,
+      ["@keyword.return"] = plt.krakenRed,
+
+      ["@variable"] = plt.fg_lightest,
+      ["@property"] = plt.fg_light,
+
+      ["@type"] = plt.deadSeaWhite,
+
+      ["@punctuation.delimiter"] = plt.fg_mid,
+      ["@punctuation.bracket"] = plt.fg_mid,
+      ["@punctuation.special"] = plt.brineCyan,
+
+      ["@tag"] = plt.krakenRed,
+      ["@tag.attribute"] = plt.coralVenom,
+
+      ["@markup.strong"] = { fg = plt.leviathanGold, bold = true },
+      ["@markup.heading.1"] = plt.leviathanGold,
+      ["@markup.heading.2"] = plt.coralVenom,
+      ["@markup.heading.3"] = plt.krakenRed,
+
+      ["@diff.plus"] = plt.brineCyan,
+      ["@diff.minus"] = plt.bloodTide,
+      ["@diff.delta"] = plt.leviathanGold,
+
+      ["@conceal"] = plt.trenchPurple,
+      ["@spell"] = plt.fg_lightest,
+    },
+
+    lsp = {
+      ["@lsp.type.class"] = plt.deadSeaWhite,
+      ["@lsp.type.property"] = plt.fg_light,
+      ["@lsp.mod.deprecated"] = { fg = plt.fg_mid, strikethrough = true },
+      ["@lsp.mod.readonly"] = plt.leviathanGold,
+    },
+  }
+end
+
+return {
+  name = "Crime Syndicate – Sea King",
+  author = "PrismPunk.nvim",
+  description = "Tyrant of the drowned world. Ruler of the trench. Everything sinks for him.",
+
+  base16 = {
+    base00 = palette.bg_darkest,
+    base01 = palette.bg_darker,
+    base02 = palette.bg_dark,
+    base03 = palette.bg_mid,
+    base04 = palette.bg_light,
+    base05 = palette.fg_mid,
+    base06 = palette.fg_lightest,
+    base07 = palette.fg_light,
+    base08 = palette.krakenRed,
+    base09 = palette.bloodTide,
+    base0A = palette.leviathanGold,
+    base0B = palette.coralVenom,
+    base0C = palette.brineCyan,
+    base0D = palette.abyssalTeal,
+    base0E = palette.trenchPurple,
+    base0F = palette.drownedBlue,
+  },
+
+  palette = palette,
+  get = M.get,
+}

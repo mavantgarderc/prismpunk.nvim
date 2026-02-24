@@ -7,12 +7,12 @@
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
-- [Available Themes](#available-themes)
-- [Theme Switching](#theme-switching)
+- [Available Schemes](#available-schemes)
+- [Scheme Switching](#scheme-switching)
 - [Customization](#customization)
 - [Terminal Integration](#terminal-integration)
 - [Development Mode](#development-mode)
-- [Creating Custom Themes](#creating-custom-themes)
+- [Creating Custom Schemes](#creating-custom-schemes)
 - [Commands Reference](#commands-reference)
 - [Troubleshooting](#troubleshooting)
 
@@ -28,7 +28,7 @@
   priority = 1000,  -- Load before other plugins
   config = function()
     require('prismpunk').setup({
-      theme = 'lantern-corps/green',
+      scheme = 'lantern-corps/green',
     })
   end,
 }
@@ -41,7 +41,7 @@ use {
   'mavantgarderc/prismpunk.nvim',
   config = function()
     require('prismpunk').setup({
-      theme = 'lantern-corps/green',
+      scheme = 'lantern-corps/green',
     })
   end,
 }
@@ -65,9 +65,9 @@ Then in your `init.lua`:
 -- Add to runtime path
 vim.opt.rtp:prepend('~/your-projects/prismpunk.nvim')
 
--- Setup theme
+-- Setup scheme
 require('prismpunk').setup({
-  theme = 'lantern-corps/green',
+  scheme = 'lantern-corps/green',
 })
 ```
 
@@ -80,7 +80,7 @@ require('prismpunk').setup({
 ```lua
 -- Minimal configuration
 require('prismpunk').setup({
-  theme = 'lantern-corps/green',
+  scheme = 'lantern-corps/green',
 })
 ```
 
@@ -88,10 +88,10 @@ require('prismpunk').setup({
 
 ```lua
 require('prismpunk').setup({
-  -- Theme selection (choose one)
-  theme = 'lantern-corps/green',  -- Recommended format
-  -- theme = 'lantern-corps.green',  -- Also works
-  -- theme = { universe = 'lantern-corps', variant = 'green' },  -- Table format
+  -- Scheme selection (choose one)
+  scheme = 'lantern-corps/green',  -- Recommended format
+  -- scheme = 'lantern-corps.green',  -- Also works
+  -- scheme = { universe = 'lantern-corps', variant = 'green' },  -- Table format
   
   -- Style options
   styles = {
@@ -122,27 +122,29 @@ require('prismpunk').setup({
   },
   
   -- Terminal colors
-  terminal_colors = true,  -- Apply theme to :terminal
+  terminal_colors = true,  -- Apply scheme to :terminal
 })
 ```
+
+> **Note:** The `theme` option is deprecated but still works. Use `scheme` for new configurations.
 
 ---
 
 ## Configuration
 
-### Theme Selection Formats
+### Scheme Selection Formats
 
 All three formats work identically:
 
 ```lua
 -- Format 1: Slash notation (recommended)
-theme = 'lantern-corps/green'
+scheme = 'lantern-corps/green'
 
 -- Format 2: Dot notation
-theme = 'lantern-corps.green'
+scheme = 'lantern-corps.green'
 
 -- Format 3: Table notation
-theme = { 
+scheme = { 
   universe = 'lantern-corps', 
   variant = 'green' 
 }
@@ -167,14 +169,14 @@ styles = {
     italic = false 
   },
   variables = {         -- Variable styling
-    -- empty = use theme defaults
+    -- empty = use scheme defaults
   },
 }
 ```
 
 ### Color Overrides
 
-Override specific colors without creating a new theme:
+Override specific colors without creating a new scheme:
 
 ```lua
 overrides = {
@@ -208,11 +210,11 @@ overrides = {
 
 ---
 
-## Theme Switching
+## Scheme Switching
 
 ### At Runtime
 
-Switch themes without restarting Neovim:
+Switch schemes without restarting Neovim:
 
 ```vim
 " Using prismpunk's load function
@@ -224,11 +226,11 @@ Switch themes without restarting Neovim:
 
 ### In Configuration
 
-Change default theme in your config:
+Change default scheme in your config:
 
 ```lua
 require('prismpunk').setup({
-  theme = 'lantern-corps/yellow',  -- Changed from green
+  scheme = 'lantern-corps/yellow',  -- Changed from green
 })
 ```
 
@@ -238,7 +240,7 @@ Restart Neovim or run:
 :source ~/.config/nvim/init.lua
 ```
 
-### Create Theme Picker
+### Create Scheme Picker
 
 Using [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim):
 
@@ -248,17 +250,17 @@ local finders = require('telescope.finders')
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 
-local function theme_picker()
-  local themes = {
+local function scheme_picker()
+  local schemes = {
     'lantern-corps/green',
     'lantern-corps/yellow',
     -- Add more as you create them
   }
   
   pickers.new({}, {
-    prompt_title = 'PrismPunk Themes',
+    prompt_title = 'PrismPunk Schemes',
     finder = finders.new_table({
-      results = themes,
+      results = schemes,
     }),
     attach_mappings = function(prompt_bufnr)
       actions.select_default:replace(function()
@@ -272,7 +274,7 @@ local function theme_picker()
 end
 
 -- Keybinding
-vim.keymap.set('n', '<leader>tp', theme_picker, { desc = 'PrismPunk: Pick theme' })
+vim.keymap.set('n', '<leader>tp', scheme_picker, { desc = 'PrismPunk: Pick scheme' })
 ```
 
 ---
@@ -283,7 +285,7 @@ vim.keymap.set('n', '<leader>tp', theme_picker, { desc = 'PrismPunk: Pick theme'
 
 ```lua
 require('prismpunk').setup({
-  theme = 'lantern-corps/green',
+  scheme = 'lantern-corps/green',
   overrides = {
     colors = {
       base00 = '#000000',  -- Pure black background
@@ -341,14 +343,14 @@ PrismPunk automatically applies colors to Neovim's built-in terminal:
 " Open terminal
 :terminal
 
-" Now terminal output uses your theme colors
+" Now terminal output uses your scheme colors
 ls --color
 git status
 ```
 
 ### Export to External Terminals
 
-Export your theme to use in Ghostty, Kitty, Alacritty, etc:
+Export your scheme to use in Ghostty, Kitty, Alacritty, etc:
 
 #### Export All Formats
 
@@ -371,10 +373,10 @@ prismpunk-exports/
 #### Export Specific Format
 
 ```vim
-" Export current theme to Ghostty
+" Export current scheme to Ghostty
 :PrismpunkExportGhostty
 
-" Export specific theme
+" Export specific scheme
 :PrismpunkExportGhostty lantern-corps/yellow
 ```
 
@@ -383,12 +385,12 @@ prismpunk-exports/
 #### Ghostty
 
 ```bash
-# Copy theme
+# Copy scheme
 cp ~/.config/nvim/prismpunk-exports/ghostty/lantern-corps-green.conf \
    ~/.config/ghostty/themes/
 
 # Use in config
-echo 'theme = lantern-corps-green' >> ~/.config/ghostty/config
+echo 'scheme = lantern-corps-green' >> ~/.config/ghostty/config
 ```
 
 #### Kitty
@@ -414,7 +416,7 @@ import = [
 
 ### Hot Reload
 
-Reload theme without restarting Neovim (useful when creating themes):
+Reload scheme without restarting Neovim (useful when creating schemes):
 
 ```vim
 :PrismpunkReload
@@ -427,17 +429,17 @@ vim.keymap.set('n', '<leader>pr', function()
   require('prismpunk.loader').clear_cache()
   require('prismpunk').setup(_G.prismpunk_config or {})
   vim.notify('PrismPunk reloaded!', vim.log.levels.INFO)
-end, { desc = 'Reload PrismPunk theme' })
+end, { desc = 'Reload PrismPunk scheme' })
 ```
 
 ### Debug Colors
 
-Print current theme's color palette:
+Print current scheme's color palette:
 
 ```vim
 :PrismpunkPrintPalette
 
-" Or for specific theme
+" Or for specific scheme
 :PrismpunkPrintPalette lantern-corps/yellow
 ```
 
@@ -457,7 +459,7 @@ base01   #141200
 ...
 ```
 
-### Inspect Theme Structure
+### Inspect Scheme Structure
 
 ```vim
 :lua print(vim.inspect(require('prismpunk.core.terminal').get_palette('lantern-corps/green')))
@@ -465,21 +467,21 @@ base01   #141200
 
 ---
 
-## Creating Custom Themes
+## Creating Custom Schemes
 
-### Quick Theme (5 minutes)
+### Quick Scheme (5 minutes)
 
-Create a simple theme using Base16 auto-generation:
+Create a simple scheme using Base16 auto-generation:
 
 ```lua
--- lua/prismpunk/themes/marvel/test-hero.lua
+-- lua/prismpunk/schemes/marvel/test-hero.lua
 
 local base16 = require('prismpunk.utils.base16')
 
 return {
   name = 'Test Hero',
   author = 'Your Name',
-  description = 'Quick test theme',
+  description = 'Quick test scheme',
   
   -- Auto-generate from 3 colors
   base16 = base16.generate({
@@ -490,12 +492,12 @@ return {
 }
 ```
 
-### Rich Theme (30 minutes)
+### Rich Scheme (30 minutes)
 
-Create a fully customized theme:
+Create a fully customized scheme:
 
 ```lua
--- lua/prismpunk/themes/dc/hero/custom.lua
+-- lua/prismpunk/schemes/dc/hero/custom.lua
 
 local palette = {
   -- Backgrounds
@@ -512,27 +514,32 @@ local palette = {
   commentGray = '#707070',
 }
 
-return {
-  name = 'Custom Hero',
-  author = 'Your Name',
-  
-  palette = palette,
-  
-  semantic = {
-    syn = {
-      string = palette.heroRed,
-      keyword = palette.heroGold,
-      func = palette.heroBlue,
-      comment = palette.commentGray,
-      variable = palette.textGray,
-      -- ... more mappings
+local M = {}
+
+M.get = function(opts, plt)
+  plt = plt or palette
+  return {
+    modes = {
+      normal = plt.heroBlue,
+      insert = plt.heroGold,
+      visual = plt.heroRed,
+      replace = plt.heroRed,
+      command = plt.heroGold,
     },
     
     ui = {
-      bg = palette.deepBlack,
-      fg = palette.textGray,
-      line_nr_active = palette.heroRed,
+      bg = plt.deepBlack,
+      fg = plt.textGray,
+      line_nr_active = plt.heroRed,
       -- ... more UI settings
+    },
+    
+    syn = {
+      string = plt.heroRed,
+      keyword = plt.heroGold,
+      func = plt.heroBlue,
+      comment = plt.commentGray,
+      variable = plt.textGray,
     },
     
     diag = {
@@ -541,7 +548,15 @@ return {
       info = '#0080ff',
       hint = '#00ff00',
     },
-  },
+  }
+end
+
+return {
+  name = 'Custom Hero',
+  author = 'Your Name',
+  
+  palette = palette,
+  get = M.get,
   
   base16 = {
     base00 = palette.deepBlack,
@@ -552,18 +567,7 @@ return {
 }
 ```
 
-### Register Theme
-
-Add to universe map in `lua/prismpunk/loader.lua`:
-
-```lua
-local universe_map = {
-  ['lantern-corps'] = 'dc.lantern-corps',
-  ['custom-hero'] = 'dc.hero',  -- Add your theme
-}
-```
-
-### Test Your Theme
+### Test Your Scheme
 
 ```vim
 :lua require('prismpunk.loader').clear_cache()
@@ -578,20 +582,20 @@ local universe_map = {
 
 | Command | Description |
 |---------|-------------|
-| `:PrismpunkReload` | Reload current theme (dev mode) |
+| `:PrismpunkReload` | Reload current scheme (dev mode) |
 | `:PrismpunkExportAll` | Export to all terminal formats |
-| `:PrismpunkExportGhostty [theme]` | Export to Ghostty format |
-| `:PrismpunkPrintPalette [theme]` | Print color palette |
+| `:PrismpunkExportGhostty [scheme]` | Export to Ghostty format |
+| `:PrismpunkPrintPalette [scheme]` | Print color palette |
 
 ### Lua API
 
 ```lua
--- Load a theme
+-- Load a scheme
 require('prismpunk').load('lantern-corps/green')
 
 -- Setup with config
 require('prismpunk').setup({
-  theme = 'lantern-corps/green',
+  scheme = 'lantern-corps/green',
   -- ... options
 })
 
@@ -601,7 +605,7 @@ require('prismpunk.loader').clear_cache()
 -- Export terminal config
 require('prismpunk.core.terminal').export_all('lantern-corps/green')
 
--- Get theme colors
+-- Get scheme colors
 local colors = require('prismpunk.core.terminal').get_palette('lantern-corps/green')
 
 -- Generate Base16 colors
@@ -617,9 +621,9 @@ local colors = base16.generate({
 
 ## Troubleshooting
 
-### Theme Not Loading
+### Scheme Not Loading
 
-**Problem:** Theme doesn't change when you load it.
+**Problem:** Scheme doesn't change when you load it.
 
 **Solution:**
 ```vim
@@ -627,15 +631,15 @@ local colors = base16.generate({
 :lua for k in pairs(package.loaded) do if k:match('^prismpunk') then package.loaded[k] = nil end end
 
 " Reload
-:lua require('prismpunk').setup({ theme = 'lantern-corps/green' })
+:lua require('prismpunk').setup({ scheme = 'lantern-corps/green' })
 ```
 
 ### Module Not Found Error
 
-**Problem:** `module 'prismpunk.themes.dc.lantern-corps.green' not found`
+**Problem:** `module 'prismpunk.schemes.dc.lantern-corps.green' not found`
 
 **Solution:**
-1. Check file exists: `lua/prismpunk/themes/dc/lantern-corps/green.lua`
+1. Check file exists: `lua/prismpunk/schemes/dc/lantern-corps/green.lua`
 2. Check `init.lua` exists in parent dirs
 3. Verify plugin is in runtimepath:
    ```vim
@@ -658,12 +662,12 @@ local colors = base16.generate({
 
 ### Terminal Colors Not Applied
 
-**Problem:** Built-in terminal doesn't use theme colors.
+**Problem:** Built-in terminal doesn't use scheme colors.
 
 **Solution:**
 ```lua
 require('prismpunk').setup({
-  theme = 'lantern-corps/green',
+  scheme = 'lantern-corps/green',
   terminal_colors = true,  -- Make sure this is true
 })
 ```
@@ -672,9 +676,9 @@ require('prismpunk').setup({
 
 ## FAQ
 
-### Can I use multiple themes in one session?
+### Can I use multiple schemes in one session?
 
-Yes! Switch themes anytime:
+Yes! Switch schemes anytime:
 ```vim
 :lua require('prismpunk').load('lantern-corps/yellow')
 :lua require('prismpunk').load('lantern-corps/green')
@@ -688,22 +692,22 @@ Use the export commands:
 ```
 Then apply the config to your terminal (see Terminal Integration).
 
-### Can I create themes without coding?
+### Can I create schemes without coding?
 
 Use the Base16 quick generator:
 ```lua
 local base16 = require('prismpunk.utils.base16')
-local theme = base16.quick_theme(
-  "My Theme",
+local scheme = base16.quick_scheme(
+  "My Scheme",
   "#000000",  -- background
   "#ffffff",  -- foreground
   "#00ff00"   -- accent color
 )
 ```
 
-### How do I contribute themes?
+### How do I contribute schemes?
 
-1. Create your theme following the structure
+1. Create your scheme following the structure
 2. Test it thoroughly
 3. Export terminal configs
 4. Submit a PR with screenshots
@@ -746,7 +750,7 @@ require('prismpunk').setup()  -- No arguments = defaults
 ### Keybindings
 
 ```lua
--- Quick theme switching
+-- Quick scheme switching
 vim.keymap.set('n', '<leader>pg', function()
   require('prismpunk').load('lantern-corps/green')
 end, { desc = 'Green Lantern' })
@@ -755,23 +759,23 @@ vim.keymap.set('n', '<leader>py', function()
   require('prismpunk').load('lantern-corps/yellow')
 end, { desc = 'Yellow Lantern' })
 
--- Theme picker
-vim.keymap.set('n', '<leader>pt', ':Telescope prismpunk<CR>', { desc = 'Pick theme' })
+-- Scheme picker
+vim.keymap.set('n', '<leader>pt', ':Telescope prismpunk<CR>', { desc = 'Pick scheme' })
 
--- Reload theme (development)
-vim.keymap.set('n', '<leader>pr', ':PrismpunkReload<CR>', { desc = 'Reload theme' })
+-- Reload scheme (development)
+vim.keymap.set('n', '<leader>pr', ':PrismpunkReload<CR>', { desc = 'Reload scheme' })
 ```
 
 ### Auto-switch Based on Time
 
 ```lua
--- Dark theme at night, light theme during day
+-- Dark scheme at night, light scheme during day
 local hour = tonumber(os.date('%H'))
-local theme = hour >= 18 or hour < 6 
+local scheme = hour >= 18 or hour < 6 
   and 'lantern-corps/green'   -- Night: Green Lantern
   or 'lantern-corps/yellow'   -- Day: Yellow Lantern
 
-require('prismpunk').setup({ theme = theme })
+require('prismpunk').setup({ scheme = scheme })
 ```
 
 ### Match Lualine

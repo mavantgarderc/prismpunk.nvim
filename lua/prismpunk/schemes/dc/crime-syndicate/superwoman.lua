@@ -1,0 +1,277 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  bg_darkest = "#0F0318",
+  bg_darker = "#150622",
+  bg_dark = "#1C0A30",
+  bg_mid = "#281442",
+  bg_light = "#3F2659",
+  bg_lighter = "#5B3D7C",
+  bg_lightest = "#8C66B2",
+
+  fg_lightest = "#F8E8FF",
+  fg_light = "#E6C8FF",
+  fg_mid = "#C8A8F0",
+  fg_dark = "#9C7AD4",
+
+  bg_alt1 = "#18082A",
+  bg_alt2 = "#11051E",
+  bg_alt3 = "#200C38",
+  bg_alt4 = "#1A072E",
+
+  empressViolet = "#D966FF",
+  sadisticPink = "#FF4DA6",
+  venomGold = "#FFB333",
+  bruiseMagenta = "#FF33AA",
+  obsidianTeal = "#00C9B3",
+  bloodlustRed = "#FF1A66",
+  thronePurple = "#B344E6",
+  silkCyan = "#66FFE0",
+  cruelWhite = "#F8E8FF",
+}
+
+local M = {}
+
+M.get = function(opts, plt)
+  return {
+    modes = {
+      normal = plt.empressViolet,
+      insert = plt.obsidianTeal,
+      visual = plt.sadisticPink,
+      replace = plt.bloodlustRed,
+      command = plt.venomGold,
+    },
+
+    ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_dark,
+      fg_dark = plt.bg_lightest,
+      fg_reverse = plt.bg_alt1,
+      bg_m4 = plt.bg_alt4,
+      bg_m3 = plt.bg_alt3,
+      bg_m2 = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_dim = plt.bg_darker,
+      bg = plt.bg_darkest,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_cursorline = plt.bg_mid,
+      bg_cursorline_alt = plt.bg_light,
+      bg_search = plt.silkCyan,
+      bg_visual = plt.bruiseMagenta,
+      bg_statusline = plt.bg_light,
+      border = plt.bg_alt4,
+      header1 = plt.venomGold,
+      header2 = plt.bloodlustRed,
+      special = plt.obsidianTeal,
+      nontext = plt.bg_lighter,
+      whitespace = plt.bg_lightest,
+      win_separator = plt.thronePurple,
+      indent = plt.bg_lighter,
+      indent_scope = plt.empressViolet,
+      picker = plt.sadisticPink,
+      yank = plt.venomGold,
+      mark = plt.silkCyan,
+      scrollbar = plt.bg_lighter,
+      tabline = {
+        bg = plt.bg_darkest,
+        fg_selected = plt.fg_lightest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_mid,
+        bg_inactive = plt.bg_darkest,
+        fg_alternate = plt.venomGold,
+        bg_alternate = plt.bg_darkest,
+        indicator = plt.sadisticPink,
+      },
+      pmenu = {
+        fg = plt.fg_lightest,
+        fg_sel = "none",
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.bg_lightest,
+      },
+      float = {
+        fg = plt.fg_light,
+        bg = plt.bg_mid,
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_mid,
+      },
+    },
+
+    accent = {
+      accent1 = plt.venomGold,
+      accent2 = plt.empressViolet,
+      accent3 = plt.obsidianTeal,
+      accent4 = plt.sadisticPink,
+      accent5 = plt.bruiseMagenta,
+      invert = plt.bg_light,
+    },
+
+    rainbow = {
+      rainbow1 = plt.venomGold,
+      rainbow2 = plt.empressViolet,
+      rainbow3 = plt.sadisticPink,
+      rainbow4 = plt.obsidianTeal,
+      rainbow5 = plt.bruiseMagenta,
+      rainbow6 = plt.bloodlustRed,
+      rainbow7 = plt.silkCyan,
+    },
+
+    syn = {
+      attribute = plt.venomGold,
+      boolean = plt.silkCyan,
+      comment = plt.fg_dark,
+      constant = plt.venomGold,
+      deprecated = plt.fg_mid,
+      func = plt.empressViolet,
+      identifier = plt.fg_lightest,
+      keyword = plt.sadisticPink,
+      method = plt.obsidianTeal,
+      number = plt.bruiseMagenta,
+      operator = plt.obsidianTeal,
+      parameter = plt.fg_mid,
+      preproc = plt.empressViolet,
+      punct = plt.fg_mid,
+      regex = plt.bloodlustRed,
+      statement = plt.sadisticPink,
+      string = plt.venomGold,
+      symbol = plt.obsidianTeal,
+      type = plt.cruelWhite,
+      variable = plt.fg_lightest,
+      special = plt.venomGold,
+      special2 = plt.bloodlustRed,
+      special3 = plt.empressViolet,
+    },
+
+    vcs = { added = plt.silkCyan, removed = plt.bloodlustRed, changed = plt.venomGold },
+    diff = { add = plt.silkCyan, change = plt.venomGold, delete = plt.bloodlustRed, text = plt.bruiseMagenta },
+    diag = {
+      ok = plt.silkCyan,
+      error = plt.bloodlustRed,
+      warning = plt.bruiseMagenta,
+      info = plt.empressViolet,
+      hint = plt.obsidianTeal,
+    },
+
+    term = {
+      black = plt.bg_alt3,
+      red = plt.bloodlustRed,
+      green = plt.silkCyan,
+      yellow = plt.venomGold,
+      blue = plt.empressViolet,
+      magenta = plt.bruiseMagenta,
+      cyan = plt.obsidianTeal,
+      white = plt.fg_light,
+      black_bright = color(plt.bg_alt3):brighten(0.6):to_hex(),
+      red_bright = color(plt.bloodlustRed):brighten(0.2):to_hex(),
+      green_bright = color(plt.silkCyan):brighten(0.1):to_hex(),
+      yellow_bright = color(plt.venomGold):brighten(0.2):to_hex(),
+      blue_bright = color(plt.empressViolet):brighten(0.3):to_hex(),
+      magenta_bright = color(plt.bruiseMagenta):brighten(0.2):to_hex(),
+      cyan_bright = color(plt.obsidianTeal):brighten(0.1):to_hex(),
+      white_bright = color(plt.fg_light):brighten(0.2):to_hex(),
+      indexed1 = plt.venomGold,
+      indexed2 = plt.bloodlustRed,
+    },
+
+    treesitter = {
+      ["@comment"] = plt.fg_dark,
+      ["@comment.documentation"] = plt.fg_mid,
+      ["@comment.error"] = plt.bloodlustRed,
+      ["@comment.warning"] = plt.bruiseMagenta,
+      ["@comment.todo"] = plt.venomGold,
+      ["@comment.note"] = plt.obsidianTeal,
+
+      ["@constant"] = plt.venomGold,
+      ["@constant.builtin"] = plt.venomGold,
+      ["@constant.macro"] = plt.venomGold,
+
+      ["@string"] = plt.venomGold,
+      ["@string.documentation"] = plt.venomGold,
+      ["@string.regex"] = plt.bloodlustRed,
+      ["@string.escape"] = plt.sadisticPink,
+      ["@string.special"] = plt.obsidianTeal,
+
+      ["@number"] = plt.bruiseMagenta,
+      ["@boolean"] = plt.silkCyan,
+
+      ["@function"] = plt.empressViolet,
+      ["@function.builtin"] = plt.empressViolet,
+      ["@function.macro"] = plt.thronePurple,
+      ["@function.method"] = plt.obsidianTeal,
+
+      ["@constructor"] = plt.cruelWhite,
+
+      ["@parameter"] = plt.fg_mid,
+
+      ["@keyword"] = plt.sadisticPink,
+      ["@keyword.operator"] = plt.obsidianTeal,
+      ["@keyword.return"] = plt.sadisticPink,
+
+      ["@variable"] = plt.fg_lightest,
+      ["@property"] = plt.fg_light,
+
+      ["@type"] = plt.cruelWhite,
+
+      ["@punctuation.delimiter"] = plt.fg_mid,
+      ["@punctuation.bracket"] = plt.fg_mid,
+      ["@punctuation.special"] = plt.obsidianTeal,
+
+      ["@tag"] = plt.sadisticPink,
+      ["@tag.attribute"] = plt.venomGold,
+
+      ["@markup.strong"] = { fg = plt.venomGold, bold = true },
+      ["@markup.heading.1"] = plt.venomGold,
+      ["@markup.heading.2"] = plt.bruiseMagenta,
+      ["@markup.heading.3"] = plt.sadisticPink,
+
+      ["@diff.plus"] = plt.silkCyan,
+      ["@diff.minus"] = plt.bloodlustRed,
+      ["@diff.delta"] = plt.venomGold,
+
+      ["@conceal"] = plt.thronePurple,
+      ["@spell"] = plt.fg_lightest,
+    },
+
+    lsp = {
+      ["@lsp.type.class"] = plt.cruelWhite,
+      ["@lsp.type.property"] = plt.fg_light,
+      ["@lsp.type.namespace"] = plt.cruelWhite,
+      ["@lsp.mod.deprecated"] = { fg = plt.fg_mid, strikethrough = true },
+      ["@lsp.mod.readonly"] = plt.venomGold,
+    },
+  }
+end
+
+return {
+  name = "Crime Syndicate – Superwoman",
+  author = "PrismPunk.nvim",
+  description = "The sadistic Amazon empress of Earth-3. Beauty that kills, power that corrupts.",
+
+  base16 = {
+    base00 = palette.bg_darkest,
+    base01 = palette.bg_darker,
+    base02 = palette.bg_dark,
+    base03 = palette.bg_mid,
+    base04 = palette.bg_light,
+    base05 = palette.fg_mid,
+    base06 = palette.fg_lightest,
+    base07 = palette.fg_light,
+    base08 = palette.bloodlustRed,
+    base09 = palette.bruiseMagenta,
+    base0A = palette.venomGold,
+    base0B = palette.silkCyan,
+    base0C = palette.obsidianTeal,
+    base0D = palette.empressViolet,
+    base0E = palette.thronePurple,
+    base0F = palette.sadisticPink,
+  },
+
+  palette = palette,
+  get = M.get,
+}

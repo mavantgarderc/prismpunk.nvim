@@ -1,5 +1,5 @@
---- PrismPunk Theme Validation Module
---- Validates themes against WCAG, Base16, color format, and schema standards
+--- PrismPunk Scheme Validation Module
+--- Validates schemes against WCAG, Base16, color format, and schema standards
 local M = {}
 
 local color = require("prismpunk.utils.color")
@@ -30,6 +30,106 @@ local REQUIRED_UI_CONTRASTS = {
 }
 
 local REQUIRED_SECTIONS = { "ui", "syn", "diag", "term" }
+
+-- ============================================================================
+-- UNIFIED VALIDATION ENTRY POINT
+-- ============================================================================
+
+--- Unified validation for scheme loading
+--- Single entry point that runs all validation checks on a scheme
+--- @param scheme table Scheme colors from scheme.get()
+--- @param opts table|nil Options { validate_colors: boolean, validate_schema: boolean, validate_contrast: boolean, contrast_level: "aa"|"aaa" }
+--- @return table results { valid, errors, warnings, checks }
+function M.validate(scheme, opts)
+  opts = opts or {}
+  local results = {
+    valid = true,
+    errors = {},
+    warnings = {},
+    checks = {},
+  }
+
+  if not scheme or type(scheme) ~= "table" then
+    table.insert(results.errors, "scheme must be a table")
+    results.valid = false
+    return results
+  end
+
+  if opts.validate_colors ~= false then
+    local color_result = M.check_color_formats(scheme)
+    results.checks.color_formats = color_result
+    if not color_result.valid then
+      for _, err in ipairs(color_result.errors) do
+        table.insert(results.errors, err)
+      end
+      results.valid = false
+    end
+  end
+
+  if opts.validate_schema ~= false then
+    local schema_result = M.check_scheme_color_schema(scheme)
+    results.checks.schema = schema_result
+    if not schema_result.valid then
+      for _, err in ipairs(schema_result.errors) do
+        table.insert(results.errors, err)
+      end
+      results.valid = false
+    end
+    for _, warn in ipairs(schema_result.warnings) do
+      table.insert(results.warnings, warn)
+    end
+  end
+
+  if opts.validate_contrast then
+    local level = opts.contrast_level or "aa"
+    local contrast_result = M.check_wcag_contrast(scheme, { level = level })
+    results.checks.contrast = contrast_result
+    if not contrast_result.passed then
+      for _, err in ipairs(contrast_result.errors) do
+        table.insert(results.errors, err)
+      end
+      for _, warn in ipairs(contrast_result.warnings) do
+        table.insert(results.warnings, warn)
+      end
+    end
+  end
+
+  local structure_result = M.check_scheme_structure(scheme)
+  results.checks.structure = structure_result
+  if not structure_result.valid then
+    for _, err in ipairs(structure_result.errors) do
+      table.insert(results.errors, err)
+    end
+    results.valid = false
+  end
+
+  return results
+end
+
+--- Quick validation for scheme loading (minimal checks)
+--- @param scheme table Scheme colors from scheme.get()
+--- @return boolean valid, string[] errors
+function M.quick_validate(scheme)
+  if not scheme or type(scheme) ~= "table" then
+    return false, { "scheme must be a table" }
+  end
+
+  local errors = {}
+
+  if not scheme.ui or not scheme.ui.fg or not scheme.ui.bg then
+    table.insert(errors, "scheme missing required ui.fg or ui.bg")
+  end
+
+  if not scheme.syn then
+    table.insert(errors, "scheme missing required syn section")
+  end
+
+  if not scheme.diag then
+    table.insert(errors, "scheme missing required diag section")
+  end
+
+  return #errors == 0, errors
+end
 
 -- ============================================================================
 -- HEX COLOR VALIDATION
@@ -1312,5 +1412,11 @@ function M.format_report(report)
 
   return table.concat(lines, "\n")
 end
+
+M.check_scheme_color_schema = M.check_theme_color_schema
+M.check_scheme_structure = M.check_theme_structure
+M.validate_scheme = M.validate_theme
+M.validate_all_schemes = M.validate_all_themes
+M.check_cross_scheme_duplicates = M.check_cross_theme_duplicates
 
 return M

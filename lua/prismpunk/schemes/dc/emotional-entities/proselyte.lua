@@ -1,0 +1,392 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  compassion_void = "#0D0033",
+  mercy_black = "#110044",
+  indigo_depth = "#1A0066",
+  empathy_core = "#220088",
+  proselyte_indigo = "#4488FF",
+  mercy_glow = "#5577FF",
+  empathy_light = "#6688FF",
+  gentle_aura = "#7799FF",
+  serene_bond = "#88BBFF",
+  pale_compassion = "#99CCFF",
+  tender_indigo = "#BBEEFF",
+  soft_mercy = "#CCEEFF",
+  pure_compassion = "#FFFFFF",
+  suffering_red = "#FF4488",
+  term_red = "#FF6699",
+  term_green = "#88FFAA",
+  term_blue = "#6688FF",
+
+  bg_darkest = "#0D0033",
+  fg_lightest = "#99CCFF",
+}
+
+local M = {}
+
+---@param opts table
+---@param plt table
+---@return table
+M.get = function(opts, plt)
+  return {
+    modes = {
+      normal = plt.proselyte_indigo,
+      insert = plt.mercy_glow,
+      visual = plt.empathy_light,
+      replace = plt.suffering_red,
+      command = plt.gentle_aura,
+    },
+
+    ui = {
+      fg = plt.tender_indigo,
+      fg_dim = plt.soft_mercy,
+      fg_dimmer = plt.pale_compassion,
+      fg_dark = plt.serene_bond,
+      fg_reverse = plt.compassion_void,
+
+      bg_m4 = plt.empathy_core,
+      bg_m3 = plt.indigo_depth,
+      bg_m2 = plt.mercy_black,
+      bg_m1 = plt.compassion_void,
+      bg_dim = plt.compassion_void,
+      bg = plt.compassion_void,
+      bg_p1 = plt.mercy_black,
+      bg_p2 = plt.indigo_depth,
+      bg_gutter = opts.gutter and plt.indigo_depth or "none",
+      bg_cursorline = plt.indigo_depth,
+      bg_cursorline_alt = plt.mercy_black,
+      bg_search = plt.suffering_red,
+      bg_visual = plt.empathy_light,
+      bg_statusline = plt.indigo_depth,
+
+      border = plt.proselyte_indigo,
+      header1 = plt.proselyte_indigo,
+      header2 = plt.mercy_glow,
+      special = plt.gentle_aura,
+      nontext = plt.mercy_black,
+      whitespace = plt.empathy_core,
+      win_separator = plt.proselyte_indigo,
+      indent = plt.mercy_black,
+      indent_scope = plt.serene_bond,
+      picker = plt.suffering_red,
+      yank = plt.proselyte_indigo,
+      mark = plt.gentle_aura,
+      scrollbar = plt.indigo_depth,
+
+      tabline = {
+        bg = plt.compassion_void,
+        fg_selected = plt.proselyte_indigo,
+        bg_selected = plt.indigo_depth,
+        fg_inactive = plt.pale_compassion,
+        bg_inactive = plt.compassion_void,
+        fg_alternate = plt.gentle_aura,
+        bg_alternate = plt.compassion_void,
+        indicator = plt.mercy_glow,
+      },
+
+      pmenu = {
+        fg = plt.tender_indigo,
+        fg_sel = "none",
+        fg_border = plt.indigo_depth,
+        bg_border = plt.indigo_depth,
+        bg = plt.indigo_depth,
+        bg_sel = plt.mercy_black,
+        bg_sbar = plt.indigo_depth,
+        bg_thumb = plt.proselyte_indigo,
+      },
+
+      float = {
+        fg = plt.tender_indigo,
+        bg = plt.mercy_black,
+        fg_border = plt.indigo_depth,
+        bg_border = plt.mercy_black,
+      },
+    },
+
+    accent = {
+      accent1 = plt.proselyte_indigo,
+      accent2 = plt.mercy_glow,
+      accent3 = plt.empathy_light,
+      accent4 = plt.gentle_aura,
+      accent5 = plt.serene_bond,
+      invert = plt.indigo_depth,
+    },
+
+    rainbow = {
+      rainbow1 = plt.proselyte_indigo,
+      rainbow2 = plt.mercy_glow,
+      rainbow3 = plt.empathy_light,
+      rainbow4 = plt.gentle_aura,
+      rainbow5 = plt.serene_bond,
+      rainbow6 = plt.suffering_red,
+      rainbow7 = plt.suffering_red,
+    },
+
+    syn = {
+      attribute = plt.serene_bond,
+      boolean = plt.proselyte_indigo,
+      comment = plt.pale_compassion,
+      constant = plt.pure_compassion,
+      deprecated = plt.indigo_depth,
+      func = plt.mercy_glow,
+      identifier = plt.tender_indigo,
+      keyword = plt.proselyte_indigo,
+      method = plt.empathy_light,
+      number = plt.pure_compassion,
+      operator = plt.suffering_red,
+      parameter = plt.soft_mercy,
+      preproc = plt.suffering_red,
+      punct = plt.pale_compassion,
+      regex = plt.gentle_aura,
+      statement = plt.proselyte_indigo,
+      string = plt.pure_compassion,
+      symbol = plt.serene_bond,
+      type = plt.pure_compassion,
+      variable = plt.tender_indigo,
+      special = plt.gentle_aura,
+      special2 = plt.suffering_red,
+      special3 = plt.empathy_light,
+    },
+
+    vcs = { added = plt.serene_bond, removed = plt.suffering_red, changed = plt.gentle_aura },
+    diff = { add = plt.serene_bond, change = plt.gentle_aura, delete = plt.suffering_red, text = plt.empathy_light },
+    diag = {
+      ok = plt.gentle_aura,
+      error = plt.suffering_red,
+      warning = plt.suffering_red,
+      info = plt.empathy_light,
+      hint = plt.serene_bond,
+    },
+
+    term = {
+      black = plt.compassion_void,
+      red = plt.term_red,
+      green = plt.term_green,
+      yellow = plt.gentle_aura,
+      blue = plt.proselyte_indigo,
+      magenta = "#bb99ff",
+      cyan = plt.mercy_glow,
+      white = plt.pure_compassion,
+
+      black_bright = color(plt.compassion_void):brighten(0.7):to_hex(),
+      red_bright = color(plt.term_red):brighten(0.2):to_hex(),
+      green_bright = color(plt.term_green):brighten(0.1):to_hex(),
+      yellow_bright = color(plt.gentle_aura):brighten(0.1):to_hex(),
+      blue_bright = color(plt.proselyte_indigo):brighten(0.15):to_hex(),
+      magenta_bright = "#ddbbff",
+      cyan_bright = color(plt.mercy_glow):brighten(0.1):to_hex(),
+      white_bright = plt.pure_compassion,
+      indexed1 = plt.suffering_red,
+      indexed2 = plt.gentle_aura,
+    },
+
+    treesitter = {
+      ["@comment"] = plt.pale_compassion,
+      ["@comment.documentation"] = plt.soft_mercy,
+      ["@comment.error"] = plt.suffering_red,
+      ["@comment.warning"] = plt.suffering_red,
+      ["@comment.todo"] = plt.gentle_aura,
+      ["@comment.note"] = plt.empathy_light,
+
+      ["@constant"] = plt.pure_compassion,
+      ["@constant.builtin"] = plt.pure_compassion,
+      ["@constant.macro"] = plt.serene_bond,
+
+      ["@string"] = plt.pure_compassion,
+      ["@string.documentation"] = plt.pure_compassion,
+      ["@string.regex"] = plt.gentle_aura,
+      ["@string.escape"] = plt.suffering_red,
+      ["@string.special"] = plt.serene_bond,
+      ["@string.special.symbol"] = plt.suffering_red,
+      ["@string.special.url"] = plt.empathy_light,
+      ["@string.special.path"] = plt.pure_compassion,
+
+      ["@character"] = plt.pure_compassion,
+      ["@character.special"] = plt.suffering_red,
+
+      ["@number"] = plt.pure_compassion,
+      ["@number.float"] = plt.pure_compassion,
+
+      ["@boolean"] = plt.proselyte_indigo,
+
+      ["@function"] = plt.mercy_glow,
+      ["@function.builtin"] = plt.mercy_glow,
+      ["@function.call"] = plt.mercy_glow,
+      ["@function.macro"] = plt.gentle_aura,
+      ["@function.method"] = plt.empathy_light,
+      ["@function.method.call"] = plt.empathy_light,
+
+      ["@constructor"] = plt.proselyte_indigo,
+
+      ["@parameter"] = plt.soft_mercy,
+      ["@parameter.builtin"] = plt.tender_indigo,
+
+      ["@keyword"] = plt.proselyte_indigo,
+      ["@keyword.coroutine"] = plt.empathy_light,
+      ["@keyword.function"] = plt.proselyte_indigo,
+      ["@keyword.operator"] = plt.suffering_red,
+      ["@keyword.return"] = plt.proselyte_indigo,
+      ["@keyword.import"] = plt.gentle_aura,
+      ["@keyword.storage"] = plt.proselyte_indigo,
+      ["@keyword.repeat"] = plt.proselyte_indigo,
+      ["@keyword.conditional"] = plt.proselyte_indigo,
+      ["@keyword.exception"] = plt.suffering_red,
+      ["@keyword.directive"] = plt.gentle_aura,
+      ["@keyword.directive.define"] = plt.gentle_aura,
+
+      ["@conditional"] = plt.proselyte_indigo,
+      ["@conditional.ternary"] = plt.proselyte_indigo,
+
+      ["@repeat"] = plt.proselyte_indigo,
+
+      ["@label"] = plt.empathy_light,
+
+      ["@operator"] = plt.suffering_red,
+
+      ["@exception"] = plt.suffering_red,
+
+      ["@variable"] = plt.tender_indigo,
+      ["@variable.builtin"] = plt.proselyte_indigo,
+      ["@variable.parameter"] = plt.soft_mercy,
+      ["@variable.member"] = plt.tender_indigo,
+
+      ["@type"] = plt.pure_compassion,
+      ["@type.builtin"] = plt.pure_compassion,
+      ["@type.definition"] = plt.pure_compassion,
+      ["@type.qualifier"] = plt.proselyte_indigo,
+
+      ["@attribute"] = plt.serene_bond,
+      ["@attribute.builtin"] = plt.gentle_aura,
+
+      ["@property"] = plt.tender_indigo,
+      ["@field"] = plt.tender_indigo,
+      ["@module"] = plt.tender_indigo,
+      ["@module.builtin"] = plt.tender_indigo,
+      ["@namespace"] = plt.tender_indigo,
+      ["@namespace.builtin"] = plt.tender_indigo,
+
+      ["@punctuation.delimiter"] = plt.pale_compassion,
+      ["@punctuation.bracket"] = plt.pale_compassion,
+      ["@punctuation.special"] = plt.suffering_red,
+
+      ["@tag"] = plt.proselyte_indigo,
+      ["@tag.attribute"] = plt.gentle_aura,
+      ["@tag.delimiter"] = plt.pale_compassion,
+      ["@tag.builtin"] = plt.proselyte_indigo,
+
+      ["@markup.strong"] = { fg = plt.proselyte_indigo, bold = true },
+      ["@markup.italic"] = { fg = plt.tender_indigo, italic = true },
+      ["@markup.strikethrough"] = { fg = plt.indigo_depth, strikethrough = true },
+      ["@markup.underline"] = { fg = plt.suffering_red, underline = true },
+      ["@markup.heading"] = plt.proselyte_indigo,
+      ["@markup.heading.1"] = plt.proselyte_indigo,
+      ["@markup.heading.2"] = plt.mercy_glow,
+      ["@markup.heading.3"] = plt.empathy_light,
+      ["@markup.heading.4"] = plt.gentle_aura,
+      ["@markup.heading.5"] = plt.serene_bond,
+      ["@markup.heading.6"] = plt.suffering_red,
+      ["@markup.quote"] = plt.pale_compassion,
+      ["@markup.math"] = plt.empathy_light,
+      ["@markup.link"] = plt.gentle_aura,
+      ["@markup.link.label"] = plt.empathy_light,
+      ["@markup.link.url"] = plt.gentle_aura,
+      ["@markup.raw"] = plt.pure_compassion,
+      ["@markup.raw.block"] = plt.pure_compassion,
+      ["@markup.list"] = plt.proselyte_indigo,
+      ["@markup.list.checked"] = plt.serene_bond,
+      ["@markup.list.unchecked"] = plt.pale_compassion,
+
+      ["@diff.plus"] = plt.serene_bond,
+      ["@diff.minus"] = plt.suffering_red,
+      ["@diff.delta"] = plt.gentle_aura,
+
+      ["@none"] = "none",
+      ["@conceal"] = plt.empathy_light,
+      ["@spell"] = plt.tender_indigo,
+      ["@nospell"] = "none",
+
+      ["@lsp.type.property.lua"] = plt.tender_indigo,
+      ["@constructor.python"] = plt.proselyte_indigo,
+      ["@constructor.javascript"] = plt.proselyte_indigo,
+      ["@constructor.typescript"] = plt.proselyte_indigo,
+      ["@namespace.rust"] = plt.tender_indigo,
+      ["@type.qualifier.rust"] = plt.proselyte_indigo,
+      ["@constant.macro.c"] = plt.serene_bond,
+      ["@constant.macro.cpp"] = plt.serene_bond,
+      ["@namespace.go"] = plt.tender_indigo,
+      ["@property.css"] = plt.empathy_light,
+      ["@type.css"] = plt.proselyte_indigo,
+      ["@label.json"] = plt.tender_indigo,
+      ["@field.yaml"] = plt.empathy_light,
+      ["@property.toml"] = plt.empathy_light,
+      ["@function.builtin.bash"] = plt.mercy_glow,
+      ["@string.regexp"] = plt.gentle_aura,
+      ["@character.special.regex"] = plt.suffering_red,
+    },
+
+    lsp = {
+      ["@lsp.type.class"] = plt.pure_compassion,
+      ["@lsp.type.interface"] = plt.pure_compassion,
+      ["@lsp.type.struct"] = plt.pure_compassion,
+      ["@lsp.type.enum"] = plt.pure_compassion,
+      ["@lsp.type.enumMember"] = plt.gentle_aura,
+      ["@lsp.type.property"] = plt.tender_indigo,
+      ["@lsp.type.namespace"] = plt.tender_indigo,
+
+      ["@lsp.type.macro"] = plt.serene_bond,
+      ["@lsp.type.decorator"] = plt.proselyte_indigo,
+
+      ["@lsp.type.builtinType"] = plt.pure_compassion,
+      ["@lsp.type.selfParameter"] = plt.proselyte_indigo,
+      ["@lsp.type.typeParameter"] = plt.pure_compassion,
+
+      ["@lsp.type.array"] = plt.pure_compassion,
+      ["@lsp.type.object"] = plt.pure_compassion,
+      ["@lsp.type.key"] = plt.tender_indigo,
+      ["@lsp.type.null"] = plt.pure_compassion,
+      ["@lsp.type.enumConstant"] = plt.gentle_aura,
+
+      ["@lsp.type.event"] = plt.pure_compassion,
+      ["@lsp.type.regexp"] = plt.gentle_aura,
+      ["@lsp.type.unresolvedReference"] = plt.suffering_red,
+
+      ["@lsp.mod.deprecated"] = { fg = plt.indigo_depth, strikethrough = true },
+      ["@lsp.mod.readonly"] = plt.pure_compassion,
+      ["@lsp.mod.async"] = plt.proselyte_indigo,
+      ["@lsp.mod.static"] = plt.empathy_light,
+      ["@lsp.mod.abstract"] = plt.pure_compassion,
+      ["@lsp.mod.defaultLibrary"] = plt.pure_compassion,
+      ["@lsp.mod.documentation"] = plt.soft_mercy,
+    },
+  }
+end
+
+return {
+  name = "Emotional Entity – Proselyte (Compassion)",
+  author = "PrismPunk.nvim",
+  description = "The squid-shaped god of the Indigo Tribe. It feels your pain. "
+    .. "It forgives your rage. It teaches mercy in a universe that knows none.",
+
+  base16 = {
+    base00 = palette.compassion_void,
+    base01 = palette.mercy_black,
+    base02 = palette.indigo_depth,
+    base03 = palette.empathy_core,
+    base04 = palette.pale_compassion,
+    base05 = palette.soft_mercy,
+    base06 = palette.tender_indigo,
+    base07 = palette.pure_compassion,
+    base08 = palette.suffering_red,
+    base09 = palette.suffering_red,
+    base0A = palette.gentle_aura,
+    base0B = palette.serene_bond,
+    base0C = palette.empathy_light,
+    base0D = palette.proselyte_indigo,
+    base0E = palette.mercy_glow,
+    base0F = palette.serene_bond,
+  },
+
+  palette = palette,
+  get = M.get,
+}

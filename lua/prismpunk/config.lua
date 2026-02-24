@@ -1,8 +1,8 @@
 --- PrismPunk configuration management
---- Handles validation, merging, and theme spec parsing
+--- Handles validation, merging, and scheme spec parsing
 local M = {}
 
-local DEFAULT_THEME = "kanagawa/paper-edo"
+local DEFAULT_SCHEME = "kanagawa/paper-edo"
 
 --- Default configuration schema
 M.defaults = {
@@ -11,13 +11,15 @@ M.defaults = {
     profile_startup = false,
   },
 
-  theme = DEFAULT_THEME, -- Theme name (e.g., "phantom-corrupted" or "lantern-corps/phantom-corrupted")
-  themes = {}, -- Allowed themes/universes for discovery (whitelist)
-  gutter = true, -- Enable gutter background
+  scheme = DEFAULT_SCHEME,
+  schemes = {},
+  theme = nil,
+  themes = {},
+  gutter = true,
   validate_contrast = {
-    enable = false, -- Enable contrast validation on theme load (default: false, on-demand only)
-    level = "aa", -- "aa" or "aaa"
-    report_level = "info", -- "info", "warn", "error"
+    enable = false,
+    level = "aa",
+    report_level = "info",
   },
 
   styles = {
@@ -94,7 +96,7 @@ M.defaults = {
   overrides = {
     colors = {}, -- Color overrides
     highlights = {}, -- Global highlight overrides
-    themes = {}, -- Per-theme overrides { ["theme-name"] = { Normal = {...} } }
+    schemes = {}, -- Per-scheme overrides { ["scheme-name"] = { Normal = {...} } }
   },
 
   integrations = {}, -- Plugin integrations
@@ -114,8 +116,8 @@ local schema = {
     },
   },
 
-  theme = { type = { "string", "nil" } },
-  themes = { type = "table" }, -- Array of allowed themes/universes
+  scheme = { type = { "string", "nil" } },
+  schemes = { type = "table" }, -- Array of allowed schemes/universes
   gutter = { type = "boolean" },
   validate_contrast = { type = "table" },
 
@@ -225,7 +227,7 @@ local schema = {
     fields = {
       colors = { type = "table" },
       highlights = { type = "table" },
-      themes = { type = "table" },
+      schemes = { type = "table" },
     },
   },
 
@@ -303,9 +305,9 @@ function M.setup(user_config)
   return M.options
 end
 
---- Parse theme specification into normalized form
---- Auto-discovers themes by checking filesystem
---- @param theme_spec string|table|nil
+--- Parse scheme specification into normalized form
+--- Auto-discovers schemes by checking filesystem
+--- @param scheme_spec string|table|nil
 --- @return table Normalized spec { universe = string|nil, name = string, variants = table }
 local KNOWN_PARENTS = {
   ["lantern-corps"] = "dc",
@@ -325,7 +327,7 @@ local KNOWN_PARENTS = {
 
 local DISCOVERY_PARENTS = { "dc", "marvel" }
 
-local function parse_two_part_theme(category, name)
+local function parse_two_part_scheme(category, name)
   local variants = {}
 
   local parent = KNOWN_PARENTS[category]
@@ -344,70 +346,77 @@ local function parse_two_part_theme(category, name)
   return { universe = category, name = name, variants = variants }
 end
 
-function M.parse_theme(theme_spec)
-  if not theme_spec or theme_spec == "" then return { universe = nil, name = nil, variants = {} } end
+function M.parse_scheme(scheme_spec)
+  if not scheme_spec or scheme_spec == "" then return { universe = nil, name = nil, variants = {} } end
 
-  if type(theme_spec) == "string" then
-    local parts = vim.split(theme_spec, "/")
+  if type(scheme_spec) == "string" then
+    local parts = vim.split(scheme_spec, "/")
 
     if #parts == 3 then
       local universe = parts[1] .. "/" .. parts[2]
       local name = parts[3]
       return { universe = universe, name = name, variants = { { universe = universe, name = name } } }
     elseif #parts == 2 then
-      return parse_two_part_theme(parts[1], parts[2])
+      return parse_two_part_scheme(parts[1], parts[2])
     else
-      return { universe = nil, name = theme_spec, variants = {} }
+      return { universe = nil, name = scheme_spec, variants = {} }
     end
-  elseif type(theme_spec) == "table" then
+  elseif type(scheme_spec) == "table" then
     return {
-      universe = theme_spec.universe,
-      name = theme_spec.name or theme_spec[1],
-      opts = theme_spec.opts or {},
+      universe = scheme_spec.universe,
+      name = scheme_spec.name or scheme_spec[1],
+      opts = scheme_spec.opts or {},
       variants = {},
     }
   else
-    error(string.format("[prismpunk] Invalid theme_spec type: %s (expected string or table)", type(theme_spec)))
+    error(string.format("[prismpunk] Invalid scheme_spec type: %s (expected string or table)", type(scheme_spec)))
   end
 end
 
---- Check if a theme is allowed based on config.themes
---- @param theme_spec string Theme to check (e.g., "dc/superman" or "kanagawa")
+M.parse_theme = M.parse_scheme
+
+--- Check if a scheme is allowed based on config.schemes
+--- @param scheme_spec string Scheme to check (e.g., "dc/superman" or "kanagawa")
 --- @return boolean allowed
-function M.is_theme_allowed(theme_spec)
-  local allowed_themes = M.options.themes or {}
-  if #allowed_themes == 0 then return true end
+function M.is_scheme_allowed(scheme_spec)
+  local allowed_schemes = M.options.schemes or M.options.themes or {}
+  if #allowed_schemes == 0 then return true end
 
-  local parsed = M.parse_theme(theme_spec)
-  local theme_name = parsed.name
-  local theme_universe = parsed.universe
+  local parsed = M.parse_scheme(scheme_spec)
+  local scheme_name = parsed.name
+  local scheme_universe = parsed.universe
+  local scheme_full = scheme_universe and (scheme_universe .. "/" .. scheme_name) or scheme_name
 
-  for _, allowed in ipairs(allowed_themes) do
-    -- Exact match for individual theme
-    if allowed == theme_name then
+  for _, allowed in ipairs(allowed_schemes) do
+    if allowed == scheme_name or allowed == scheme_full then
       return true
     end
 
-    -- Check if theme's universe starts with allowed prefix
-    if theme_universe and theme_universe:find("^" .. allowed) then
-      return true
-    end
+    if scheme_universe then
+      if scheme_universe:find("^" .. allowed) or scheme_full:find("^" .. allowed) then
+        return true
+      end
 
-    -- Check allowed item matches the first part of universe
-    if theme_universe and allowed == theme_universe:match("^([^/]+)") then
-      return true
+      if allowed == scheme_universe:match("^([^/]+)") then
+        return true
+      end
     end
   end
 
   return false
 end
 
---- Get list of allowed themes based on config
---- @return table array of theme strings
-function M.get_allowed_themes()
-  return M.options.themes or {}
+M.is_theme_allowed = M.is_scheme_allowed
+
+--- Get list of allowed schemes based on config
+--- @return table array of scheme strings
+function M.get_allowed_schemes()
+  return M.options.schemes or M.options.themes or {}
 end
 
-M.DEFAULT_THEME = DEFAULT_THEME
+M.get_allowed_themes = M.get_allowed_schemes
+
+M.DEFAULT_SCHEME = DEFAULT_SCHEME
+M.DEFAULT_THEME = DEFAULT_SCHEME
 
 return M

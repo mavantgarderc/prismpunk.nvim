@@ -1,0 +1,426 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  bg_darkest = "#04101A",
+  bg_darker = "#0A1A2A",
+  bg_dark = "#0F243A",
+  bg_mid = "#152E4A",
+  bg_light = "#1A385A",
+  bg_lighter = "#1F426A",
+  bg_lightest = "#244C7A",
+
+  fg_lightest = "#E8F0F8",
+  fg_light = "#C8D8E8",
+  fg_mid = "#7888A8",
+  fg_dark = "#586880",
+
+  bg_alt1 = "#071825",
+  bg_alt2 = "#02080F",
+  bg_alt3 = "#0D1E30",
+  bg_alt4 = "#05121F",
+
+  -- Aquaman Core (Ocean Depths)
+  voidCore = "#0F5F7A",
+  voidGlow = "#2A7A9C",
+  voidBright = "#1A6A8C",
+  voidDeep = "#083046",
+  voidDark = "#04101A",
+
+  -- Atlantean colors
+  corruptedRage = "#FF7A66",
+  corruptedAvarice = "#FFD05A",
+  corruptedFear = "#FFAA66",
+  corruptedWill = "#228866",
+  corruptedHope = "#66CCAA",
+  corruptedLove = "#FF8A88",
+  corruptedCompassion = "#88BBCC",
+
+  -- Ocean Kingdom
+  deepSea = "#0F5F7A",
+  tridentGold = "#FFD05A",
+  coral = "#FF7A66",
+  kelpGreen = "#228866",
+  accentBronze = "#B07A3A",
+  atlanteanBlue = "#1A6A8C",
+  royalGold = "#FFC040",
+  seaFoam = "#66CCAA",
+  abyssalDark = "#083046",
+  currentBlue = "#2A7A9C",
+  pearlWhite = "#E8E8F0",
+  waveCrest = "#88BBCC",
+}
+
+local M = {}
+
+---@param opts table
+---@param plt table
+---@return table
+M.get = function(opts, plt)
+  return {
+    modes = {
+      normal = plt.tridentGold,
+      insert = plt.deepSea,
+      visual = plt.coral,
+      replace = plt.accentBronze,
+      command = plt.royalGold,
+    },
+
+    ui = {
+      fg = plt.fg_lightest,
+      fg_dim = plt.fg_light,
+      fg_dimmer = plt.fg_dark,
+      fg_dark = plt.bg_lightest,
+      fg_reverse = plt.bg_alt1,
+      bg_m4 = plt.bg_alt4,
+      bg_m3 = plt.bg_alt3,
+      bg_m2 = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_dim = plt.bg_darker,
+      bg = plt.bg_darkest,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_gutter = opts.gutter and plt.bg_light or "none",
+      bg_cursorline = plt.bg_mid,
+      bg_cursorline_alt = plt.bg_light,
+      bg_search = plt.voidDeep,
+      bg_visual = plt.atlanteanBlue,
+      bg_statusline = plt.bg_light,
+      border = plt.bg_alt4,
+      header1 = plt.tridentGold,
+      header2 = plt.coral,
+      special = plt.seaFoam,
+      nontext = plt.bg_lighter,
+      whitespace = plt.bg_lightest,
+      win_separator = plt.deepSea,
+      indent = plt.bg_lighter,
+      indent_scope = plt.deepSea,
+      picker = plt.coral,
+      yank = plt.tridentGold,
+      mark = plt.seaFoam,
+      scrollbar = plt.bg_lighter,
+      tabline = {
+        bg = plt.bg_darkest,
+        fg_selected = plt.fg_lightest,
+        bg_selected = plt.bg_dark,
+        fg_inactive = plt.fg_mid,
+        bg_inactive = plt.bg_darkest,
+        fg_alternate = plt.tridentGold,
+        bg_alternate = plt.bg_darkest,
+        indicator = plt.royalGold,
+      },
+      pmenu = {
+        fg = plt.fg_lightest,
+        fg_sel = "none",
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.bg_lightest,
+      },
+      float = {
+        fg = plt.fg_light,
+        bg = plt.bg_mid,
+        fg_border = plt.bg_lighter,
+        bg_border = plt.bg_mid,
+      },
+    },
+
+    accent = {
+      accent1 = plt.tridentGold,
+      accent2 = plt.deepSea,
+      accent3 = plt.seaFoam,
+      accent4 = plt.coral,
+      accent5 = plt.atlanteanBlue,
+      invert = plt.bg_light,
+    },
+
+    rainbow = {
+      rainbow1 = plt.tridentGold,
+      rainbow2 = plt.deepSea,
+      rainbow3 = plt.coral,
+      rainbow4 = plt.kelpGreen,
+      rainbow5 = plt.atlanteanBlue,
+      rainbow6 = plt.seaFoam,
+      rainbow7 = plt.royalGold,
+    },
+
+    syn = {
+      attribute = plt.corruptedAvarice,
+      boolean = plt.seaFoam,
+      comment = plt.fg_dark,
+      constant = plt.tridentGold,
+      deprecated = plt.fg_mid,
+      func = plt.deepSea,
+      identifier = plt.fg_lightest,
+      keyword = plt.coral,
+      method = plt.atlanteanBlue,
+      number = plt.royalGold,
+      operator = plt.accentBronze,
+      parameter = plt.fg_mid,
+      preproc = plt.deepSea,
+      punct = plt.fg_mid,
+      regex = plt.corruptedAvarice,
+      statement = plt.coral,
+      string = plt.kelpGreen,
+      symbol = plt.accentBronze,
+      type = plt.seaFoam,
+      variable = plt.fg_lightest,
+      special = plt.corruptedAvarice,
+      special2 = plt.coral,
+      special3 = plt.deepSea,
+    },
+
+    vcs = {
+      added = plt.kelpGreen,
+      removed = plt.coral,
+      changed = plt.tridentGold,
+    },
+
+    diff = {
+      add = plt.kelpGreen,
+      change = plt.tridentGold,
+      delete = plt.coral,
+      text = plt.deepSea,
+    },
+
+    diag = {
+      ok = plt.kelpGreen,
+      error = plt.coral,
+      warning = plt.tridentGold,
+      info = plt.deepSea,
+      hint = plt.seaFoam,
+    },
+
+    term = {
+      black = plt.bg_alt3,
+      red = plt.coral,
+      green = plt.kelpGreen,
+      yellow = plt.tridentGold,
+      blue = plt.deepSea,
+      magenta = plt.corruptedLove,
+      cyan = plt.seaFoam,
+      white = plt.fg_light,
+      black_bright = color(plt.bg_alt3):brighten(0.6):to_hex(),
+      red_bright = color(plt.coral):brighten(0.2):to_hex(),
+      green_bright = color(plt.kelpGreen):brighten(0.1):to_hex(),
+      yellow_bright = color(plt.tridentGold):brighten(0.2):to_hex(),
+      blue_bright = color(plt.deepSea):brighten(0.3):to_hex(),
+      magenta_bright = color(plt.corruptedLove):brighten(0.2):to_hex(),
+      cyan_bright = color(plt.seaFoam):brighten(0.1):to_hex(),
+      white_bright = color(plt.fg_light):brighten(0.2):to_hex(),
+      indexed1 = plt.tridentGold,
+      indexed2 = plt.coral,
+    },
+
+    treesitter = {
+      ["@comment"] = plt.fg_dark,
+      ["@comment.documentation"] = plt.fg_mid,
+      ["@comment.error"] = plt.coral,
+      ["@comment.warning"] = plt.tridentGold,
+      ["@comment.todo"] = plt.deepSea,
+      ["@comment.note"] = plt.seaFoam,
+
+      ["@constant"] = plt.tridentGold,
+      ["@constant.builtin"] = plt.tridentGold,
+      ["@constant.macro"] = plt.corruptedAvarice,
+
+      ["@string"] = plt.kelpGreen,
+      ["@string.documentation"] = plt.kelpGreen,
+      ["@string.regex"] = plt.corruptedAvarice,
+      ["@string.escape"] = plt.royalGold,
+      ["@string.special"] = plt.seaFoam,
+      ["@string.special.symbol"] = plt.accentBronze,
+      ["@string.special.url"] = plt.atlanteanBlue,
+      ["@string.special.path"] = plt.kelpGreen,
+
+      ["@character"] = plt.kelpGreen,
+      ["@character.special"] = plt.royalGold,
+
+      ["@number"] = plt.royalGold,
+      ["@number.float"] = plt.royalGold,
+
+      ["@boolean"] = plt.seaFoam,
+
+      ["@function"] = plt.deepSea,
+      ["@function.builtin"] = plt.deepSea,
+      ["@function.call"] = plt.deepSea,
+      ["@function.macro"] = plt.voidBright,
+      ["@function.method"] = plt.atlanteanBlue,
+      ["@function.method.call"] = plt.atlanteanBlue,
+
+      ["@constructor"] = plt.seaFoam,
+
+      ["@parameter"] = plt.fg_mid,
+      ["@parameter.builtin"] = plt.fg_light,
+
+      ["@keyword"] = plt.coral,
+      ["@keyword.coroutine"] = plt.voidGlow,
+      ["@keyword.function"] = plt.coral,
+      ["@keyword.operator"] = plt.accentBronze,
+      ["@keyword.return"] = plt.coral,
+      ["@keyword.import"] = plt.deepSea,
+      ["@keyword.storage"] = plt.coral,
+      ["@keyword.repeat"] = plt.coral,
+      ["@keyword.conditional"] = plt.coral,
+      ["@keyword.exception"] = plt.coral,
+      ["@keyword.directive"] = plt.deepSea,
+      ["@keyword.directive.define"] = plt.deepSea,
+
+      ["@conditional"] = plt.coral,
+      ["@conditional.ternary"] = plt.coral,
+
+      ["@repeat"] = plt.coral,
+
+      ["@label"] = plt.voidGlow,
+
+      ["@operator"] = plt.accentBronze,
+
+      ["@exception"] = plt.coral,
+
+      ["@variable"] = plt.fg_lightest,
+      ["@variable.builtin"] = plt.voidGlow,
+      ["@variable.parameter"] = plt.fg_mid,
+      ["@variable.member"] = plt.fg_light,
+
+      ["@type"] = plt.seaFoam,
+      ["@type.builtin"] = plt.seaFoam,
+      ["@type.definition"] = plt.seaFoam,
+      ["@type.qualifier"] = plt.coral,
+
+      ["@attribute"] = plt.corruptedAvarice,
+      ["@attribute.builtin"] = plt.royalGold,
+
+      ["@property"] = plt.fg_light,
+
+      ["@field"] = plt.fg_light,
+
+      ["@module"] = plt.seaFoam,
+      ["@module.builtin"] = plt.seaFoam,
+
+      ["@namespace"] = plt.seaFoam,
+      ["@namespace.builtin"] = plt.seaFoam,
+
+      ["@punctuation.delimiter"] = plt.fg_mid,
+      ["@punctuation.bracket"] = plt.fg_mid,
+      ["@punctuation.special"] = plt.accentBronze,
+
+      ["@tag"] = plt.coral,
+      ["@tag.attribute"] = plt.corruptedAvarice,
+      ["@tag.delimiter"] = plt.fg_mid,
+      ["@tag.builtin"] = plt.coral,
+
+      ["@markup.strong"] = { fg = plt.tridentGold, bold = true },
+      ["@markup.italic"] = { fg = plt.fg_light, italic = true },
+      ["@markup.strikethrough"] = { fg = plt.fg_dark, strikethrough = true },
+      ["@markup.underline"] = { fg = plt.seaFoam, underline = true },
+      ["@markup.heading"] = plt.tridentGold,
+      ["@markup.heading.1"] = plt.tridentGold,
+      ["@markup.heading.2"] = plt.royalGold,
+      ["@markup.heading.3"] = plt.coral,
+      ["@markup.heading.4"] = plt.deepSea,
+      ["@markup.heading.5"] = plt.seaFoam,
+      ["@markup.heading.6"] = plt.atlanteanBlue,
+      ["@markup.quote"] = plt.fg_mid,
+      ["@markup.math"] = plt.seaFoam,
+      ["@markup.link"] = plt.atlanteanBlue,
+      ["@markup.link.label"] = plt.seaFoam,
+      ["@markup.link.url"] = plt.atlanteanBlue,
+      ["@markup.raw"] = plt.kelpGreen,
+      ["@markup.raw.block"] = plt.kelpGreen,
+      ["@markup.list"] = plt.coral,
+      ["@markup.list.checked"] = plt.kelpGreen,
+      ["@markup.list.unchecked"] = plt.fg_mid,
+
+      ["@diff.plus"] = plt.kelpGreen,
+      ["@diff.minus"] = plt.coral,
+      ["@diff.delta"] = plt.tridentGold,
+
+      ["@none"] = "none",
+      ["@conceal"] = plt.voidDeep,
+      ["@spell"] = plt.fg_lightest,
+      ["@nospell"] = "none",
+
+      ["@lsp.type.property.lua"] = plt.fg_light,
+      ["@constructor.python"] = plt.seaFoam,
+      ["@constructor.javascript"] = plt.seaFoam,
+      ["@constructor.typescript"] = plt.seaFoam,
+      ["@namespace.rust"] = plt.seaFoam,
+      ["@type.qualifier.rust"] = plt.coral,
+      ["@constant.macro.c"] = plt.corruptedAvarice,
+      ["@constant.macro.cpp"] = plt.corruptedAvarice,
+      ["@namespace.go"] = plt.seaFoam,
+      ["@property.css"] = plt.atlanteanBlue,
+      ["@type.css"] = plt.coral,
+      ["@label.json"] = plt.seaFoam,
+      ["@field.yaml"] = plt.atlanteanBlue,
+      ["@property.toml"] = plt.atlanteanBlue,
+      ["@function.builtin.bash"] = plt.deepSea,
+      ["@string.regexp"] = plt.corruptedAvarice,
+      ["@character.special.regex"] = plt.royalGold,
+    },
+
+    lsp = {
+      ["@lsp.type.class"] = plt.seaFoam,
+      ["@lsp.type.interface"] = plt.seaFoam,
+      ["@lsp.type.struct"] = plt.seaFoam,
+      ["@lsp.type.enum"] = plt.seaFoam,
+      ["@lsp.type.enumMember"] = plt.tridentGold,
+      ["@lsp.type.property"] = plt.fg_light,
+      ["@lsp.type.namespace"] = plt.seaFoam,
+
+      ["@lsp.type.macro"] = plt.corruptedAvarice,
+      ["@lsp.type.decorator"] = plt.seaFoam,
+
+      ["@lsp.type.builtinType"] = plt.seaFoam,
+      ["@lsp.type.selfParameter"] = plt.voidGlow,
+      ["@lsp.type.typeParameter"] = plt.seaFoam,
+
+      ["@lsp.type.array"] = plt.seaFoam,
+      ["@lsp.type.object"] = plt.seaFoam,
+      ["@lsp.type.key"] = plt.fg_light,
+      ["@lsp.type.null"] = plt.tridentGold,
+      ["@lsp.type.enumConstant"] = plt.tridentGold,
+
+      ["@lsp.type.event"] = plt.seaFoam,
+      ["@lsp.type.regexp"] = plt.corruptedAvarice,
+      ["@lsp.type.unresolvedReference"] = plt.royalGold,
+
+      ["@lsp.mod.deprecated"] = { fg = plt.fg_mid, strikethrough = true },
+      ["@lsp.mod.readonly"] = plt.tridentGold,
+      ["@lsp.mod.async"] = plt.coral,
+      ["@lsp.mod.static"] = plt.voidGlow,
+      ["@lsp.mod.abstract"] = plt.seaFoam,
+      ["@lsp.mod.defaultLibrary"] = plt.seaFoam,
+      ["@lsp.mod.documentation"] = plt.fg_mid,
+    },
+  }
+end
+
+return {
+  name = "Justice League – Aquaman",
+  author = "PrismPunk.nvim",
+  description = "King of the seas—regal deep blues and coral life.",
+
+  base16 = {
+    base00 = palette.bg_darkest,
+    base01 = palette.bg_darker,
+    base02 = palette.bg_dark,
+    base03 = palette.bg_mid,
+    base04 = palette.bg_light,
+    base05 = palette.fg_mid,
+    base06 = palette.fg_lightest,
+    base07 = palette.fg_light,
+    base08 = palette.coral,
+    base09 = palette.accentBronze,
+    base0A = palette.tridentGold,
+    base0B = palette.kelpGreen,
+    base0C = palette.seaFoam,
+    base0D = palette.deepSea,
+    base0E = palette.atlanteanBlue,
+    base0F = palette.royalGold,
+  },
+
+  palette = palette,
+  get = M.get,
+}

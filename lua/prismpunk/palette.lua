@@ -5,15 +5,12 @@ local M = {}
 local config = require("prismpunk.config")
 local validate = require("prismpunk.core.validate")
 local schema = require("prismpunk.utils.schema")
+local cache = require("prismpunk.core.cache")
 
-local palette_cache = {}
-
-local cache_stats = {
-  hits = 0,
-  misses = 0,
-}
-
-function M.get_cache_stats() return vim.tbl_extend("force", {}, cache_stats) end
+local palette_cache = cache.new({
+  namespace = "palettes",
+  enable_disk = true,
+})
 
 local function palette_cache_key(universe, name, overrides)
   local key_parts = {
@@ -21,48 +18,7 @@ local function palette_cache_key(universe, name, overrides)
     name,
     vim.inspect(overrides or {}),
   }
-  return vim.fn.sha256(table.concat(key_parts, "::"))
-end
-
-local function get_disk_cache_path(cache_key)
-  local cache_dir = vim.fn.stdpath("cache") .. "/prismpunk/palettes"
-  vim.fn.mkdir(cache_dir, "p")
-  return cache_dir .. "/" .. cache_key .. ".lua"
-end
-
-local function load_from_disk_cache(cache_key)
-  if not config.options.cache.persist_to_disk then return nil end
-
-  local cache_path = get_disk_cache_path(cache_key)
-
-  if vim.fn.filereadable(cache_path) == 0 then return nil end
-
-  local ok, cached_data = pcall(dofile, cache_path)
-  if ok and type(cached_data) == "table" then return cached_data end
-
-  return nil
-end
-
-local function save_to_disk_cache(cache_key, palette)
-  if not config.options.cache.persist_to_disk then return end
-
-  local cache_path = get_disk_cache_path(cache_key)
-
-  local ok, serialized = pcall(function() return "return " .. vim.inspect(palette) end)
-
-  if not ok then return end
-
-  local file = io.open(cache_path, "w")
-  if file then
-    file:write(serialized)
-    file:close()
-  end
-end
-
-local function get_mtime(path)
-  local stat = vim.loop.fs_stat(path)
-  if stat then return stat.mtime.sec end
-  return nil
+  return cache.hash(key_parts)
 end
 
 local function resolve_palette_module(universe, name)
@@ -148,32 +104,26 @@ end
 function M.create_palette(universe, name, overrides)
   local cache_key = palette_cache_key(universe, name, overrides)
 
-  if config.options.cache.enable and palette_cache[cache_key] then
-    cache_stats.hits = cache_stats.hits + 1
-    return palette_cache[cache_key]
-  end
-
-  cache_stats.misses = cache_stats.misses + 1
-
-  local disk_cached = load_from_disk_cache(cache_key)
-  if disk_cached then
-    local _, file_path = resolve_palette_module(universe, name)
-    if file_path then
-      local palette_mtime = get_mtime(file_path)
-      local cache_path = get_disk_cache_path(cache_key)
-      local cache_mtime = get_mtime(cache_path)
-
-      if cache_mtime and palette_mtime and cache_mtime >= palette_mtime then
-        if config.options.cache.enable then palette_cache[cache_key] = disk_cached end
-        return disk_cached
+  if config.options.cache.enable then
+    local cached, source = palette_cache:get(cache_key)
+    if cached then
+      if source == "disk" then
+        local _, file_path = resolve_palette_module(universe, name)
+        if file_path then
+          local source_mtime = cache.get_mtime(file_path)
+          if palette_cache:validate_disk_cache(cache_key, source_mtime) then
+            return cached
+          end
+        else
+          return cached
+        end
+      else
+        return cached
       end
-    else
-      if config.options.cache.enable then palette_cache[cache_key] = disk_cached end
-      return disk_cached
     end
   end
 
-  local raw_palette, _, module_path = load_palette_module(universe, name)
+  local raw_palette, file_path, module_path = load_palette_module(universe, name)
   local context = module_path or string.format("%s/%s", universe or "default", name)
   local normalized = normalize_palette(raw_palette, context)
 
@@ -188,22 +138,18 @@ function M.create_palette(universe, name, overrides)
   end
 
   if config.options.cache.enable then
-    palette_cache[cache_key] = normalized
-    save_to_disk_cache(cache_key, normalized)
+    palette_cache:set(cache_key, normalized)
   end
 
   return normalized
 end
 
-function M.clear_cache()
-  palette_cache = {}
-  cache_stats.hits = 0
-  cache_stats.misses = 0
+function M.get_cache_stats()
+  return palette_cache:stats_snapshot()
+end
 
-  if config.options.cache.persist_to_disk then
-    local cache_dir = vim.fn.stdpath("cache") .. "/prismpunk/palettes"
-    if vim.fn.isdirectory(cache_dir) == 1 then vim.fn.delete(cache_dir, "rf") end
-  end
+function M.clear_cache()
+  palette_cache:clear()
 end
 
 function M.create_theme(spec)
@@ -219,6 +165,5 @@ function M.create_theme(spec)
 end
 
 M._cache = palette_cache
-M._stats = cache_stats
 
 return M

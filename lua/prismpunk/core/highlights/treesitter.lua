@@ -157,7 +157,19 @@ function M.apply(c, config)
 
   hl("@markup.code", { fg = s.syn.string })
   hl("@markup.inline", { fg = s.ui.fg })
-  hl("@markup.block", { fg = s.syn.type })
+hl("@markup.block", { fg = s.syn.type })
+
+  -- NEW: MISSING TREESITTER GROUPS
+  ---------------------------------------------------------------------------
+  hl("@annotation", { fg = s.syn.attribute or s.syn.special })
+  hl("@annotation.builtin", { fg = s.syn.attribute or s.syn.special })
+  hl("@markup.heading.markdown", { fg = s.syn.keyword, bold = true })
+  hl("@markup.heading.markdown_inline", { fg = s.syn.keyword })
+  hl("@typeParameter", { fg = s.syn.type })
+  hl("@markup.raw.inline", { fg = s.syn.string })
+  hl("@markup.code.inline", { fg = s.syn.string })
+  hl("@string.special.date", { fg = s.syn.special })
+  hl("@punctuation.special.char", { fg = s.syn.special })
 
   -- DIFF (TREESITTER)
   ---------------------------------------------------------------------------

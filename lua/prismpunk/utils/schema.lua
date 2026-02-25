@@ -45,7 +45,7 @@ M.THEME_COLOR_SCHEMA = {
   },
   syn = {
     required = { "comment", "keyword", "func", "string", "type", "variable" },
-    recommended = { "constant", "number", "operator", "preproc", "punct", "regex", "special", "statement", "identifier", "boolean", "attribute", "deprecated", "method", "parameter", "symbol", "special2", "special3" },
+    recommended = { "constant", "number", "operator", "preproc", "punct", "regex", "special", "statement", "identifier", "boolean", "attribute", "annotation", "deprecated", "method", "parameter", "symbol", "special2", "special3" },
     optional = {},
   },
   diag = {

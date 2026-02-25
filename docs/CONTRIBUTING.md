@@ -3,7 +3,7 @@
 Thank you for considering contributing to prismpunk.nvim! This is a community-driven project inspired by comic heroes, mythology, and cinema, and we welcome help to make it better.
 
 ## Ways to Contribute
-- **Add New Themes**: Create colorschemes based on DC/Marvel characters, myths, or movies. Follow the theme file structure in `lua/prismpunk/themes/`.
+- **Add New Themes**: Create colorschemes based on DC/Marvel characters, myths, or movies. Follow the comprehensive theme authoring guide in `AGENTS.md`.
 - **Fix Bugs**: Report or fix issues in loading, highlights, or terminal integration.
 - **Improve Documentation**: Update README, add screenshots, or enhance inline comments.
 - **Add Features**: Suggest/implement new extras (e.g., more plugin supports, utilities).
@@ -23,10 +23,23 @@ Thank you for considering contributing to prismpunk.nvim! This is a community-dr
 - Keep code modular and lightweight—avoid unnecessary dependencies.
 
 ## Theme Contributions
-- Place new themes in appropriate subdirs (e.g., `lua/prismpunk/themes/dc/justice-league/wonder-woman.lua`).
-- Follow the Base16 + semantic structure from existing themes.
+
+For detailed instructions on creating themes, please refer to the **AGENTS.md** file which contains:
+
+- Complete theme structure examples
+- Step-by-step creation guide
+- Palette requirements and semantic color naming
+- Theme sections breakdown (ui, syn, diag, term, etc.)
+- Base16 compatibility information
+- Validation and testing guidelines
+- Advanced features like Treesitter/LSP support
+
+**Quick Tips:**
+- Place new themes in appropriate subdirs (e.g., `lua/prismpunk/schemes/dc/justice-league/wonder-woman.lua`).
+- Follow the semantic structure from existing themes
 - Test with `:lua require('prismpunk').load('your-universe/variant')`
-- Include screenshots in your PR.
+- Validate your theme with `:PrismValidate your-universe/your-theme`
+- Include screenshots in your PR
 
 ## Reporting Issues
 Use the issue templates for bugs or theme requests.

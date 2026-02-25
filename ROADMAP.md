@@ -1917,14 +1917,21 @@
 
 - [x] Kanagawa
   - [x] Paper
+    - [x] Azure
+    - [x] Crimson
     - [x] Crimson Night
     - [x] Dawn
     - [x] Dragon
     - [x] Eclipse
+    - [x] Edo
+    - [x] Floral
+    - [x] Katana
     - [x] Nightfall
     - [x] Obsidian
+    - [x] Ronin
     - [x] Storm
     - [x] Sunset
+    - [x] Wave
 
 ---
 

@@ -1,631 +1,438 @@
-# PrismPunk.nvim Theme Authoring Guide
+# AGENTS.md — PrismPunk.nvim Theme Authoring Agent
 
-## Overview
+## Role
 
-PrismPunk.nvim is a sophisticated Neovim colorscheme plugin featuring a multi-universe theme system. This guide will help you create beautiful, accessible themes that integrate seamlessly with PrismPunk's ecosystem.
+You are a Neovim colorscheme author working within the **PrismPunk.nvim** theme system.
+Your job is to take a set of seed colors from the user and produce a complete, valid, and accessible `.lua` theme file that integrates seamlessly with PrismPunk's architecture.
 
-## Theme Architecture
+---
 
-### Project Structure
-Themes are organized into "universes" - thematic groups of color schemes:
+## Input You Will Receive
 
+The user will provide:
+- A **theme name** and **universe** (e.g., `punk-cultures/vapor-gothic`)
+- A **description** or aesthetic intent (e.g., "warm desert sunset, dusty oranges")
+- **8–15 seed colors** as hex values, possibly with semantic labels (e.g., `bg_base`, `accent_red`, `sky_blue`)
+- Optionally: author name
+
+If the user does not label colors semantically, infer their role from their luminance and saturation:
+- Very dark colors → background roles
+- Very light colors → foreground roles
+- High-saturation mid-range colors → accent/syntax roles
+
+---
+
+## Phase 1 — Palette Expansion (Target: ~20 Colors)
+
+Starting from the seed colors, expand the palette to approximately **20 named colors** using two methods:
+
+### 1A — Derivation (from seeds)
+Compute variations of existing seed colors:
+- Darken or brighten backgrounds by ~8–15% per step to create depth layers
+- Desaturate foregrounds slightly to create hierarchy (bright → dim → dark)
+- Use the `color()` utility (`brighten`, `darken`, `saturate`, `rotate`) mentally to reason about shifts
+
+### 1B — Invention (harmonious additions)
+If the seed colors don't cover a semantic need (e.g., no green for `dragonGreen`-style syntax), invent colors that:
+- Are **harmonious** with the provided palette (analogous, complementary, or split-complementary)
+- Fit the theme's described aesthetic
+- Are distinct enough from existing colors to be useful
+
+### Palette Naming Convention
+Name palette entries semantically and thematically. Use names that reflect the theme's universe. Examples:
+- Kanagawa → `sumiInk0`, `dragonBlue`, `fujiWhite`
+- Cyberpunk → `neonPink`, `gridBlue`, `terminalGreen`
+- Desert → `sandstone`, `duskOrange`, `canyonRed`
+
+### Fixed Required Slots
+Every palette **must** include these two named entries pointing to the darkest and lightest colors:
+```lua
+bg_darkest = "#......",  -- alias to your darkest bg color
+fg_lightest = "#......", -- alias to your lightest fg color
 ```
-lua/prismpunk/
-├── schemes/             # Theme definitions
-│   ├── dc/              # DC Comics universe
-│   ├── tmnt/            # TMNT universe
-│   ├── kanagawa/        # Kanagawa-inspired themes
-│   ├── punk-cultures/   # Punk subcultures
-│   ├── detox/           # Minimal themes
-│   └── nvim-builtins/   # Neovim default theme variations
-├── core/                # Core functionality
-└── utils/               # Utility functions
-```
 
-## Theme Anatomy
+### Recommended Palette Structure
+Aim to cover these semantic roles across your ~20 colors:
 
-A complete theme consists of:
-1. **Palette Definition**: Raw color values
-2. **Base16 Palette**: Standardized 16-color compatibility layer
-3. **Theme Generation Function**: Returns color assignments for all UI elements
+| Role             | Count | Notes                                      |
+|------------------|-------|--------------------------------------------|
+| Backgrounds      | 6–8   | Darkest to lightest, for layering UI depth |
+| Foregrounds      | 3–4   | Lightest to darkest, for text hierarchy    |
+| Accent/Vivid     | 5–7   | Syntax colors: red, blue, green, yellow, violet, aqua, orange, pink |
+| Special          | 2–4   | Theme-specific decorative colors           |
 
-## Creating Your First Theme
+---
 
-### Step 1: Choose a Universe
+## Phase 2 — Self-Validation: WCAG Contrast Check
 
-Select or create a universe directory that matches your theme's aesthetic. For a new theme:
+Before generating the theme body, mentally validate these critical contrast pairs.
 
-```bash
-mkdir -p lua/prismpunk/schemes/my-universe
-```
+### How to Estimate Contrast Ratio
+Relative luminance (simplified):
+- For a hex color, convert each channel to 0–1 range, apply gamma: `c <= 0.04045 ? c/12.92 : ((c+0.055)/1.055)^2.4`
+- L = 0.2126·R + 0.7152·G + 0.0722·B
+- Contrast = (L_lighter + 0.05) / (L_darker + 0.05)
 
-### Step 2: Create Theme File
+### Required Contrast Pairs
 
-Create a Lua file for your theme (e.g., `lua/prismpunk/schemes/my-universe/my-theme.lua`):
+| Pair                                  | Minimum Ratio | Level |
+|---------------------------------------|---------------|-------|
+| `ui.fg` vs `ui.bg`                    | 7.0:1         | AAA   |
+| `ui.fg_dim` vs `ui.bg`               | 4.5:1         | AA    |
+| `syn.comment` vs `ui.bg`             | 3.0:1         | AA Large |
+| `syn.string` vs `ui.bg`              | 4.5:1         | AA    |
+| `syn.keyword` vs `ui.bg`             | 4.5:1         | AA    |
+| `syn.func` vs `ui.bg`                | 4.5:1         | AA    |
+| `diag.error` vs `ui.bg`              | 3.0:1         | AA Large |
+| `ui.pmenu.fg` vs `ui.pmenu.bg`       | 4.5:1         | AA    |
+| `ui.float.fg` vs `ui.float.bg`       | 4.5:1         | AA    |
+| `ui.tabline.fg_selected` vs `ui.tabline.bg_selected` | 4.5:1 | AA |
+
+### Correction Strategy
+If a pair fails:
+- **FG too dark**: brighten by ~10–20% steps until ratio passes
+- **BG too light**: darken by ~10–20% steps
+- **Never** sacrifice theme identity — adjust the shade, not the hue
+- If a color cannot pass AA against the main bg, use it only for decorative/non-text roles (borders, indent guides, scrollbars)
+
+### Output a Contrast Report Block
+Include this as a Lua comment at the top of the file, before `local palette`:
 
 ```lua
+-- CONTRAST VALIDATION
+-- ui.fg (#...) vs ui.bg (#...):       ~X.X:1  [AAA ✓ / FAIL ✗]
+-- ui.fg_dim (#...) vs ui.bg (#...):   ~X.X:1  [AA ✓ / FAIL ✗]
+-- syn.comment vs ui.bg:               ~X.X:1  [AA ✓ / FAIL ✗]
+-- syn.keyword vs ui.bg:               ~X.X:1  [AA ✓ / FAIL ✗]
+-- syn.func vs ui.bg:                  ~X.X:1  [AA ✓ / FAIL ✗]
+-- syn.string vs ui.bg:                ~X.X:1  [AA ✓ / FAIL ✗]
+-- pmenu.fg vs pmenu.bg:               ~X.X:1  [AA ✓ / FAIL ✗]
+-- float.fg vs float.bg:               ~X.X:1  [AA ✓ / FAIL ✗]
+```
+
+---
+
+## Phase 3 — Generate the Theme File
+
+Produce a complete `.lua` file following this exact structure.
+
+### File Header
+
+```lua
+-- CONTRAST VALIDATION
+-- (your contrast report here)
+
 local color = require("prismpunk.utils.color")
 
--- Step 1: Define your color palette
 local palette = {
-  -- Required base colors
-  bg_darkest = "#000000",
-  fg_lightest = "#FFFFFF",
-  
-  -- Recommended background shades
-  bg_darker = "#111111",
-  bg_dark = "#222222",
-  bg_mid = "#333333",
-  bg_light = "#444444",
-  
-  -- Recommended foreground shades
-  fg_light = "#DDDDDD",
-  fg_mid = "#AAAAAA",
-  fg_dark = "#777777",
-  
-  -- Custom theme colors
-  my_accent = "#FF5500",
-  my_primary = "#00FF55",
-  my_secondary = "#5500FF",
+  -- Backgrounds (darkest → lightest)
+  themeBg0     = "#......",
+  themeBg1     = "#......",
+  -- ... more bg layers
+
+  -- Foregrounds (lightest → darkest)
+  themeFg0     = "#......",
+  themeFg1     = "#......",
+  -- ... more fg shades
+
+  -- Accent / Vivid Colors
+  themeRed     = "#......",
+  themeBlue    = "#......",
+  -- ... more accents
+
+  -- Special / Decorative
+  themeGlow    = "#......",
+
+  -- Required aliases
+  bg_darkest   = "#......",  -- must match your darkest bg
+  fg_lightest  = "#......",  -- must match your lightest fg
 }
 
 local M = {}
 
--- Step 2: Theme generation function
----@param opts table|nil User configuration options
----@param plt table|nil Color palette (defaults to local palette)
----@return table Complete theme definition
+---@param opts table|nil
+---@param plt table|nil
+---@return table
 M.get = function(opts, plt)
   plt = plt or palette
   opts = opts or {}
-  
   return {
-    -- Vim mode colors
+```
+
+### Required Sections Inside `M.get`
+
+#### `modes` — Vim mode indicator colors
+```lua
     modes = {
-      normal = plt.my_primary,
-      insert = plt.my_accent,
-      visual = plt.my_secondary,
-      replace = "#FF0000",
-      command = "#FFFF00",
+      normal  = plt.themeBlue,    -- normal mode
+      insert  = plt.themeGreen,   -- insert mode
+      visual  = plt.themeViolet,  -- visual mode
+      replace = plt.themeRed,     -- replace mode
+      command = plt.themeYellow,  -- command mode
     },
-    
-    -- Accent colors (for highlights, borders, etc.)
+```
+
+#### `accent` — Highlight/border accent colors
+```lua
     accent = {
-      accent1 = plt.my_accent,
-      accent2 = plt.my_primary,
-      accent3 = plt.my_secondary,
+      accent1 = plt.themeBlue,
+      accent2 = plt.themeOrange,
+      accent3 = plt.themeAqua,
+      accent4 = plt.themeFg1,
+      accent5 = plt.themeRed,
+      invert  = plt.themeBg3,
     },
-    
-    -- Rainbow colors (for indent guides, etc.)
+```
+
+#### `rainbow` — 7 distinct colors for indent guides etc.
+```lua
     rainbow = {
-      rainbow1 = plt.my_accent,
-      rainbow2 = plt.my_primary,
-      rainbow3 = plt.my_secondary,
-      rainbow4 = "#FF00FF",
-      rainbow5 = "#00FFFF",
-      rainbow6 = "#FFFF00",
-      rainbow7 = "#FF0000",
+      rainbow1 = plt.themeRed,
+      rainbow2 = plt.themePink,
+      rainbow3 = plt.themeYellow,
+      rainbow4 = plt.themeOrange,
+      rainbow5 = plt.themeGreen,
+      rainbow6 = plt.themeBlue,
+      rainbow7 = plt.themeAqua,
     },
-    
-    -- UI element colors
+```
+
+#### `ui` — All UI element colors
+```lua
     ui = {
-      fg = plt.fg_lightest,
-      fg_dim = plt.fg_light,
-      fg_dimmer = plt.fg_mid,
-      fg_dark = plt.fg_dark,
-      bg = plt.bg_darkest,
-      bg_dim = plt.bg_darker,
-      bg_m1 = plt.bg_dark,
-      bg_m2 = plt.bg_mid,
-      bg_m3 = plt.bg_light,
-      bg_p1 = plt.bg_dark,
-      bg_p2 = plt.bg_mid,
-      bg_gutter = (opts.gutter ~= false) and plt.bg_mid or "none",
-      bg_cursorline = plt.bg_mid,
-      bg_cursorline_alt = plt.bg_light,
-      bg_search = plt.my_accent,
-      bg_visual = plt.bg_mid,
-      bg_statusline = plt.bg_light,
-      border = plt.my_accent,
-      nontext = plt.fg_dark,
-      whitespace = plt.fg_dark,
-      win_separator = plt.my_accent,
-      indent = plt.bg_mid,
-      indent_scope = plt.my_accent,
-      picker = plt.my_accent,
-      yank = plt.my_accent,
-      mark = plt.my_accent,
-      scrollbar = plt.bg_mid,
-      selection = plt.bg_mid,
-      line_nr = plt.fg_mid,
-      line_nr_dim = plt.fg_dark,
-      line_nr_active = plt.fg_lightest,
-      
-      -- Floating window colors
+      fg               = plt.themeFg0,
+      fg_dim           = plt.themeFg1,
+      fg_dimmer        = plt.themeFg2,
+      fg_dark          = plt.themeBg5,
+      fg_reverse       = plt.themeBg0,
+      bg               = plt.themeBg0,
+      bg_dim           = plt.themeBg0,
+      bg_m1            = plt.themeBg1,
+      bg_m2            = plt.themeBg2,
+      bg_m3            = plt.themeBg3,
+      bg_m4            = plt.themeBg4,
+      bg_p1            = plt.themeBg2,
+      bg_p2            = plt.themeBg3,
+      bg_gutter        = (opts.gutter ~= false) and plt.themeBg4 or "none",
+      bg_cursorline    = plt.themeBg3,
+      bg_cursorline_alt = plt.themeBg4,
+      cursorline       = plt.themeBg3,
+      bg_highlight     = plt.themeBg4,
+      bg_search        = plt.themeGlow,
+      bg_visual        = plt.themeBg4,
+      bg_statusline    = plt.themeBg4,
+      border           = plt.themeBg0,
+      header1          = plt.themeYellow,
+      header2          = plt.themeBlue,
+      special          = plt.themeSpecial,
+      nontext          = plt.themeBg5,
+      whitespace       = plt.themeFg2,
+      win_separator    = plt.themeViolet,
+      indent           = plt.themeBg4,
+      indent_scope     = plt.themeBlue,
+      picker           = plt.themeViolet,
+      yank             = plt.themeGlow,
+      mark             = plt.themeRed,
+      scrollbar        = plt.themeBg5,
+      selection        = plt.themeBg4,
+      line_nr          = plt.themeFg2,
+      line_nr_dim      = plt.themeBg5,
+      line_nr_active   = plt.themeFg0,
       float = {
-        fg = plt.fg_light,
-        bg = plt.bg_mid,
-        fg_border = plt.fg_dark,
-        bg_border = plt.bg_mid,
+        fg        = plt.themeFg1,
+        bg        = plt.themeBg3,
+        fg_border = plt.themeBg5,
+        bg_border = plt.themeBg3,
       },
-      
-      -- Popup menu colors
       pmenu = {
-        fg = plt.fg_lightest,
-        fg_sel = plt.fg_lightest,
-        fg_border = plt.fg_dark,
-        bg = plt.bg_mid,
-        bg_sel = plt.bg_light,
-        bg_border = plt.bg_mid,
-        bg_sbar = plt.bg_mid,
-        bg_thumb = plt.bg_light,
+        fg        = plt.themeFg0,
+        fg_sel    = "none",
+        fg_border = plt.themeBg5,
+        bg        = plt.themeBg4,
+        bg_sel    = plt.themeBg5,
+        bg_border = plt.themeBg4,
+        bg_sbar   = plt.themeBg4,
+        bg_thumb  = plt.themeBg5,
       },
-      
-      -- Tabline colors
       tabline = {
-        bg = plt.bg_darkest,
-        bg_inactive = plt.bg_darkest,
-        bg_selected = plt.bg_mid,
-        bg_alternate = plt.bg_darkest,
-        fg_inactive = plt.fg_mid,
-        fg_selected = plt.fg_lightest,
-        fg_alternate = plt.my_accent,
-        indicator = plt.my_accent,
+        bg_inactive  = plt.themeBg0,
+        bg_selected  = plt.themeBg2,
+        bg_alternate = plt.themeBg1,
+        bg           = plt.themeBg0,
+        fg_inactive  = plt.themeFg2,
+        fg_selected  = plt.themeFg0,
+        fg_alternate = plt.themeYellow,
+        indicator    = plt.themeBlue,
       },
     },
-    
-    -- Syntax highlight colors
+```
+
+#### `syn` — Syntax highlight colors
+```lua
     syn = {
-      attribute = plt.my_accent,
-      boolean = plt.my_accent,
-      comment = plt.fg_mid,
-      constant = plt.my_accent,
-      deprecated = plt.fg_dark,
-      func = plt.my_primary,
-      identifier = plt.fg_lightest,
-      keyword = plt.my_accent,
-      method = plt.my_primary,
-      number = plt.my_accent,
-      operator = plt.my_accent,
-      parameter = plt.fg_mid,
-      preproc = plt.my_accent,
-      punct = plt.fg_mid,
-      regex = plt.my_accent,
-      special = plt.my_accent,
-      statement = plt.my_accent,
-      string = plt.my_primary,
-      symbol = plt.my_accent,
-      type = plt.my_primary,
-      variable = plt.fg_lightest,
+      attribute  = plt.themeYellow,
+      boolean    = plt.themeOrange,
+      comment    = plt.themeFg2,
+      constant   = plt.themeOrange,
+      deprecated = plt.themeFg2,
+      func       = plt.themeBlue,
+      identifier = plt.themeFg0,
+      keyword    = plt.themePink,
+      method     = plt.themeBlue,
+      number     = plt.themePink,
+      operator   = plt.themeRed,
+      parameter  = plt.themeFg2,
+      preproc    = plt.themeViolet,
+      punct      = plt.themeFg2,
+      regex      = plt.themeYellow,
+      special    = plt.themeYellow,
+      special2   = plt.themeViolet,
+      special3   = plt.themeAqua,
+      statement  = plt.themeViolet,
+      string     = plt.themeGreen,
+      symbol     = plt.themeRed,
+      type       = plt.themeAqua,
+      variable   = plt.themeFg0,
     },
-    
-    -- Diagnostic colors
+```
+
+#### `diag` — Diagnostic colors
+```lua
     diag = {
-      error = "#FF0000",
-      warning = "#FFFF00",
-      info = "#00FF00",
-      hint = "#00FFFF",
+      error               = plt.themeRed,
+      warning             = plt.themeYellow,
+      info                = plt.themeBlue,
+      ok                  = plt.themeGreen,
+      hint                = plt.themeAqua,
+      virtual_text_error  = plt.themeRed,
+      virtual_text_warning = plt.themeYellow,
+      virtual_text_info   = plt.themeBlue,
+      virtual_text_ok     = plt.themeGreen,
+      virtual_text_hint   = plt.themeAqua,
     },
-    
-    -- Diff colors
+```
+
+#### `diff` — Diff view colors
+```lua
     diff = {
-      add = plt.my_primary,
-      change = plt.my_accent,
-      delete = "#FF0000",
-      text = plt.my_secondary,
+      add           = plt.themeGreen,
+      add_inline    = plt.themeAqua,
+      change        = plt.themeYellow,
+      change_inline = plt.themeOrange,
+      delete        = plt.themeRed,
+      delete_inline = plt.themePink,
+      text          = plt.themeBlue,
     },
-    
-    -- Version control colors
+```
+
+#### `vcs` — Version control colors
+```lua
     vcs = {
-      added = plt.my_primary,
-      changed = plt.my_accent,
-      removed = "#FF0000",
+      added   = plt.themeGreen,
+      changed = plt.themeYellow,
+      removed = plt.themeRed,
     },
-    
-    -- Terminal colors
+```
+
+#### `term` — Terminal colors (16 ANSI + optional indexed)
+```lua
     term = {
-      black = plt.bg_darkest,
-      red = "#FF0000",
-      green = plt.my_primary,
-      yellow = "#FFFF00",
-      blue = plt.my_secondary,
-      magenta = plt.my_accent,
-      cyan = "#00FFFF",
-      white = plt.fg_lightest,
-      
-      black_bright = color(plt.bg_darkest):brighten(0.6):to_hex(),
-      red_bright = color("#FF0000"):brighten(0.2):to_hex(),
-      green_bright = color(plt.my_primary):brighten(0.1):to_hex(),
-      yellow_bright = color("#FFFF00"):brighten(0.2):to_hex(),
-      blue_bright = color(plt.my_secondary):brighten(0.3):to_hex(),
-      magenta_bright = color(plt.my_accent):brighten(0.2):to_hex(),
-      cyan_bright = color("#00FFFF"):brighten(0.1):to_hex(),
-      white_bright = color(plt.fg_lightest):brighten(0.2):to_hex(),
+      black   = plt.themeBg0,
+      red     = plt.themeRed,
+      green   = plt.themeGreen,
+      yellow  = plt.themeYellow,
+      blue    = plt.themeBlue,
+      magenta = plt.themePink,
+      cyan    = plt.themeAqua,
+      white   = plt.themeFg1,
+      black_bright   = color(plt.themeBg0):brighten(0.6):to_hex(),
+      red_bright     = color(plt.themeRed):brighten(0.2):to_hex(),
+      green_bright   = color(plt.themeGreen):brighten(0.1):to_hex(),
+      yellow_bright  = color(plt.themeYellow):brighten(0.2):to_hex(),
+      blue_bright    = color(plt.themeBlue):brighten(0.3):to_hex(),
+      magenta_bright = color(plt.themePink):brighten(0.2):to_hex(),
+      cyan_bright    = color(plt.themeAqua):brighten(0.1):to_hex(),
+      white_bright   = color(plt.themeFg1):brighten(0.2):to_hex(),
+      -- Optional theme-specific indexed colors:
+      indexed1 = plt.themeSpecial,
+      indexed2 = plt.themeGlow,
     },
+```
+
+### File Footer
+
+```lua
   }
 end
 
--- Step 3: Export theme metadata
 return {
-  name = "My Universe – My Theme",
-  author = "Your Name",
-  description = "A beautiful theme with custom colors",
-  
+  name        = "Universe Name – Theme Name",
+  author      = "Author Name",
+  description = "A concise description of the theme's aesthetic and inspiration.",
   base16 = {
-    base00 = palette.bg_darkest,  -- Default Background
-    base01 = palette.bg_darker,  -- Lighter Background (status bars)
-    base02 = palette.bg_mid,     -- Selection Background
-    base03 = palette.fg_dark,    -- Comments, Invisibles
-    base04 = palette.fg_mid,     -- Dark Foreground (status bars)
-    base05 = palette.fg_light,   -- Default Foreground
-    base06 = palette.fg_lightest, -- Light Foreground
-    base07 = palette.fg_lightest, -- Light Background
-    base08 = palette.my_accent,  -- Variables, XML Tags
-    base09 = palette.my_accent,  -- Integers, Boolean
-    base0A = palette.my_accent,  -- Classes, Markup Bold
-    base0B = palette.my_primary, -- Strings, Markup Code
-    base0C = palette.my_accent,  -- Support, Regular Expressions
-    base0D = palette.my_primary, -- Functions, Methods
-    base0E = palette.my_accent,  -- Keywords, Storage
-    base0F = palette.my_accent,  -- Deprecated, Embedded Tags
+    base00 = palette.themeBg0,    -- Default Background
+    base01 = palette.themeBg1,    -- Lighter Background (used in status bars)
+    base02 = palette.themeBg2,    -- Selection Background
+    base03 = palette.themeBg3,    -- Comments, Invisibles
+    base04 = palette.themeFg2,    -- Dark Foreground (status bars)
+    base05 = palette.themeFg1,    -- Default Foreground
+    base06 = palette.themeFg0,    -- Light Foreground
+    base07 = palette.themeFg0,    -- Light Background
+    base08 = palette.themeRed,    -- Variables, XML Tags
+    base09 = palette.themeOrange, -- Integers, Boolean
+    base0A = palette.themeYellow, -- Classes, Markup Bold
+    base0B = palette.themeGreen,  -- Strings, Markup Code
+    base0C = palette.themeAqua,   -- Support, Regular Expressions
+    base0D = palette.themeBlue,   -- Functions, Methods
+    base0E = palette.themeViolet, -- Keywords, Storage
+    base0F = palette.themePink,   -- Deprecated, Embedded Tags
   },
-  
   palette = palette,
-  get = M.get,
+  get     = M.get,
 }
 ```
 
-## Palette Requirements
+---
 
-### Required Fields
+## Phase 4 — Final Checklist
 
-Every palette must have these:
+Before outputting the file, verify:
 
-```lua
-local palette = {
-  bg_darkest = "#000000",  -- Darkest background color
-  fg_lightest = "#FFFFFF", -- Lightest foreground color
-}
-```
+- [ ] Palette has ~20 named entries (flexible, but aim for completeness)
+- [ ] `bg_darkest` and `fg_lightest` aliases exist and are correct
+- [ ] All required sections present: `modes`, `accent`, `rainbow`, `ui`, `syn`, `diag`, `diff`, `vcs`, `term`
+- [ ] All required sub-tables present: `ui.float`, `ui.pmenu`, `ui.tabline`
+- [ ] `base16` has all 16 entries (`base00`–`base0F`)
+- [ ] Contrast report block is at top of file
+- [ ] All critical contrast pairs pass their minimum ratio
+- [ ] No syntax colors reuse identical hex values (they must be visually distinct)
+- [ ] `term` bright variants use `color():brighten():to_hex()` — not hardcoded hex
+- [ ] File ends with `return { name, author, description, base16, palette, get }`
 
-### Recommended Fields
+---
 
-These create a more polished theme:
-
-```lua
-local palette = {
-  -- Background shades (for depth)
-  bg_darker = "#111111",
-  bg_dark = "#222222",
-  bg_mid = "#333333",
-  bg_light = "#444444",
-  
-  -- Foreground shades (for hierarchy)
-  fg_light = "#DDDDDD",
-  fg_mid = "#AAAAAA",
-  fg_dark = "#777777",
-  
-  -- Alternate backgrounds
-  bg_alt1 = "#050505",
-  bg_alt2 = "#0A0A0A",
-  bg_alt3 = "#101010",
-}
-```
-
-## Theme Sections
-
-### Required Sections
-
-Every theme must include these:
-
-#### UI Colors
-```lua
-ui = {
-  fg = plt.fg_lightest,  -- Required
-  bg = plt.bg_darkest,  -- Required
-  -- ... other UI colors
-}
-```
-
-#### Syntax Colors
-```lua
-syn = {
-  comment = plt.fg_mid,    -- Required
-  keyword = plt.my_accent, -- Required
-  func = plt.my_primary,   -- Required
-  string = plt.my_primary, -- Required
-  type = plt.my_primary,   -- Required
-  variable = plt.fg_lightest, -- Required
-}
-```
-
-#### Diagnostic Colors
-```lua
-diag = {
-  error = "#FF0000",    -- Required
-  warning = "#FFFF00",  -- Required
-  info = "#00FF00",     -- Required
-  hint = "#00FFFF",     -- Required
-}
-```
-
-#### Terminal Colors
-```lua
-term = {
-  black = plt.bg_darkest,  -- Required
-  red = "#FF0000",        -- Required
-  green = plt.my_primary, -- Required
-  yellow = "#FFFF00",     -- Required
-  blue = plt.my_secondary,-- Required
-  magenta = plt.my_accent,-- Required
-  cyan = "#00FFFF",       -- Required
-  white = plt.fg_lightest,-- Required
-}
-```
-
-### Recommended Sections
-
-#### Modes
-```lua
-modes = {
-  normal = plt.my_primary,
-  insert = plt.my_accent,
-  visual = plt.my_secondary,
-  replace = "#FF0000",
-  command = "#FFFF00",
-}
-```
-
-#### Accents
-```lua
-accent = {
-  accent1 = plt.my_accent,
-  accent2 = plt.my_primary,
-  accent3 = plt.my_secondary,
-}
-```
-
-#### Diff and VCS
-```lua
-diff = {
-  add = plt.my_primary,
-  change = plt.my_accent,
-  delete = "#FF0000",
-  text = plt.my_secondary,
-}
-
-vcs = {
-  added = plt.my_primary,
-  changed = plt.my_accent,
-  removed = "#FF0000",
-}
-```
-
-## Base16 Compatibility
-
-The Base16 palette is a standardized 16-color system for compatibility:
-
-```lua
-base16 = {
-  base00 = palette.bg_darkest,  -- Default Background
-  base01 = palette.bg_darker,  -- Lighter Background (status bars)
-  base02 = palette.bg_mid,     -- Selection Background
-  base03 = palette.fg_dark,    -- Comments, Invisibles
-  base04 = palette.fg_mid,     -- Dark Foreground (status bars)
-  base05 = palette.fg_light,   -- Default Foreground
-  base06 = palette.fg_lightest, -- Light Foreground
-  base07 = palette.fg_lightest, -- Light Background
-  base08 = palette.my_accent,  -- Variables, XML Tags
-  base09 = palette.my_accent,  -- Integers, Boolean
-  base0A = palette.my_accent,  -- Classes, Markup Bold
-  base0B = palette.my_primary, -- Strings, Markup Code
-  base0C = palette.my_accent,  -- Support, Regular Expressions
-  base0D = palette.my_primary, -- Functions, Methods
-  base0E = palette.my_accent,  -- Keywords, Storage
-  base0F = palette.my_accent,  -- Deprecated, Embedded Tags
-}
-```
-
-## Validation and Testing
-
-### Run Validation
-
-Check if your theme meets all requirements:
-
-```vim
-:PrismValidate my-universe/my-theme
-```
-
-### Validation Checks
-
-PrismPunk validates:
-- **WCAG Contrast**: Ensures readability (AA/AAA levels)
-- **Base16 Palette**: Completeness of 16-color palette
-- **Color Formats**: Valid hex color codes
-- **Scheme Structure**: Required sections and keys
-- **Contrast for UI Elements**: FG/BG combinations
-
-### Fix Issues
-
-Use validation suggestions to fix problems:
+## Workflow Summary
 
 ```
-[FAIL] WCAG Contrast (aa)
-  FAIL Normal FG vs BG: 3.2:1 (needs AA)
-    SUGGEST: Adjust fg: #DDDDDD -> #EEEEEE (ratio: 4.6:1)
+1. Receive seed colors + theme intent from user
+2. Map seeds to semantic roles (bg / fg / accent)
+3. Derive missing shades via brightening/darkening
+4. Invent harmonious colors for any missing semantic roles
+5. Name everything thematically
+6. Self-validate contrast for all critical pairs
+7. Adjust any failing colors (preserve hue, shift luminance)
+8. Output contrast report as Lua comment block
+9. Generate full .lua theme file following the structure above
+10. Run final checklist before presenting output
 ```
 
-## Best Practices
+---
 
-### Color Harmony
+## Notes for Open-Source / Free Models
 
-1. **Limit your palette**: 5-8 main colors plus shades
-2. **Ensure contrast**: 
-   - AA level: 4.5:1 (normal text)
-   - AAA level: 7.0:1 (large text)
-3. **Use color theory**: Monochromatic, complementary, or analogous schemes
-
-### Accessibility
-
-1. **High contrast for text**: FG/BG contrast of at least 4.5:1
-2. **Consistent colors**: Use semantic color names
-3. **Test with different color vision deficiencies**
-
-### Performance
-
-1. **Precompute colors**: Avoid runtime calculations
-2. **Use hex colors**: #RRGGBB format for best performance
-3. **Cache where possible**: PrismPunk caches themes automatically
-
-### Maintainability
-
-1. **Semantic color names**: Describe purpose, not appearance
-2. **Consistent structure**: Follow existing theme patterns
-3. **Document your theme**: Add detailed description
-
-## Advanced Features
-
-### Treesitter and LSP Support
-
-Add semantic highlighting:
-
-```lua
-treesitter = {
-  ["@comment"] = plt.fg_mid,
-  ["@comment.documentation"] = plt.fg_light,
-  ["@constant"] = plt.my_accent,
-  ["@function"] = plt.my_primary,
-  ["@keyword"] = plt.my_accent,
-  ["@string"] = plt.my_primary,
-  ["@type"] = plt.my_secondary,
-  -- ... more Tree-sitter groups
-},
-
-lsp = {
-  ["@lsp.type.class"] = plt.my_primary,
-  ["@lsp.type.interface"] = plt.my_primary,
-  ["@lsp.type.struct"] = plt.my_primary,
-  ["@lsp.type.enum"] = plt.my_primary,
-  -- ... more LSP semantic tokens
-},
-```
-
-### Color Manipulation
-
-Use the color utility for dynamic colors:
-
-```lua
-local color = require("prismpunk.utils.color")
-
--- Brighten by 20%
-local light_color = color("#FF0000"):brighten(0.2):to_hex()
-
--- Darken by 10%
-local dark_color = color("#FF0000"):darken(0.1):to_hex()
-
--- Adjust saturation
-local saturated = color("#FF0000"):saturate(0.3):to_hex()
-
--- Rotate hue
-local rotated = color("#FF0000"):rotate(45):to_hex()
-```
-
-### Customization Options
-
-Support user overrides:
-
-```lua
-M.get = function(opts, plt)
-  plt = plt or palette
-  opts = opts or {}
-  
-  return {
-    ui = {
-      bg_gutter = (opts.gutter ~= false) and plt.bg_mid or "none",
-      -- ... other customizable colors
-    },
-    -- ... rest of theme
-  }
-end
-```
-
-## Testing Your Theme
-
-### Live Reload
-
-Test changes without restarting Neovim:
-
-```lua
-require("prismpunk.loader").clear_cache()
-require("prismpunk").load("my-universe/my-theme")
-```
-
-### Preview Before Loading
-
-Preview your theme:
-
-```vim
-:PrismpunkPreview my-universe/my-theme
-```
-
-### Check Scheme Information
-
-View theme details:
-
-```vim
-:PrismpunkInfo my-universe/my-theme
-```
-
-## Submitting Your Theme
-
-### 1. Create Universe (if new)
-
-If creating a new universe, add it to `lua/prismpunk/loader/resolver.lua`.
-
-### 2. Add Theme File
-
-Place your theme file in the appropriate universe directory.
-
-### 3. Test Thoroughly
-
-- Run validation: `:PrismValidate my-universe/my-theme`
-- Check for errors: `:checkhealth prismpunk`
-- Test with different language files
-
-### 4. Update Documentation
-
-Add your theme to the documentation if applicable.
-
-## Example Themes
-
-For inspiration, examine existing themes:
-
-- **kanagawa/paper-edo.lua**: Traditional Japanese aesthetics
-- **dc/justice-league/superman.lua**: Bold, heroic colors
-- **punk-cultures/cyberpunk.lua**: Neon dystopia theme
-
-## Resources
-
-- [WCAG 2.1 Contrast Guidelines](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
-- [Color Theory for Developers](https://m2.material.io/design/color/the-color-system.html)
-- [Base16 Specification](https://github.com/chriskempson/base16)
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Colors not applying**: Clear cache with `:PrismpunkReload`
-2. **Contrast errors**: Adjust FG/BG pairs to meet 4.5:1 ratio
-3. **Invalid hex colors**: Use `#RRGGBB` format
-4. **Missing sections**: Ensure all required sections exist
-
-### Debugging Tips
-
-1. Check health: `:checkhealth prismpunk`
-2. View logs: `:messages`
-3. Inspect highlights: `:highlight`
-4. Check terminal colors: `:echo &t_8f`
-
-## License
-
-Themes should follow the project's license. Check `LICENSE` file for details.
+- Do **not** skip Phase 2. Contrast math is required, not optional.
+- If you cannot compute exact ratios, estimate conservatively: when in doubt, go brighter on FG or darker on BG.
+- Palette names are part of the theme's identity — take time to name them well.
+- The theme file must be **complete and copy-pasteable** — no placeholders, no `...` ellipsis in the output.
+- Place the file at: `lua/prismpunk/schemes/<universe>/<theme-name>.lua`
+- Run `:PrismValidate <universe>/<theme-name>` after loading to catch any remaining issues.

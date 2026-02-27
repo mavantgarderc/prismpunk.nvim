@@ -1,13 +1,3 @@
--- CONTRAST VALIDATION
--- ui.fg (#C9D1C7) vs ui.bg (#0B100E):       ~7.5:1  [AAA ✓]
--- ui.fg_dim (#9CA597) vs ui.bg (#0B100E):   ~5.2:1  [AA ✓]
--- syn.comment vs ui.bg:                     ~4.1:1  [AA ✓]
--- syn.keyword vs ui.bg:                     ~6.3:1  [AA ✓]
--- syn.func vs ui.bg:                        ~6.8:1  [AA ✓]
--- syn.string vs ui.bg:                      ~5.9:1  [AA ✓]
--- pmenu.fg vs pmenu.bg:                     ~6.1:1  [AA ✓]
--- float.fg vs float.bg:                     ~5.7:1  [AA ✓]
-
 local color = require("prismpunk.utils.color")
 
 local palette = {

@@ -39,27 +39,87 @@ If the seed colors don't cover a semantic need (e.g., no green for `dragonGreen`
 - Are distinct enough from existing colors to be useful
 
 ### Palette Naming Convention
-Name palette entries semantically and thematically. Use names that reflect the theme's universe. Examples:
-- Kanagawa → `sumiInk0`, `dragonBlue`, `fujiWhite`
-- Cyberpunk → `neonPink`, `gridBlue`, `terminalGreen`
-- Desert → `sandstone`, `duskOrange`, `canyonRed`
+
+The palette uses a **hybrid naming system** — two distinct groups with different naming rules:
+
+#### Group 1 — Functional Scale Names (always lowercase_snake_case)
+Used for backgrounds, foregrounds, and alternate backgrounds. These are **fixed slot names** the system relies on:
+
+```lua
+-- Backgrounds: darkest → lightest
+bg_darkest   = "#......",
+bg_darker    = "#......",
+bg_dark      = "#......",
+bg_mid       = "#......",
+bg_light     = "#......",
+bg_lighter   = "#......",
+bg_lightest  = "#......",
+
+-- Alternate backgrounds (for subtle variation / panels)
+bg_alt1      = "#......",
+bg_alt2      = "#......",
+bg_alt3      = "#......",
+bg_alt4      = "#......",
+
+-- Foregrounds: lightest → darkest
+fg_lightest  = "#......",
+fg_light     = "#......",
+fg_mid       = "#......",
+fg_dark      = "#......",
+```
+
+#### Group 2 — Thematic Proper Names (camelCase, theme-evocative)
+Used for all accent, vivid, and special colors. Names must **evoke the theme's identity** — not generic labels like `color1` or `accent_blue`:
+
+```lua
+-- Examples from different universes:
+-- Crime / Noir theme:
+femmeRed       = "#DC143C",
+lipstickRed    = "#E63946",
+sapphireBlue   = "#0F52BA",
+champagneGold  = "#F7E7CE",
+emeraldHeist   = "#50C878",
+seductionPink  = "#FF69B4",
+amethystPurple = "#9966CC",
+
+-- Kanagawa:
+dragonBlue     = "#7E9CD8",
+fujiWhite      = "#DCD7BA",
+dragonGreen    = "#76946A",
+
+-- Cyberpunk:
+neonPink       = "#FF007F",
+terminalGreen  = "#00FF41",
+gridBlue       = "#00BFFF",
+```
+
+Additionally, some themes add **thematic dark shades** as named entries (these complement the functional scale):
+```lua
+-- Named dark shades with thematic flavor:
+selinaBlack    = "#1A0F14",
+velvetBlack    = "#241A20",
+midnightSilk   = "#1F151A",
+laceDark       = "#2D1F26",
+```
 
 ### Fixed Required Slots
-Every palette **must** include these two named entries pointing to the darkest and lightest colors:
+Every palette **must** include these two entries pointing to the darkest bg and lightest fg:
 ```lua
-bg_darkest = "#......",  -- alias to your darkest bg color
-fg_lightest = "#......", -- alias to your lightest fg color
+bg_darkest  = "#......",  -- must be the darkest color in the palette
+fg_lightest = "#......",  -- must be the lightest color in the palette
 ```
 
 ### Recommended Palette Structure
 Aim to cover these semantic roles across your ~20 colors:
 
-| Role             | Count | Notes                                      |
-|------------------|-------|--------------------------------------------|
-| Backgrounds      | 6–8   | Darkest to lightest, for layering UI depth |
-| Foregrounds      | 3–4   | Lightest to darkest, for text hierarchy    |
-| Accent/Vivid     | 5–7   | Syntax colors: red, blue, green, yellow, violet, aqua, orange, pink |
-| Special          | 2–4   | Theme-specific decorative colors           |
+| Role                   | Names              | Count | Notes                                        |
+|------------------------|--------------------|-------|----------------------------------------------|
+| Background scale       | `bg_darkest` → `bg_lightest` | 5–7 | Ordered darkest to lightest              |
+| Alternate backgrounds  | `bg_alt1`–`bg_alt4` | 2–4  | Subtle variants for panels, splits           |
+| Foreground scale       | `fg_lightest` → `fg_dark` | 3–4 | Ordered lightest to darkest              |
+| Named dark shades      | camelCase          | 2–4   | Thematic named entries for deeper bg layers  |
+| Accent / Vivid         | camelCase          | 6–9   | Red, blue, green, yellow, violet, aqua, pink, orange, gold |
+| Special / Decorative   | camelCase          | 2–3   | Unique to the theme's identity               |
 
 ---
 
@@ -125,27 +185,43 @@ Produce a complete `.lua` file following this exact structure.
 local color = require("prismpunk.utils.color")
 
 local palette = {
-  -- Backgrounds (darkest → lightest)
-  themeBg0     = "#......",
-  themeBg1     = "#......",
-  -- ... more bg layers
+  -- Functional background scale (darkest → lightest)
+  bg_darkest   = "#......",
+  bg_darker    = "#......",
+  bg_dark      = "#......",
+  bg_mid       = "#......",
+  bg_light     = "#......",
+  bg_lighter   = "#......",
+  bg_lightest  = "#......",
 
-  -- Foregrounds (lightest → darkest)
-  themeFg0     = "#......",
-  themeFg1     = "#......",
-  -- ... more fg shades
+  -- Alternate backgrounds
+  bg_alt1      = "#......",
+  bg_alt2      = "#......",
+  bg_alt3      = "#......",
 
-  -- Accent / Vivid Colors
-  themeRed     = "#......",
+  -- Functional foreground scale (lightest → darkest)
+  fg_lightest  = "#......",
+  fg_light     = "#......",
+  fg_mid       = "#......",
+  fg_dark      = "#......",
+
+  -- Thematic named dark shades (camelCase, evoke the theme)
+  themeBlack1  = "#......",  -- rename to fit your theme, e.g. velvetBlack
+  themeBlack2  = "#......",
+
+  -- Accent / Vivid colors (camelCase, thematic proper names)
+  themeRed     = "#......",  -- e.g. crimsonBlade, femmeRed, neonRed
+  themePink    = "#......",  -- e.g. seductionPink, sakuraPink
+  themeOrange  = "#......",
+  themeYellow  = "#......",
+  themeGreen   = "#......",
+  themeAqua    = "#......",
   themeBlue    = "#......",
-  -- ... more accents
+  themeViolet  = "#......",
 
-  -- Special / Decorative
-  themeGlow    = "#......",
-
-  -- Required aliases
-  bg_darkest   = "#......",  -- must match your darkest bg
-  fg_lightest  = "#......",  -- must match your lightest fg
+  -- Special / Decorative (unique to this theme)
+  themeGlow    = "#......",  -- e.g. champagneGold, edoGlow, neonFlare
+  themeSpecial = "#......",
 }
 
 local M = {}
@@ -200,67 +276,67 @@ M.get = function(opts, plt)
 #### `ui` — All UI element colors
 ```lua
     ui = {
-      fg               = plt.themeFg0,
-      fg_dim           = plt.themeFg1,
-      fg_dimmer        = plt.themeFg2,
-      fg_dark          = plt.themeBg5,
-      fg_reverse       = plt.themeBg0,
-      bg               = plt.themeBg0,
-      bg_dim           = plt.themeBg0,
-      bg_m1            = plt.themeBg1,
-      bg_m2            = plt.themeBg2,
-      bg_m3            = plt.themeBg3,
-      bg_m4            = plt.themeBg4,
-      bg_p1            = plt.themeBg2,
-      bg_p2            = plt.themeBg3,
-      bg_gutter        = (opts.gutter ~= false) and plt.themeBg4 or "none",
-      bg_cursorline    = plt.themeBg3,
-      bg_cursorline_alt = plt.themeBg4,
-      cursorline       = plt.themeBg3,
-      bg_highlight     = plt.themeBg4,
-      bg_search        = plt.themeGlow,
-      bg_visual        = plt.themeBg4,
-      bg_statusline    = plt.themeBg4,
-      border           = plt.themeBg0,
+      fg               = plt.fg_lightest,
+      fg_dim           = plt.fg_light,
+      fg_dimmer        = plt.fg_mid,
+      fg_dark          = plt.fg_dark,
+      fg_reverse       = plt.bg_darkest,
+      bg               = plt.bg_darkest,
+      bg_dim           = plt.bg_darkest,
+      bg_m1            = plt.bg_darker,
+      bg_m2            = plt.bg_dark,
+      bg_m3            = plt.bg_mid,
+      bg_m4            = plt.bg_light,
+      bg_p1            = plt.bg_dark,
+      bg_p2            = plt.bg_mid,
+      bg_gutter        = (opts.gutter ~= false) and plt.bg_light or "none",
+      bg_cursorline    = plt.bg_mid,
+      bg_cursorline_alt = plt.bg_light,
+      cursorline       = plt.bg_mid,
+      bg_highlight     = plt.bg_light,
+      bg_search        = plt.themeGlow,     -- thematic name
+      bg_visual        = plt.bg_light,
+      bg_statusline    = plt.bg_light,
+      border           = plt.bg_alt2,
       header1          = plt.themeYellow,
       header2          = plt.themeBlue,
       special          = plt.themeSpecial,
-      nontext          = plt.themeBg5,
-      whitespace       = plt.themeFg2,
+      nontext          = plt.bg_lighter,
+      whitespace       = plt.fg_dark,
       win_separator    = plt.themeViolet,
-      indent           = plt.themeBg4,
+      indent           = plt.bg_light,
       indent_scope     = plt.themeBlue,
       picker           = plt.themeViolet,
       yank             = plt.themeGlow,
       mark             = plt.themeRed,
-      scrollbar        = plt.themeBg5,
-      selection        = plt.themeBg4,
-      line_nr          = plt.themeFg2,
-      line_nr_dim      = plt.themeBg5,
-      line_nr_active   = plt.themeFg0,
+      scrollbar        = plt.bg_lighter,
+      selection        = plt.bg_light,
+      line_nr          = plt.fg_mid,
+      line_nr_dim      = plt.bg_lighter,
+      line_nr_active   = plt.fg_lightest,
       float = {
-        fg        = plt.themeFg1,
-        bg        = plt.themeBg3,
-        fg_border = plt.themeBg5,
-        bg_border = plt.themeBg3,
+        fg        = plt.fg_light,
+        bg        = plt.bg_mid,
+        fg_border = plt.fg_dark,
+        bg_border = plt.bg_mid,
       },
       pmenu = {
-        fg        = plt.themeFg0,
+        fg        = plt.fg_lightest,
         fg_sel    = "none",
-        fg_border = plt.themeBg5,
-        bg        = plt.themeBg4,
-        bg_sel    = plt.themeBg5,
-        bg_border = plt.themeBg4,
-        bg_sbar   = plt.themeBg4,
-        bg_thumb  = plt.themeBg5,
+        fg_border = plt.fg_dark,
+        bg        = plt.bg_light,
+        bg_sel    = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg_sbar   = plt.bg_light,
+        bg_thumb  = plt.bg_lighter,
       },
       tabline = {
-        bg_inactive  = plt.themeBg0,
-        bg_selected  = plt.themeBg2,
-        bg_alternate = plt.themeBg1,
-        bg           = plt.themeBg0,
-        fg_inactive  = plt.themeFg2,
-        fg_selected  = plt.themeFg0,
+        bg           = plt.bg_darkest,
+        bg_inactive  = plt.bg_darkest,
+        bg_selected  = plt.bg_dark,
+        bg_alternate = plt.bg_darker,
+        fg_inactive  = plt.fg_mid,
+        fg_selected  = plt.fg_lightest,
         fg_alternate = plt.themeYellow,
         indicator    = plt.themeBlue,
       },
@@ -272,18 +348,18 @@ M.get = function(opts, plt)
     syn = {
       attribute  = plt.themeYellow,
       boolean    = plt.themeOrange,
-      comment    = plt.themeFg2,
+      comment    = plt.fg_mid,           -- functional name: dimmed fg
       constant   = plt.themeOrange,
-      deprecated = plt.themeFg2,
+      deprecated = plt.fg_dark,
       func       = plt.themeBlue,
-      identifier = plt.themeFg0,
+      identifier = plt.fg_lightest,
       keyword    = plt.themePink,
       method     = plt.themeBlue,
       number     = plt.themePink,
       operator   = plt.themeRed,
-      parameter  = plt.themeFg2,
+      parameter  = plt.fg_mid,
       preproc    = plt.themeViolet,
-      punct      = plt.themeFg2,
+      punct      = plt.fg_mid,
       regex      = plt.themeYellow,
       special    = plt.themeYellow,
       special2   = plt.themeViolet,
@@ -292,7 +368,7 @@ M.get = function(opts, plt)
       string     = plt.themeGreen,
       symbol     = plt.themeRed,
       type       = plt.themeAqua,
-      variable   = plt.themeFg0,
+      variable   = plt.fg_lightest,
     },
 ```
 
@@ -337,22 +413,22 @@ M.get = function(opts, plt)
 #### `term` — Terminal colors (16 ANSI + optional indexed)
 ```lua
     term = {
-      black   = plt.themeBg0,
+      black   = plt.bg_darkest,
       red     = plt.themeRed,
       green   = plt.themeGreen,
       yellow  = plt.themeYellow,
       blue    = plt.themeBlue,
       magenta = plt.themePink,
       cyan    = plt.themeAqua,
-      white   = plt.themeFg1,
-      black_bright   = color(plt.themeBg0):brighten(0.6):to_hex(),
+      white   = plt.fg_light,
+      black_bright   = color(plt.bg_darkest):brighten(0.6):to_hex(),
       red_bright     = color(plt.themeRed):brighten(0.2):to_hex(),
       green_bright   = color(plt.themeGreen):brighten(0.1):to_hex(),
       yellow_bright  = color(plt.themeYellow):brighten(0.2):to_hex(),
       blue_bright    = color(plt.themeBlue):brighten(0.3):to_hex(),
       magenta_bright = color(plt.themePink):brighten(0.2):to_hex(),
       cyan_bright    = color(plt.themeAqua):brighten(0.1):to_hex(),
-      white_bright   = color(plt.themeFg1):brighten(0.2):to_hex(),
+      white_bright   = color(plt.fg_light):brighten(0.2):to_hex(),
       -- Optional theme-specific indexed colors:
       indexed1 = plt.themeSpecial,
       indexed2 = plt.themeGlow,
@@ -370,22 +446,22 @@ return {
   author      = "Author Name",
   description = "A concise description of the theme's aesthetic and inspiration.",
   base16 = {
-    base00 = palette.themeBg0,    -- Default Background
-    base01 = palette.themeBg1,    -- Lighter Background (used in status bars)
-    base02 = palette.themeBg2,    -- Selection Background
-    base03 = palette.themeBg3,    -- Comments, Invisibles
-    base04 = palette.themeFg2,    -- Dark Foreground (status bars)
-    base05 = palette.themeFg1,    -- Default Foreground
-    base06 = palette.themeFg0,    -- Light Foreground
-    base07 = palette.themeFg0,    -- Light Background
-    base08 = palette.themeRed,    -- Variables, XML Tags
-    base09 = palette.themeOrange, -- Integers, Boolean
-    base0A = palette.themeYellow, -- Classes, Markup Bold
-    base0B = palette.themeGreen,  -- Strings, Markup Code
-    base0C = palette.themeAqua,   -- Support, Regular Expressions
-    base0D = palette.themeBlue,   -- Functions, Methods
-    base0E = palette.themeViolet, -- Keywords, Storage
-    base0F = palette.themePink,   -- Deprecated, Embedded Tags
+    base00 = palette.bg_darkest,   -- Default Background
+    base01 = palette.bg_darker,    -- Lighter Background (used in status bars)
+    base02 = palette.bg_mid,       -- Selection Background
+    base03 = palette.bg_light,     -- Comments, Invisibles
+    base04 = palette.fg_dark,      -- Dark Foreground (status bars)
+    base05 = palette.fg_mid,       -- Default Foreground
+    base06 = palette.fg_light,     -- Light Foreground
+    base07 = palette.fg_lightest,  -- Light Background
+    base08 = palette.themeRed,     -- Variables, XML Tags
+    base09 = palette.themeOrange,  -- Integers, Boolean
+    base0A = palette.themeYellow,  -- Classes, Markup Bold
+    base0B = palette.themeGreen,   -- Strings, Markup Code
+    base0C = palette.themeAqua,    -- Support, Regular Expressions
+    base0D = palette.themeBlue,    -- Functions, Methods
+    base0E = palette.themeViolet,  -- Keywords, Storage
+    base0F = palette.themePink,    -- Deprecated, Embedded Tags
   },
   palette = palette,
   get     = M.get,

@@ -218,7 +218,7 @@ M.get = function(opts, plt)
 end
 
 return {
-  name = "Susanoo – Storm",
+  name = "Kanagawa Kami – Susanoo",
   author = "PrismPunk.nvim",
   description = "Dark mode – stormy night with deep indigo and steel highlights.",
 

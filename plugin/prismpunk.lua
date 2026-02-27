@@ -456,3 +456,20 @@ end, {
     return flags
   end,
 })
+
+vim.api.nvim_create_user_command("PrismTelescope", function()
+  local ok, telescope_plugin = pcall(require, "prismpunk.plugins.telescope")
+  if not ok then
+    vim.notify("[prismpunk] Telescope plugin not found", vim.log.levels.ERROR)
+    return
+  end
+
+  if not telescope_plugin.schemes then
+    vim.notify("[prismpunk] Telescope integration requires telescope.nvim", vim.log.levels.ERROR)
+    return
+  end
+
+  telescope_plugin.schemes()
+end, {
+  desc = "Open Telescope picker for PrismPunk schemes",
+})

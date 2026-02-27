@@ -6,14 +6,14 @@ if exists('syntax_on')
   syntax reset
 endif
 
-let g:colors_name = "kanagawa/paper/dawn"
+let g:colors_name = "kanagawa/paper/floral"
 
 lua << EOF
 local ok, prismpunk = pcall(require, "prismpunk")
 if ok and prismpunk.load_colorscheme then
-  local success, err = prismpunk.load_colorscheme("kanagawa/paper/dawn")
+  local success, err = prismpunk.load_colorscheme("kanagawa/paper/floral")
   if not success then
-    vim.notify("[prismpunk] Failed to load kanagawa/paper/dawn: " .. tostring(err), vim.log.levels.ERROR)
+    vim.notify("[prismpunk] Failed to load kanagawa/paper/floral: " .. tostring(err), vim.log.levels.ERROR)
   end
 else
   vim.notify("[prismpunk] Plugin not loaded", vim.log.levels.ERROR)

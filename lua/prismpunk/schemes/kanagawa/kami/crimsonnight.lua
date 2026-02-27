@@ -221,7 +221,7 @@ M.get = function(opts, plt)
 end
 
 return {
-  name = "Hachiman – Crimson Night",
+  name = "Kanagawa Kami – Hachiman",
   author = "PrismPunk.nvim",
   description = "Dark, blood-red dominant theme with deep shadows and bright crimson accents.",
   base16 = {

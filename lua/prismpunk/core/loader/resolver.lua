@@ -24,6 +24,60 @@ local KNOWN_PARENTS = {
 
 local DISCOVERY_PARENTS = { "dc", "marvel" }
 
+local function has_subdirectory_variant(universe, name)
+  if not universe or universe == "" then return false end
+  if not name or not name:match("%-") then return false end
+
+  local prefix = name:match("^([%w]+)%-")
+  if not prefix then return false end
+
+  local subdir_path = string.format("lua/prismpunk/schemes/%s/%s", universe, prefix)
+  local check_paths = {
+    vim.fn.getcwd() .. "/" .. subdir_path,
+    vim.fn.stdpath("config") .. "/lua/prismpunk/schemes/" .. universe .. "/" .. prefix,
+  }
+
+  for _, path in ipairs(check_paths) do
+    if vim.fn.isdirectory(path) == 1 then
+      return true, prefix
+    end
+  end
+
+  return false, nil
+end
+
+local function get_subdirectory_tries(universe, name)
+  local tries = {}
+  if not universe or universe == "" or not name or not name:match("%-") then
+    return tries
+  end
+
+  local prefix, suffix = name:match("^([%w]+)%-(.+)$")
+  if not prefix or not suffix then return tries end
+
+  local subdir_path = string.format("lua/prismpunk/schemes/%s/%s", universe, prefix)
+  local check_paths = {
+    vim.fn.getcwd() .. "/" .. subdir_path,
+    vim.fn.stdpath("config") .. "/lua/prismpunk/schemes/" .. universe .. "/" .. prefix,
+  }
+
+  local has_subdir = false
+  for _, path in ipairs(check_paths) do
+    if vim.fn.isdirectory(path) == 1 then
+      has_subdir = true
+      break
+    end
+  end
+
+  if not has_subdir then return tries end
+
+  local universe_dotted = universe:gsub("/", ".")
+  table.insert(tries, string.format("prismpunk.schemes.%s.%s.%s", universe_dotted, prefix, suffix))
+  table.insert(tries, string.format("prismpunk.themes.%s.%s.%s", universe_dotted, prefix, suffix))
+
+  return tries
+end
+
 local function parse_two_part_scheme(category, name)
   local variants = {}
 
@@ -101,6 +155,11 @@ function M.resolve_scheme_module(spec)
   end
 
   local tries = {}
+
+  local subdir_tries = get_subdirectory_tries(spec.universe, spec.name)
+  for _, try in ipairs(subdir_tries) do
+    table.insert(tries, try)
+  end
 
   if spec.variants and #spec.variants > 0 then
     for _, variant in ipairs(spec.variants) do
@@ -336,6 +395,11 @@ function M.get_scheme_info(scheme_name)
 
   local scheme
   local tries = {}
+
+  local subdir_tries = get_subdirectory_tries(parsed.universe, parsed.name)
+  for _, try in ipairs(subdir_tries) do
+    table.insert(tries, try)
+  end
 
   if parsed.variants and #parsed.variants > 0 then
     for _, variant in ipairs(parsed.variants) do

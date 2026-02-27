@@ -224,7 +224,7 @@ M.get = function(opts, plt)
 end
 
 return {
-  name = "Izanami – Obsidian",
+  name = "Kanagawa Kami – Izanami",
   author = "PrismPunk.nvim",
   description = "Ultra-dark minimalist theme with expanded palette for full semantic flexibility.",
   base16 = {

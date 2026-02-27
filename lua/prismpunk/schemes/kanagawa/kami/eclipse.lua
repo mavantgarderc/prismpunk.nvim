@@ -217,7 +217,7 @@ M.get = function(opts, plt)
 end
 
 return {
-  name = "Amaterasu – Eclipse",
+  name = "Kanagawa Kami – Amaterasu",
   author = "PrismPunk.nvim",
   description = "Dark mode – eclipsed sun with warm divine glow. The goddess descends.",
   base16 = {

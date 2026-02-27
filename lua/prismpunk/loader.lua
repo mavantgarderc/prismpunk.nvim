@@ -6,22 +6,16 @@ local config = require("prismpunk.config")
 local resolver = require("prismpunk.core.loader.resolver")
 local pipeline = require("prismpunk.core.loader.pipeline")
 
-function M.get_cache_stats()
-  return pipeline.get_cache_stats()
-end
+function M.get_cache_stats() return pipeline.get_cache_stats() end
 
 function M.clear_cache()
   pipeline.clear_cache()
   vim.notify("[prismpunk] All caches cleared", vim.log.levels.INFO)
 end
 
-function M.load(scheme_spec, opts)
-  return pipeline.execute(scheme_spec, opts or {})
-end
+function M.load(scheme_spec, opts) return pipeline.execute(scheme_spec, opts or {}) end
 
-function M.list_schemes()
-  return resolver.list_schemes()
-end
+function M.list_schemes() return resolver.list_schemes() end
 
 function M.get_allowed_scheme_list()
   local allowed = config.get_allowed_themes()
@@ -39,9 +33,7 @@ function M.get_allowed_scheme_list()
       end
     end
 
-    if not is_universe then
-      table.insert(result, allowed_item)
-    end
+    if not is_universe then table.insert(result, allowed_item) end
   end
 
   return result
@@ -57,9 +49,14 @@ function M.get_scheme_info(scheme_name)
   if info.module and info.module.palette then
     local palette_universe = parsed.universe or (info.module.palette and info.module.palette.universe)
     local palette_name = (info.module.palette and info.module.palette.name) or parsed.name
-    
+
     local palette = require("prismpunk.palette")
-    local ok, result = pcall(palette.create_palette, palette_universe, palette_name, info.module.palette and info.module.palette.overrides)
+    local ok, result = pcall(
+      palette.create_palette,
+      palette_universe,
+      palette_name,
+      info.module.palette and info.module.palette.overrides
+    )
     if ok then
       palette_table = result
     else
@@ -77,9 +74,7 @@ function M.get_scheme_info(scheme_name)
   }
 end
 
-function M.clear_scheme_cache()
-  resolver.clear_schemes_cache()
-end
+function M.clear_scheme_cache() resolver.clear_schemes_cache() end
 
 M.list_themes = M.list_schemes
 M.get_theme_info = M.get_scheme_info

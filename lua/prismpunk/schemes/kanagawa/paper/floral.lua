@@ -138,6 +138,7 @@ M.get = function(opts, plt)
       },
     },
     syn = {
+      annotation = plt.floralPeach1,
       attribute = plt.oldWhite,
       boolean = plt.floralLavender1,
       comment = plt.softGray,

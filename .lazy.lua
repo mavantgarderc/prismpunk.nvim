@@ -12,17 +12,8 @@ return {
         colorscheme = "lantern-corps-phantom-corrupted",
         opts = {
           theme = "dc/lantern-corps/phantom-corrupted",
-          terminals = {
-            enabled = true,
-            emulator = { "ghostty" },
-            ghostty = {
-              enabled = true,
-              auto_reload = true,
-              config_path = vim.fn.expand("~/.config/ghostty/themes/prismpunk.toml"),
-            },
-          },
+          enabled = false,
         },
-        enabled = true,
       }
 
       local INDICATOR_CONFIG = {

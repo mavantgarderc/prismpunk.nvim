@@ -108,7 +108,7 @@ Validate schemes against WCAG contrast and Base16 standards:
 ```lua
 require("prismpunk").setup({
   scheme = "kanagawa/paper-edo",
-  
+
   -- Enable automatic contrast validation on scheme load (optional)
   validate_contrast = {
     enable = false,        -- Default: false (on-demand only via :PrismValidate)
@@ -141,6 +141,7 @@ require("prismpunk").setup({
 ```
 
 The validator checks:
+
 - **WCAG Contrast**: FG vs BG for Normal, Visual, CursorLine, Comment, Search, Float, Pmenu, LineNr, diagnostics
 - **Base16 Palette**: All 16 required colors (base00-base0F)
 - **Scheme Structure**: Required sections (ui, syn, diag, term)
@@ -159,6 +160,7 @@ All of these work:
 - Or use the traditional way: `:colorscheme prismpunk`
 
 ### Commands
+
 - `:PrismpunkExportGhostty`: Export current scheme to Ghostty config.
 - `:PrismpunkReload`: Clear cache and reload the current scheme (for live dev changes).
 - `:PrismpunkListSchemes`: List all available schemes.
@@ -170,6 +172,7 @@ All of these work:
 - `:checkhealth prismpunk`: Run health check including contrast validation.
 
 ## Features
+
 - **Customizable Styles**: Toggle italics/bold for comments, keywords, functions, variables.
 - **Overrides**: Easily override colors or highlight groups.
 - **Terminal Integration**: Full support for Ghostty (export TOML, auto-reload via SIGUSR2).
@@ -274,36 +277,36 @@ Of course, touch a placeholder file at `~/.config/zellij/themes/` named `prismpu
 ```lua
 require("prismpunk").setup({
   scheme = "kanagawa/paper-edo",
-  
+
   styles = {
     comments = { italic = true },
     keywords = { bold = false },
     functions = { bold = false },
     variables = {},
   },
-  
+
   overrides = {
     colors = {},
     highlights = {},
   },
-  
+
   integrations = {
     cmp = true,
     telescope = true,
     gitsigns = true,
     lualine = true,
   },
-  
+
   terminal = {
     enabled = true,
     emulator = { "ghostty", "alacritty", "kitty" },
-    
+
     ghostty = {
       enabled = true,
       auto_reload = true,
       config_path = vim.fn.expand("~/.config/ghostty/themes/prismpunk.toml"),
     },
-    
+
     alacritty = {
       enabled = true,
       auto_reload = true,
@@ -333,4 +336,5 @@ nvim --headless -c "PlenaryBustedDirectory tests/ {minimal_init = 'tests/minimal
 ```
 
 ## Contributing
+
 See CONTRIBUTING.md for guidelines. Pull requests, new schemes, and fixes welcome!

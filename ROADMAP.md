@@ -1364,124 +1364,109 @@
       - [ ] Thread-of-Ariadne
 
   - [ ] Norse Mythology
-    - [ ] Aesir Gods
-      - [ ] Odin
-      - [ ] Thor
+    - [ ] Yggdrasill
+      - [ ] Yggdrasill (Askr)
+      - [ ] Níðhǫggr
+      - [ ] Ratatoskr
+      - [ ] Veðrfǫlnir
+      - [ ] Dáinn
+      - [ ] Dvalinn
+      - [ ] Duneyrr
+      - [ ] Duraþrór
+      - [ ] Urðarbrunnr
+      - [ ] Mímisbrunnr
+      - [ ] Hvergelmir
+    - [ ] Asgard
+      - [ ] Óðinn
+      - [ ] Þórr
       - [ ] Frigg
-      - [ ] Baldur
-      - [ ] Tyr
-      - [ ] Heimdall
+      - [ ] Baldr
+      - [ ] Týr
+      - [ ] Heimdallr
+      - [ ] Iðunn
       - [ ] Bragi
-      - [ ] Idun
-      - [ ] Vidar
-      - [ ] Vali
-      - [ ] Forseti
+      - [ ] Víðarr
+      - [ ] Váli
       - [ ] Ullr
-      - [ ] Hodr
-      - [ ] Hermod
+      - [ ] Hǫðr
       - [ ] Magni
-      - [ ] Modi
-    - [ ] Vanir Gods
+      - [ ] Móði
+      - [ ] Valhǫll
+      - [ ] Bifrǫst
+      - [ ] Sleipnir
+      - [ ] Brynhildr
+      - [ ] Sigrdrífa
+      - [ ] Sváfa
+      - [ ] Ǫlrún
+      - [ ] Kára
+      - [ ] Mist
+      - [ ] Skǫgul
+      - [ ] Hlǫkk
+      - [ ] Mjǫllnir
+      - [ ] Gungnir
+      - [ ] Gjallarhorn
+      - [ ] Hringhorni
+      - [ ] Skíðblaðnir
+      - [ ] Draupnir
+    - [ ] Vanaheim
       - [ ] Freyr
       - [ ] Freyja
-      - [ ] Njord
-      - [ ] Nerthus
+      - [ ] Njǫrðr
       - [ ] Gullveig
-      - [ ] Kvasir
-    - [ ] Giants (Jotnar)
-      - [ ] Ymir
-      - [ ] Surtr
-      - [ ] Thrym
-      - [ ] Utgard-Loki
-      - [ ] Skrymir
-      - [ ] Hrungnir
-      - [ ] Geirrod
-      - [ ] Thiazi
-      - [ ] Skadi
-      - [ ] Mimir
-      - [ ] Angrboda
-      - [ ] Bergelmir
-      - [ ] Hyrrokkin
-    - [ ] Trickster and Chaos
+      - [ ] Fólkvangr
+      - [ ] Gullinbursti
+    - [ ] Jotunheim
       - [ ] Loki
       - [ ] Sigyn
-      - [ ] Hel
-      - [ ] Fenrir
-      - [ ] Jormungandr
-      - [ ] Sleipnir
-      - [ ] Narfi
-      - [ ] Vali (Loki's son)
-    - [ ] Valkyries and Warriors
-      - [ ] Brunhilde
-      - [ ] Gunnr
-      - [ ] Hildr
-      - [ ] Gondul
-      - [ ] Skogul
-      - [ ] Rota
-      - [ ] Sigrdrífa
-      - [ ] Kara
-    - [ ] Heroes and Legendary Figures
-      - [ ] Sigurd
-      - [ ] Beowulf
-      - [ ] Ragnar-Lothbrok
-      - [ ] Ivar-the-Boneless
-      - [ ] Bjorn-Ironside
-      - [ ] Erik-the-Red
-      - [ ] Leif-Erikson
-      - [ ] Starkad
-      - [ ] Hrolf-Kraki
-    - [ ] Creatures and Monsters
-      - [ ] Nidhogg
-      - [ ] Ratatoskr
-      - [ ] The-Four-Stags
-      - [ ] Eikthyrnir
-      - [ ] Heidrun
-      - [ ] Garmr
-      - [ ] Sköll
+      - [ ] Ymir
+      - [ ] Skaði
+      - [ ] Angrboða
+      - [ ] Þrymr
+      - [ ] Útgarða-Loki
+      - [ ] Skrýmir
+      - [ ] Hrungnir
+      - [ ] Þjazi
+      - [ ] Skǫll
       - [ ] Hati
-      - [ ] Draugr
-      - [ ] Fossegrim
-      - [ ] Huldra
-      - [ ] Trolls
-      - [ ] Dwarves
-      - [ ] Dark-Elves
-      - [ ] Light-Elves
-      - [ ] Norns
-      - [ ] Lindworm
-      - [ ] Sea-Serpents
-      - [ ] Kraken
-    - [ ] Cosmic Entities and Places
-      - [ ] Yggdrasil
-      - [ ] The-Nine-Realms
-      - [ ] Asgard
-      - [ ] Midgard
-      - [ ] Vanaheim
-      - [ ] Jotunheim
-      - [ ] Alfheim
-      - [ ] Svartalfheim
-      - [ ] Niflheim
-      - [ ] Muspelheim
-      - [ ] Helheim
-      - [ ] Bifrost
-      - [ ] Valhalla
-      - [ ] Folkvangr
-      - [ ] Well-of-Urd
-      - [ ] Well-of-Mimir
-      - [ ] Hvergelmir
-    - [ ] Legendary Artifacts
-      - [ ] Mjolnir
-      - [ ] Gungnir
-      - [ ] Draupnir
+      - [ ] Fenrir
       - [ ] Gleipnir
-      - [ ] Brisingamen
-      - [ ] Gjallarhorn
-      - [ ] Tyrfing
-      - [ ] Gram
-      - [ ] Andvaranaut
-      - [ ] Skíðblaðnir
+    - [ ] Midgard
+      - [ ] Jǫrmungandr
+      - [ ] Sigurðr
+      - [ ] Starkaðr
+      - [ ] Gramr
+      - [ ] Nornir
+      - [ ] Draugr
+    - [ ] Helheim
+      - [ ] Helheimr (Realm)
+      - [ ] Hel
+      - [ ] Garmr
+      - [ ] Móðguðr
+      - [ ] Gjallarbrú
+    - [ ] Niflheim
+      - [ ] Niflheimr (Realm)
+      - [ ] Élivágar
       - [ ] Naglfar
-      - [ ] Gullinbursti
-      - [ ] Hildisvini
+      - [ ] Auðhumla
+    - [ ] Muspelheim
+      - [ ] Múspellzheimr (Realm)
+      - [ ] Surtr
+      - [ ] Surtalogi
+    - [ ] Alfheim
+      - [ ] Álfheimr (Realm)
+      - [ ] Ljósálfar
+      - [ ] Byggvir
+    - [ ] Svartalfheim
+      - [ ] Svartálfaheimr (Realm)
+      - [ ] Dvergar
+      - [ ] Andvaranautr
+      - [ ] Brísingamen
+      - [ ] Tyrfingr
+      - [ ] Brokkr
+      - [ ] Eitri
+      - [ ] Felnir
+      - [ ] Alsviðr
+      - [ ] Dvalinn
 
   - [ ] Japanese Mythology
     - [ ] Major Kami (Shinto Deities)

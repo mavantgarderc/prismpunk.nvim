@@ -55,15 +55,14 @@ local function get_subdirectory_tries(universe, name)
   local prefix, suffix = name:match("^([%w]+)%-(.+)$")
   if not prefix or not suffix then return tries end
 
-  local subdir_path = string.format("lua/prismpunk/schemes/%s/%s", universe, prefix)
-  local check_paths = {
-    vim.fn.getcwd() .. "/" .. subdir_path,
-    vim.fn.stdpath("config") .. "/lua/prismpunk/schemes/" .. universe .. "/" .. prefix,
-  }
-
+  -- Search all rtp paths for the subdirectory (not just cwd)
   local has_subdir = false
-  for _, path in ipairs(check_paths) do
-    if vim.fn.isdirectory(path) == 1 then
+  local subdir_pattern = string.format("/lua/prismpunk/schemes/%s/%s", universe, prefix)
+  
+  local rtp = vim.opt.rtp:get()
+  for _, path in ipairs(rtp) do
+    local check_path = path .. subdir_pattern
+    if vim.fn.isdirectory(check_path) == 1 then
       has_subdir = true
       break
     end

@@ -2,7 +2,7 @@
 --- Handles validation, merging, and scheme spec parsing
 local M = {}
 
-local DEFAULT_SCHEME = "kanagawa/paper-edo"
+local DEFAULT_SCHEME = "kanagawa/paper-floral"
 
 --- Default configuration schema
 M.defaults = {
@@ -388,18 +388,12 @@ function M.is_scheme_allowed(scheme_spec)
   local scheme_full = scheme_universe and (scheme_universe .. "/" .. scheme_name) or scheme_name
 
   for _, allowed in ipairs(allowed_schemes) do
-    if allowed == scheme_name or allowed == scheme_full then
-      return true
-    end
+    if allowed == scheme_name or allowed == scheme_full then return true end
 
     if scheme_universe then
-      if scheme_universe:find("^" .. allowed) or scheme_full:find("^" .. allowed) then
-        return true
-      end
+      if scheme_universe:find("^" .. allowed) or scheme_full:find("^" .. allowed) then return true end
 
-      if allowed == scheme_universe:match("^([^/]+)") then
-        return true
-      end
+      if allowed == scheme_universe:match("^([^/]+)") then return true end
     end
   end
 
@@ -410,9 +404,7 @@ M.is_theme_allowed = M.is_scheme_allowed
 
 --- Get list of allowed schemes based on config
 --- @return table array of scheme strings
-function M.get_allowed_schemes()
-  return M.options.schemes or M.options.themes or {}
-end
+function M.get_allowed_schemes() return M.options.schemes or M.options.themes or {} end
 
 M.get_allowed_themes = M.get_allowed_schemes
 

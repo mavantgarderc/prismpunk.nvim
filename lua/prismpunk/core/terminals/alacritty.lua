@@ -71,13 +71,13 @@ M.export_and_reload = function(theme, conf)
 
   local success = M.write_config(theme, conf.config_path)
 
-  if success then
-    vim.notify("Prismpunk: Alacritty theme exported to " .. conf.config_path, vim.log.levels.INFO)
-    if conf.auto_reload then
-      vim.notify("Prismpunk: Alacritty requires manual restart to apply theme", vim.log.levels.INFO)
-      M.reload()
-    end
-  end
+  -- if success then
+  --   -- vim.notify("Prismpunk: Alacritty theme exported to " .. conf.config_path, vim.log.levels.INFO)
+  --   if conf.auto_reload then
+  --     vim.notify("Prismpunk: Alacritty requires manual restart to apply theme", vim.log.levels.INFO)
+  --     M.reload()
+  --   end
+  -- end
 end
 
 M.export = function(theme_name)

@@ -1901,22 +1901,64 @@
 ---
 
 - [x] Kanagawa
+  - [x] Kami
+    - [x] Benzaiten
+    - [x] Crimsonnight
+    - [x] Eclipse
+    - [x] Fujin
+    - [x] Inari
+    - [x] Obsidian
+    - [x] Raijin
+    - [x] Ryujin
+    - [x] Storm
+    - [x] Tsukuyomi
   - [x] Paper
     - [x] Azure
+    - [x] Bamboo
+    - [x] Canopy
+    - [x] Cinder
+    - [x] Claysoil
     - [x] Crimson
-    - [x] Crimson Night
     - [x] Dawn
     - [x] Dragon
-    - [x] Eclipse
     - [x] Edo
+    - [x] Ember
     - [x] Floral
+    - [x] Frost
+    - [x] Haiku
+    - [x] Indigo
+    - [x] Ironfan
     - [x] Katana
+    - [x] Lacquer
+    - [x] Lichen
+    - [x] Moss
     - [x] Nightfall
-    - [x] Obsidian
+    - [x] Pebble
+    - [x] Permafrost
+    - [x] Rakuichi
     - [x] Ronin
-    - [x] Storm
+    - [x] Shrinegate
     - [x] Sunset
+    - [x] Tideline
+    - [x] Torrential
+    - [x] Ukiyo
+    - [x] Undergrowth
     - [x] Wave
+    - [x] Wavecrest
+    - [x] Woodblock
+    - [x] Woodgrain
+  - [x] Zen
+    - [x] Blackscroll
+    - [x] Brushstroke
+    - [x] Dissolution
+    - [x] Dojo
+    - [x] Inkstone
+    - [x] Liminal
+    - [x] Silence
+    - [x] Stonegarden
+    - [x] Tatami
+    - [x] Tokonoma
+    - [x] Void
 
 ---
 

@@ -5,13 +5,12 @@ return {
     dependencies = { "echasnovski/mini.hipatterns" },
     lazy = false,
     priority = 1000,
-    -- init = function() end, -- REMOVED: Do not load theme in init or autocmd
     config = function()
       local M = {
         module = "prismpunk",
-        colorscheme = "lantern-corps-phantom-corrupted",
+        -- colorscheme = "norse-asgard-odinn",
         opts = {
-          theme = "dc/lantern-corps/phantom-corrupted",
+          scheme = "norse/asgard/odinn",
           enabled = false,
         },
       }
@@ -28,20 +27,15 @@ return {
         return path:gsub("^oil:///*", "/"):gsub("^oil:", "")
       end
 
-      -- MOVED LOGIC: Setup and apply colorscheme immediately
       local function load_prismpunk_theme()
         package.loaded.prismpunk = nil
 
         local ok, prismpunk = pcall(require, "prismpunk")
         if not ok or not prismpunk or type(prismpunk.setup) ~= "function" then return false end
 
-        -- 1. Setup options
         prismpunk.setup(M.opts)
-
-        -- 2. Force TermGuiColors for proper rendering
         vim.o.termguicolors = true
 
-        -- 3. Apply the colorscheme immediately (Critical Fix)
         if pcall(vim.cmd.colorscheme, M.colorscheme) then
           return true
         else
@@ -59,7 +53,6 @@ return {
         return true
       end
 
-      -- ... (Keep the rest of your helper functions: hex_to_rgb, get_contrast_color, etc.) ...
       local function hex_to_rgb(hex)
         hex = hex:gsub("#", "")
         if #hex == 3 then hex = hex:gsub("(.)", "%1%1") end
@@ -71,7 +64,7 @@ return {
       end
 
       local function get_contrast_color(hex)
-        local r, g, b = unpack(hex_to_rgb(hex)) -- luacheck: ignore
+        local r, g, b = unpack(hex_to_rgb(hex))
         local luminance = 0.299 * r + 0.587 * g + 0.114 * b
         return luminance > 0.5 and "#000000" or "#FFFFFF"
       end
@@ -121,21 +114,30 @@ return {
         return nil
       end
 
-      local function resolve_palette_color(bufnr, palette_ref)
-        local module_name = extract_palette_module(bufnr)
-        if not module_name then return nil end
+      local function extract_palette_name(bufnr)
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 50, false)
+        for _, line in ipairs(lines) do
+          local name = line:match('require%("prismpunk%.palettes%.([%w_]+)"%)')
+          if name then return name end
+        end
+        return nil
+      end
 
-        local palette = load_palette(module_name)
-        if not palette then return nil end
+      local function resolve_palette_color(bufnr, ref)
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+        local in_palette = false
 
-        local key = palette_ref:match("plt%.([%w_]+)")
-          or palette_ref:match("palette%.([%w_]+)")
-          or palette_ref:match("p%.([%w_]+)")
-
-        local color = key and palette[key]
-        if type(color) == "string" then return color end
-        if type(color) == "table" and type(color[1]) == "string" then return color[1] end
-
+        for _, line in ipairs(lines) do
+          if line:match("^local palette = {") then
+            in_palette = true
+          elseif in_palette and line:match("^}") then
+            break
+          elseif in_palette then
+            local key = ref:match("%.([%w_]+)$")
+            local color = line:match(key .. '%s*=%s*"(#%x+)"')
+            if color then return color end
+          end
+        end
         return nil
       end
 
@@ -177,7 +179,6 @@ return {
         for k in pairs(color_indicators) do
           if k:match("^" .. bufnr .. ":") then color_indicators[k] = nil end
         end
-        processed_buffers[bufnr] = nil
       end
 
       local function show_hover()
@@ -225,6 +226,13 @@ return {
         end
       end
 
+      local function is_prismpunk_file(path)
+        if not path:match("prismpunk") then return false, false end
+        local is_palette = path:match("palettes/.*%.lua$") ~= nil
+        local is_scheme = path:match("schemes/.*%.lua$") ~= nil or path:match("themes/.*%.lua$") ~= nil
+        return is_palette, is_scheme
+      end
+
       local function process_buffer(bufnr)
         if not ensure_hipatterns() then return end
 
@@ -232,28 +240,19 @@ return {
         if not path:match("prismpunk") then return end
         if processed_buffers[bufnr] then return end
 
+        local _, is_scheme = is_prismpunk_file(path)
+        if not is_scheme then return end
+
         processed_buffers[bufnr] = true
         clear_indicators(bufnr)
-
-        local is_palette = path:match("palettes/.*%.lua$")
-        local is_theme = path:match("themes/.*%.lua$")
-        if not (is_palette or is_theme) then return end
 
         local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
         for lnum, line in ipairs(lines) do
-          if is_palette then
-            local hex = line:match("#[0-9a-fA-F]+")
-            if hex then create_color_indicator(bufnr, lnum - 1, hex, hex) end
-          elseif is_theme then
-            local ref = line:match("plt%.[%w_]+") or line:match("palette%.[%w_]+") or line:match("p%.[%w_]+")
-
-            if ref then
+          for ref in line:gmatch("[%w_]+%.[%w_]+") do
+            if ref:match("^plt%.") or ref:match("^palette%.") or ref:match("^p%.") then
               local hex = resolve_palette_color(bufnr, ref)
               if hex then create_color_indicator(bufnr, lnum - 1, hex, ref) end
-            else
-              local hex = line:match("#[0-9a-fA-F]+")
-              if hex then create_color_indicator(bufnr, lnum - 1, hex, hex) end
             end
           end
         end
@@ -264,7 +263,7 @@ return {
 
         vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
           group = group,
-          pattern = "*prismpunk/*.lua",
+          pattern = { "*/prismpunk/**/*.lua", "*prismpunk*/*.lua" },
           callback = function(args)
             if args.event == "BufWritePost" then processed_buffers[args.buf] = nil end
             vim.defer_fn(function() process_buffer(args.buf) end, 100)
@@ -273,8 +272,11 @@ return {
 
         vim.api.nvim_create_autocmd("BufLeave", {
           group = group,
-          pattern = "*prismpunk/*.lua",
-          callback = function(args) clear_indicators(args.buf) end,
+          pattern = { "*/prismpunk/**/*.lua", "*prismpunk*/*.lua" },
+          callback = function(args)
+            clear_indicators(args.buf)
+            processed_buffers[args.buf] = nil
+          end,
         })
       end
 
@@ -291,7 +293,10 @@ return {
           pcall(vim.api.nvim_del_augroup_by_name, "PrismPunkColorIndicators")
 
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_buf_is_loaded(buf) then clear_indicators(buf) end
+            if vim.api.nvim_buf_is_loaded(buf) then
+              clear_indicators(buf)
+              processed_buffers[buf] = nil
+            end
           end
 
           vim.notify("PrismPunk color indicators disabled")
@@ -320,6 +325,31 @@ return {
           if bufname:match("prismpunk") then process_buffer(bufnr) end
         end, 100)
       end
+
+      vim.api.nvim_create_user_command("PrismPunkDebug", function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local path = vim.api.nvim_buf_get_name(bufnr)
+        local norm = normalize_filepath(path)
+        local is_palette, is_scheme = is_prismpunk_file(norm)
+
+        print("Buffer: " .. bufnr)
+        print("Path: " .. path)
+        print("Normalized: " .. norm)
+        print("Matches prismpunk: " .. tostring(path:match("prismpunk") ~= nil))
+        print("Is palette: " .. tostring(is_palette))
+        print("Is scheme: " .. tostring(is_scheme))
+        print("Processed: " .. tostring(processed_buffers[bufnr]))
+        print("hipatterns ok: " .. tostring(ensure_hipatterns()))
+
+        processed_buffers[bufnr] = nil
+        process_buffer(bufnr)
+
+        local count = 0
+        for k in pairs(color_indicators) do
+          if k:match("^" .. bufnr .. ":") then count = count + 1 end
+        end
+        print("Indicators created: " .. count)
+      end, { desc = "Debug PrismPunk indicators" })
     end,
   },
 
@@ -362,55 +392,38 @@ return {
 
                 local category = "other"
 
-                -- LANTERNCORPS
                 if colorscheme_name:match("lantern%-corps") then
                   category = "dc/lantern-corps"
-                -- CRIME SYNDICATE
                 elseif colorscheme_name:match("crime%-syndicate") then
                   category = "dc/crime-syndicate"
-                -- BAT FAMILY
                 elseif colorscheme_name:match("bat%-family") then
                   category = "dc/bat-family"
-                -- INJUSTICE LEAGUE
                 elseif colorscheme_name:match("injustice%-league") then
                   category = "dc/injustice-league"
-                -- ARKHAM ASYLUM
                 elseif colorscheme_name:match("arkham%-aylum") then
                   category = "dc/arkham-asylum"
-                -- JUSTICE LEAGUE
                 elseif colorscheme_name:match("justice%-league") then
                   category = "dc/justice-league"
-                -- EMOTIONAL SPECTRUM
                 elseif colorscheme_name:match("emotional%-entities") then
                   category = "dc/emotional-entities"
-                -- NEW GENESIS
                 elseif colorscheme_name:match("new%-genesis") then
                   category = "dc/new-genesis"
-                -- SUPER FAMILY
                 elseif colorscheme_name:match("super%-family") then
                   category = "dc/super-family"
-                -- WATCHMEN
                 elseif colorscheme_name:match("watchmen") then
                   category = "dc/watchmen"
-                -- LEAGUE OF ASSASINS
                 elseif colorscheme_name:match("league%-of%-assassins") then
                   category = "dc/league-of-assassins"
-                -- DC/APOKOLIPS
                 elseif colorscheme_name:match("apokolips") then
                   category = "dc/apokolips"
-                -- PUNK CULTURES
                 elseif colorscheme_name:match("punk$") or colorscheme_name:match("punk%-") then
                   category = "punk-cultures"
-                -- DETOX
                 elseif colorscheme_name:match("detox") then
                   category = "detox"
-                -- KANAGAWA
                 elseif colorscheme_name:match("kanagawa") then
                   category = "kanagawa"
-                -- TMNT
                 elseif colorscheme_name:match("tmnt%-") or colorscheme_name:match("tmnt$") then
                   category = "tmnt"
-                -- NVIM BUILT-IN THEMES
                 elseif colorscheme_name:match("nvim%-builtins") or colorscheme_name:match("nvim%-builtins%-") then
                   category = "nvim-builtins"
                 end
@@ -441,7 +454,7 @@ return {
 
       if #all_themes == 0 then
         theme_groups = {
-          ["dc/lantern-corps"] = { "lantern-corps-phantom-corrupted" },
+          ["norse"] = { "norse-asgard-odinn" },
         }
         vim.schedule(
           function() prismpunk_startup_message("No colorschemes found, using fallback", vim.log.levels.WARN) end
@@ -461,10 +474,10 @@ return {
           previous = "<",
           random = "r",
         },
-        default_theme = "lantern-corps-phantom-corrupted",
+        default_theme = "norse-asgard-odinn",
         theme_map = theme_groups,
         filetype_themes = {
-          lua = "lantern-corps-phantom-corrupted",
+          lua = "norse-asgard-odinn",
         },
       })
 
@@ -478,7 +491,7 @@ return {
               previous = "<",
               random = "r",
             },
-            default_theme = "lantern-corps-phantom-corrupted",
+            default_theme = "norse-asgard-odinn",
             theme_map = new_groups,
             filetype_themes = {},
           })

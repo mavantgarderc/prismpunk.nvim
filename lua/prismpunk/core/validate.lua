@@ -110,9 +110,7 @@ end
 --- @param scheme table Scheme colors from scheme.get()
 --- @return boolean valid, string[] errors
 function M.quick_validate(scheme)
-  if not scheme or type(scheme) ~= "table" then
-    return false, { "scheme must be a table" }
-  end
+  if not scheme or type(scheme) ~= "table" then return false, { "scheme must be a table" } end
 
   local errors = {}
 
@@ -120,13 +118,9 @@ function M.quick_validate(scheme)
     table.insert(errors, "scheme missing required ui.fg or ui.bg")
   end
 
-  if not scheme.syn then
-    table.insert(errors, "scheme missing required syn section")
-  end
+  if not scheme.syn then table.insert(errors, "scheme missing required syn section") end
 
-  if not scheme.diag then
-    table.insert(errors, "scheme missing required diag section")
-  end
+  if not scheme.diag then table.insert(errors, "scheme missing required diag section") end
 
   return #errors == 0, errors
 end
@@ -141,12 +135,8 @@ end
 --- @return boolean valid, string|nil normalized, string|nil error
 function M.validate_hex(s, context)
   context = context or "unknown"
-  if type(s) ~= "string" then
-    return false, nil, string.format("[%s] expected string, got %s", context, type(s))
-  end
-  if not s:match(M.STRICT_HEX_PATTERN) then
-    return false, nil, string.format("[%s] invalid hex: '%s'", context, s)
-  end
+  if type(s) ~= "string" then return false, nil, string.format("[%s] expected string, got %s", context, type(s)) end
+  if not s:match(M.STRICT_HEX_PATTERN) then return false, nil, string.format("[%s] invalid hex: '%s'", context, s) end
   return true, s:upper(), nil
 end
 
@@ -160,13 +150,9 @@ function M.normalize_hex(s)
 
   if hex:sub(1, 1) ~= "#" then hex = "#" .. hex end
 
-  if #hex == 4 then
-    hex = "#" .. hex:sub(2, 2):rep(2) .. hex:sub(3, 3):rep(2) .. hex:sub(4, 4):rep(2)
-  end
+  if #hex == 4 then hex = "#" .. hex:sub(2, 2):rep(2) .. hex:sub(3, 3):rep(2) .. hex:sub(4, 4):rep(2) end
 
-  if not hex:match(M.STRICT_HEX_PATTERN) then
-    return "#000000", string.format("cannot normalize: '%s'", s)
-  end
+  if not hex:match(M.STRICT_HEX_PATTERN) then return "#000000", string.format("cannot normalize: '%s'", s) end
 
   return hex:upper(), nil
 end
@@ -242,12 +228,8 @@ local function score_derivation_key(key, derivation_type)
   if not hints then return 0 end
 
   local score = 0
-  if key_matches_pattern(key, hints.prefer_patterns) then
-    score = score + 10
-  end
-  if key_matches_pattern(key, hints.exclude_patterns) then
-    score = score - 20
-  end
+  if key_matches_pattern(key, hints.prefer_patterns) then score = score + 10 end
+  if key_matches_pattern(key, hints.exclude_patterns) then score = score - 20 end
   return score
 end
 
@@ -552,9 +534,7 @@ function M.fix_palette(palette, opts)
     end
 
     for _, item in ipairs(schema.PALETTE_SCHEMA.recommended) do
-      if not fixed[item.key] then
-        changes.schema_fixed[item.key] = { status = "missing", desc = item.desc }
-      end
+      if not fixed[item.key] then changes.schema_fixed[item.key] = { status = "missing", desc = item.desc } end
     end
   end
 
@@ -631,9 +611,7 @@ function M.check_palette_duplicates(palette)
   for key, value in pairs(palette) do
     if type(value) == "string" and value:match("^#%x%x%x%x%x%x$") then
       local hex = value:upper()
-      if not hex_to_keys[hex] then
-        hex_to_keys[hex] = {}
-      end
+      if not hex_to_keys[hex] then hex_to_keys[hex] = {} end
       table.insert(hex_to_keys[hex], key)
     end
   end
@@ -654,8 +632,12 @@ function M.check_palette_duplicates(palette)
         hex = hex,
         keep = primary_key,
         remove = duplicate_keys,
-        message = string.format("%s: keep '%s', remove %s", hex, primary_key,
-          table.concat(vim.tbl_map(function(k) return string.format("'%s'", k) end, duplicate_keys), ", ")),
+        message = string.format(
+          "%s: keep '%s', remove %s",
+          hex,
+          primary_key,
+          table.concat(vim.tbl_map(function(k) return string.format("'%s'", k) end, duplicate_keys), ", ")
+        ),
       })
     end
   end
@@ -686,9 +668,7 @@ function M.check_cross_theme_duplicates(themes)
         if type(value) == "string" and value:match("^#%x%x%x%x%x%x$") then
           local hex = value:upper()
 
-          if not hex_to_sources[hex] then
-            hex_to_sources[hex] = {}
-          end
+          if not hex_to_sources[hex] then hex_to_sources[hex] = {} end
 
           table.insert(hex_to_sources[hex], {
             theme = theme_name,
@@ -866,8 +846,10 @@ function M.suggest_contrast_fix(fg, bg, target_ratio, context)
     local new_ratio = color.calculate_contrast(new_lum, lum2)
     if new_ratio >= target_ratio then
       suggestions.fg_suggestion = fg_adjusted:to_hex()
-      table.insert(suggestions.actions, string.format(
-        "Adjust fg: %s -> %s (ratio: %.1f:1)", fg, fg_adjusted:to_hex(), new_ratio))
+      table.insert(
+        suggestions.actions,
+        string.format("Adjust fg: %s -> %s (ratio: %.1f:1)", fg, fg_adjusted:to_hex(), new_ratio)
+      )
       break
     end
     steps = steps + 1
@@ -885,8 +867,10 @@ function M.suggest_contrast_fix(fg, bg, target_ratio, context)
     local new_ratio = color.calculate_contrast(lum1, new_lum)
     if new_ratio >= target_ratio then
       suggestions.bg_suggestion = bg_adjusted:to_hex()
-      table.insert(suggestions.actions, string.format(
-        "Adjust bg: %s -> %s (ratio: %.1f:1)", bg, bg_adjusted:to_hex(), new_ratio))
+      table.insert(
+        suggestions.actions,
+        string.format("Adjust bg: %s -> %s (ratio: %.1f:1)", bg, bg_adjusted:to_hex(), new_ratio)
+      )
       break
     end
     steps = steps + 1
@@ -937,9 +921,7 @@ function M.check_base16_palette(theme)
     end
   end
 
-  if #results.invalid > 0 then
-    results.complete = false
-  end
+  if #results.invalid > 0 then results.complete = false end
 
   return results
 end
@@ -1008,9 +990,7 @@ function M.validate_theme(theme_name, opts)
 
   -- Clear disk cache to ensure fresh palette data
   local cache_dir = vim.fn.stdpath("cache") .. "/prismpunk/palettes"
-  if vim.fn.isdirectory(cache_dir) == 1 then
-    vim.fn.delete(cache_dir, "rf")
-  end
+  if vim.fn.isdirectory(cache_dir) == 1 then vim.fn.delete(cache_dir, "rf") end
 
   local report = {
     theme = theme_name,
@@ -1041,16 +1021,16 @@ function M.validate_theme(theme_name, opts)
     for _, variant in ipairs(parsed.variants) do
       if variant.universe and variant.universe ~= "" then
         local universe_dotted = variant.universe:gsub("/", ".")
-        table.insert(tries, string.format("prismpunk.themes.%s.%s", universe_dotted, variant.name))
+        table.insert(tries, string.format("prismpunk.schemes.%s.%s", universe_dotted, variant.name))
       end
     end
   end
 
   if parsed.universe and parsed.universe ~= "" then
     local universe_dotted = parsed.universe:gsub("/", ".")
-    table.insert(tries, string.format("prismpunk.themes.%s.%s", universe_dotted, parsed.name))
+    table.insert(tries, string.format("prismpunk.schemes.%s.%s", universe_dotted, parsed.name))
   end
-  table.insert(tries, string.format("prismpunk.themes.%s", parsed.name))
+  table.insert(tries, string.format("prismpunk.schemes.%s", parsed.name))
 
   for _, path in ipairs(tries) do
     local ok, mod = pcall(require, path)
@@ -1071,9 +1051,7 @@ function M.validate_theme(theme_name, opts)
 
   -- Use the palette that's already in theme_mod.palette if available (most themes have this)
   if theme_mod.palette and type(theme_mod.palette) == "table" then
-    if theme_mod.palette.bg_darkest or theme_mod.palette.fg_lightest then
-      palette_table = theme_mod.palette
-    end
+    if theme_mod.palette.bg_darkest or theme_mod.palette.fg_lightest then palette_table = theme_mod.palette end
   end
 
   -- Only try loading by name if palette_table not found from theme_mod
@@ -1117,9 +1095,7 @@ function M.validate_theme(theme_name, opts)
   local theme_colors
   if type(theme_mod.get) == "function" then
     local get_ok, result = pcall(theme_mod.get, {}, palette_table)
-    if get_ok then
-      theme_colors = result
-    end
+    if get_ok then theme_colors = result end
   end
 
   if not theme_colors then
@@ -1193,9 +1169,7 @@ function M.validate_theme(theme_name, opts)
   if opts.duplicates then
     local duplicate_result = M.check_palette_duplicates(palette_table)
     report.checks.duplicates = duplicate_result
-    if duplicate_result.count > 0 then
-      report.summary.warnings = report.summary.warnings + duplicate_result.count
-    end
+    if duplicate_result.count > 0 then report.summary.warnings = report.summary.warnings + duplicate_result.count end
   end
 
   report.summary.passed = report.valid and report.summary.errors == 0
@@ -1298,9 +1272,7 @@ function M.format_report(report)
       table.insert(lines, string.format("[OK] Base16 Palette: Complete (%d/16)", base16.count))
     else
       table.insert(lines, string.format("[FAIL] Base16 Palette: %d/16 complete", base16.count))
-      if #base16.missing > 0 then
-        table.insert(lines, "  MISSING: " .. table.concat(base16.missing, ", "))
-      end
+      if #base16.missing > 0 then table.insert(lines, "  MISSING: " .. table.concat(base16.missing, ", ")) end
       for _, inv in ipairs(base16.invalid or {}) do
         table.insert(lines, string.format("  INVALID: %s = '%s' (%s)", inv.key, inv.value, inv.error))
       end
@@ -1401,8 +1373,10 @@ function M.format_report(report)
     table.insert(lines, "")
   end
 
-  table.insert(lines, string.format("Summary: %d error(s), %d warning(s)",
-    report.summary.errors, report.summary.warnings))
+  table.insert(
+    lines,
+    string.format("Summary: %d error(s), %d warning(s)", report.summary.errors, report.summary.warnings)
+  )
 
   if report.summary.passed then
     table.insert(lines, "[OK] VALIDATION PASSED")

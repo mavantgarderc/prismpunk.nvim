@@ -2,8 +2,6 @@
 --- Handles validation, merging, and scheme spec parsing
 local M = {}
 
-local DEFAULT_SCHEME = "kanagawa/paper-floral"
-
 --- Default configuration schema
 M.defaults = {
   debug = {
@@ -11,7 +9,7 @@ M.defaults = {
     profile_startup = false,
   },
 
-  scheme = DEFAULT_SCHEME,
+  scheme = null,
   schemes = {},
   theme = nil,
   themes = {},

@@ -11,7 +11,6 @@ return {
         -- colorscheme = "norse-asgard-odinn",
         opts = {
           scheme = "norse/asgard/odinn",
-          enabled = false,
         },
       }
 

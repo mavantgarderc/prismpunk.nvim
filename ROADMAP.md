@@ -1363,110 +1363,117 @@
       - [ ] Apple-of-Discord
       - [ ] Thread-of-Ariadne
 
-  - [ ] Norse Mythology
-    - [ ] Yggdrasill
-      - [ ] Yggdrasill (Askr)
-      - [ ] Níðhǫggr
-      - [ ] Ratatoskr
-      - [ ] Veðrfǫlnir
-      - [ ] Dáinn
-      - [ ] Dvalinn
-      - [ ] Duneyrr
-      - [ ] Duraþrór
-      - [ ] Urðarbrunnr
-      - [ ] Mímisbrunnr
-      - [ ] Hvergelmir
-    - [ ] Asgard
-      - [ ] Óðinn
-      - [ ] Þórr
-      - [ ] Frigg
-      - [ ] Baldr
-      - [ ] Týr
-      - [ ] Heimdallr
-      - [ ] Iðunn
-      - [ ] Bragi
-      - [ ] Víðarr
-      - [ ] Váli
-      - [ ] Ullr
-      - [ ] Hǫðr
-      - [ ] Magni
-      - [ ] Móði
-      - [ ] Valhǫll
-      - [ ] Bifrǫst
-      - [ ] Sleipnir
-      - [ ] Brynhildr
-      - [ ] Sigrdrífa
-      - [ ] Sváfa
-      - [ ] Ǫlrún
-      - [ ] Kára
-      - [ ] Mist
-      - [ ] Skǫgul
-      - [ ] Hlǫkk
-      - [ ] Mjǫllnir
-      - [ ] Gungnir
-      - [ ] Gjallarhorn
-      - [ ] Hringhorni
-      - [ ] Skíðblaðnir
-      - [ ] Draupnir
-    - [ ] Vanaheim
-      - [ ] Freyr
-      - [ ] Freyja
-      - [ ] Njǫrðr
-      - [ ] Gullveig
-      - [ ] Fólkvangr
-      - [ ] Gullinbursti
-    - [ ] Jotunheim
-      - [ ] Loki
-      - [ ] Sigyn
-      - [ ] Ymir
-      - [ ] Skaði
-      - [ ] Angrboða
-      - [ ] Þrymr
-      - [ ] Útgarða-Loki
-      - [ ] Skrýmir
-      - [ ] Hrungnir
-      - [ ] Þjazi
-      - [ ] Skǫll
-      - [ ] Hati
-      - [ ] Fenrir
-      - [ ] Gleipnir
-    - [ ] Midgard
-      - [ ] Jǫrmungandr
-      - [ ] Sigurðr
-      - [ ] Starkaðr
-      - [ ] Gramr
-      - [ ] Nornir
-      - [ ] Draugr
-    - [ ] Helheim
-      - [ ] Helheimr (Realm)
-      - [ ] Hel
-      - [ ] Garmr
-      - [ ] Móðguðr
-      - [ ] Gjallarbrú
-    - [ ] Niflheim
-      - [ ] Niflheimr (Realm)
-      - [ ] Élivágar
-      - [ ] Naglfar
-      - [ ] Auðhumla
-    - [ ] Muspelheim
-      - [ ] Múspellzheimr (Realm)
-      - [ ] Surtr
-      - [ ] Surtalogi
-    - [ ] Alfheim
-      - [ ] Álfheimr (Realm)
-      - [ ] Ljósálfar
-      - [ ] Byggvir
-    - [ ] Svartalfheim
-      - [ ] Svartálfaheimr (Realm)
-      - [ ] Dvergar
-      - [ ] Andvaranautr
-      - [ ] Brísingamen
-      - [ ] Tyrfingr
-      - [ ] Brokkr
-      - [ ] Eitri
-      - [ ] Felnir
-      - [ ] Alsviðr
-      - [ ] Dvalinn
+  - [x] Norse Mythology
+    - [x] Yggdrasill
+      - [x] Yggdrasill (Askr)
+      - [x] Níðhǫggr
+      - [x] Ratatoskr
+      - [x] Veðrfǫlnir
+      - [x] Dáinn
+      - [x] Dvalinn
+      - [x] Duneyrr
+      - [x] Duraþrór
+      - [x] Urðarbrunnr
+      - [x] Mímisbrunnr
+      - [x] Hvergelmir
+      - [x] Alfheimr (Realm)
+      - [x] Asgardr (Realm)
+      - [x] Helheimr (Realm)
+      - [x] Jotunheimr (Realm)
+      - [x] Midgardr (Realm)
+      - [x] Muspelheimr (Realm)
+      - [x] Niflheimr (Realm)
+      - [x] Svartalfheimr (Realm)
+      - [x] Vanaheimr (Realm)
+    - [x] Asgard
+      - [x] Óðinn
+      - [x] Þórr
+      - [x] Frigg
+      - [x] Sif
+      - [x] Baldr
+      - [x] Týr
+      - [x] Heimdallr
+      - [x] Iðunn
+      - [x] Bragi
+      - [x] Víðarr
+      - [x] Váli
+      - [x] Ullr
+      - [x] Hǫðr
+      - [x] Magni
+      - [x] Móði
+      - [x] Valhǫll
+      - [x] Bifrǫst
+      - [x] Sleipnir
+      - [x] Brynhildr
+      - [x] Sigrdrífa
+      - [x] Sváfa
+      - [x] Ǫlrún
+      - [x] Kára
+      - [x] Mist
+      - [x] Skǫgul
+      - [x] Hlǫkk
+      - [x] Mjǫllnir
+      - [x] Gungnir
+      - [x] Gjallarhorn
+      - [x] Hringhorni
+      - [x] Skíðblaðnir
+      - [x] Draupnir
+    - [x] Vanaheim
+      - [x] Freyr
+      - [x] Freyja
+      - [x] Njǫrðr
+      - [x] Gullveig
+      - [x] Fólkvangr
+      - [x] Gullinbursti
+    - [x] Jotunheim
+      - [x] Loki
+      - [x] Sigyn
+      - [x] Ymir
+      - [x] Skaði
+      - [x] Angrboða
+      - [x] Þrymr
+      - [x] Útgarða-Loki
+      - [x] Skrýmir
+      - [x] Hrungnir
+      - [x] Þjazi
+      - [x] Skǫll
+      - [x] Hati
+      - [x] Fenrir
+      - [x] Gleipnir
+    - [x] Midgard
+      - [x] Jǫrmungandr
+      - [x] Sigurðr
+      - [x] Starkaðr
+      - [x] Gramr
+      - [x] Nornir
+      - [x] Draugr
+    - [x] Helheim
+      - [x] Helheimr (Realm)
+      - [x] Hel
+      - [x] Garmr
+      - [x] Móðguðr
+      - [x] Gjallarbrú
+    - [x] Niflheim
+      - [x] Élivágar
+      - [x] Naglfar
+      - [x] Auðhumla
+    - [x] Muspelheim
+      - [x] Surtr
+      - [x] Surtalogi
+    - [x] Alfheim
+      - [x] Álfheimr (Realm)
+      - [x] Ljósálfar
+      - [x] Byggvir
+    - [x] Svartalfheim
+      - [x] Dvergar
+      - [x] Andvaranautr
+      - [x] Brísingamen
+      - [x] Tyrfingr
+      - [x] Brokkr
+      - [x] Eitri
+      - [x] Felnir
+      - [x] Alsviðr
+      - [x] Dvalinn
 
   - [ ] Japanese Mythology
     - [ ] Major Kami (Shinto Deities)
@@ -1541,6 +1548,7 @@
       - [ ] Yasakani-no-Magatama
       - [ ] Ame-no-Habakiri
       - [ ] Tonbogiri
+
   - [ ] Persian Mythology
     - [ ] Ahuras (Good Deities)
       - [ ] Ahura-Mazda

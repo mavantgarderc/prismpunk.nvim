@@ -1565,6 +1565,16 @@
       - [ ] Spenta-Armaiti
       - [ ] Haurvatat
       - [ ] Ameretat
+      - [ ] Tishtrya
+      - [ ] Vayu
+      - [ ] Rapithwin
+      - [ ] Haoma-Yazata
+      - [ ] Daena
+      - [ ] Asman
+      - [ ] Zam
+      - [ ] Mah
+      - [ ] Hvare-Khshaeta
+      - [ ] Aradvi
     - [ ] Daevas (Evil Spirits)
       - [ ] Ahriman (Angra-Mainyu)
       - [ ] Aeshma
@@ -1574,6 +1584,16 @@
       - [ ] Jahi
       - [ ] Zarich
       - [ ] Taromaiti
+      - [ ] Apaosha
+      - [ ] Bushyansta
+      - [ ] Nasu
+      - [ ] Vizaresh
+      - [ ] Saurva
+      - [ ] Taurvi
+      - [ ] Astovidad
+      - [ ] Az (Kundalini-Az)
+      - [ ] Akatash
+      - [ ] Zairich
     - [ ] Heroes and Legendary Figures
       - [ ] Rostam
       - [ ] Sohrab
@@ -1586,6 +1606,21 @@
       - [ ] Esfandiyar
       - [ ] Garshasp
       - [ ] Manuchehr
+      - [ ] Kaykhosrow
+      - [ ] Siavash
+      - [ ] Gordafarid
+      - [ ] Bizhan
+      - [ ] Iraj
+      - [ ] Arash
+      - [ ] Rudabeh
+      - [ ] Tahmineh
+      - [ ] Manizhe
+      - [ ] Kaveh
+      - [ ] Afrasiab
+      - [ ] Sudabeh
+      - [ ] Farangis
+      - [ ] Tus
+      - [ ] Piran
     - [ ] Creatures and Beasts
       - [ ] Simurgh
       - [ ] Huma
@@ -1598,10 +1633,29 @@
       - [ ] Haoma
       - [ ] Chamrosh
       - [ ] Karkadann
+      - [ ] Senmurv
+      - [ ] Al
+      - [ ] Jinn
+      - [ ] Bahman
+      - [ ] Gopat-Shah
+      - [ ] Kar-Fish
+      - [ ] Simurgh-Anka
+      - [ ] Fulad-Zereh
+      - [ ] Akvan-Div
     - [ ] Cosmic Entities
       - [ ] Saoshyant
       - [ ] Fravashi
       - [ ] Chinvat-Bridge
+      - [ ] Frashokereti
+      - [ ] Kang-Dez
+      - [ ] Vara
+      - [ ] Vourukasha
+      - [ ] Hara-Berezaiti
+      - [ ] Garodemana
+      - [ ] Hamistagan
+      - [ ] Zurvan
+      - [ ] Bundahishn
+      - [ ] Ristakhiz
 
   - [ ] Chinese Mythology
     - [ ] Supreme and Celestial Deities

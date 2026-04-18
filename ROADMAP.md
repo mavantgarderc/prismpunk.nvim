@@ -1363,110 +1363,117 @@
       - [ ] Apple-of-Discord
       - [ ] Thread-of-Ariadne
 
-  - [ ] Norse Mythology
-    - [ ] Yggdrasill
-      - [ ] Yggdrasill (Askr)
-      - [ ] Níðhǫggr
-      - [ ] Ratatoskr
-      - [ ] Veðrfǫlnir
-      - [ ] Dáinn
-      - [ ] Dvalinn
-      - [ ] Duneyrr
-      - [ ] Duraþrór
-      - [ ] Urðarbrunnr
-      - [ ] Mímisbrunnr
-      - [ ] Hvergelmir
-    - [ ] Asgard
-      - [ ] Óðinn
-      - [ ] Þórr
-      - [ ] Frigg
-      - [ ] Baldr
-      - [ ] Týr
-      - [ ] Heimdallr
-      - [ ] Iðunn
-      - [ ] Bragi
-      - [ ] Víðarr
-      - [ ] Váli
-      - [ ] Ullr
-      - [ ] Hǫðr
-      - [ ] Magni
-      - [ ] Móði
-      - [ ] Valhǫll
-      - [ ] Bifrǫst
-      - [ ] Sleipnir
-      - [ ] Brynhildr
-      - [ ] Sigrdrífa
-      - [ ] Sváfa
-      - [ ] Ǫlrún
-      - [ ] Kára
-      - [ ] Mist
-      - [ ] Skǫgul
-      - [ ] Hlǫkk
-      - [ ] Mjǫllnir
-      - [ ] Gungnir
-      - [ ] Gjallarhorn
-      - [ ] Hringhorni
-      - [ ] Skíðblaðnir
-      - [ ] Draupnir
-    - [ ] Vanaheim
-      - [ ] Freyr
-      - [ ] Freyja
-      - [ ] Njǫrðr
-      - [ ] Gullveig
-      - [ ] Fólkvangr
-      - [ ] Gullinbursti
-    - [ ] Jotunheim
-      - [ ] Loki
-      - [ ] Sigyn
-      - [ ] Ymir
-      - [ ] Skaði
-      - [ ] Angrboða
-      - [ ] Þrymr
-      - [ ] Útgarða-Loki
-      - [ ] Skrýmir
-      - [ ] Hrungnir
-      - [ ] Þjazi
-      - [ ] Skǫll
-      - [ ] Hati
-      - [ ] Fenrir
-      - [ ] Gleipnir
-    - [ ] Midgard
-      - [ ] Jǫrmungandr
-      - [ ] Sigurðr
-      - [ ] Starkaðr
-      - [ ] Gramr
-      - [ ] Nornir
-      - [ ] Draugr
-    - [ ] Helheim
-      - [ ] Helheimr (Realm)
-      - [ ] Hel
-      - [ ] Garmr
-      - [ ] Móðguðr
-      - [ ] Gjallarbrú
-    - [ ] Niflheim
-      - [ ] Niflheimr (Realm)
-      - [ ] Élivágar
-      - [ ] Naglfar
-      - [ ] Auðhumla
-    - [ ] Muspelheim
-      - [ ] Múspellzheimr (Realm)
-      - [ ] Surtr
-      - [ ] Surtalogi
-    - [ ] Alfheim
-      - [ ] Álfheimr (Realm)
-      - [ ] Ljósálfar
-      - [ ] Byggvir
-    - [ ] Svartalfheim
-      - [ ] Svartálfaheimr (Realm)
-      - [ ] Dvergar
-      - [ ] Andvaranautr
-      - [ ] Brísingamen
-      - [ ] Tyrfingr
-      - [ ] Brokkr
-      - [ ] Eitri
-      - [ ] Felnir
-      - [ ] Alsviðr
-      - [ ] Dvalinn
+  - [x] Norse Mythology
+    - [x] Yggdrasill
+      - [x] Yggdrasill (Askr)
+      - [x] Níðhǫggr
+      - [x] Ratatoskr
+      - [x] Veðrfǫlnir
+      - [x] Dáinn
+      - [x] Dvalinn
+      - [x] Duneyrr
+      - [x] Duraþrór
+      - [x] Urðarbrunnr
+      - [x] Mímisbrunnr
+      - [x] Hvergelmir
+      - [x] Alfheimr (Realm)
+      - [x] Asgardr (Realm)
+      - [x] Helheimr (Realm)
+      - [x] Jotunheimr (Realm)
+      - [x] Midgardr (Realm)
+      - [x] Muspelheimr (Realm)
+      - [x] Niflheimr (Realm)
+      - [x] Svartalfheimr (Realm)
+      - [x] Vanaheimr (Realm)
+    - [x] Asgard
+      - [x] Óðinn
+      - [x] Þórr
+      - [x] Frigg
+      - [x] Sif
+      - [x] Baldr
+      - [x] Týr
+      - [x] Heimdallr
+      - [x] Iðunn
+      - [x] Bragi
+      - [x] Víðarr
+      - [x] Váli
+      - [x] Ullr
+      - [x] Hǫðr
+      - [x] Magni
+      - [x] Móði
+      - [x] Valhǫll
+      - [x] Bifrǫst
+      - [x] Sleipnir
+      - [x] Brynhildr
+      - [x] Sigrdrífa
+      - [x] Sváfa
+      - [x] Ǫlrún
+      - [x] Kára
+      - [x] Mist
+      - [x] Skǫgul
+      - [x] Hlǫkk
+      - [x] Mjǫllnir
+      - [x] Gungnir
+      - [x] Gjallarhorn
+      - [x] Hringhorni
+      - [x] Skíðblaðnir
+      - [x] Draupnir
+    - [x] Vanaheim
+      - [x] Freyr
+      - [x] Freyja
+      - [x] Njǫrðr
+      - [x] Gullveig
+      - [x] Fólkvangr
+      - [x] Gullinbursti
+    - [x] Jotunheim
+      - [x] Loki
+      - [x] Sigyn
+      - [x] Ymir
+      - [x] Skaði
+      - [x] Angrboða
+      - [x] Þrymr
+      - [x] Útgarða-Loki
+      - [x] Skrýmir
+      - [x] Hrungnir
+      - [x] Þjazi
+      - [x] Skǫll
+      - [x] Hati
+      - [x] Fenrir
+      - [x] Gleipnir
+    - [x] Midgard
+      - [x] Jǫrmungandr
+      - [x] Sigurðr
+      - [x] Starkaðr
+      - [x] Gramr
+      - [x] Nornir
+      - [x] Draugr
+    - [x] Helheim
+      - [x] Helheimr (Realm)
+      - [x] Hel
+      - [x] Garmr
+      - [x] Móðguðr
+      - [x] Gjallarbrú
+    - [x] Niflheim
+      - [x] Élivágar
+      - [x] Naglfar
+      - [x] Auðhumla
+    - [x] Muspelheim
+      - [x] Surtr
+      - [x] Surtalogi
+    - [x] Alfheim
+      - [x] Álfheimr (Realm)
+      - [x] Ljósálfar
+      - [x] Byggvir
+    - [x] Svartalfheim
+      - [x] Dvergar
+      - [x] Andvaranautr
+      - [x] Brísingamen
+      - [x] Tyrfingr
+      - [x] Brokkr
+      - [x] Eitri
+      - [x] Felnir
+      - [x] Alsviðr
+      - [x] Dvalinn
 
   - [ ] Japanese Mythology
     - [ ] Major Kami (Shinto Deities)
@@ -1541,6 +1548,7 @@
       - [ ] Yasakani-no-Magatama
       - [ ] Ame-no-Habakiri
       - [ ] Tonbogiri
+
   - [ ] Persian Mythology
     - [ ] Ahuras (Good Deities)
       - [ ] Ahura-Mazda
@@ -1557,6 +1565,16 @@
       - [ ] Spenta-Armaiti
       - [ ] Haurvatat
       - [ ] Ameretat
+      - [ ] Tishtrya
+      - [ ] Vayu
+      - [ ] Rapithwin
+      - [ ] Haoma-Yazata
+      - [ ] Daena
+      - [ ] Asman
+      - [ ] Zam
+      - [ ] Mah
+      - [ ] Hvare-Khshaeta
+      - [ ] Aradvi
     - [ ] Daevas (Evil Spirits)
       - [ ] Ahriman (Angra-Mainyu)
       - [ ] Aeshma
@@ -1566,6 +1584,16 @@
       - [ ] Jahi
       - [ ] Zarich
       - [ ] Taromaiti
+      - [ ] Apaosha
+      - [ ] Bushyansta
+      - [ ] Nasu
+      - [ ] Vizaresh
+      - [ ] Saurva
+      - [ ] Taurvi
+      - [ ] Astovidad
+      - [ ] Az (Kundalini-Az)
+      - [ ] Akatash
+      - [ ] Zairich
     - [ ] Heroes and Legendary Figures
       - [ ] Rostam
       - [ ] Sohrab
@@ -1578,6 +1606,21 @@
       - [ ] Esfandiyar
       - [ ] Garshasp
       - [ ] Manuchehr
+      - [ ] Kaykhosrow
+      - [ ] Siavash
+      - [ ] Gordafarid
+      - [ ] Bizhan
+      - [ ] Iraj
+      - [ ] Arash
+      - [ ] Rudabeh
+      - [ ] Tahmineh
+      - [ ] Manizhe
+      - [ ] Kaveh
+      - [ ] Afrasiab
+      - [ ] Sudabeh
+      - [ ] Farangis
+      - [ ] Tus
+      - [ ] Piran
     - [ ] Creatures and Beasts
       - [ ] Simurgh
       - [ ] Huma
@@ -1590,10 +1633,29 @@
       - [ ] Haoma
       - [ ] Chamrosh
       - [ ] Karkadann
+      - [ ] Senmurv
+      - [ ] Al
+      - [ ] Jinn
+      - [ ] Bahman
+      - [ ] Gopat-Shah
+      - [ ] Kar-Fish
+      - [ ] Simurgh-Anka
+      - [ ] Fulad-Zereh
+      - [ ] Akvan-Div
     - [ ] Cosmic Entities
       - [ ] Saoshyant
       - [ ] Fravashi
       - [ ] Chinvat-Bridge
+      - [ ] Frashokereti
+      - [ ] Kang-Dez
+      - [ ] Vara
+      - [ ] Vourukasha
+      - [ ] Hara-Berezaiti
+      - [ ] Garodemana
+      - [ ] Hamistagan
+      - [ ] Zurvan
+      - [ ] Bundahishn
+      - [ ] Ristakhiz
 
   - [ ] Chinese Mythology
     - [ ] Supreme and Celestial Deities
@@ -1901,52 +1963,64 @@
 ---
 
 - [x] Kanagawa
+  - [x] Kami
+    - [x] Benzaiten
+    - [x] Crimsonnight
+    - [x] Eclipse
+    - [x] Fujin
+    - [x] Inari
+    - [x] Obsidian
+    - [x] Raijin
+    - [x] Ryujin
+    - [x] Storm
+    - [x] Tsukuyomi
   - [x] Paper
     - [x] Azure
+    - [x] Bamboo
+    - [x] Canopy
+    - [x] Cinder
+    - [x] Claysoil
     - [x] Crimson
-    - [x] Crimson Night
     - [x] Dawn
     - [x] Dragon
-    - [x] Eclipse
     - [x] Edo
+    - [x] Ember
     - [x] Floral
+    - [x] Frost
+    - [x] Haiku
+    - [x] Indigo
+    - [x] Ironfan
     - [x] Katana
+    - [x] Lacquer
+    - [x] Lichen
+    - [x] Moss
     - [x] Nightfall
-    - [x] Obsidian
+    - [x] Pebble
+    - [x] Permafrost
+    - [x] Rakuichi
     - [x] Ronin
-    - [x] Storm
+    - [x] Shrinegate
     - [x] Sunset
+    - [x] Tideline
+    - [x] Torrential
+    - [x] Ukiyo
+    - [x] Undergrowth
     - [x] Wave
-
----
-
-- [ ] Gruvbox
-  - [ ] gruvbox dark
-  - [ ] gruvbox dark-hard
-  - [ ] gruvbox dark-medium
-  - [ ] gruvbox dark-soft
-  - [ ] gruvbox material-dark
-  - [ ] gruvbox material-dark-hard
-  - [ ] gruvbox material-dark-medium
-  - [ ] gruvbox material-dark-soft
-  - [ ] gruvbox
-
----
-
-- [ ] fox
-  - [ ] nightfox
-  - [ ] duskfox
-  - [ ] nordfox
-  - [ ] terafox
-  - [ ] carbonfox
-
----
-
-- [ ] catppuccin
-  - [ ] base16-catppuccin
-  - [ ] base16-catppuccin-macchiato
-  - [ ] base16-catppuccin-mocha
-  - [ ] base16-da-one-ocean
+    - [x] Wavecrest
+    - [x] Woodblock
+    - [x] Woodgrain
+  - [x] Zen
+    - [x] Blackscroll
+    - [x] Brushstroke
+    - [x] Dissolution
+    - [x] Dojo
+    - [x] Inkstone
+    - [x] Liminal
+    - [x] Silence
+    - [x] Stonegarden
+    - [x] Tatami
+    - [x] Tokonoma
+    - [x] Void
 
 ---
 

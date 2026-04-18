@@ -1,0 +1,248 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  bg_darkest = "#060d05",
+  bg_darker = "#0f1a0c",
+  bg_dark = "#182714",
+  bg_mid = "#22351d",
+  bg_light = "#2d4327",
+  bg_lighter = "#385131",
+  bg_lightest = "#435f3b",
+  bg_alt1 = "#4e6d45",
+  bg_alt2 = "#597b4f",
+  bg_alt3 = "#648959",
+  bg_alt4 = "#6f9763",
+  fg_darkest = "#f5faf0",
+  fg_dark = "#eef5e6",
+  fg_mid = "#e4edda",
+  fg_light = "#d8e5cc",
+  fg_lighter = "#cbdcbe",
+  fg_lightest = "#bed3b0",
+  orchardCanopy = "#3cb371",
+  springBlossom = "#66cdaa",
+  goldenApple = "#daa520",
+  eternalYouth = "#98d65c",
+  renewalSap = "#50c878",
+  firstBud = "#7ddf64",
+  morningDew = "#a8e6cf",
+  ripeFruit = "#e6b422",
+  orchardSoil = "#8b7355",
+  blossomPetal = "#f0c4d4",
+  sunlitLeaf = "#b5cc58",
+  immortalGlow = "#fffef8",
+}
+
+local M = {}
+
+---@param plt table|nil
+---@param opts table|nil
+---@return table
+M.get = function(opts, plt)
+  plt = plt or palette
+  opts = opts or {}
+  return {
+    modes = {
+      normal = plt.orchardCanopy,
+      insert = plt.goldenApple,
+      visual = plt.springBlossom,
+      replace = plt.blossomPetal,
+      command = plt.eternalYouth,
+    },
+    accent = {
+      accent1 = plt.orchardCanopy,
+      accent2 = plt.goldenApple,
+      accent3 = plt.springBlossom,
+      accent4 = plt.eternalYouth,
+      accent5 = plt.renewalSap,
+      invert = plt.bg_darkest,
+    },
+    rainbow = {
+      rainbow1 = plt.goldenApple,
+      rainbow2 = plt.ripeFruit,
+      rainbow3 = plt.sunlitLeaf,
+      rainbow4 = plt.eternalYouth,
+      rainbow5 = plt.renewalSap,
+      rainbow6 = plt.orchardCanopy,
+      rainbow7 = plt.springBlossom,
+    },
+    ui = {
+      fg = plt.fg_darkest,
+      fg_dim = plt.fg_dark,
+      fg_dimmer = plt.fg_mid,
+      fg_dark = plt.fg_light,
+      fg_reverse = plt.bg_darkest,
+      bg = plt.bg_darkest,
+      bg_dim = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_gutter = (opts.gutter ~= false) and plt.bg_dark or "none",
+      bg_cursorline = plt.bg_mid,
+      bg_cursorline_alt = plt.bg_light,
+      cursorline = plt.bg_mid,
+      bg_highlight = plt.bg_light,
+      bg_search = plt.goldenApple,
+      bg_visual = plt.bg_light,
+      bg_statusline = plt.bg_light,
+      border = plt.bg_alt1,
+      header1 = plt.orchardCanopy,
+      header2 = plt.goldenApple,
+      special = plt.springBlossom,
+      nontext = plt.bg_lighter,
+      whitespace = plt.bg_alt2,
+      win_separator = plt.renewalSap,
+      indent = plt.bg_light,
+      indent_scope = plt.orchardCanopy,
+      picker = plt.blossomPetal,
+      yank = plt.goldenApple,
+      mark = plt.orchardCanopy,
+      scrollbar = plt.bg_lighter,
+      selection = plt.bg_light,
+      line_nr = plt.bg_alt3,
+      line_nr_dim = plt.bg_lighter,
+      line_nr_active = plt.goldenApple,
+      float = {
+        fg = plt.fg_dark,
+        bg = plt.bg_mid,
+        fg_border = plt.renewalSap,
+        bg_border = plt.bg_mid,
+      },
+      pmenu = {
+        fg = plt.fg_dark,
+        fg_sel = "none",
+        fg_border = plt.bg_alt2,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.bg_lighter,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        bg_alternate = plt.bg_darker,
+        fg_inactive = plt.bg_alt3,
+        fg_selected = plt.fg_dark,
+        fg_alternate = plt.orchardCanopy,
+        indicator = plt.goldenApple,
+      },
+    },
+    syn = {
+      attribute = plt.goldenApple,
+      boolean = plt.blossomPetal,
+      comment = plt.bg_alt2,
+      constant = plt.ripeFruit,
+      deprecated = plt.bg_alt3,
+      func = plt.springBlossom,
+      identifier = plt.fg_dark,
+      keyword = plt.orchardCanopy,
+      method = plt.springBlossom,
+      number = plt.goldenApple,
+      operator = plt.fg_lighter,
+      parameter = plt.fg_mid,
+      preproc = plt.renewalSap,
+      punct = plt.fg_light,
+      regex = plt.firstBud,
+      special = plt.morningDew,
+      special2 = plt.sunlitLeaf,
+      special3 = plt.immortalGlow,
+      statement = plt.eternalYouth,
+      string = plt.orchardSoil,
+      symbol = plt.sunlitLeaf,
+      type = plt.fg_dark,
+      variable = plt.fg_dark,
+    },
+    diag = {
+      error = plt.blossomPetal,
+      warning = plt.goldenApple,
+      info = plt.orchardCanopy,
+      ok = plt.eternalYouth,
+      hint = plt.springBlossom,
+      virtual_text_error = plt.blossomPetal,
+      virtual_text_warning = plt.goldenApple,
+      virtual_text_info = plt.orchardCanopy,
+      virtual_text_ok = plt.eternalYouth,
+      virtual_text_hint = plt.springBlossom,
+    },
+    diff = {
+      add = plt.eternalYouth,
+      add_inline = plt.firstBud,
+      change = plt.goldenApple,
+      change_inline = plt.ripeFruit,
+      delete = plt.blossomPetal,
+      delete_inline = plt.orchardSoil,
+      text = plt.orchardCanopy,
+    },
+    vcs = {
+      added = plt.eternalYouth,
+      changed = plt.goldenApple,
+      removed = plt.blossomPetal,
+    },
+    term = {
+      black = plt.bg_darkest,
+      red = plt.blossomPetal,
+      green = plt.eternalYouth,
+      yellow = plt.goldenApple,
+      blue = plt.springBlossom,
+      magenta = plt.orchardSoil,
+      cyan = plt.morningDew,
+      white = plt.fg_darkest,
+      black_bright = color(plt.bg_darkest):brighten(0.3):to_hex(),
+      red_bright = color(plt.blossomPetal):brighten(0.2):to_hex(),
+      green_bright = color(plt.eternalYouth):brighten(0.2):to_hex(),
+      yellow_bright = color(plt.goldenApple):brighten(0.1):to_hex(),
+      blue_bright = color(plt.springBlossom):brighten(0.1):to_hex(),
+      magenta_bright = color(plt.orchardSoil):brighten(0.2):to_hex(),
+      cyan_bright = color(plt.morningDew):brighten(0.1):to_hex(),
+      white_bright = plt.immortalGlow,
+      indexed1 = plt.sunlitLeaf,
+      indexed2 = plt.renewalSap,
+    },
+  }
+end
+
+return {
+  name = "Asgard – Iðunn",
+  author = "PrismPunk",
+  description = "Keeper of the Golden Apples — orchard greens, golden fruit, blossom pink, "
+    .. "morning dew, eternal spring. "
+    .. "Iðunn tends the most precious orchard in all the nine realms. Her golden apples "
+    .. "grant the gods their immortality — without them, the Æsir would wither and age "
+    .. "like mortals, their power fading like autumn leaves. When Þjazi the giant "
+    .. "kidnapped her, tricked by Loki's treachery, the gods began to grey and weaken "
+    .. "within days. Only her return restored their vigor. She is spring itself made "
+    .. "divine — the eternal renewal that keeps death at bay, the quiet gardener whose "
+    .. "gentle work sustains all of Asgard's might. Without Odin's wisdom there would "
+    .. "be no purpose; without Thor's strength there would be no defense; but without "
+    .. "Iðunn's apples there would be nothing at all, for even gods must eat to live. "
+    .. "This palette grows from deep forest-floor darkness through living greens of "
+    .. "every shade — canopy, sap, bud, leaf — touched by the gold of ripe fruit "
+    .. "hanging heavy on ancient boughs. Soft blossom pinks hint at spring's first "
+    .. "flowers, morning dew glistens on pale green foregrounds, and warm orchard soil "
+    .. "grounds it all in earth. The colors of life perpetual, of youth without end, "
+    .. "of the garden that feeds eternity.",
+  base16 = {
+    base00 = palette.bg_darkest,
+    base01 = palette.bg_darker,
+    base02 = palette.bg_mid,
+    base03 = palette.bg_light,
+    base04 = palette.bg_alt2,
+    base05 = palette.fg_mid,
+    base06 = palette.fg_dark,
+    base07 = palette.fg_darkest,
+    base08 = palette.blossomPetal,
+    base09 = palette.goldenApple,
+    base0A = palette.ripeFruit,
+    base0B = palette.eternalYouth,
+    base0C = palette.springBlossom,
+    base0D = palette.orchardCanopy,
+    base0E = palette.renewalSap,
+    base0F = palette.orchardSoil,
+  },
+  palette = palette,
+  get = M.get,
+}

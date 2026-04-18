@@ -1,4 +1,3 @@
-
 local color = require("prismpunk.utils.color")
 
 local palette = {

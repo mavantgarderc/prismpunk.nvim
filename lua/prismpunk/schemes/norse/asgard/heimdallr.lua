@@ -1,0 +1,250 @@
+local color = require("prismpunk.utils.color")
+
+local palette = {
+  bg_darkest = "#0a0d12",
+  bg_darker = "#141a23",
+  bg_dark = "#1e2734",
+  bg_mid = "#283445",
+  bg_light = "#324156",
+  bg_lighter = "#3c4e67",
+  bg_lightest = "#465b78",
+  bg_alt1 = "#506889",
+  bg_alt2 = "#5a759a",
+  bg_alt3 = "#6482ab",
+  bg_alt4 = "#6e8fbc",
+  fg_darkest = "#fef9e7",
+  fg_dark = "#fdf5d9",
+  fg_mid = "#fcf1cb",
+  fg_light = "#fbedbd",
+  fg_lighter = "#fae9af",
+  fg_lightest = "#f9e5a1",
+  bifrostBlue = "#4a9eff",
+  bifrostViolet = "#9b72cf",
+  bifrostRose = "#e06c9a",
+  bifrostAmber = "#e8a534",
+  bifrostTeal = "#3cc5b2",
+  bifrostGreen = "#6dcc7a",
+  gjallarhorn = "#ffd700",
+  goldenTeeth = "#b8860b",
+  keenEyes = "#87ceeb",
+  whiteGod = "#f0f8ff",
+  eternalVigilance = "#4682b4",
+  hornBlast = "#ffec8b",
+  firstWarning = "#ffffff",
+}
+
+local M = {}
+
+---@param plt table|nil
+---@param opts table|nil
+---@return table
+M.get = function(opts, plt)
+  plt = plt or palette
+  opts = opts or {}
+  return {
+    modes = {
+      normal = plt.bifrostBlue,
+      insert = plt.bifrostGreen,
+      visual = plt.bifrostViolet,
+      replace = plt.bifrostRose,
+      command = plt.bifrostAmber,
+    },
+    accent = {
+      accent1 = plt.bifrostBlue,
+      accent2 = plt.gjallarhorn,
+      accent3 = plt.bifrostViolet,
+      accent4 = plt.bifrostTeal,
+      accent5 = plt.bifrostRose,
+      invert = plt.bg_darkest,
+    },
+    rainbow = {
+      rainbow1 = plt.bifrostRose,
+      rainbow2 = plt.bifrostAmber,
+      rainbow3 = plt.gjallarhorn,
+      rainbow4 = plt.bifrostGreen,
+      rainbow5 = plt.bifrostTeal,
+      rainbow6 = plt.bifrostBlue,
+      rainbow7 = plt.bifrostViolet,
+    },
+    ui = {
+      fg = plt.fg_darkest,
+      fg_dim = plt.fg_dark,
+      fg_dimmer = plt.fg_mid,
+      fg_dark = plt.fg_light,
+      fg_reverse = plt.bg_darkest,
+      bg = plt.bg_darkest,
+      bg_dim = plt.bg_darkest,
+      bg_m1 = plt.bg_darker,
+      bg_m2 = plt.bg_dark,
+      bg_m3 = plt.bg_mid,
+      bg_m4 = plt.bg_light,
+      bg_p1 = plt.bg_dark,
+      bg_p2 = plt.bg_mid,
+      bg_gutter = (opts.gutter ~= false) and plt.bg_dark or "none",
+      bg_cursorline = plt.bg_mid,
+      bg_cursorline_alt = plt.bg_light,
+      cursorline = plt.bg_mid,
+      bg_highlight = plt.bg_light,
+      bg_search = plt.bifrostAmber,
+      bg_visual = plt.bg_light,
+      bg_statusline = plt.bg_light,
+      border = plt.bg_alt1,
+      header1 = plt.bifrostBlue,
+      header2 = plt.gjallarhorn,
+      special = plt.bifrostViolet,
+      nontext = plt.bg_lighter,
+      whitespace = plt.bg_alt2,
+      win_separator = plt.bifrostTeal,
+      indent = plt.bg_light,
+      indent_scope = plt.bifrostBlue,
+      picker = plt.bifrostRose,
+      yank = plt.gjallarhorn,
+      mark = plt.bifrostBlue,
+      scrollbar = plt.bg_lighter,
+      selection = plt.bg_light,
+      line_nr = plt.bg_alt3,
+      line_nr_dim = plt.bg_lighter,
+      line_nr_active = plt.gjallarhorn,
+      float = {
+        fg = plt.fg_dark,
+        bg = plt.bg_mid,
+        fg_border = plt.bifrostTeal,
+        bg_border = plt.bg_mid,
+      },
+      pmenu = {
+        fg = plt.fg_dark,
+        fg_sel = "none",
+        fg_border = plt.bg_alt2,
+        bg = plt.bg_light,
+        bg_sel = plt.bg_lighter,
+        bg_border = plt.bg_light,
+        bg_sbar = plt.bg_light,
+        bg_thumb = plt.bg_lighter,
+      },
+      tabline = {
+        bg = plt.bg_darkest,
+        bg_inactive = plt.bg_darkest,
+        bg_selected = plt.bg_dark,
+        bg_alternate = plt.bg_darker,
+        fg_inactive = plt.bg_alt3,
+        fg_selected = plt.fg_dark,
+        fg_alternate = plt.bifrostBlue,
+        indicator = plt.bifrostViolet,
+      },
+    },
+    syn = {
+      attribute = plt.bifrostAmber,
+      boolean = plt.bifrostRose,
+      comment = plt.bg_alt2,
+      constant = plt.gjallarhorn,
+      deprecated = plt.bg_alt3,
+      func = plt.bifrostTeal,
+      identifier = plt.fg_dark,
+      keyword = plt.bifrostViolet,
+      method = plt.bifrostTeal,
+      number = plt.bifrostAmber,
+      operator = plt.fg_lighter,
+      parameter = plt.fg_mid,
+      preproc = plt.bifrostBlue,
+      punct = plt.fg_light,
+      regex = plt.bifrostGreen,
+      special = plt.keenEyes,
+      special2 = plt.hornBlast,
+      special3 = plt.whiteGod,
+      statement = plt.bifrostBlue,
+      string = plt.goldenTeeth,
+      symbol = plt.eternalVigilance,
+      type = plt.fg_dark,
+      variable = plt.fg_dark,
+    },
+    diag = {
+      error = plt.bifrostRose,
+      warning = plt.bifrostAmber,
+      info = plt.bifrostBlue,
+      ok = plt.bifrostGreen,
+      hint = plt.bifrostTeal,
+      virtual_text_error = plt.bifrostRose,
+      virtual_text_warning = plt.bifrostAmber,
+      virtual_text_info = plt.bifrostBlue,
+      virtual_text_ok = plt.bifrostGreen,
+      virtual_text_hint = plt.bifrostTeal,
+    },
+    diff = {
+      add = plt.bifrostGreen,
+      add_inline = plt.bifrostTeal,
+      change = plt.bifrostAmber,
+      change_inline = plt.gjallarhorn,
+      delete = plt.bifrostRose,
+      delete_inline = plt.bifrostViolet,
+      text = plt.bifrostBlue,
+    },
+    vcs = {
+      added = plt.bifrostGreen,
+      changed = plt.bifrostAmber,
+      removed = plt.bifrostRose,
+    },
+    term = {
+      black = plt.bg_darkest,
+      red = plt.bifrostRose,
+      green = plt.bifrostGreen,
+      yellow = plt.gjallarhorn,
+      blue = plt.bifrostBlue,
+      magenta = plt.bifrostViolet,
+      cyan = plt.bifrostTeal,
+      white = plt.fg_darkest,
+      black_bright = color(plt.bg_darkest):brighten(0.3):to_hex(),
+      red_bright = color(plt.bifrostRose):brighten(0.2):to_hex(),
+      green_bright = color(plt.bifrostGreen):brighten(0.2):to_hex(),
+      yellow_bright = color(plt.gjallarhorn):brighten(0.1):to_hex(),
+      blue_bright = color(plt.bifrostBlue):brighten(0.1):to_hex(),
+      magenta_bright = color(plt.bifrostViolet):brighten(0.1):to_hex(),
+      cyan_bright = color(plt.bifrostTeal):brighten(0.1):to_hex(),
+      white_bright = plt.firstWarning,
+      indexed1 = plt.hornBlast,
+      indexed2 = plt.keenEyes,
+    },
+  }
+end
+
+return {
+  name = "Asgard – Heimdallr",
+  author = "PrismPunk",
+  description = "Guardian of Bifrost — prismatic rainbow bridge over deep twilight, golden horn, "
+    .. "keen eyes that pierce all darkness. "
+    .. "Heimdallr stands eternal vigil at the rainbow bridge connecting Asgard to the other "
+    .. "realms. Born of nine mothers, he possesses hearing so acute he can detect grass "
+    .. "growing in Midgard and wool sprouting on sheep's backs. His eyesight pierces a "
+    .. "hundred leagues through day or night. He needs less sleep than a bird. His teeth "
+    .. "are made of gold. At his side rests Gjallarhorn, the great horn whose blast will "
+    .. "summon the gods to Ragnarök's final battle. He is called the White God, the "
+    .. "shining one, ever-watchful against the giants who would storm Asgard. When Loki "
+    .. "and Heimdallr finally meet in combat at the world's end, they will slay each "
+    .. "other — the trickster and the guardian, chaos and order, locked in mutual "
+    .. "destruction. But until that day, Heimdallr watches. Always watches. This palette "
+    .. "IS Bifrost — the rainbow bridge made into code. Deep twilight-blue backgrounds "
+    .. "for the eternal night watch, then every color of the prismatic span arcing "
+    .. "across: rose, amber, gold, green, teal, blue, violet — each a band of light "
+    .. "shimmering between worlds. The warm cream foregrounds are dawn breaking over "
+    .. "Asgard, and the gold accents are his teeth, his horn, the last warning before "
+    .. "the end of all things.",
+  base16 = {
+    base00 = palette.bg_darkest,
+    base01 = palette.bg_darker,
+    base02 = palette.bg_mid,
+    base03 = palette.bg_light,
+    base04 = palette.bg_alt2,
+    base05 = palette.fg_mid,
+    base06 = palette.fg_dark,
+    base07 = palette.fg_darkest,
+    base08 = palette.bifrostRose,
+    base09 = palette.bifrostAmber,
+    base0A = palette.gjallarhorn,
+    base0B = palette.bifrostGreen,
+    base0C = palette.bifrostTeal,
+    base0D = palette.bifrostBlue,
+    base0E = palette.bifrostViolet,
+    base0F = palette.goldenTeeth,
+  },
+  palette = palette,
+  get = M.get,
+}
